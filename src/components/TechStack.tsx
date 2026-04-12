@@ -7,9 +7,9 @@ export default function TechStack() {
   return (
     <section id="skills" className="py-24 px-6 md:px-12 max-w-6xl mx-auto">
       <p className="font-mono text-[11px] uppercase tracking-[2px] text-accent-green mb-2">
-        skills
+        habilidades
       </p>
-      <h2 className="text-[22px] font-semibold text-text-primary mb-8">Tech stack</h2>
+      <h2 className="text-[22px] font-semibold text-text-primary mb-8">Tecnologias</h2>
 
       <div className="grid md:grid-cols-2 gap-4">
         {skillCategories.map((cat) => (
