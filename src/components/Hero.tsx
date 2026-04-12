@@ -57,7 +57,7 @@ export default function Hero() {
 
       <div className="relative max-w-3xl w-full">
         <p className="font-mono text-[11px] uppercase tracking-[1px] text-accent-green mb-4">
-          // SYSTEMS ANALYST &amp; DATA SCIENCE
+          // FULL STACK DEVELOPER &amp; DATA SCIENCE
         </p>
 
         <h1 className="text-[32px] md:text-[48px] font-bold leading-tight text-text-primary">
@@ -74,10 +74,10 @@ export default function Hero() {
         </p>
 
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard end={8} label="projetos" color="#4ade80" />
-          <MetricCard end={13} suffix="K+" label="linhas de código" color="#818cf8" />
-          <MetricCard end={233} label="testes" color="#f59e0b" />
-          <MetricCard end={5} label="linguagens" color="#06b6d4" />
+          <MetricCard end={20} label="projetos" color="#4ade80" />
+          <MetricCard end={85} suffix="K+" label="linhas de código" color="#818cf8" />
+          <MetricCard end={500} suffix="+" label="testes" color="#f59e0b" />
+          <MetricCard end={6} label="linguagens" color="#06b6d4" />
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">

@@ -82,7 +82,7 @@ export default function ProjectDetail({ project }: Props) {
 
       <div>
         <h4 className="font-mono text-[11px] uppercase tracking-[1px] text-accent-green mb-2">
-          // Tech stack
+          // Tecnologias
         </h4>
         <div className="flex flex-wrap gap-2">
           {project.techStack.map((t) => (
@@ -117,7 +117,7 @@ export default function ProjectDetail({ project }: Props) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-accent-green text-bg rounded-lg px-4 py-2 text-[13px] font-semibold hover:brightness-110 transition"
           >
-            <FiExternalLink size={14} /> Live demo
+            <FiExternalLink size={14} /> Demo ao vivo
           </a>
         )}
       </div>
