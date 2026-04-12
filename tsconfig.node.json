@@ -13,8 +13,7 @@
     "emitDeclarationOnly": true,
     "declaration": true,
     "outDir": "./dist-types/node",
-    "strict": true,
-    "types": ["node"]
+    "strict": true
   },
   "include": ["vite.config.ts"]
 }
