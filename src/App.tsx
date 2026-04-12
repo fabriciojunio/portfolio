@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
+import CookieConsent from "./components/CookieConsent";
 
 const Projects = lazy(() => import("./components/Projects"));
 const TechStack = lazy(() => import("./components/TechStack"));
@@ -28,6 +29,7 @@ export default function App() {
           <Footer />
         </Suspense>
       </main>
+      <CookieConsent />
     </div>
   );
 }
