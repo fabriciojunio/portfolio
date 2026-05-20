@@ -29,7 +29,7 @@ function MetricCard({ end, suffix = "", label, color }: MetricProps) {
 
 export default function Hero() {
   const { display: typed, isComplete } = useTypingEffect(
-    "Construo soluções que conectam software com inteligência de dados.",
+    "Desenvolvo sistemas FullStack e aplico IA para resolver problemas reais.",
     35
   );
 
@@ -57,7 +57,7 @@ export default function Hero() {
 
       <div className="relative max-w-3xl w-full">
         <p className="font-mono text-[11px] uppercase tracking-[1px] text-accent-green mb-4">
-          // FULL STACK DEVELOPER &amp; DATA SCIENCE
+          // FULLSTACK DEVELOPER &amp; AI ENGINEER
         </p>
 
         <h1 className="text-[32px] md:text-[48px] font-bold leading-tight text-text-primary">
@@ -74,9 +74,9 @@ export default function Hero() {
         </p>
 
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard end={20} label="projetos" color="#4ade80" />
-          <MetricCard end={85} suffix="K+" label="linhas de código" color="#818cf8" />
-          <MetricCard end={500} suffix="+" label="testes" color="#f59e0b" />
+          <MetricCard end={8} label="projetos reais" color="#4ade80" />
+          <MetricCard end={60} suffix="K+" label="linhas de código" color="#818cf8" />
+          <MetricCard end={300} suffix="+" label="testes" color="#f59e0b" />
           <MetricCard end={6} label="linguagens" color="#06b6d4" />
         </div>
 
