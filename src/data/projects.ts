@@ -45,7 +45,7 @@ export const projects: Project[] = [
       { name: "Vitest", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/apontamento-horas",
-    demo: null,
+    demo: "https://apontamento-horas.vercel.app",
     filters: ["full-stack", "javascript"],
   },
   {
@@ -139,7 +139,7 @@ export const projects: Project[] = [
       { name: "expo-router", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/ConectAgente",
-    demo: null,
+    demo: "https://conectagente-web.vercel.app",
     filters: ["mobile", "javascript"],
   },
   {
@@ -186,7 +186,7 @@ export const projects: Project[] = [
       { name: "Docker", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/jis",
-    demo: null,
+    demo: "https://jis-frontend-mocha.vercel.app",
     filters: ["full-stack", "java", "python", "javascript"],
   },
   {
@@ -232,8 +232,8 @@ export const projects: Project[] = [
       { name: "Redis", color: "#a78bfa" },
       { name: "AWS S3", color: "#fb923c" },
     ],
-    github: "https://github.com/fabriciojunio/koracrm",
-    demo: null,
+    github: "https://github.com/fabriciojunio/KoraCRM",
+    demo: "https://koracrm-frontend.vercel.app",
     filters: ["full-stack", "javascript"],
   },
   {
@@ -280,7 +280,7 @@ export const projects: Project[] = [
       { name: "Tailwind", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/MyCondPets",
-    demo: null,
+    demo: "https://mycondpets.vercel.app",
     filters: ["full-stack", "javascript"],
   },
   {
@@ -327,7 +327,7 @@ export const projects: Project[] = [
       { name: "shadcn/ui", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/paiol-tech",
-    demo: null,
+    demo: "https://paiol-tech-ms6eu5pyv-junioad555-5412s-projects.vercel.app",
     filters: ["full-stack", "javascript"],
   },
   {
