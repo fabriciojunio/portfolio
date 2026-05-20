@@ -2,20 +2,20 @@ import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiBriefcase, FiBookOpen, FiMapPin, FiAward } from "react-icons/fi";
 
 const CODE_LINES = [
-  "Analista de Sistemas na Nexum Tecnologia,",
-  "onde desenvolvo automações, integrações via",
-  "API e robôs Java na plataforma Lecom BPM.",
+  "Desenvolvedor FullStack na Nexum Tecnologia,",
+  "onde construo sistemas end-to-end — do banco",
+  "de dados à interface — com foco em qualidade.",
   "",
-  "Curso Ciência da Computação na UNISAGRADO",
-  "e estudo Data Science e Machine Learning",
-  "por conta, aplicando em projetos reais.",
+  "Aplico Inteligência Artificial em projetos reais:",
+  "LLMs locais (Ollama), Machine Learning com",
+  "scikit-learn/PyTorch e pipelines de dados.",
   "",
-  "Meu foco: conectar desenvolvimento de",
-  "software com inteligência de dados.",
+  "Curso Ciência da Computação na UNISAGRADO.",
+  "Incubadora Saruê — UNESP Bauru.",
 ];
 
 const INFO = [
-  { icon: FiBriefcase, label: "Cargo", value: "Analista de Sistemas Jr", sub: "Nexum Tecnologia" },
+  { icon: FiBriefcase, label: "Cargo", value: "Desenvolvedor FullStack", sub: "Nexum Tecnologia" },
   { icon: FiBookOpen, label: "Formação", value: "Ciência da Computação", sub: "UNISAGRADO" },
   { icon: FiMapPin, label: "Local", value: "Bauru, SP", sub: "Brasil" },
   { icon: FiAward, label: "Incubadora", value: "Saruê", sub: "UNESP Bauru" },
