@@ -327,7 +327,7 @@ export const projects: Project[] = [
       { name: "shadcn/ui", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/paiol-tech",
-    demo: "https://paiol-tech-ms6eu5pyv-junioad555-5412s-projects.vercel.app",
+    demo: "https://paiol-tech.vercel.app",
     filters: ["full-stack", "javascript"],
   },
   {
