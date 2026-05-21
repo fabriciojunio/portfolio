@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { FiGithub, FiLinkedin, FiBriefcase, FiBookOpen, FiMapPin, FiAward } from "react-icons/fi";
 
 const CODE_LINES = [
-  "Analista de Sistemas Júnior na Nexum Tecnologia,",
+  "Desenvolvedor FullStack na Nexum Tecnologia,",
   "onde construo sistemas end-to-end — do banco",
   "de dados à interface — com foco em qualidade.",
   "",
@@ -15,7 +15,7 @@ const CODE_LINES = [
 ];
 
 const INFO = [
-  { icon: FiBriefcase, label: "Cargo", value: "Analista de Sistemas Júnior", sub: "Nexum Tecnologia" },
+  { icon: FiBriefcase, label: "Cargo", value: "Desenvolvedor FullStack", sub: "Nexum Tecnologia" },
   { icon: FiBookOpen, label: "Formação", value: "Ciência da Computação", sub: "UNISAGRADO" },
   { icon: FiMapPin, label: "Local", value: "Bauru, SP", sub: "Brasil" },
   { icon: FiAward, label: "Incubadora", value: "Saruê", sub: "UNESP Bauru" },
