@@ -30,7 +30,7 @@ describe("skills data", () => {
     expect(langNames).toContain("Python");
     expect(langNames).toContain("Java");
     expect(langNames).toContain("TypeScript");
-    expect(langNames).toContain("Go");
+    expect(langNames).toContain("PHP");
   });
 
   it("should include key frameworks", () => {
