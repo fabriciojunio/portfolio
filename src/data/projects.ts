@@ -10,7 +10,7 @@ export const projects: Project[] = [
     category: "full-stack",
     tags: ["Next.js", "IA Local"],
     tagColor: "#06b6d4",
-    dotColor: "#06b6d4",
+    dotColor: "#22d3ee",
     metrics: [
       { value: "Excel", label: "4 abas", color: "#06b6d4" },
       { value: "IA", label: "detecção tipo", color: "#4ade80" },
