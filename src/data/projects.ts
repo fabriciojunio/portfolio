@@ -424,4 +424,51 @@ export const projects: Project[] = [
     demo: null,
     filters: ["data-science", "python", "javascript"],
   },
+  {
+    id: "goldata-pro",
+    name: "GolData — Robô de Sinais",
+    shortDesc: "Plataforma de sinais de value bets com ML, Bot Telegram e site público auditável por hash SHA-256.",
+    longDesc:
+      "Plataforma completa de sinais de apostas esportivas com motor ML ensemble (Dixon-Coles + Elo, 60/40). Detecta value bets com edge > 4% e calcula stake via critério de Kelly fracionário. Bot Telegram publica picks com links de afiliado. Site público exibe histórico auditável por hash SHA-256. Backend FastAPI em Clean Architecture, JWT, LGPD-compliant e containerizado com Docker.",
+    category: "full-stack",
+    tags: ["FastAPI", "ML", "Telegram Bot"],
+    tagColor: "#4ade80",
+    dotColor: "#4ade80",
+    metrics: [
+      { value: "Dixon-Coles", label: "+ Elo ML", color: "#4ade80" },
+      { value: "Kelly", label: "gestão de risco", color: "#818cf8" },
+      { value: "SHA-256", label: "auditável", color: "#06b6d4" },
+      { value: "Docker", label: "produção", color: "#f59e0b" },
+    ],
+    features: [
+      "Motor ML ensemble Dixon-Coles + Elo (60/40) com ValueBetDetector e Kelly fracionário (1/4)",
+      "Detecta value bets: edge > 4%, confiança > 52%, mínimo 2 estrelas de qualidade",
+      "Bot Telegram publica picks com xG, Elo, odds e botões inline de casas de aposta",
+      "Site público Next.js: picks do dia (sem odds) e histórico com hash SHA-256 auditável",
+      "Feedback loop: ajusta MIN_EDGE automaticamente com base em ROI e win_rate acumulados",
+      "Segurança: JWT, rate limiting, LGPD, robots.txt anti-bots, containers non-root (UID 1001)",
+    ],
+    architecture: `┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│  Next.js 14 │───▶│   FastAPI    │───▶│  PostgreSQL │
+│  Site Público│   │  Python 3.12 │    │  Redis 7    │
+└─────────────┘    └──────┬───────┘    └─────────────┘
+                          │
+                   ┌──────▼───────┐    ┌─────────────┐
+                   │  Dixon-Coles │    │  Telegram   │
+                   │  + Elo+Kelly │    │  Bot        │
+                   └──────────────┘    └─────────────┘`,
+    techStack: [
+      { name: "Python 3.12", color: "#818cf8" },
+      { name: "FastAPI", color: "#4ade80" },
+      { name: "Next.js 14", color: "#a78bfa" },
+      { name: "scikit-learn", color: "#f472b6" },
+      { name: "PostgreSQL", color: "#38bdf8" },
+      { name: "Redis", color: "#f59e0b" },
+      { name: "Docker", color: "#06b6d4" },
+      { name: "Nginx", color: "#fb923c" },
+    ],
+    github: "https://github.com/fabriciojunio/bot-sinais",
+    demo: null,
+    filters: ["full-stack", "python", "data-science"],
+  },
 ];
