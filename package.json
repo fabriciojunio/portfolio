@@ -13,6 +13,8 @@
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "framer-motion": "^11.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
