@@ -8,5 +8,13 @@ export default defineConfig({
   },
   build: {
     sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react':  ['react', 'react-dom'],
+          'vendor-motion': ['framer-motion'],
+        },
+      },
+    },
   },
 });
