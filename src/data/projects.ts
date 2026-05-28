@@ -565,4 +565,51 @@ export const projects: Project[] = [
     demo: "https://mundo-do-lukinha.vercel.app",
     filters: ["full-stack", "javascript"],
   },
+  {
+    id: "enterprise-project",
+    name: "Enterprise Project",
+    shortDesc: "API REST enterprise com Clean Architecture, JWT + 2FA TOTP, RBAC e 23 testes automatizados.",
+    longDesc:
+      "Backend Node.js/Express com Clean Architecture completa: Repository Pattern, Service Layer, Factory Pattern e DI explícita. Autenticação JWT (access 15min + refresh httpOnly 7 dias com rotação), 2FA TOTP via speakeasy, RBAC (admin/manager/user), blacklist de tokens via Redis. Frontend React 18 + Vite com Zustand, TanStack Query v5, páginas de dashboard, usuários e perfil. Docker multi-stage, GitHub Actions CI/CD e 23 testes (unit + integração).",
+    category: "full-stack",
+    tags: ["Node.js", "Clean Architecture"],
+    tagColor: "#06b6d4",
+    dotColor: "#38bdf8",
+    metrics: [
+      { value: "23", label: "testes", color: "#4ade80" },
+      { value: "2FA", label: "TOTP + JWT", color: "#818cf8" },
+      { value: "RBAC", label: "3 roles", color: "#f59e0b" },
+      { value: "Docker", label: "multi-stage", color: "#06b6d4" },
+    ],
+    features: [
+      "Clean Architecture: Repository Pattern, Service Layer, Factory Pattern e DI explícita",
+      "JWT RS256 com refresh token httpOnly, rotação automática e blacklist via Redis",
+      "2FA TOTP (speakeasy) com QR code e backup codes",
+      "RBAC com 3 roles (admin, manager, user) e guards por rota",
+      "23 testes automatizados: unit (auth.service, product.service) + integração (auth.routes)",
+      "Frontend React 18 + Vite: dashboard analytics, listagem de usuários paginada e perfil",
+    ],
+    architecture: `┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│  React 18   │───▶│  Express API │───▶│  PostgreSQL │
+│  Vite + Zust│    │  Clean Arch  │    │  TypeORM    │
+└─────────────┘    └──────┬───────┘    └─────────────┘
+                          │
+                   ┌──────▼───────┐    ┌─────────────┐
+                   │  Redis       │    │  JWT + 2FA  │
+                   │  Token BList │    │  TOTP RBAC  │
+                   └──────────────┘    └─────────────┘`,
+    techStack: [
+      { name: "Node.js", color: "#4ade80" },
+      { name: "TypeScript", color: "#06b6d4" },
+      { name: "React 18", color: "#38bdf8" },
+      { name: "PostgreSQL", color: "#818cf8" },
+      { name: "Redis", color: "#f472b6" },
+      { name: "Docker", color: "#a78bfa" },
+      { name: "Jest", color: "#f59e0b" },
+      { name: "TypeORM", color: "#fb923c" },
+    ],
+    github: "https://github.com/fabriciojunio/enterprise-project",
+    demo: "https://frontend-tan-mu-38.vercel.app",
+    filters: ["full-stack", "javascript"],
+  },
 ];
