@@ -74,7 +74,7 @@ export default function Hero() {
         </p>
 
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <MetricCard end={10} label="projetos reais" color="#4ade80" />
+          <MetricCard end={12} label="projetos reais" color="#4ade80" />
           <MetricCard end={60} suffix="K+" label="linhas de código" color="#818cf8" />
           <MetricCard end={300} suffix="+" label="testes" color="#f59e0b" />
           <MetricCard end={6} label="linguagens" color="#06b6d4" />
