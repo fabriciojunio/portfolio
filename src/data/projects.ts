@@ -471,4 +471,98 @@ export const projects: Project[] = [
     demo: null,
     filters: ["full-stack", "python", "data-science"],
   },
+  {
+    id: "mente-viva",
+    name: "Mente Viva",
+    shortDesc: "App de exercícios cognitivos gratuitos para prevenção do Alzheimer — 7 jogos, timers e progresso.",
+    longDesc:
+      "App React Native para treino cognitivo diário, desenvolvido para auxiliar na prevenção do Alzheimer. 7 mini-jogos (Memória, Rapidez, Sequência, Cores/Stroop, Contas, Palavras e Caça-Palavras) com timers, scoring, streaks e histórico. APK gerado via GitHub Actions sem necessidade de conta Expo.",
+    category: "mobile",
+    tags: ["React Native", "Expo"],
+    tagColor: "#a78bfa",
+    dotColor: "#a78bfa",
+    metrics: [
+      { value: "7", label: "mini-jogos", color: "#a78bfa" },
+      { value: "APK", label: "Android nativo", color: "#4ade80" },
+      { value: "CI/CD", label: "GitHub Actions", color: "#06b6d4" },
+      { value: "Offline", label: "sem internet", color: "#f59e0b" },
+    ],
+    features: [
+      "7 mini-jogos cognitivos: Memória, Rapidez, Sequência, Stroop, Contas, Palavras e Caça-Palavras",
+      "Timer e scoring por nível com barra de progresso e pontuação em tempo real",
+      "Histórico de partidas, streaks diários e recorde pessoal por jogo",
+      "Caça-Palavras com seleção por arrasto (PanResponder) e grades temáticas aleatórias",
+      "APK Android gerado automaticamente via GitHub Actions sem conta Expo",
+      "Modo escuro permanente com tema violeta profundo e gradiente violet→rose",
+    ],
+    architecture: `┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│ React Native│───▶│  gameEngine  │───▶│ AsyncStorage│
+│  Expo SDK 50│    │  puro, 0 UI  │    │  (perfil)   │
+└─────────────┘    └──────────────┘    └─────────────┘
+                          │
+                   ┌──────▼───────┐    ┌─────────────┐
+                   │  PanResponder│    │  GitHub     │
+                   │  gesto drag  │    │  Actions APK│
+                   └──────────────┘    └─────────────┘`,
+    techStack: [
+      { name: "React Native", color: "#06b6d4" },
+      { name: "Expo SDK 50", color: "#a78bfa" },
+      { name: "JavaScript", color: "#f59e0b" },
+      { name: "AsyncStorage", color: "#4ade80" },
+      { name: "PanResponder", color: "#f472b6" },
+      { name: "React Navigation", color: "#38bdf8" },
+      { name: "GitHub Actions", color: "#818cf8" },
+      { name: "Hermes", color: "#fb923c" },
+    ],
+    github: "https://github.com/fabriciojunio/mente-viva",
+    demo: null,
+    filters: ["mobile", "javascript"],
+  },
+  {
+    id: "mundo-do-lukinha",
+    name: "Mundo do Lukinha",
+    shortDesc: "Plataforma educativa com 6 jogos para crianças de 3 a 14 anos — adaptação automática por faixa etária.",
+    longDesc:
+      "Ecossistema de jogos educativos para ensinar matemática, português, ciências e programação de forma divertida e não punitiva. 6 jogos incluídos: Batalha dos Números, Jogo da Memória, Caça-Palavras, Dino Runner, Laboratório de Cores e Quiz Aventura. 4 faixas etárias (3-14 anos) com adaptação automática de dificuldade. Monorepo pnpm com Next.js 14.",
+    category: "full-stack",
+    tags: ["Next.js", "EdTech"],
+    tagColor: "#fb923c",
+    dotColor: "#fb923c",
+    metrics: [
+      { value: "6", label: "jogos educativos", color: "#fb923c" },
+      { value: "3–14", label: "anos", color: "#4ade80" },
+      { value: "4", label: "faixas etárias", color: "#818cf8" },
+      { value: "pnpm", label: "monorepo", color: "#06b6d4" },
+    ],
+    features: [
+      "6 jogos: Batalha dos Números, Memória, Caça-Palavras, Dino Runner, Laboratório de Cores, Quiz Aventura",
+      "4 faixas etárias: Pintinho (3-5), Explorador (6-8), Aventureiro (9-11), Mestre (12-14)",
+      "Adaptação automática de dificuldade e conteúdo por faixa etária",
+      "Filosofia não punitiva: sempre encorajador, nunca penaliza o erro",
+      "Monorepo pnpm workspaces com Next.js 14, TypeScript strict e Zustand",
+      "Testes com Vitest + React Testing Library, zero custo de infraestrutura",
+    ],
+    architecture: `┌─────────────┐    ┌──────────────┐    ┌─────────────┐
+│  Next.js 14 │───▶│  Zustand     │───▶│ Game Engine │
+│  App Router │    │  State Mgmt  │    │  TypeScript │
+└─────────────┘    └──────────────┘    └──────┬──────┘
+                                              │
+                   ┌──────────────┐    ┌──────▼──────┐
+                   │  Vitest +    │    │  Faixas     │
+                   │  Testing Lib │    │  3-14 anos  │
+                   └──────────────┘    └─────────────┘`,
+    techStack: [
+      { name: "Next.js 14", color: "#a78bfa" },
+      { name: "TypeScript", color: "#06b6d4" },
+      { name: "Tailwind", color: "#4ade80" },
+      { name: "Zustand", color: "#f59e0b" },
+      { name: "Vitest", color: "#818cf8" },
+      { name: "React Testing Library", color: "#f472b6" },
+      { name: "pnpm", color: "#38bdf8" },
+      { name: "App Router", color: "#fb923c" },
+    ],
+    github: "https://github.com/fabriciojunio/mundo-do-lukinha",
+    demo: null,
+    filters: ["full-stack", "javascript"],
+  },
 ];

@@ -29,7 +29,7 @@ export default function Projects() {
       </p>
       <h2 className="text-[22px] font-semibold text-text-primary">O que construí</h2>
       <p className="text-[13px] text-text-secondary mt-1">
-        10 projetos, 6 linguagens, do Data Science ao Full Stack, Mobile e Infra
+        12 projetos, 6 linguagens, do Data Science ao Full Stack, Mobile e EdTech
       </p>
 
       <div className="flex gap-2 mt-6 overflow-x-auto pb-2 -mx-2 px-2 snap-x">
