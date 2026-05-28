@@ -562,7 +562,7 @@ export const projects: Project[] = [
       { name: "App Router", color: "#fb923c" },
     ],
     github: "https://github.com/fabriciojunio/mundo-do-lukinha",
-    demo: null,
+    demo: "https://mundo-do-lukinha.vercel.app",
     filters: ["full-stack", "javascript"],
   },
 ];
