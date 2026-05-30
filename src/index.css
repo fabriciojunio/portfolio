@@ -10,8 +10,9 @@
   --text: #f5f1e8;
   --text-muted: #9b958a;
   --text-dim: #6f6a60;
-  --accent: #e8b450;
-  --accent-soft: #f5d77a;
+  --accent: #d4a76a;
+  --accent-soft: #e4bd86;
+  --accent-cool: #7da3c4;
 }
 
 html,
@@ -41,10 +42,6 @@ body {
   box-sizing: border-box;
 }
 
-::selection {
-  background-color: rgba(232, 180, 80, 0.32);
-  color: #ffffff;
-}
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -90,11 +87,16 @@ kbd {
 }
 
 /* Syntax highlighting minimo (usado em Cards3D e SnippetView) */
-.syn-k { color: #e8b450; }                  /* keyword */
-.syn-s { color: #a9c47a; }                  /* string */
-.syn-n { color: #f5d77a; }                  /* number */
-.syn-c { color: #6f6a60; font-style: italic; } /* comment */
-.syn-t { color: #6a93c4; }                  /* type / classname */
+.syn-k { color: #d4a76a; }                  /* keyword (ambar quente) */
+.syn-s { color: #a9c47a; }                  /* string (verde sutil)   */
+.syn-n { color: #e4bd86; }                  /* number (ambar palido)  */
+.syn-c { color: #6f6a60; font-style: italic; } /* comment              */
+.syn-t { color: #7da3c4; }                  /* type / classname (azul-aco) */
+
+::selection {
+  background-color: rgba(212, 167, 106, 0.32);
+  color: #ffffff;
+}
 
 @keyframes cardFloat {
   0%, 100% { transform: translateY(0); }

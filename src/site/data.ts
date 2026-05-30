@@ -256,14 +256,14 @@ export const SOBRE = {
   cargo: "Analista de Sistemas Júnior",
   empresa: "Nexum Tecnologia",
   cidade: "Bauru, SP",
-  bio: "Desenvolvedor FullStack. Construo software pra gente que precisa dele funcionando — não slide, não protótipo, produção.",
+  bio: "Desenvolvedor FullStack. Entrego sistemas que rodam de verdade, com foco em qualidade, segurança e código que se mantém ao longo do tempo.",
   longBio: [
     "Tenho 21 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
-    "Na Nexum mexo com Lecom BPM, robôs Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e entreguei o projeto Abertura de Conta V13 pra Credimogiana.",
-    "Fora do trabalho mantenho 14 projetos pessoais — do ML aplicado a futebol (GolData, com Expected Goals) ao CRM completo em Laravel (KoraCRM), passando por app offline-first pra Agentes Comunitários de Saúde do SUS (ConectAgente).",
+    "Na Nexum trabalho com Lecom BPM, robôs em Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e atuo em projetos bancários de abertura de conta digital.",
+    "Fora do trabalho mantenho um conjunto de projetos pessoais que vão do ML aplicado a futebol (GolData, com Expected Goals) ao CRM completo em Laravel (KoraCRM), passando por app offline-first para Agentes Comunitários de Saúde do SUS (ConectAgente).",
   ],
   contato: {
-    email: "fabriciojadias@gmail.com",
+    email: "junioad555@gmail.com",
     github: "https://github.com/fabriciojunio",
     linkedin: "https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/",
   },
@@ -294,8 +294,9 @@ export const STACK_GROUPS = [
 
 export const EMPRESAS = [
   "Nexum Tecnologia",
-  "Credimogiana",
+  "Lecom BPM",
   "UNISAGRADO",
   "Incubadora Saruê",
   "UNESP Bauru",
+  "Bauru, SP",
 ];
