@@ -28,7 +28,7 @@ export const readmeFile: VFile = {
   language: "markdown",
   content: `# fabricio-junio / portfolio
 
-> Esse portfolio é, ele mesmo, um projeto.
+> Esse portfólio é, ele mesmo, um projeto.
 
 Em vez de um site rolável com cards, montei um **IDE de verdade
 no browser**. Você navega pelos meus projetos como navegaria pelo

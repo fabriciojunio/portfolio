@@ -1,5 +1,5 @@
 // Dados reais dos projetos, escritos pra leitura humana.
-// Sem badges de cor por linguagem, sem metricas inventadas.
+// Sem badges de cor por linguagem, sem métricas inventadas.
 
 export interface SiteProject {
   slug: string;
@@ -11,7 +11,7 @@ export interface SiteProject {
   github: string;
   demo?: string | null;
   year: string;
-  // snippet curto, vai aparecer nos cards 3D + na pagina
+  // snippet curto, vai aparecer nos cards 3D + na página
   snippet: string;
   snippetLang: "typescript" | "python" | "java" | "php";
 }
@@ -21,8 +21,8 @@ export const PROJECTS: SiteProject[] = [
     slug: "goldata",
     name: "GolData",
     oneLine: "Analytics de futebol com Machine Learning",
-    what: "Plataforma de analise de futebol com xG (Expected Goals), xA, metricas de pressao e rede de passes. API FastAPI com JWT, rate limiting e cache por partida.",
-    role: "Modelei o xG em XGBoost calibrado sobre ~80k chutes da Serie A. Construi a rede de passes com NetworkX (centralidade, hubs de criacao).",
+    what: "Plataforma de análise de futebol com xG (Expected Goals), xA, métricas de pressão e rede de passes. API FastAPI com JWT, rate limiting e cache por partida.",
+    role: "Modelei o xG em XGBoost calibrado sobre ~80k chutes da Série A. Construí a rede de passes com NetworkX (centralidade, hubs de criação).",
     stack: ["Python", "FastAPI", "XGBoost", "NetworkX", "Plotly"],
     github: "https://github.com/fabriciojunio/goldata",
     demo: null,
@@ -38,10 +38,10 @@ export const PROJECTS: SiteProject[] = [
   },
   {
     slug: "goldata-pro",
-    name: "GolData / Robo de Sinais",
+    name: "GolData / Robô de Sinais",
     oneLine: "Value bets com ML ensemble + auditoria SHA-256",
-    what: "Motor Dixon-Coles + Elo (60/40) que detecta value bets com edge > 4%. Calcula stake via Kelly fracionario (1/4) e publica picks no Telegram. Site publico exibe historico auditavel por hash.",
-    role: "Cuidei do motor de detecção (ValueBetDetector + Kelly), do feedback loop que ajusta MIN_EDGE por ROI acumulado, e do hash de auditoria publica.",
+    what: "Motor Dixon-Coles + Elo (60/40) que detecta value bets com edge > 4%. Calcula stake via Kelly fracionário (1/4) e publica picks no Telegram. Site público exibe histórico auditável por hash.",
+    role: "Cuidei do motor de detecção (ValueBetDetector + Kelly), do feedback loop que ajusta MIN_EDGE por ROI acumulado, e do hash de auditoria pública.",
     stack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "Redis", "Docker"],
     github: "https://github.com/fabriciojunio/bot-sinais",
     demo: null,
@@ -57,9 +57,9 @@ export const PROJECTS: SiteProject[] = [
   {
     slug: "conectagente",
     name: "ConectAgente",
-    oneLine: "App offline-first para Agentes Comunitarios do SUS",
-    what: "Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza com Supabase ao reconectar. 5 modulos clinicos por morador, metas mensais, audit log LGPD.",
-    role: "Arquitetei o engine de sync (outbox pattern com retries e conflict resolution) e o esquema do SQLite com indices FTS pra busca offline.",
+    oneLine: "App offline-first para Agentes Comunitários do SUS",
+    what: "Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza com Supabase ao reconectar. 5 módulos clínicos por morador, metas mensais, audit log LGPD.",
+    role: "Arquitetei o engine de sync (outbox pattern com retries e conflict resolution) e o esquema do SQLite com índices FTS pra busca offline.",
     stack: ["React Native", "Expo SDK 54", "SQLite", "Supabase", "Zod"],
     github: "https://github.com/fabriciojunio/ConectAgente",
     demo: "https://conectagente-web.vercel.app",
@@ -78,9 +78,9 @@ export const PROJECTS: SiteProject[] = [
   {
     slug: "koracrm",
     name: "KoraCRM",
-    oneLine: "CRM com pipeline Kanban e dashboard analitico",
-    what: "CRM completo com pipeline de vendas Kanban (drag-and-drop), gestao de contatos, historico de interacoes e analytics de conversao. Backend Laravel 11 com Sanctum + Swagger.",
-    role: "Implementei o service de movimentacao do pipeline com auditoria de mudancas e a query de conversao por estagio.",
+    oneLine: "CRM com pipeline Kanban e dashboard analítico",
+    what: "CRM completo com pipeline de vendas Kanban (drag-and-drop), gestão de contatos, histórico de interações e analytics de conversão. Backend Laravel 11 com Sanctum + Swagger.",
+    role: "Implementei o service de movimentação do pipeline com auditoria de mudanças e a query de conversão por estágio.",
     stack: ["Laravel 11", "React 18", "Sanctum", "PostgreSQL", "Redis", "AWS S3"],
     github: "https://github.com/fabriciojunio/KoraCRM",
     demo: "https://koracrm-frontend.vercel.app",
@@ -103,8 +103,8 @@ export const PROJECTS: SiteProject[] = [
     slug: "apontamento-horas",
     name: "Apontamento de Horas",
     oneLine: "Registro de horas com export Excel e IA local",
-    what: "Sistema web para registrar horas por cooperativa. Exporta Excel com 4 abas (detalhes, dia, semana, mes) e detecta tipo de trabalho via LLM local (Ollama).",
-    role: "Construi a validacao Zod no boundary da API e a integracao com Ollama pra classificar tipo de trabalho a partir da descricao.",
+    what: "Sistema web para registrar horas por cooperativa. Exporta Excel com 4 abas (detalhes, dia, semana, mês) e detecta tipo de trabalho via LLM local (Ollama).",
+    role: "Construí a validação Zod no boundary da API e a integração com Ollama pra classificar tipo de trabalho a partir da descrição.",
     stack: ["Next.js 14", "Prisma", "PostgreSQL", "Zod", "Ollama"],
     github: "https://github.com/fabriciojunio/apontamento-horas",
     demo: "https://apontamento-horas.vercel.app",
@@ -118,14 +118,14 @@ export const PROJECTS: SiteProject[] = [
   descricao: z.string().min(5).max(2000),
 }).refine(
   ({ inicio, fim }) => toMinutes(fim) > toMinutes(inicio),
-  { path: ["fim"], message: "fim deve ser depois do inicio" },
+  { path: ["fim"], message: "fim deve ser depois do início" },
 );`,
   },
   {
     slug: "jis",
     name: "JIS / Sistema de Vagas IA",
-    oneLine: "Coleta + ranqueia vagas e publica top-5 no Telegram",
-    what: "Sistema que coleta vagas de Gupy, GeekHunter e Programathor, aplica score hibrido (regras + RandomForest) e envia as melhores oportunidades as 19h via Telegram.",
+    oneLine: "Coleta e ranqueia vagas e publica top-5 no Telegram",
+    what: "Sistema que coleta vagas de Gupy, GeekHunter e Programathor, aplica score híbrido (regras + RandomForest) e envia as melhores oportunidades às 19h via Telegram.",
     role: "Escrevi o motor de score em Java e o serviço ML em Python (FastAPI + scikit-learn). Calibrei pesos por ROI das vagas que abri.",
     stack: ["Java 21", "Spring Boot", "Python", "FastAPI", "scikit-learn"],
     github: "https://github.com/fabriciojunio/jis",
@@ -148,8 +148,8 @@ export const PROJECTS: SiteProject[] = [
     slug: "codereview-ai",
     name: "CodeReview AI",
     oneLine: "Code review automatizado com LLM local",
-    what: "Plataforma que analisa Java, Python e JavaScript usando Ollama. Detecta bugs, code smells e violacoes SOLID. Processamento via RabbitMQ, cache Redis de 24h.",
-    role: "Implementei o orquestrador assincrono (fila RabbitMQ + ticket ID) e o sistema de cache por hash do codigo enviado.",
+    what: "Plataforma que analisa Java, Python e JavaScript usando Ollama. Detecta bugs, code smells e violações SOLID. Processamento via RabbitMQ, cache Redis de 24h.",
+    role: "Implementei o orquestrador assíncrono (fila RabbitMQ + ticket ID) e o sistema de cache por hash do código enviado.",
     stack: ["Java 21", "Spring Boot", "Ollama", "RabbitMQ", "Redis"],
     github: "https://github.com/fabriciojunio/codereview-ai",
     demo: null,
@@ -170,9 +170,9 @@ export const PROJECTS: SiteProject[] = [
   {
     slug: "paiol-tech",
     name: "Paiol Tech",
-    oneLine: "SaaS de gestao de dividas rurais",
+    oneLine: "SaaS de gestão de dívidas rurais",
     what: "SaaS para produtor rural. Login sem senha (magic link), alertas WhatsApp e Open Finance. Monorepo Turborepo com NestJS (Clean Arch + CQRS) e Next.js PWA.",
-    role: "Modelei o domain do agregado de Divida (com domain events) e o handler CQRS que dispara notificacao WhatsApp no vencimento.",
+    role: "Modelei o domain do agregado de Dívida (com domain events) e o handler CQRS que dispara notificação WhatsApp no vencimento.",
     stack: ["Next.js 15", "NestJS", "CQRS", "Turborepo", "PWA"],
     github: "https://github.com/fabriciojunio/paiol-tech",
     demo: "https://paiol-tech.vercel.app",
@@ -191,9 +191,9 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
   {
     slug: "mycondpets",
     name: "MyCondPets",
-    oneLine: "Gestao de pets em condominios residenciais",
-    what: "Login Google OAuth, cadastro de tutores e pets, mural de comunicados (perdidos/achados) e painel admin com estatisticas.",
-    role: "Cuidei do middleware de role-guard (so SINDICO/ADMIN entra em /admin) e da modelagem do dominio Tutor/Pet/Aviso.",
+    oneLine: "Gestão de pets em condomínios residenciais",
+    what: "Login Google OAuth, cadastro de tutores e pets, mural de comunicados (perdidos/achados) e painel admin com estatísticas.",
+    role: "Cuidei do middleware de role-guard (só SÍNDICO/ADMIN entra em /admin) e da modelagem do domínio Tutor/Pet/Aviso.",
     stack: ["Next.js 15", "React 19", "NextAuth.js", "PostgreSQL", "Supabase"],
     github: "https://github.com/fabriciojunio/MyCondPets",
     demo: "https://mycondpets.vercel.app",
@@ -214,8 +214,8 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     slug: "quantbot-ml",
     name: "Quantbot ML",
     oneLine: "Trading quantitativo com ensemble + FinBERT",
-    what: "Ensemble de 3 modelos (Random Forest + XGBoost + Gradient Boosting), analise de sentimento com FinBERT (PyTorch) e gestao de risco via Monte Carlo (10K simulacoes).",
-    role: "Calibrei os pesos do ensemble com walk-forward validation pra evitar data leakage em serie temporal.",
+    what: "Ensemble de 3 modelos (Random Forest + XGBoost + Gradient Boosting), análise de sentimento com FinBERT (PyTorch) e gestão de risco via Monte Carlo (10K simulações).",
+    role: "Calibrei os pesos do ensemble com walk-forward validation pra evitar data leakage em série temporal.",
     stack: ["Python", "FastAPI", "PyTorch", "XGBoost", "FinBERT"],
     github: "https://github.com/fabriciojunio/quantbot-ml",
     demo: null,
@@ -234,7 +234,7 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     name: "Enterprise Project",
     oneLine: "API REST com Clean Architecture e 2FA TOTP",
     what: "Backend Node.js com Clean Architecture, JWT (RS256) + 2FA TOTP via speakeasy, RBAC (3 roles), blacklist Redis. Frontend React 18 + Vite.",
-    role: "Implementei a rotacao de refresh-token com blacklist em Redis (cada refresh emite par novo e invalida o anterior).",
+    role: "Implementei a rotação de refresh-token com blacklist em Redis (cada refresh emite par novo e invalida o anterior).",
     stack: ["Node.js", "Express", "TypeORM", "JWT + 2FA", "Docker"],
     github: "https://github.com/fabriciojunio/enterprise-project",
     demo: "https://frontend-tan-mu-38.vercel.app",
@@ -252,15 +252,15 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
 ];
 
 export const SOBRE = {
-  nome: "Fabricio Junio",
-  cargo: "Analista de Sistemas Junior",
+  nome: "Fabrício Júnio",
+  cargo: "Analista de Sistemas Júnior",
   empresa: "Nexum Tecnologia",
   cidade: "Bauru, SP",
-  bio: "Desenvolvedor FullStack. Construo software pra gente que precisa dele funcionando — nao slide, nao prototipo, producao.",
+  bio: "Desenvolvedor FullStack. Construo software pra gente que precisa dele funcionando — não slide, não protótipo, produção.",
   longBio: [
-    "Tenho 21 anos. Curso Ciencia da Computacao na UNISAGRADO e participo da Incubadora Sarue, na UNESP Bauru.",
-    "Na Nexum mexo com Lecom BPM, robos Java e integracoes REST. Implementei a integracao com a API do IBGE que cortou em 80% o tempo de cadastro, e entreguei o projeto Abertura de Conta V13 pra Credimogiana.",
-    "Fora do trabalho mantenho 14 projetos pessoais — do ML aplicado a futebol (GolData, com Expected Goals) ao CRM completo em Laravel (KoraCRM), passando por app offline-first pra Agentes Comunitarios de Saude do SUS (ConectAgente).",
+    "Tenho 21 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
+    "Na Nexum mexo com Lecom BPM, robôs Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e entreguei o projeto Abertura de Conta V13 pra Credimogiana.",
+    "Fora do trabalho mantenho 14 projetos pessoais — do ML aplicado a futebol (GolData, com Expected Goals) ao CRM completo em Laravel (KoraCRM), passando por app offline-first pra Agentes Comunitários de Saúde do SUS (ConectAgente).",
   ],
   contato: {
     email: "fabriciojadias@gmail.com",
@@ -296,6 +296,6 @@ export const EMPRESAS = [
   "Nexum Tecnologia",
   "Credimogiana",
   "UNISAGRADO",
-  "Incubadora Sarue",
+  "Incubadora Saruê",
   "UNESP Bauru",
 ];

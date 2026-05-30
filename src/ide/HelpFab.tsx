@@ -10,7 +10,7 @@ export default function HelpFab() {
       <button
         type="button"
         onClick={() => setOpen((s) => !s)}
-        aria-label="Como usar este portfolio"
+        aria-label="Como usar este portfólio"
         title="Ajuda"
         className="fixed bottom-12 right-4 z-30 w-9 h-9 rounded-full bg-[#e36b3a] text-[#0a0b0e] text-[14px] font-bold shadow-lg hover:brightness-110 flex items-center justify-center font-mono"
       >

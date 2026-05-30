@@ -34,10 +34,10 @@ export default function Hero({ onScrollTo }: Props) {
 
           <h1 className="font-serif text-[#e8b450] leading-[0.95] tracking-[-0.02em]">
             <span className="block text-[58px] sm:text-[78px] md:text-[92px] lg:text-[108px]">
-              Fabricio
+              Fabrício
             </span>
             <span className="block text-[58px] sm:text-[78px] md:text-[92px] lg:text-[108px] text-[#f5d77a] -mt-2 md:-mt-3">
-              Junio
+              Júnio
             </span>
           </h1>
 

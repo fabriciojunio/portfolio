@@ -9,7 +9,7 @@ export default function About() {
             01 / sobre
           </p>
           <h2 className="mt-4 font-serif text-[42px] md:text-[54px] leading-[1.02] text-[#f5f1e8]">
-            Codigo que <em className="text-[#e8b450] not-italic">funciona</em> em producao.
+            Código que <em className="text-[#e8b450] not-italic">funciona</em> em produção.
           </h2>
         </div>
 
@@ -27,7 +27,7 @@ export default function About() {
             <Info k="Cargo"    v={SOBRE.cargo} />
             <Info k="Empresa"  v={SOBRE.empresa} />
             <Info k="Cidade"   v={SOBRE.cidade} />
-            <Info k="Formacao" v="Ciencia da Computacao — UNISAGRADO" />
+            <Info k="Formação" v="Ciência da Computação — UNISAGRADO" />
           </div>
         </div>
       </div>

@@ -48,10 +48,10 @@ export default function Welcome() {
         <div className="px-6 pt-6 pb-4">
           <div className="flex items-center gap-2 text-[10.5px] uppercase tracking-[1.5px] text-[#6c7079]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#e36b3a]" />
-            portfolio · fabrício júnio
+            portfólio · fabrício júnio
           </div>
           <h1 className="mt-2 text-[20px] text-[#e6e3dc] font-medium leading-snug">
-            Esse portfolio é, ele mesmo, um projeto.
+            Esse portfólio é, ele mesmo, um projeto.
           </h1>
           <p className="mt-2 text-[13px] text-[#9ea2ab] leading-relaxed">
             Em vez de um site rolável com cards, montei um IDE de verdade no
