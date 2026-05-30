@@ -1,55 +1,59 @@
-export interface Metric {
-  value: string;
-  label: string;
-  color: string;
-}
+export type Language =
+  | "typescript"
+  | "javascript"
+  | "python"
+  | "java"
+  | "json"
+  | "markdown"
+  | "yaml"
+  | "shell"
+  | "sql"
+  | "plaintext";
 
-export interface TechBadge {
+export interface VFile {
+  path: string;
   name: string;
-  color: string;
+  language: Language;
+  content: string;
+  runnable?: RunKind;
+  meta?: {
+    project?: string;
+    github?: string;
+    demo?: string | null;
+    stack?: string[];
+    role?: string;
+  };
 }
 
-export interface Project {
+export type RunKind = "xg" | "kelly" | "elo" | "zod" | "vagas-score";
+
+export interface DirNode {
+  type: "dir";
+  name: string;
+  path: string;
+  children: TreeNode[];
+}
+
+export interface FileNode {
+  type: "file";
+  name: string;
+  path: string;
+  language: Language;
+}
+
+export type TreeNode = DirNode | FileNode;
+
+export interface TerminalEntry {
+  id: number;
+  kind: "input" | "output" | "system";
+  text: string;
+}
+
+export interface CommandDescriptor {
   id: string;
-  name: string;
-  shortDesc: string;
-  longDesc: string;
-  category: string;
-  tags: string[];
-  tagColor: string;
-  dotColor: string;
-  metrics: Metric[];
-  features: string[];
-  architecture: string;
-  techStack: TechBadge[];
-  github: string;
-  demo: string | null;
-  filters: string[];
-}
-
-export interface Skill {
-  name: string;
-  projects: string[];
-}
-
-export interface SkillCategory {
-  name: string;
-  color: string;
-  skills: Skill[];
-}
-
-export interface TimelineEvent {
-  year: string;
-  title: string;
-  desc: string;
-  color: string;
-}
-
-export interface ExperienceEntry {
-  company: string;
-  role: string;
-  period: string;
-  location: string;
-  bullets: string[];
-  stack: TechBadge[];
+  label: string;
+  hint?: string;
+  shortcut?: string;
+  group: "Arquivo" | "Visualizar" | "Navegar" | "Sistema" | "Projeto";
+  run: () => void;
 }

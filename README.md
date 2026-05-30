@@ -1,55 +1,56 @@
-# Portfolio — Fabrício Júnio
+# fabricio-junio / portfolio
 
-Portfólio pessoal com estética "Command Center": terminal/dashboard escuro, tipografia mono, animações sutis.
+> Esse portfolio é, ele mesmo, um projeto.
 
-**Stack:** React 19 · TypeScript · Vite · TailwindCSS · Framer Motion · React Icons
+Em vez de um site rolável com cards, montei um IDE de verdade no
+browser. Navega-se pelos projetos como se navega pelo workspace —
+abrindo arquivos, lendo o código real e, em alguns, executando
+trechos para ver o resultado.
 
-## Rodar localmente
+## Stack
+
+- React 19 + TypeScript + Vite 6
+- **Monaco Editor** (o motor do VSCode) com tema autoral
+- Tailwind CSS sem nenhum design system pronto
+- Vitest cobrindo VFS, parser de comandos e segurança
+
+## Demos interativas
+
+- **GolData (xG)** — calculador de Expected Goals reagindo ao
+  cursor sobre o campo.
+- **GolData Pro (Kelly)** — simulador de Kelly fracionário com
+  500 apostas Monte Carlo.
+- **Apontamento (Zod)** — validador real do schema do projeto,
+  editável ao vivo.
+- **JIS (vagas)** — motor de score híbrido com pesos por feature.
+
+## Atalhos
+
+- `Ctrl/⌘ + K` — paleta de comandos
+- `Ctrl/⌘ + P` — abrir arquivo rápido
+- `` Ctrl/⌘ + ` `` — abrir/fechar terminal
+- `Ctrl/⌘ + B` — alternar barra lateral
+
+## Comandos do terminal
+
+`ls`, `cat`, `open`, `run`, `tree`, `whoami`, `projetos`,
+`stack`, `contato`, `git status`, `git log`, `ajuda`, `clear`.
+
+## Segurança
+
+- CSP estrita (sem CDNs externos, Monaco roda local)
+- HSTS preload, X-Frame-Options DENY, Referrer-Policy estrito
+- `robots.txt` bloqueia GPTBot, ClaudeBot, CCBot, Bytespider...
+- Sem source maps em produção; `console` removido pelo Vite
+
+## Scripts
 
 ```bash
 npm install
-npm run dev
+npm run dev      # http://localhost:5173
+npm run build    # gera dist/
+npm test         # roda a suíte
+npm run lint     # ESLint
 ```
 
-Abre em `http://localhost:5173`.
-
-## Build de produção
-
-```bash
-npm run build
-npm run preview
-```
-
-Output em `dist/`.
-
-## Deploy na Vercel
-
-1. Push do repositório para o GitHub.
-2. Importar na Vercel — o framework React/Vite é detectado automaticamente.
-3. Build command: `npm run build` · Output directory: `dist`.
-4. O `vercel.json` já está configurado com rewrites para SPA.
-
-## Estrutura
-
-```
-portfolio/
-├── public/             # favicon e assets estáticos
-└── src/
-    ├── components/     # Navbar, Hero, Projects, etc.
-    ├── data/           # projects, skills, timeline, experience
-    ├── hooks/          # useScrollReveal, useCountUp, useTypingEffect
-    ├── types/          # tipos compartilhados
-    ├── App.tsx
-    ├── main.tsx
-    └── index.css
-```
-
-## Customização
-
-- **Paleta de cores:** `tailwind.config.ts`
-- **Dados dos projetos:** `src/data/projects.ts`
-- **Timeline / experiência / skills:** `src/data/*`
-
----
-
-Feito por **Fabrício Júnio** — [github.com/fabriciojunio](https://github.com/fabriciojunio)
+Feito por [Fabrício Júnio](https://github.com/fabriciojunio).

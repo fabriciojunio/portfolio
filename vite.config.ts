@@ -10,11 +10,17 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react':  ['react', 'react-dom'],
-          'vendor-motion': ['framer-motion'],
+        manualChunks(id) {
+          if (id.includes("monaco-editor")) return "vendor-monaco";
+          if (id.includes("@monaco-editor")) return "vendor-monaco";
+          if (id.includes("react-dom")) return "vendor-react";
+          if (id.includes("node_modules/react/")) return "vendor-react";
         },
       },
     },
+    chunkSizeWarningLimit: 1200,
+  },
+  worker: {
+    format: "es",
   },
 });
