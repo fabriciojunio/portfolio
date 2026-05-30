@@ -4,12 +4,15 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
+// Ordem definida pelo dono do portfolio: KoraCRM em destaque
+// (z=0, scale maior, centro), seguido de CodeReview AI, MyCondPets,
+// GolData e Enterprise Project.
 const PICKED = [
-  "goldata",
-  "conectagente",
-  "apontamento-horas",
-  "goldata-pro",
   "koracrm",
+  "codereview-ai",
+  "mycondpets",
+  "goldata",
+  "enterprise-project",
 ];
 
 interface CardConfig {
@@ -21,12 +24,15 @@ interface CardConfig {
   delay: number; // delay da animacao idle
 }
 
+// Primeiro item (KoraCRM) e o destaque: z=0 (frente), maior escala,
+// centro do palco. Os outros distribuidos em torno em profundidades
+// variadas.
 const LAYOUT: CardConfig[] = [
-  { x:  6,  y: 10, rotZ: -16, scale: 0.96, z: -120, delay: 0   },
-  { x: 28,  y: -2, rotZ:  -4, scale: 1.04, z:    0, delay: 0.8 },
-  { x: 56,  y: 22, rotZ:  18, scale: 0.92, z:  -80, delay: 1.6 },
-  { x: 14,  y: 48, rotZ:   8, scale: 0.88, z: -140, delay: 2.4 },
-  { x: 44,  y: 58, rotZ:  -8, scale: 1.00, z:  -40, delay: 3.2 },
+  { x: 26,  y:  2, rotZ:  -4, scale: 1.08, z:    0, delay: 0   },
+  { x:  2,  y: 18, rotZ: -14, scale: 0.94, z: -110, delay: 1.0 },
+  { x: 58,  y: 14, rotZ:  14, scale: 0.92, z:  -90, delay: 2.0 },
+  { x: 16,  y: 54, rotZ:  10, scale: 0.88, z: -140, delay: 3.0 },
+  { x: 46,  y: 58, rotZ:  -8, scale: 0.98, z:  -50, delay: 4.0 },
 ];
 
 const SYNTAX = {
@@ -160,10 +166,10 @@ export default function Cards3D() {
                       window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
-                  className="block rounded-xl bg-[#111111]/95 border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-sm hover:border-[#e8b450]/40 transition-colors"
+                  className="block rounded-xl bg-[#111111]/95 border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-sm hover:border-[#d4a76a]/40 transition-colors"
                 >
                   <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-black/30">
-                    <span className="w-2 h-2 rounded-full bg-[#e8b450]/70" />
+                    <span className="w-2 h-2 rounded-full bg-[#d4a76a]/70" />
                     <span className="font-mono text-[10.5px] text-[#6f6a60] uppercase tracking-[1.2px]">
                       {p.slug}.{ext(p.snippetLang)}
                     </span>

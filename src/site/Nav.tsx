@@ -5,8 +5,8 @@ interface Props {
 }
 
 const ITEMS = [
-  { id: "trabalho",  label: "Trabalho" },
   { id: "sobre",     label: "Sobre" },
+  { id: "trabalho",  label: "Trabalho" },
   { id: "stack",     label: "Stack" },
   { id: "contato",   label: "Contato" },
 ];
@@ -95,7 +95,7 @@ export default function Nav({ onNavigate }: Props) {
               href="https://github.com/fabriciojunio"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-left py-1 text-[#e8b450]"
+              className="text-left py-1 text-[#d4a76a]"
             >
               GitHub →
             </a>
