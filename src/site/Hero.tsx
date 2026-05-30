@@ -43,11 +43,11 @@ export default function Hero({ onScrollTo }: Props) {
             </span>
           </h1>
 
-          <p className="mt-10 max-w-[500px] text-[16px] md:text-[17.5px] text-[#d6cfc1] leading-[1.7] font-sans">
+          <p className="mt-12 max-w-[500px] text-[16px] md:text-[18px] text-[#d6cfc1] leading-[1.9] font-sans">
             {SOBRE.bio}
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className="mt-12 flex flex-wrap gap-3">
             <button
               type="button"
               onClick={() => onScrollTo("trabalho")}

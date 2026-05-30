@@ -17,7 +17,7 @@ export default function About() {
           {SOBRE.longBio.map((p, i) => (
             <p
               key={i}
-              className="font-sans text-[16px] md:text-[17.5px] leading-[1.8] text-[#d6cfc1] max-w-[640px]"
+              className="font-sans text-[16px] md:text-[17.5px] leading-[1.9] text-[#d6cfc1] max-w-[640px]"
             >
               {p}
             </p>
