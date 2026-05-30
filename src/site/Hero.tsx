@@ -72,13 +72,6 @@ export default function Hero({ onScrollTo }: Props) {
             </button>
           </div>
 
-          <div className="mt-10 pt-8 border-t border-white/[0.06] flex items-center gap-6 md:gap-10 flex-wrap">
-            <StatItem n="11" label="projetos" />
-            <div className="w-px h-5 bg-white/10 shrink-0" />
-            <StatItem n="7" label="com demo ao vivo" />
-            <div className="w-px h-5 bg-white/10 shrink-0" />
-            <StatItem n="4" label="linguagens" />
-          </div>
         </div>
 
         <div className="relative lg:h-[660px] h-[460px]">
@@ -101,14 +94,6 @@ function Avatar() {
   );
 }
 
-function StatItem({ n, label }: { n: string; label: string }) {
-  return (
-    <div className="flex items-baseline gap-1.5">
-      <span className="font-serif text-[24px] text-[#f5f1e8] leading-none">{n}</span>
-      <span className="font-mono text-[10px] uppercase tracking-[1.2px] text-[#6f6a60]">{label}</span>
-    </div>
-  );
-}
 
 function Marquee({ items }: { items: string[] }) {
   const doubled = [...items, ...items];
