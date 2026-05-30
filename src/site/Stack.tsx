@@ -15,7 +15,7 @@ export default function Stack() {
             Escolho a <em className="text-[#e8b450] not-italic">ferramenta</em><br />pelo problema.
           </h2>
           <p className="mt-6 text-[14.5px] text-[#9b958a] max-w-[360px] leading-relaxed">
-            Nao acredito em fanboy de stack. Java porque banco, Python porque ML, TypeScript porque toda a web vive nele.
+            Não acredito em fanboy de stack. Java porque banco, Python porque ML, TypeScript porque toda a web vive nele.
           </p>
         </div>
 
