@@ -75,7 +75,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
               <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
                 o que é
               </div>
-              <p className="mt-3 text-[14.5px] text-[#d6cfc1] leading-[1.75]">
+              <p className="mt-3 text-[14.5px] text-[#d6cfc1] leading-[1.85]">
                 {project.what}
               </p>
             </div>

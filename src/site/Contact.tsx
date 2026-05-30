@@ -19,7 +19,7 @@ export default function Contact() {
         <span className="text-[#d4a76a]">trabalhar</span> juntos?
       </h2>
 
-      <p className="mt-10 max-w-[520px] text-[16px] md:text-[17.5px] text-[#d6cfc1] leading-[1.75]">
+      <p className="mt-12 max-w-[520px] text-[16px] md:text-[17.5px] text-[#d6cfc1] leading-[1.9]">
         Procuro oportunidade FullStack (CLT ou PJ). Topo conversar sobre projeto pontual, freelance técnico ou contratação. Respondo em até 24h úteis.
       </p>
 
