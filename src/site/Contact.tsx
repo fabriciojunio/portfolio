@@ -14,9 +14,9 @@ export default function Contact() {
       </p>
 
       <h2 className="mt-5 font-serif text-[54px] md:text-[80px] lg:text-[110px] leading-[1.0] text-[#f5f1e8] tracking-[-0.02em]">
-        Vamos
+        Precisa de
         <br />
-        <span className="text-[#d4a76a]">trabalhar</span> juntos?
+        um <span className="text-[#d4a76a]">FullStack</span>?
       </h2>
 
       <p className="mt-12 max-w-[520px] text-[16px] md:text-[17.5px] text-[#d6cfc1] leading-[1.9]">
