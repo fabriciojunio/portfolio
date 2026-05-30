@@ -77,7 +77,7 @@ describe("security", () => {
 
     it("should set theme color matching the dark UI", () => {
       expect(html).toContain('name="theme-color"');
-      expect(html).toContain("#0a0b0e");
+      expect(html).toContain("#0a0a0a");
     });
   });
 
