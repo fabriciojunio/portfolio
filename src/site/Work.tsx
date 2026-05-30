@@ -2,6 +2,8 @@ import { useState } from "react";
 import { PROJECTS, type SiteProject } from "./data";
 import SnippetView from "./SnippetView";
 
+const DEMO_COUNT = PROJECTS.filter((p) => p.demo).length;
+
 export default function Work() {
   return (
     <section
@@ -17,10 +19,14 @@ export default function Work() {
             Projetos que <em className="text-[#d4a76a] not-italic">construí</em>.
           </h2>
         </div>
-        <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d6cfc1] max-w-[640px] self-end">
-          Cada projeto abaixo tem código aberto no GitHub. Clique para abrir e
-          ler o snippet que considero mais representativo do que construí.
-        </p>
+        <div className="self-end space-y-4">
+          <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d6cfc1] max-w-[640px]">
+            Código aberto no GitHub. Clique em qualquer projeto para ver stack, decisão técnica e o snippet que considero mais representativo.
+          </p>
+          <p className="font-mono text-[11px] text-[#6f6a60]">
+            {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo
+          </p>
+        </div>
       </div>
 
       <ol className="divide-y divide-white/5 border-y border-white/5">
@@ -48,9 +54,16 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         </span>
 
         <div className="flex-1 min-w-0">
-          <h3 className="font-serif text-[24px] md:text-[30px] text-[#f5f1e8] leading-[1.15]">
-            {project.name}
-          </h3>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h3 className="font-serif text-[24px] md:text-[30px] text-[#f5f1e8] leading-[1.15]">
+              {project.name}
+            </h3>
+            {project.demo && (
+              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#4ade80] border border-[#4ade80]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
+                demo
+              </span>
+            )}
+          </div>
           <p className="mt-2 text-[14px] md:text-[15px] text-[#a39c8f] font-sans leading-relaxed">
             {project.oneLine}
           </p>
@@ -83,7 +96,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
               <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
                 meu papel
               </div>
-              <p className="mt-3 text-[14.5px] text-[#d6cfc1] leading-[1.75]">
+              <p className="mt-3 text-[14.5px] text-[#d6cfc1] leading-[1.85]">
                 {project.role}
               </p>
             </div>
@@ -93,15 +106,33 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
               </div>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
                 {project.stack.map((s) => (
-                  <span
-                    key={s}
-                    className="font-mono text-[12px] text-[#d6cfc1]"
-                  >
+                  <span key={s} className="font-mono text-[12px] text-[#d6cfc1]">
                     {s}
                   </span>
                 ))}
               </div>
             </div>
+
+            {project.highlights && project.highlights.length > 0 && (
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
+                  destaques
+                </div>
+                <ul className="mt-3 space-y-2">
+                  {project.highlights.map((h, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="mt-0.5 font-mono text-[11px] text-[#7da3c4]/50 shrink-0">
+                        ↳
+                      </span>
+                      <span className="font-mono text-[12px] text-[#7da3c4] leading-relaxed">
+                        {h}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="pt-3 flex flex-wrap gap-4">
               <a
                 href={project.github}
