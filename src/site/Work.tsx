@@ -21,7 +21,7 @@ export default function Work() {
         </div>
         <div className="self-end space-y-4">
           <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d6cfc1] max-w-[640px]">
-            Código aberto no GitHub. Clique em qualquer projeto para ver stack, decisão técnica e o snippet que considero mais representativo.
+            Código aberto no GitHub. Clique pra ver o raciocínio, a stack usada e um trecho de código que vale a leitura.
           </p>
           <p className="font-mono text-[11px] text-[#6f6a60]">
             {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo
