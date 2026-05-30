@@ -7,11 +7,11 @@ export interface SiteProject {
   oneLine: string;
   what: string;
   role: string;
+  highlights?: string[];
   stack: string[];
   github: string;
   demo?: string | null;
   year: string;
-  // snippet curto, vai aparecer nos cards 3D + na página
   snippet: string;
   snippetLang: "typescript" | "python" | "java" | "php";
 }
@@ -23,6 +23,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "Analytics de futebol com Machine Learning",
     what: "Plataforma de análise de futebol com xG (Expected Goals), xA, métricas de pressão e rede de passes. API FastAPI com JWT, rate limiting e cache por partida.",
     role: "Modelei o xG em XGBoost calibrado sobre ~80k chutes da Série A. Construí a rede de passes com NetworkX (centralidade, hubs de criação).",
+    highlights: [
+      "~80k chutes da Série A no dataset de treino",
+      "xG calibrado com isotonic calibration (Brier Score < 0.18)",
+      "Rede de passes: betweenness e closeness via NetworkX",
+    ],
     stack: ["Python", "FastAPI", "XGBoost", "NetworkX", "Plotly"],
     github: "https://github.com/fabriciojunio/goldata",
     demo: null,
@@ -42,6 +47,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "Value bets com ML ensemble + auditoria SHA-256",
     what: "Motor Dixon-Coles + Elo (60/40) que detecta value bets com edge > 4%. Calcula stake via Kelly fracionário (1/4) e publica picks no Telegram. Site público exibe histórico auditável por hash.",
     role: "Cuidei do motor de detecção (ValueBetDetector + Kelly), do feedback loop que ajusta MIN_EDGE por ROI acumulado, e do hash de auditoria pública.",
+    highlights: [
+      "Edge mínimo de 4% — filtra ruído estatístico antes de publicar",
+      "Kelly fracionário 1/4 para gestão de risco por stake",
+      "Auditoria pública: cada pick assinado com SHA-256",
+    ],
     stack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "Redis", "Docker"],
     github: "https://github.com/fabriciojunio/bot-sinais",
     demo: null,
@@ -60,6 +70,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "App offline-first para Agentes Comunitários do SUS",
     what: "Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza com Supabase ao reconectar. 5 módulos clínicos por morador, metas mensais, audit log LGPD.",
     role: "Arquitetei o engine de sync (outbox pattern com retries e conflict resolution) e o esquema do SQLite com índices FTS pra busca offline.",
+    highlights: [
+      "Sync offline-first com outbox pattern e conflict resolution automático",
+      "FTS (Full-Text Search) para busca em SQLite WAL sem internet",
+      "5 módulos clínicos por morador + metas mensais por agente",
+    ],
     stack: ["React Native", "Expo SDK 54", "SQLite", "Supabase", "Zod"],
     github: "https://github.com/fabriciojunio/ConectAgente",
     demo: "https://conectagente-web.vercel.app",
@@ -81,6 +96,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "CRM com pipeline Kanban e dashboard analítico",
     what: "CRM completo com pipeline de vendas Kanban (drag-and-drop), gestão de contatos, histórico de interações e analytics de conversão. Backend Laravel 11 com Sanctum + Swagger.",
     role: "Implementei o service de movimentação do pipeline com auditoria de mudanças e a query de conversão por estágio.",
+    highlights: [
+      "Pipeline Kanban com drag-and-drop e posição persistida no banco",
+      "Auditoria automática de cada movimentação entre estágios",
+      "API REST documentada com Swagger + autenticação via Sanctum",
+    ],
     stack: ["Laravel 11", "React 18", "Sanctum", "PostgreSQL", "Redis", "AWS S3"],
     github: "https://github.com/fabriciojunio/KoraCRM",
     demo: "https://koracrm-frontend.vercel.app",
@@ -105,6 +125,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "Registro de horas com export Excel e IA local",
     what: "Sistema web para registrar horas por cooperativa. Exporta Excel com 4 abas (detalhes, dia, semana, mês) e detecta tipo de trabalho via LLM local (Ollama).",
     role: "Construí a validação Zod no boundary da API e a integração com Ollama pra classificar tipo de trabalho a partir da descrição.",
+    highlights: [
+      "Export Excel com 4 abas: detalhes, dia, semana e mês",
+      "Classificação automática do tipo de trabalho via Ollama (LLM local)",
+      "Validação Zod no boundary da API — dados inválidos nunca chegam ao banco",
+    ],
     stack: ["Next.js 14", "Prisma", "PostgreSQL", "Zod", "Ollama"],
     github: "https://github.com/fabriciojunio/apontamento-horas",
     demo: "https://apontamento-horas.vercel.app",
@@ -127,6 +152,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "Coleta e ranqueia vagas e publica top-5 no Telegram",
     what: "Sistema que coleta vagas de Gupy, GeekHunter e Programathor, aplica score híbrido (regras + RandomForest) e envia as melhores oportunidades às 19h via Telegram.",
     role: "Escrevi o motor de score em Java e o serviço ML em Python (FastAPI + scikit-learn). Calibrei pesos por ROI das vagas que abri.",
+    highlights: [
+      "Coleta automatizada em 3 plataformas: Gupy, GeekHunter e Programathor",
+      "Score híbrido: regras determinísticas + RandomForest calibrado",
+      "Envio automático dos top-5 todo dia às 19h via Telegram",
+    ],
     stack: ["Java 21", "Spring Boot", "Python", "FastAPI", "scikit-learn"],
     github: "https://github.com/fabriciojunio/jis",
     demo: "https://jis-frontend-mocha.vercel.app",
@@ -150,6 +180,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "Code review automatizado com LLM local",
     what: "Plataforma que analisa Java, Python e JavaScript usando Ollama. Detecta bugs, code smells e violações SOLID. Processamento via RabbitMQ, cache Redis de 24h.",
     role: "Implementei o orquestrador assíncrono (fila RabbitMQ + ticket ID) e o sistema de cache por hash do código enviado.",
+    highlights: [
+      "Processamento assíncrono via fila RabbitMQ com ticket ID por análise",
+      "Cache Redis de 24h por hash SHA-256 do código — zero reprocessamento",
+      "Detecta bugs, code smells e violações SOLID em Java, Python e JS",
+    ],
     stack: ["Java 21", "Spring Boot", "Ollama", "RabbitMQ", "Redis"],
     github: "https://github.com/fabriciojunio/codereview-ai",
     demo: null,
@@ -173,6 +208,11 @@ export const PROJECTS: SiteProject[] = [
     oneLine: "SaaS de gestão de dívidas rurais",
     what: "SaaS para produtor rural. Login sem senha (magic link), alertas WhatsApp e Open Finance. Monorepo Turborepo com NestJS (Clean Arch + CQRS) e Next.js PWA.",
     role: "Modelei o domain do agregado de Dívida (com domain events) e o handler CQRS que dispara notificação WhatsApp no vencimento.",
+    highlights: [
+      "Magic link — login sem senha via email, zero fricção de autenticação",
+      "CQRS com domain events para notificação WhatsApp no vencimento",
+      "Monorepo Turborepo: PWA Next.js 15 + API NestJS com Clean Architecture",
+    ],
     stack: ["Next.js 15", "NestJS", "CQRS", "Turborepo", "PWA"],
     github: "https://github.com/fabriciojunio/paiol-tech",
     demo: "https://paiol-tech.vercel.app",
@@ -194,6 +234,11 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     oneLine: "Gestão de pets em condomínios residenciais",
     what: "Login Google OAuth, cadastro de tutores e pets, mural de comunicados (perdidos/achados) e painel admin com estatísticas.",
     role: "Cuidei do middleware de role-guard (só SÍNDICO/ADMIN entra em /admin) e da modelagem do domínio Tutor/Pet/Aviso.",
+    highlights: [
+      "Role-guard: apenas SÍNDICO e ADMIN acessam o painel /admin",
+      "Login social via Google OAuth com NextAuth.js",
+      "Mural de perdidos/achados com histórico por condomínio",
+    ],
     stack: ["Next.js 15", "React 19", "NextAuth.js", "PostgreSQL", "Supabase"],
     github: "https://github.com/fabriciojunio/MyCondPets",
     demo: "https://mycondpets.vercel.app",
@@ -216,6 +261,11 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     oneLine: "Trading quantitativo com ensemble + FinBERT",
     what: "Ensemble de 3 modelos (Random Forest + XGBoost + Gradient Boosting), análise de sentimento com FinBERT (PyTorch) e gestão de risco via Monte Carlo (10K simulações).",
     role: "Calibrei os pesos do ensemble com walk-forward validation pra evitar data leakage em série temporal.",
+    highlights: [
+      "Walk-forward validation para evitar data leakage em série temporal",
+      "FinBERT (PyTorch) para análise de sentimento financeiro em tempo real",
+      "Monte Carlo com 10k simulações por decisão de alocação",
+    ],
     stack: ["Python", "FastAPI", "PyTorch", "XGBoost", "FinBERT"],
     github: "https://github.com/fabriciojunio/quantbot-ml",
     demo: null,
@@ -235,6 +285,11 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     oneLine: "API REST com Clean Architecture e 2FA TOTP",
     what: "Backend Node.js com Clean Architecture, JWT (RS256) + 2FA TOTP via speakeasy, RBAC (3 roles), blacklist Redis. Frontend React 18 + Vite.",
     role: "Implementei a rotação de refresh-token com blacklist em Redis (cada refresh emite par novo e invalida o anterior).",
+    highlights: [
+      "JWT RS256 + 2FA TOTP via speakeasy — dois fatores de autenticação",
+      "RBAC com 3 roles: USER, MANAGER e ADMIN",
+      "Rotação de refresh-token: cada refresh invalida o anterior via blacklist Redis",
+    ],
     stack: ["Node.js", "Express", "TypeORM", "JWT + 2FA", "Docker"],
     github: "https://github.com/fabriciojunio/enterprise-project",
     demo: "https://frontend-tan-mu-38.vercel.app",

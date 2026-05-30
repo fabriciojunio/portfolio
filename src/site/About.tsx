@@ -29,6 +29,25 @@ export default function About() {
             <Info k="Cidade"   v={SOBRE.cidade} />
             <Info k="Formação" v="Ciência da Computação, UNISAGRADO" />
           </div>
+
+          <div className="pt-6 flex flex-wrap gap-5">
+            <a
+              href={SOBRE.contato.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[12px] text-[#a39c8f] hover:text-[#d4a76a] transition-colors underline underline-offset-4 decoration-[#d4a76a]/30 hover:decoration-[#d4a76a]"
+            >
+              github.com/fabriciojunio →
+            </a>
+            <a
+              href={SOBRE.contato.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[12px] text-[#a39c8f] hover:text-[#d4a76a] transition-colors underline underline-offset-4 decoration-[#d4a76a]/30 hover:decoration-[#d4a76a]"
+            >
+              LinkedIn →
+            </a>
+          </div>
         </div>
       </div>
     </section>
