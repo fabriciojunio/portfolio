@@ -294,7 +294,10 @@ export const STACK_GROUPS = [
 
 export const EMPRESAS = [
   "Nexum Tecnologia",
-  "Lecom BPM",
+  "Java",
+  "Python",
+  "TypeScript",
+  "PHP",
   "UNISAGRADO",
   "Incubadora Saruê",
   "UNESP Bauru",
