@@ -45,7 +45,7 @@ export default function SnippetView({ code, language, filename }: Props) {
     <div className="bg-[#111111] border border-white/10 rounded-lg overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5 bg-black/30">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#e8b450]/70" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#d4a76a]/70" />
           <span className="font-mono text-[11px] text-[#9b958a]">{filename}</span>
         </div>
         <span className="font-mono text-[10px] uppercase tracking-[1.4px] text-[#6f6a60]">

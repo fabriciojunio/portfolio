@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex items-center gap-5">
           <a
             href="/lab"
-            className="text-[#9b958a] hover:text-[#e8b450] transition-colors"
+            className="text-[#9b958a] hover:text-[#d4a76a] transition-colors"
             title="Experimento: o portfólio como IDE no browser"
           >
             /lab · IDE no browser
@@ -18,7 +18,7 @@ export default function Footer() {
             href="https://github.com/fabriciojunio/portfolio"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#9b958a] hover:text-[#e8b450] transition-colors"
+            className="text-[#9b958a] hover:text-[#d4a76a] transition-colors"
           >
             código deste site
           </a>
