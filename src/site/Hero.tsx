@@ -13,7 +13,6 @@ export default function Hero({ onScrollTo }: Props) {
       id="topo"
       className="relative min-h-[100svh] pt-24 md:pt-28 pb-16 overflow-hidden"
     >
-      {/* halo radial sutil no quadrante onde as cartas vivem */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -27,7 +26,13 @@ export default function Hero({ onScrollTo }: Props) {
           <div className="flex items-center gap-3 mb-12">
             <Avatar />
             <div className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#a39c8f] leading-relaxed">
-              <div>{SOBRE.cargo}</div>
+              <div className="flex items-center gap-2.5 flex-wrap">
+                <span>{SOBRE.cargo}</span>
+                <span className="flex items-center gap-1.5 normal-case tracking-normal text-[#4ade80] text-[10px]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse shrink-0" />
+                  disponível
+                </span>
+              </div>
               <div className="text-[#7a7468] mt-1">
                 {SOBRE.empresa} · {SOBRE.cidade}
               </div>
@@ -66,6 +71,14 @@ export default function Hero({ onScrollTo }: Props) {
               Conversar
             </button>
           </div>
+
+          <div className="mt-10 pt-8 border-t border-white/[0.06] flex items-center gap-6 md:gap-10 flex-wrap">
+            <StatItem n="11" label="projetos" />
+            <div className="w-px h-5 bg-white/10 shrink-0" />
+            <StatItem n="7" label="com demo ao vivo" />
+            <div className="w-px h-5 bg-white/10 shrink-0" />
+            <StatItem n="4" label="linguagens" />
+          </div>
         </div>
 
         <div className="relative lg:h-[660px] h-[460px]">
@@ -84,6 +97,15 @@ function Avatar() {
   return (
     <div className="w-11 h-11 rounded-full bg-[#161616] border border-white/10 flex items-center justify-center overflow-hidden">
       <span className="font-serif text-[#d4a76a] text-[18px] leading-none">fj</span>
+    </div>
+  );
+}
+
+function StatItem({ n, label }: { n: string; label: string }) {
+  return (
+    <div className="flex items-baseline gap-1.5">
+      <span className="font-serif text-[24px] text-[#f5f1e8] leading-none">{n}</span>
+      <span className="font-mono text-[10px] uppercase tracking-[1.2px] text-[#6f6a60]">{label}</span>
     </div>
   );
 }
