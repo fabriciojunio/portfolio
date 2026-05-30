@@ -306,7 +306,7 @@ export const SOBRE = {
   cidade: "Bauru, SP",
   bio: "Desenvolvedor FullStack. Entrego sistemas que rodam de verdade, com foco em qualidade, segurança e código que se mantém ao longo do tempo.",
   longBio: [
-    "Tenho 21 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
+    "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "Na Nexum trabalho com Lecom BPM, robôs em Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e atuo em projetos bancários de abertura de conta digital.",
     "Nos pessoais, fui do ML aplicado a futebol (GolData, Expected Goals) até CRM em Laravel (KoraCRM), passando por app offline-first para Agentes Comunitários do SUS (ConectAgente).",
   ],
