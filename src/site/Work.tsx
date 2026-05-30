@@ -11,11 +11,11 @@ export default function Work() {
             02 / trabalho
           </p>
           <h2 className="mt-4 font-serif text-[42px] md:text-[54px] leading-[1.02] text-[#f5f1e8]">
-            14 projetos. 4 em <em className="text-[#e8b450] not-italic">producao</em>.
+            14 projetos. 4 em <em className="text-[#e8b450] not-italic">produção</em>.
           </h2>
         </div>
         <p className="font-sans text-[15.5px] md:text-[17px] leading-[1.7] text-[#cfc8b9] max-w-[640px] self-end">
-          Cada projeto abaixo tem codigo aberto no GitHub. Clique pra abrir e ler o snippet que considero mais representativo do que construi.
+          Cada projeto abaixo tem código aberto no GitHub. Clique pra abrir e ler o snippet que considero mais representativo do que construí.
         </p>
       </div>
 
@@ -68,7 +68,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         <div className="pb-8 md:pb-10 pl-12 md:pl-20 pr-2 md:pr-12 grid md:grid-cols-[1fr_1.4fr] gap-6 md:gap-10">
           <div className="space-y-5">
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.5px] text-[#6f6a60]">o que e</div>
+              <div className="font-mono text-[10px] uppercase tracking-[1.5px] text-[#6f6a60]">o que é</div>
               <p className="mt-2 text-[14px] text-[#cfc8b9] leading-relaxed">
                 {project.what}
               </p>
@@ -96,7 +96,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                 rel="noopener noreferrer"
                 className="text-[12.5px] text-[#f5f1e8] underline-offset-4 underline decoration-[#e8b450]/50 hover:decoration-[#e8b450]"
               >
-                codigo no GitHub →
+                código no GitHub →
               </a>
               {project.demo && (
                 <a

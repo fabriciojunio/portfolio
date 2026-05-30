@@ -20,7 +20,7 @@ export default function Contact() {
       </h2>
 
       <p className="mt-8 max-w-[520px] text-[15.5px] md:text-[17px] text-[#cfc8b9] leading-relaxed">
-        Procuro oportunidade FullStack (CLT ou PJ). Topo conversar sobre projeto pontual, freelance tecnico ou contratacao. Respondo em ate 24h uteis.
+        Procuro oportunidade FullStack (CLT ou PJ). Topo conversar sobre projeto pontual, freelance técnico ou contratação. Respondo em até 24h úteis.
       </p>
 
       <ul className="mt-12 border-t border-white/10 max-w-[640px]">
