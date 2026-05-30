@@ -5,21 +5,38 @@ interface Props {
 }
 
 const ITEMS = [
-  { id: "sobre",     label: "Sobre" },
-  { id: "trabalho",  label: "Trabalho" },
-  { id: "stack",     label: "Stack" },
-  { id: "contato",   label: "Contato" },
+  { id: "sobre",    label: "Sobre" },
+  { id: "trabalho", label: "Trabalho" },
+  { id: "stack",    label: "Stack" },
+  { id: "contato",  label: "Contato" },
 ];
 
 export default function Nav({ onNavigate }: Props) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-30% 0px -65% 0px" },
+    );
+    ITEMS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
   }, []);
 
   const go = (id: string) => {
@@ -43,13 +60,17 @@ export default function Nav({ onNavigate }: Props) {
           fj.
         </button>
 
-        <nav className="hidden md:flex items-center gap-8 text-[12.5px] text-[#9b958a] font-sans">
+        <nav className="hidden md:flex items-center gap-8 text-[12.5px] font-sans">
           {ITEMS.map((it) => (
             <button
               key={it.id}
               type="button"
               onClick={() => go(it.id)}
-              className="hover:text-[#f5f1e8] transition-colors"
+              className={`transition-colors duration-200 ${
+                active === it.id
+                  ? "text-[#d4a76a]"
+                  : "text-[#9b958a] hover:text-[#f5f1e8]"
+              }`}
             >
               {it.label}
             </button>
