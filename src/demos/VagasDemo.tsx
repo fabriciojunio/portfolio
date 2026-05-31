@@ -67,7 +67,7 @@ export default function VagasDemo() {
   return (
     <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
       <p className="text-[11.5px] text-[#9ea2ab]">
-        motor de score do JIS — pesos: remoto 30% · stack match 25% · senioridade 20% · salário 15% · tier 10%.
+        motor de score do JIS (pesos: remoto 30% · stack match 25% · senioridade 20% · salário 15% · tier 10%).
       </p>
 
       <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
