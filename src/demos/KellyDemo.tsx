@@ -52,7 +52,7 @@ export default function KellyDemo() {
   return (
     <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
       <p className="text-[11.5px] text-[#9ea2ab]">
-        critério de Kelly fracionário (1/4) — quanto da banca apostar dado uma probabilidade e
+        critério de Kelly fracionário (1/4): quanto da banca apostar dado uma probabilidade e
         uma odd. Edge ≤ 0 = não aposta.
       </p>
 

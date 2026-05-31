@@ -10,13 +10,13 @@ export const projectFiles: VFile[] = [
     language: "python",
     runnable: "kelly",
     meta: {
-      project: "GolData — Robô de Sinais",
+      project: "GolData Pro: Robô de Sinais",
       github: "https://github.com/fabriciojunio/bot-sinais",
       demo: null,
       stack: ["FastAPI", "scikit-learn", "PostgreSQL", "Redis", "Docker"],
       role: "Plataforma de value bets com ML ensemble (Dixon-Coles + Elo) e auditoria por hash SHA-256.",
     },
-    content: `# GolData — motor de value bets
+    content: `# GolData Pro: motor de value bets
 # Combina Dixon-Coles (probabilidade) + Elo (força)
 # e aplica Kelly fracionário (1/4) sobre o edge.
 
@@ -30,7 +30,7 @@ class Pick:
     market: str            # "1", "X", "2", "Over_2.5", ...
     odds: float            # odd decimal da casa
     prob: float            # probabilidade do modelo (0..1)
-    confidence: float      # 0..1 — concordância DC vs Elo
+    confidence: float      # 0..1 (concordância DC vs Elo)
 
     @property
     def edge(self) -> float:
@@ -71,7 +71,7 @@ print(f"value? = {is_value_pick(p)}")
       stack: ["Python", "FastAPI", "XGBoost", "NetworkX", "Plotly"],
       role: "Analytics de futebol com xG, xA, PPDA e análise de rede de passes.",
     },
-    content: `# GolData — modelo de Expected Goals (xG)
+    content: `# GolData: modelo de Expected Goals (xG)
 # Versão didática do modelo treinado em XGBoost.
 # Features: distância e ângulo do gol, situação de jogo.
 
@@ -114,13 +114,13 @@ for (x, y, tag) in [(94, 34, "pênalti"),
     language: "java",
     runnable: "vagas-score",
     meta: {
-      project: "JIS — Sistema de Vagas IA",
+      project: "JIS: Sistema de Vagas IA",
       github: "https://github.com/fabriciojunio/jis",
       demo: "https://jis-frontend-mocha.vercel.app",
       stack: ["Java 21", "Spring Boot", "Python", "FastAPI", "scikit-learn"],
       role: "Coleta vagas (Gupy, GeekHunter, Programathor), aplica score híbrido (regras + RandomForest) e envia top-5 às 19h via Telegram.",
     },
-    content: `// JIS — motor de score híbrido
+    content: `// JIS: motor de score híbrido
 // Regras com pesos + chamada ao serviço Python (RandomForest)
 
 package com.fabricio.jis.scoring;
@@ -185,7 +185,7 @@ public final class JobScorer {
       stack: ["Java 21", "Spring Boot", "Ollama", "RabbitMQ", "Redis"],
       role: "Plataforma de code review automatizado com LLM local (Ollama), processamento via RabbitMQ e cache Redis de 24h.",
     },
-    content: `// CodeReview AI — orquestrador assíncrono de revisão
+    content: `// CodeReview AI: orquestrador assíncrono de revisão
 // Envia código pra fila RabbitMQ; consumer chama Ollama.
 
 package com.fabricio.codereview.review;
@@ -245,7 +245,7 @@ public class ReviewService {
       stack: ["React Native", "Expo SDK 54", "SQLite", "Supabase", "Zod"],
       role: "App mobile offline-first para Agentes Comunitários de Saúde do SUS. SQLite com WAL+FTS, sync automático ao reconectar.",
     },
-    content: `// ConectAgente — sincronização offline-first
+    content: `// ConectAgente: sincronização offline-first
 // SQLite local (WAL + FTS) → Supabase, ao reconectar.
 
 import * as SQLite from "expo-sqlite";
@@ -311,7 +311,7 @@ export class SyncEngine {
   {
     path: "/projetos/koracrm.php",
     name: "koracrm.php",
-    language: "plaintext",
+    language: "php",
     meta: {
       project: "KoraCRM",
       github: "https://github.com/fabriciojunio/KoraCRM",
@@ -320,7 +320,7 @@ export class SyncEngine {
       role: "CRM com pipeline Kanban, gestão de contatos, dashboard analítico e API Laravel com Sanctum + Swagger.",
     },
     content: `<?php
-// KoraCRM — service de movimentação do pipeline (Kanban)
+// KoraCRM: service de movimentação do pipeline (Kanban)
 // Move um deal entre estágios com auditoria e cálculo de
 // taxa de conversão por estágio.
 
@@ -390,7 +390,7 @@ class PipelineService
       stack: ["Next.js 14", "Prisma", "PostgreSQL", "Zod", "Ollama"],
       role: "Registro de horas por cooperativa com export Excel (4 abas) e detecção de tipo de trabalho via LLM local (Ollama).",
     },
-    content: `// Apontamento de Horas — validação Zod no boundary da API.
+    content: `// Apontamento de Horas: validação Zod no boundary da API.
 // Tudo que chega na route handler passa por aqui antes
 // de tocar o domínio.
 
@@ -444,7 +444,7 @@ function toMinutes(hhmm: string): number {
       stack: ["Next.js 15", "React 19", "NextAuth.js", "PostgreSQL", "Supabase"],
       role: "Gestão de pets em condomínios. Login Google OAuth, cadastro de tutores e pets, mural de comunicados, painel admin.",
     },
-    content: `// MyCondPets — guarda de role no App Router (Next.js 15)
+    content: `// MyCondPets: guarda de role no App Router (Next.js 15)
 // Garante que apenas SÍNDICO acessa o painel admin.
 
 import { NextResponse, type NextRequest } from "next/server";
@@ -487,7 +487,7 @@ export const config = { matcher: ["/admin/:path*"] };
       stack: ["Next.js 15", "NestJS", "CQRS", "Turborepo", "PWA"],
       role: "SaaS de gestão de dívidas rurais. Magic link, alertas WhatsApp, Open Finance, monorepo Turborepo, NestJS com CQRS.",
     },
-    content: `// Paiol Tech — handler CQRS para vencimento de dívida
+    content: `// Paiol Tech: handler CQRS para vencimento de dívida
 // Aplica DDD: o aggregate emite domain events que os
 // handlers reagem (notificação WhatsApp, log de auditoria).
 
@@ -536,7 +536,7 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
       stack: ["Python", "FastAPI", "PyTorch", "XGBoost", "FinBERT"],
       role: "Trading quantitativo com ensemble de 3 modelos (RF + XGBoost + GB), FinBERT para sentimento e Monte Carlo (10K simulações) para risco.",
     },
-    content: `# Quantbot ML — ensemble com voting ponderado
+    content: `# Quantbot ML: ensemble com voting ponderado
 # Combina Random Forest, XGBoost e Gradient Boosting.
 # Pesos calibrados em walk-forward com TimeSeriesSplit.
 
@@ -582,7 +582,7 @@ def walk_forward_auc(model, X, y, n_splits: int = 5) -> float:
       stack: ["Node.js", "Express", "TypeORM", "JWT + 2FA", "Docker"],
       role: "API REST enterprise com Clean Architecture, JWT + 2FA TOTP, RBAC (3 roles) e 23 testes (unit + integração).",
     },
-    content: `// Enterprise — refresh-token rotation com blacklist em Redis
+    content: `// Enterprise: refresh-token rotation com blacklist em Redis
 // Cada refresh emite par novo e invalida o anterior.
 
 import { randomBytes } from "node:crypto";
@@ -637,7 +637,7 @@ export class TokenService {
       stack: ["React Native", "Expo SDK 50", "AsyncStorage", "GitHub Actions"],
       role: "App de exercícios cognitivos para prevenção do Alzheimer. 7 mini-jogos com timer, scoring e streaks. APK gerado via GitHub Actions.",
     },
-    content: `// Mente Viva — engine puro do jogo (sem React, testável)
+    content: `// Mente Viva: engine puro do jogo (sem React, testável)
 // A camada de UI só lê o snapshot e despacha actions.
 
 export type Cell = { letter: string; row: number; col: number };
@@ -702,7 +702,7 @@ const reverse = (s: string) => s.split("").reverse().join("");
       stack: ["Next.js 14", "TypeScript", "Zustand", "pnpm workspaces"],
       role: "Plataforma educativa com 6 jogos para crianças de 3 a 14 anos. Adaptação automática por faixa etária, filosofia não punitiva.",
     },
-    content: `// Mundo do Lukinha — adaptação de dificuldade por faixa
+    content: `// Mundo do Lukinha: adaptação de dificuldade por faixa
 // Define questões e tempos com base na idade da criança.
 
 export type Faixa = "pintinho" | "explorador" | "aventureiro" | "mestre";

@@ -3,6 +3,7 @@ export type Language =
   | "javascript"
   | "python"
   | "java"
+  | "php"
   | "json"
   | "markdown"
   | "yaml"
