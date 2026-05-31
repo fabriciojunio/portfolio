@@ -3,7 +3,7 @@
 > Esse portfolio é, ele mesmo, um projeto.
 
 Em vez de um site rolável com cards, montei um IDE de verdade no
-browser. Navega-se pelos projetos como se navega pelo workspace —
+browser. Navega-se pelos projetos como se navega pelo workspace:
 abrindo arquivos, lendo o código real e, em alguns, executando
 trechos para ver o resultado.
 
@@ -16,20 +16,20 @@ trechos para ver o resultado.
 
 ## Demos interativas
 
-- **GolData (xG)** — calculador de Expected Goals reagindo ao
+- **GolData (xG)**: calculador de Expected Goals reagindo ao
   cursor sobre o campo.
-- **GolData Pro (Kelly)** — simulador de Kelly fracionário com
+- **GolData Pro (Kelly)**: simulador de Kelly fracionário com
   500 apostas Monte Carlo.
-- **Apontamento (Zod)** — validador real do schema do projeto,
+- **Apontamento (Zod)**: validador real do schema do projeto,
   editável ao vivo.
-- **JIS (vagas)** — motor de score híbrido com pesos por feature.
+- **JIS (vagas)**: motor de score híbrido com pesos por feature.
 
 ## Atalhos
 
-- `Ctrl/⌘ + K` — paleta de comandos
-- `Ctrl/⌘ + P` — abrir arquivo rápido
-- `` Ctrl/⌘ + ` `` — abrir/fechar terminal
-- `Ctrl/⌘ + B` — alternar barra lateral
+- `Ctrl/⌘ + K`: paleta de comandos
+- `Ctrl/⌘ + P`: abrir arquivo rápido
+- `` Ctrl/⌘ + ` ``: abrir/fechar terminal
+- `Ctrl/⌘ + B`: alternar barra lateral
 
 ## Comandos do terminal
 
