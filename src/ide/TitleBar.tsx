@@ -5,8 +5,8 @@ export default function TitleBar() {
   const { activePath, setPalette } = useIDE();
   const f = activePath ? filesByPath.get(activePath) : null;
   const title = f
-    ? `${f.path} — fabricio-junio`
-    : "fabricio-junio — portfolio";
+    ? `${f.path} · fabricio-junio`
+    : "fabricio-junio / portfolio";
 
   return (
     <header className="h-8 bg-[#0a0b0e] border-b border-[#1f222a] flex items-center select-none font-mono text-[11.5px] text-[#9ea2ab]">

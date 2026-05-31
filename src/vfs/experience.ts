@@ -5,11 +5,11 @@ export const experienceYaml: VFile = {
   name: "experiencia.yaml",
   language: "yaml",
   content: `# Histórico profissional
-# Nexum Tecnologia — Bauru, SP
+# Nexum Tecnologia, Bauru/SP
 
 - cargo: Analista de Sistemas Júnior
   empresa: Nexum Tecnologia
-  periodo: 2026 — presente
+  periodo: 2026 - presente
   stack:    [Java, JavaScript, MySQL, REST, Git, Lecom BPM]
   entreguei:
     - integração com API IBGE no Lecom (cadastro -80% tempo)
@@ -19,7 +19,7 @@ export const experienceYaml: VFile = {
 
 - cargo: Estagiário de Desenvolvimento
   empresa: Nexum Tecnologia
-  periodo: 2025 — 2026
+  periodo: 2025 - 2026
   stack:    [Java, JavaScript, MySQL, Git, Lecom BPM]
   entreguei:
     - modelagem de processos e automações no Lecom BPM
