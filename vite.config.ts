@@ -13,8 +13,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes("monaco-editor")) return "vendor-monaco";
-          if (id.includes("@monaco-editor")) return "vendor-monaco";
           if (id.includes("react-dom")) return "vendor-react";
           if (id.includes("node_modules/react/")) return "vendor-react";
         },
