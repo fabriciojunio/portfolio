@@ -159,7 +159,7 @@ export default function CommandPalette() {
                   <span className="truncate">{cmd.label}</span>
                   {cmd.hint && (
                     <span className="text-[#6c7079] text-[11px] ml-1 truncate">
-                      — {cmd.hint}
+                      · {cmd.hint}
                     </span>
                   )}
                 </span>

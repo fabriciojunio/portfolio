@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const STEPS = [
-  { delay: 0,    text: "fabricio-shell v1.0 — copyright (c) 2026 Fabrício Júnio",       tone: "dim" },
+  { delay: 0,    text: "fabricio-shell v1.0  copyright (c) 2026 Fabrício Júnio",        tone: "dim" },
   { delay: 220,  text: "▸ verificando ambiente...",                                       tone: "muted" },
   { delay: 360,  text: "  node v25.5.0  pnpm 11.8.0  typescript 5.6.3",                   tone: "good" },
   { delay: 520,  text: "▸ inicializando workspace fabricio-junio/portfolio",              tone: "muted" },
@@ -11,7 +11,7 @@ const STEPS = [
   { delay: 1180, text: "▸ subindo Monaco Editor",                                         tone: "muted" },
   { delay: 1340, text: "  tema 'fabricio-dark' aplicado",                                 tone: "dim" },
   { delay: 1500, text: "▸ headers de segurança: CSP, HSTS, X-Frame-Options DENY",         tone: "good" },
-  { delay: 1700, text: "▸ pronto em 247ms — bem-vindo",                                   tone: "accent" },
+  { delay: 1700, text: "▸ pronto em 247ms · bem-vindo",                                    tone: "accent" },
 ];
 
 const TONE = {

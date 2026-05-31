@@ -8,11 +8,11 @@ export const aboutMd: VFile = {
 
 > Desenvolvedor FullStack na Nexum Tecnologia. Bauru, SP.
 
-Tenho 21 anos, curso Ciência da Computação na UNISAGRADO
+Tenho 20 anos, curso Ciência da Computação na UNISAGRADO
 e participo da Incubadora Saruê (UNESP Bauru).
 
 Escrevo software porque gosto de ver coisa funcionando
-de verdade — não slide, não protótipo, **produção**.
+de verdade: não slide, não protótipo, **produção**.
 
 ## O que faço hoje
 
@@ -21,7 +21,7 @@ integrações via API REST. Implementei a integração com
 a API do IBGE que cortou o tempo de cadastro em 80%.
 Entreguei o projeto Abertura de Conta V13 pra Credimogiana.
 
-Fora do trabalho, mantenho 14 projetos — do **ML aplicado
+Fora do trabalho, mantenho 14 projetos. Do **ML aplicado
 a futebol** (GolData, com Expected Goals e Dixon-Coles)
 ao **CRM completo em Laravel** (KoraCRM), passando por
 **app offline-first pra Agentes de Saúde do SUS**
@@ -38,9 +38,9 @@ ao **CRM completo em Laravel** (KoraCRM), passando por
 
 ## O que estou estudando
 
-\`Quantbot ML\` — trading quantitativo com PyTorch e FinBERT.
-\`Paiol Tech\` — SaaS pra produtor rural com Open Finance.
-\`GolData Pro\` — bot de sinais com auditoria por SHA-256.
+\`Quantbot ML\`: trading quantitativo com PyTorch e FinBERT.
+\`Paiol Tech\`: SaaS pra produtor rural com Open Finance.
+\`GolData Pro\`: bot de sinais com auditoria por SHA-256.
 
 ---
 

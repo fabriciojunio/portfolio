@@ -17,7 +17,7 @@ export default function ProjectMeta({ file }: Props) {
         <span className="text-[#e6e3dc] text-[13px]">{m.project}</span>
         {m.role && (
           <span className="text-[#9ea2ab] text-[12px] leading-snug">
-            — {m.role}
+            · {m.role}
           </span>
         )}
       </div>
@@ -58,7 +58,7 @@ export default function ProjectMeta({ file }: Props) {
         )}
         {file.runnable && (
           <span className="text-[#7cb37b]">
-            ▸ tem demo interativa — clique em <strong>Run</strong> no canto.
+            ▸ tem demo interativa: clique em <strong>Run</strong> no canto.
           </span>
         )}
       </div>

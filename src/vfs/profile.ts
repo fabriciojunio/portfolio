@@ -6,17 +6,17 @@ export const profileJson: VFile = {
   language: "json",
   content: `{
   "nome": "Fabrício Júnio Alves Dias",
-  "idade": 21,
+  "idade": 20,
   "cidade": "Bauru, SP",
   "trabalho": {
     "empresa": "Nexum Tecnologia",
     "cargo": "Analista de Sistemas Júnior",
     "desde": "2026",
-    "antes": "Estagiário de Desenvolvimento (2025–2026)"
+    "antes": "Estagiário de Desenvolvimento (2025-2026)"
   },
   "formacao": {
-    "graduacao": "Ciência da Computação — UNISAGRADO",
-    "incubadora": "Saruê — UNESP Bauru"
+    "graduacao": "Ciência da Computação, UNISAGRADO",
+    "incubadora": "Saruê, UNESP Bauru"
   },
   "linguagens": ["Português", "Inglês (técnico)"],
   "stack_principal": {
@@ -35,7 +35,7 @@ export const profileJson: VFile = {
   "trabalho_remoto": true,
   "aberto_a": ["CLT", "PJ", "freelancer técnico"],
   "contato": {
-    "email": "fabriciojadias@gmail.com",
+    "email": "junioad555@gmail.com",
     "github": "https://github.com/fabriciojunio",
     "linkedin": "https://linkedin.com/in/fabríciojúnio"
   }

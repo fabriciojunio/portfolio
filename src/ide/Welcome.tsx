@@ -56,7 +56,7 @@ export default function Welcome() {
           <p className="mt-2 text-[13px] text-[#9ea2ab] leading-relaxed">
             Em vez de um site rolável com cards, montei um IDE de verdade no
             browser. Você navega pelos meus projetos como navegaria pelo meu
-            workspace — abrindo arquivos, lendo o código e, em alguns,
+            workspace: abrindo arquivos, lendo o código e, em alguns,
             executando trechos para ver o resultado.
           </p>
         </div>

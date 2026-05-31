@@ -4,17 +4,17 @@ export const contactTs: VFile = {
   path: "/contato.ts",
   name: "contato.ts",
   language: "typescript",
-  content: `// Contato — me chame pelo canal que preferir.
+  content: `// Contato: me chame pelo canal que preferir.
 
 export const contato = {
-  email:    "fabriciojadias@gmail.com",
+  email:    "junioad555@gmail.com",
   github:   "https://github.com/fabriciojunio",
   linkedin: "https://linkedin.com/in/fabríciojúnio",
-  cidade:   "Bauru — SP, Brasil",
+  cidade:   "Bauru, SP - Brasil",
 } as const;
 
 // Para uma proposta:
-// - assunto claro (ex.: "Vaga FullStack Pleno — Empresa X")
+// - assunto claro (ex.: "Vaga FullStack Pleno, Empresa X")
 // - escopo, prazo e modelo (CLT / PJ / freelancer técnico)
 // - eu respondo em 24h úteis.
 
@@ -32,15 +32,15 @@ export const readmeFile: VFile = {
 
 Em vez de um site rolável com cards, montei um **IDE de verdade
 no browser**. Você navega pelos meus projetos como navegaria pelo
-meu workspace — abrindo arquivos, lendo código e, em alguns
+meu workspace: abrindo arquivos, lendo código e, em alguns
 casos, **executando** trechos para ver o que eles fazem.
 
 ## Como navegar
 
 - Sidebar à esquerda: estrutura completa.
-- \`Ctrl/Cmd + K\` — paleta de comandos.
-- \`Ctrl/Cmd + P\` — abrir arquivo rapidamente.
-- \`Ctrl/Cmd + \`\` — abrir/fechar terminal.
+- \`Ctrl/Cmd + K\` abre a paleta de comandos.
+- \`Ctrl/Cmd + P\` abre arquivo rapidamente.
+- \`Ctrl/Cmd + \`\` abre/fecha o terminal.
 - Botão **Run** aparece nos arquivos com demo interativa
   (\`goldata.py\`, \`goldata-pro.py\`, \`jis.java\`,
   \`apontamento-horas.ts\`).

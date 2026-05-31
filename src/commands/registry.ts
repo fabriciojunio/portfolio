@@ -61,12 +61,12 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
     case "whoami":
       return {
         lines: [
-          "Fabrício Júnio Alves Dias — 21 anos, Bauru/SP",
+          "Fabrício Júnio Alves Dias, 20 anos, Bauru/SP",
           "Analista de Sistemas Júnior na Nexum Tecnologia",
           "Ciência da Computação na UNISAGRADO",
           "  github:   github.com/fabriciojunio",
           "  linkedin: linkedin.com/in/fabríciojúnio",
-          "  e-mail:   fabriciojadias@gmail.com",
+          "  e-mail:   junioad555@gmail.com",
         ],
       };
 
@@ -145,10 +145,10 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
     case "contact":
       return {
         lines: [
-          "  e-mail:   fabriciojadias@gmail.com",
+          "  e-mail:   junioad555@gmail.com",
           "  github:   github.com/fabriciojunio",
           "  linkedin: linkedin.com/in/fabríciojúnio",
-          "  cidade:   Bauru — SP, Brasil",
+          "  cidade:   Bauru, SP",
         ],
       };
 

@@ -5,9 +5,11 @@ export default defineConfig({
   plugins: [react()],
   esbuild: {
     drop: ["console", "debugger"],
+    target: "es2022",
   },
   build: {
     sourcemap: false,
+    target: "es2022",
     rollupOptions: {
       output: {
         manualChunks(id) {

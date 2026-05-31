@@ -87,7 +87,7 @@ export default function ZodDemo() {
   return (
     <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
       <p className="text-[11.5px] text-[#9ea2ab]">
-        validação real do schema do Apontamento de Horas — edite e veja o resultado mudar.
+        validação real do schema do Apontamento de Horas: edite e veja o resultado mudar.
       </p>
 
       <div className="grid md:grid-cols-2 gap-3">

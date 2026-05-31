@@ -32,7 +32,9 @@ export const PROJECTS: SiteProject[] = [
     demo: null,
     year: "2026",
     snippetLang: "python",
-    snippet: `def xg(x, y, header=False):
+    snippet: `from math import exp
+
+def xg(x, y, header=False):
     f = shot_features(x, y)
     z = (3.10
          - 0.140 * f["distance"]
@@ -47,7 +49,7 @@ export const PROJECTS: SiteProject[] = [
     what: "Motor Dixon-Coles + Elo (60/40) que detecta value bets com edge > 4%. Calcula stake via Kelly fracionário (1/4) e publica picks no Telegram. Site público exibe histórico auditável por hash.",
     role: "Cuidei do motor de detecção (ValueBetDetector + Kelly), do feedback loop que ajusta MIN_EDGE por ROI acumulado, e do hash de auditoria pública.",
     highlights: [
-      "Edge mínimo de 4% — filtra ruído estatístico antes de publicar",
+      "Edge mínimo de 4%: filtra ruído estatístico antes de publicar",
       "Kelly fracionário 1/4 para gestão de risco por stake",
       "Auditoria pública: cada pick assinado com SHA-256",
     ],
@@ -70,7 +72,7 @@ export const PROJECTS: SiteProject[] = [
     what: "Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza com Supabase ao reconectar. 5 módulos clínicos por morador, metas mensais, audit log LGPD.",
     role: "Arquitetei o engine de sync (outbox pattern com retries e conflict resolution) e o esquema do SQLite com índices FTS pra busca offline.",
     highlights: [
-      "Outbox pattern com retry e conflict resolution — sync funciona até sem sinal",
+      "Outbox pattern com retry e conflict resolution: sync funciona até sem sinal",
       "SQLite WAL + FTS para busca offline sem nenhuma chamada de rede",
     ],
     stack: ["React Native", "Expo SDK 54", "SQLite", "Supabase", "Zod"],
@@ -91,11 +93,11 @@ export const PROJECTS: SiteProject[] = [
   {
     slug: "koracrm",
     name: "KoraCRM",
-    oneLine: "CRM com pipeline Kanban e dashboard analítico",
+    oneLine: "Pipeline Kanban em Laravel + React com auditoria por estágio",
     what: "CRM completo com pipeline de vendas Kanban (drag-and-drop), gestão de contatos, histórico de interações e analytics de conversão. Backend Laravel 11 com Sanctum + Swagger.",
     role: "Implementei o service de movimentação do pipeline com auditoria de mudanças e a query de conversão por estágio.",
     highlights: [
-      "Drag-and-drop Kanban com posição persistida — sem dessync entre cliente e banco",
+      "Drag-and-drop Kanban com posição persistida, sem dessync entre cliente e banco",
       "Auditoria automática: cada movimentação entre estágios fica registrada",
     ],
     stack: ["Laravel 11", "React 18", "Sanctum", "PostgreSQL", "Redis", "AWS S3"],
@@ -178,7 +180,7 @@ export const PROJECTS: SiteProject[] = [
     role: "Implementei o orquestrador assíncrono (fila RabbitMQ + ticket ID) e o sistema de cache por hash do código enviado.",
     highlights: [
       "Processamento assíncrono via fila RabbitMQ com ticket ID por análise",
-      "Cache Redis de 24h por hash SHA-256 do código — zero reprocessamento",
+      "Cache Redis de 24h por hash SHA-256 do código, zero reprocessamento",
       "Detecta bugs, code smells e violações SOLID em Java, Python e JS",
     ],
     stack: ["Java 21", "Spring Boot", "Ollama", "RabbitMQ", "Redis"],
@@ -231,7 +233,7 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     role: "Cuidei do middleware de role-guard (só SÍNDICO/ADMIN entra em /admin) e da modelagem do domínio Tutor/Pet/Aviso.",
     highlights: [
       "Middleware bloqueia /admin para qualquer role que não seja SÍNDICO ou ADMIN",
-      "Login Google OAuth — sem cadastro manual, sem senha pra gerenciar",
+      "Login Google OAuth: sem cadastro manual, sem senha pra gerenciar",
     ],
     stack: ["Next.js 15", "React 19", "NextAuth.js", "PostgreSQL", "Supabase"],
     github: "https://github.com/fabriciojunio/MyCondPets",
@@ -257,7 +259,7 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     role: "Calibrei os pesos do ensemble com walk-forward validation pra evitar data leakage em série temporal.",
     highlights: [
       "Walk-forward validation: cada fold treina só com dados anteriores ao teste",
-      "FinBERT lê sentimento de notícias financeiras — sinal extra além do preço",
+      "FinBERT lê sentimento de notícias financeiras, sinal extra além do preço",
       "Monte Carlo (10k simulações) quantifica o risco antes de alocar",
     ],
     stack: ["Python", "FastAPI", "PyTorch", "XGBoost", "FinBERT"],
@@ -276,12 +278,12 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
   {
     slug: "enterprise-project",
     name: "Enterprise Project",
-    oneLine: "API REST com Clean Architecture e 2FA TOTP",
+    oneLine: "JWT RS256 + refresh rotation com blacklist + 2FA TOTP em Node.js",
     what: "Backend Node.js com Clean Architecture, JWT (RS256) + 2FA TOTP via speakeasy, RBAC (3 roles), blacklist Redis. Frontend React 18 + Vite.",
     role: "Implementei a rotação de refresh-token com blacklist em Redis (cada refresh emite par novo e invalida o anterior).",
     highlights: [
       "JWT RS256 assimétrico + 2FA TOTP: chave privada nunca sai do servidor",
-      "Rotação de refresh-token: cada emissão invalida o anterior — sem replay attack",
+      "Rotação de refresh-token: cada emissão invalida o anterior, sem replay attack",
     ],
     stack: ["Node.js", "Express", "TypeORM", "JWT + 2FA", "Docker"],
     github: "https://github.com/fabriciojunio/enterprise-project",
@@ -304,7 +306,7 @@ export const SOBRE = {
   cargo: "Analista de Sistemas Júnior",
   empresa: "Nexum Tecnologia",
   cidade: "Bauru, SP",
-  bio: "Desenvolvedor FullStack. Entrego sistemas que rodam de verdade, com foco em qualidade, segurança e código que se mantém ao longo do tempo.",
+  bio: "Desenvolvedor FullStack. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
   longBio: [
     "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "Na Nexum trabalho com Lecom BPM, robôs em Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e atuo em projetos bancários de abertura de conta digital.",

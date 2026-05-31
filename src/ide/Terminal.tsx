@@ -7,7 +7,7 @@ const BANNER: TerminalEntry[] = [
   {
     id: 1,
     kind: "system",
-    text: "fabricio-shell v1.0 — digite 'ajuda' para começar.",
+    text: "fabricio-shell v1.0  digite 'ajuda' para começar.",
   },
   {
     id: 2,
