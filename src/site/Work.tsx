@@ -55,9 +55,9 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 flex-wrap">
-            <h3 className="font-serif text-[24px] md:text-[30px] text-[#f5f1e8] leading-[1.15]">
+            <span className="font-serif text-[24px] md:text-[30px] text-[#f5f1e8] leading-[1.15]">
               {project.name}
-            </h3>
+            </span>
             {project.demo && (
               <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#4ade80] border border-[#4ade80]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
                 demo
