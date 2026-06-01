@@ -384,11 +384,11 @@ class PipelineService
     language: "typescript",
     runnable: "zod",
     meta: {
-      project: "Apontamento de Horas",
+      project: "Pontual - Apontamento de Horas",
       github: "https://github.com/fabriciojunio/apontamento-horas",
       demo: "https://apontamento-horas.vercel.app",
-      stack: ["Next.js 14", "Prisma", "PostgreSQL", "Zod", "Ollama"],
-      role: "Registro de horas por cooperativa com export Excel (4 abas) e detecção de tipo de trabalho via LLM local (Ollama).",
+      stack: ["Next.js 14", "Prisma", "PostgreSQL", "JWT", "Tailwind"],
+      role: "Plataforma multiusuário de apontamento de horas com RBAC, SLA automático, dashboards de controle, auditoria e relatórios Excel.",
     },
     content: `// Apontamento de Horas: validação Zod no boundary da API.
 // Tudo que chega na route handler passa por aqui antes
