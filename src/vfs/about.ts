@@ -37,7 +37,7 @@ com Open Finance), passando por full-stack em **React**.
 
 ## O que estou estudando
 
-\`Quantbot ML\`: renda passiva com dividendos (método Barsi/Bazin).
+\`Quantbot ML\`: renda passiva com dividendos (Barsi/Bazin) + FinBERT-PT-BR.
 \`Paiol Tech\`: SaaS pra produtor rural com Open Finance.
 \`GolData Pro\`: bot de sinais com auditoria por SHA-256.
 
