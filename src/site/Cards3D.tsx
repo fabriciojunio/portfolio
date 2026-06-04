@@ -4,15 +4,17 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
-// Ordem definida pelo dono do portfolio: KoraCRM em destaque
-// (z=0, scale maior, centro), seguido de CodeReview AI, MyCondPets,
-// GolData e Enterprise Project.
+// Seleção pensada para vagas de engenharia em fintech/banco: JIS
+// (Java + Spring Boot) em destaque (z=0, scale maior, centro),
+// seguido de mercado financeiro (QuantBot ML), back-end Java
+// (CodeReview AI), segurança/autenticação (Enterprise) e Open
+// Finance (Paiol Tech).
 const PICKED = [
-  "koracrm",
+  "jis",
+  "quantbot-ml",
   "codereview-ai",
-  "mycondpets",
-  "goldata",
   "enterprise-project",
+  "paiol-tech",
 ];
 
 interface CardConfig {

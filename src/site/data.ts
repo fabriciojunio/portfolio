@@ -16,7 +16,7 @@ export interface SiteProject {
   snippetLang: "typescript" | "python" | "java" | "php";
 }
 
-export const PROJECTS: SiteProject[] = [
+const PROJECTS_SOURCE: SiteProject[] = [
   {
     slug: "goldata",
     name: "GolData",
@@ -302,6 +302,27 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
   },
 ];
 
+// Ordem de exibição pensada para vagas de engenharia em fintech/banco:
+// linguagem mais pedida (Java + Spring) na frente, depois mercado
+// financeiro, segurança bancária e, por fim, full-stack e mobile.
+const WORK_ORDER = [
+  "jis",                // Java 21 + Spring Boot
+  "codereview-ai",      // Java 21 + Spring Boot
+  "quantbot-ml",        // mercado financeiro
+  "goldata-pro",        // value bets, modelagem financeira
+  "paiol-tech",         // SaaS com Open Finance
+  "enterprise-project", // segurança e autenticação
+  "apontamento-horas",  // RBAC, SLA, auditoria
+  "koracrm",            // full-stack React
+  "mycondpets",         // full-stack React
+  "goldata",            // ML aplicado
+  "conectagente",       // mobile offline-first
+];
+
+export const PROJECTS: SiteProject[] = WORK_ORDER.map(
+  (slug) => PROJECTS_SOURCE.find((p) => p.slug === slug)!,
+);
+
 export const SOBRE = {
   nome: "Fabrício Júnio",
   cargo: "Analista de Sistemas Júnior",
@@ -311,7 +332,7 @@ export const SOBRE = {
   longBio: [
     "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "Na Nexum trabalho com Lecom BPM, robôs em Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e atuo em projetos bancários de abertura de conta digital.",
-    "Nos pessoais, fui do ML aplicado a futebol (GolData, Expected Goals) até CRM em Laravel (KoraCRM), passando por app offline-first para Agentes Comunitários do SUS (ConectAgente).",
+    "Nos projetos pessoais, vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro: trading quantitativo (QuantBot ML), detecção de value bets (GolData) e SaaS com Open Finance (Paiol Tech).",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -346,6 +367,8 @@ export const STACK_GROUPS = [
 export const EMPRESAS = [
   "Nexum Tecnologia",
   "Java",
+  "Spring Boot",
+  "React",
   "Python",
   "TypeScript",
   "PHP",
