@@ -255,26 +255,27 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
   {
     slug: "quantbot-ml",
     name: "Quantbot ML",
-    oneLine: "Trading quantitativo com ensemble + FinBERT",
-    what: "Ensemble de 3 modelos (Random Forest + XGBoost + Gradient Boosting), análise de sentimento com FinBERT (PyTorch) e gestão de risco via Monte Carlo (10K simulações).",
-    role: "Calibrei os pesos do ensemble com walk-forward validation pra evitar data leakage em série temporal.",
+    oneLine: "Renda passiva com dividendos pelo método Barsi/Bazin",
+    what: "Recomenda FIIs e ações pagadoras de dividendos pelo método Barsi/Bazin: preço teto, setores perenes (BESTIES), payout e histórico de pagamentos. Projeta a bola de neve de dividendos com reinvestimento e aportes, estima o tempo até a meta de renda mensal e tem calendário de proventos com alertas.",
+    role: "Reorientei o projeto de trading especulativo para renda passiva. Escrevi os screeners (Barsi para ações, FII e auto), o projetor de renda com efeito bola de neve e a camada de risco (kill-switch, drawdown), reaproveitando a base de validação anti-overfitting.",
     highlights: [
-      "Walk-forward validation: cada fold treina só com dados anteriores ao teste",
-      "FinBERT lê sentimento de notícias financeiras, sinal extra além do preço",
-      "Monte Carlo (10k simulações) quantifica o risco antes de alocar",
+      "Preço teto de Bazin ajustado pela Selic: DY de referência de 8%, não os 6% clássicos",
+      "Filtro de perenidade pelos setores BESTIES (Bancos, Energia, Seguros, Telecom, Infraestrutura)",
+      "Projeção da bola de neve: reinveste proventos e aportes até bater a meta de renda mensal",
     ],
-    stack: ["Python", "FastAPI", "PyTorch", "XGBoost", "FinBERT"],
+    stack: ["Python", "scikit-learn", "XGBoost", "FastAPI", "yfinance"],
     github: "https://github.com/fabriciojunio/quantbot-ml",
     demo: null,
-    year: "2025",
+    year: "2026",
     snippetLang: "python",
-    snippet: `def walk_forward_auc(model, X, y, n_splits: int = 5) -> float:
-    tscv = TimeSeriesSplit(n_splits=n_splits)
-    aucs = []
-    for tr, te in tscv.split(X):
-        model.fit(X[tr], y[tr])
-        aucs.append(roc_auc_score(y[te], model.predict_proba(X[te])[:, 1]))
-    return float(np.mean(aucs))`,
+    snippet: `def preco_teto_bazin(dividendo_anual: float, dy_alvo: float = 8.0) -> float:
+    # Preço justo de Bazin: onde o dividend yield atinge o piso.
+    # Com a Selic alta, exijo 8% em vez dos 6% clássicos.
+    return round(dividendo_anual / (dy_alvo / 100), 2)
+
+def aprova_barsi(dy_12m: float, payout: float, anos: int) -> bool:
+    # setor perene + dividendo consistente, não preço de curto prazo
+    return dy_12m >= 5.0 and payout >= 40.0 and anos >= 5`,
   },
   {
     slug: "enterprise-project",
@@ -332,7 +333,7 @@ export const SOBRE = {
   longBio: [
     "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "Na Nexum trabalho com Lecom BPM, robôs em Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e atuo em projetos bancários de abertura de conta digital.",
-    "Nos projetos pessoais, vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro: trading quantitativo (QuantBot ML), detecção de value bets (GolData) e SaaS com Open Finance (Paiol Tech).",
+    "Nos projetos pessoais, vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro: renda passiva com dividendos (QuantBot ML), detecção de value bets (GolData) e SaaS com Open Finance (Paiol Tech).",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -356,7 +357,7 @@ export const STACK_GROUPS = [
   },
   {
     label: "ml",
-    items: ["scikit-learn", "XGBoost", "PyTorch", "FinBERT", "Ollama (local)"],
+    items: ["scikit-learn", "XGBoost", "pandas", "yfinance", "Ollama (local)"],
   },
   {
     label: "infra",

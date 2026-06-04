@@ -136,7 +136,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
           "  back:    Java + Spring Boot, Node + NestJS, FastAPI, Laravel",
           "  front:   React / Next.js, React Native + Expo, TypeScript",
           "  dados:   PostgreSQL, Redis, Supabase, SQLite (WAL+FTS)",
-          "  ml:      scikit-learn, XGBoost, PyTorch, FinBERT, Ollama",
+          "  ml:      scikit-learn, XGBoost, pandas, yfinance, Ollama",
           "  infra:   Docker, GitHub Actions, Nginx, Vercel",
         ],
       };

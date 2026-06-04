@@ -37,7 +37,7 @@ com Open Finance), passando por full-stack em **React**.
 
 ## O que estou estudando
 
-\`Quantbot ML\`: trading quantitativo com PyTorch e FinBERT.
+\`Quantbot ML\`: renda passiva com dividendos (método Barsi/Bazin).
 \`Paiol Tech\`: SaaS pra produtor rural com Open Finance.
 \`GolData Pro\`: bot de sinais com auditoria por SHA-256.
 
