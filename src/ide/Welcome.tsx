@@ -28,7 +28,7 @@ export default function Welcome() {
 
   const openDemo = () => {
     close();
-    ide.open("/projetos/goldata.py");
+    ide.open("/projetos/jis.java");
     setTimeout(() => ide.setRunPanel(true), 200);
   };
 
@@ -73,7 +73,7 @@ export default function Welcome() {
             onClick={openDemo}
             className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#e36b3a] text-[#0a0b0e] font-medium hover:brightness-110"
           >
-            ▸ ver uma demo interativa (xG)
+            ▸ ver uma demo interativa (Java)
           </button>
           <button
             type="button"
