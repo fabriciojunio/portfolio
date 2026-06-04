@@ -21,11 +21,10 @@ integrações via API REST. Implementei a integração com
 a API do IBGE que cortou o tempo de cadastro em 80%.
 Entreguei o projeto Abertura de Conta V13 pra Credimogiana.
 
-Fora do trabalho, mantenho 14 projetos. Do **ML aplicado
-a futebol** (GolData, com Expected Goals e Dixon-Coles)
-ao **CRM completo em Laravel** (KoraCRM), passando por
-**app offline-first pra Agentes de Saúde do SUS**
-(ConectAgente).
+Fora do trabalho, mantenho 14 projetos. De **back-end Java
+com Spring Boot** (JIS, CodeReview AI) a sistemas do
+**mercado financeiro** (QuantBot ML, GolData e Paiol Tech
+com Open Finance), passando por full-stack em **React**.
 
 ## Como gosto de trabalhar
 
