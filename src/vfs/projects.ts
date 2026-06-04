@@ -533,41 +533,49 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
       project: "Quantbot ML",
       github: "https://github.com/fabriciojunio/quantbot-ml",
       demo: null,
-      stack: ["Python", "FastAPI", "PyTorch", "XGBoost", "FinBERT"],
-      role: "Trading quantitativo com ensemble de 3 modelos (RF + XGBoost + GB), FinBERT para sentimento e Monte Carlo (10K simulações) para risco.",
+      stack: ["Python", "scikit-learn", "XGBoost", "FastAPI", "yfinance"],
+      role: "Sistema de renda passiva: screening de FIIs e ações pelo método Barsi/Bazin, projeção da bola de neve de dividendos e camada de risco (kill-switch). 351 testes.",
     },
-    content: `# Quantbot ML: ensemble com voting ponderado
-# Combina Random Forest, XGBoost e Gradient Boosting.
-# Pesos calibrados em walk-forward com TimeSeriesSplit.
+    content: `# Quantbot ML: triagem de ações pelo método Barsi/Bazin
+# Renda passiva de longo prazo: o que importa é o dividendo
+# consistente, não a oscilação de preço de curto prazo.
 
-import numpy as np
 from dataclasses import dataclass
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from xgboost import XGBClassifier
-from sklearn.model_selection import TimeSeriesSplit
-from sklearn.metrics import roc_auc_score
+
+# Setores "BESTIES" (perenes) que o método exige:
+# Bancos, Energia, Seguros, Telecom, Infraestrutura.
+BESTIES = {"ITUB4", "BBAS3", "TAEE11", "EGIE3", "BBSE3", "SAPR11"}
 
 @dataclass
-class Ensemble:
-    rf:  RandomForestClassifier
-    xgb: XGBClassifier
-    gb:  GradientBoostingClassifier
-    weights: tuple[float, float, float] = (0.4, 0.4, 0.2)
+class Acao:
+    ticker: str
+    preco: float
+    dy_12m: float        # dividend yield 12 meses (%)
+    payout: float        # % do lucro distribuído
+    anos_pagando: int    # histórico sem interrupção
 
-    def predict_proba(self, X: np.ndarray) -> np.ndarray:
-        p1 = self.rf.predict_proba(X)[:, 1]
-        p2 = self.xgb.predict_proba(X)[:, 1]
-        p3 = self.gb.predict_proba(X)[:, 1]
-        w1, w2, w3 = self.weights
-        return w1 * p1 + w2 * p2 + w3 * p3
+    @property
+    def dividendo_anual(self) -> float:
+        return self.preco * (self.dy_12m / 100)
 
-def walk_forward_auc(model, X, y, n_splits: int = 5) -> float:
-    tscv = TimeSeriesSplit(n_splits=n_splits)
-    aucs = []
-    for tr, te in tscv.split(X):
-        model.fit(X[tr], y[tr])
-        aucs.append(roc_auc_score(y[te], model.predict_proba(X[te])[:, 1]))
-    return float(np.mean(aucs))
+    def preco_teto_bazin(self, dy_alvo: float = 8.0) -> float:
+        # Preço justo: onde o DY atinge o piso. Com a Selic alta,
+        # exijo 8% em vez dos 6% clássicos do Bazin.
+        return round(self.dividendo_anual / (dy_alvo / 100), 2)
+
+    def aprovada(self) -> bool:
+        return (
+            self.ticker in BESTIES
+            and self.dy_12m >= 5.0
+            and self.payout >= 40.0
+            and self.anos_pagando >= 5
+            and self.preco <= self.preco_teto_bazin()
+        )
+
+# ITUB4 a R$32, DY 7%, payout 60%, 15 anos pagando
+itau = Acao("ITUB4", 32.0, 7.0, 60.0, 15)
+print(f"teto Bazin: R\${itau.preco_teto_bazin():.2f}")
+print(f"aprovada?   {itau.aprovada()}")
 `,
   },
 
