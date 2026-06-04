@@ -256,14 +256,15 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     slug: "quantbot-ml",
     name: "Quantbot ML",
     oneLine: "Renda passiva com dividendos pelo método Barsi/Bazin",
-    what: "Recomenda FIIs e ações pagadoras de dividendos pelo método Barsi/Bazin: preço teto, setores perenes (BESTIES), payout e histórico de pagamentos. Projeta a bola de neve de dividendos com reinvestimento e aportes, estima o tempo até a meta de renda mensal e tem calendário de proventos com alertas.",
-    role: "Reorientei o projeto de trading especulativo para renda passiva. Escrevi os screeners (Barsi para ações, FII e auto), o projetor de renda com efeito bola de neve e a camada de risco (kill-switch, drawdown), reaproveitando a base de validação anti-overfitting.",
+    what: "Recomenda FIIs e ações pagadoras de dividendos pelo método Barsi/Bazin: preço teto, setores perenes (BESTIES), payout e histórico de pagamentos. Projeta a bola de neve de dividendos com reinvestimento e aportes, estima o tempo até a meta de renda mensal e tem calendário de proventos com alertas. Lê o sentimento das notícias do ativo com FinBERT-PT-BR (PyTorch) como sinal de apoio.",
+    role: "Reorientei o projeto de trading especulativo para renda passiva. Escrevi os screeners (Barsi para ações, FII e auto), o projetor de renda com efeito bola de neve e a camada de risco (kill-switch, drawdown). Religuei o sentimento com FinBERT-PT-BR e reaproveitei a base de validação anti-overfitting.",
     highlights: [
       "Preço teto de Bazin ajustado pela Selic: DY de referência de 8%, não os 6% clássicos",
       "Filtro de perenidade pelos setores BESTIES (Bancos, Energia, Seguros, Telecom, Infraestrutura)",
       "Projeção da bola de neve: reinveste proventos e aportes até bater a meta de renda mensal",
+      "Sentimento das notícias em português com FinBERT-PT-BR (PyTorch), com fallback léxico sem GPU",
     ],
-    stack: ["Python", "scikit-learn", "XGBoost", "FastAPI", "yfinance"],
+    stack: ["Python", "PyTorch", "FinBERT-PT-BR", "scikit-learn", "FastAPI"],
     github: "https://github.com/fabriciojunio/quantbot-ml",
     demo: null,
     year: "2026",
@@ -357,7 +358,7 @@ export const STACK_GROUPS = [
   },
   {
     label: "ml",
-    items: ["scikit-learn", "XGBoost", "pandas", "yfinance", "Ollama (local)"],
+    items: ["scikit-learn", "XGBoost", "PyTorch", "FinBERT-PT-BR", "Ollama (local)"],
   },
   {
     label: "infra",

@@ -23,7 +23,7 @@ export const profileJson: VFile = {
     "back": ["Java + Spring Boot", "Node + NestJS", "FastAPI", "Laravel"],
     "front": ["React / Next.js", "React Native + Expo", "TypeScript"],
     "dados": ["PostgreSQL", "Redis", "Supabase", "SQLite (WAL+FTS)"],
-    "ml":    ["scikit-learn", "XGBoost", "pandas", "yfinance", "Ollama (local)"],
+    "ml":    ["scikit-learn", "XGBoost", "PyTorch", "FinBERT-PT-BR", "Ollama (local)"],
     "infra": ["Docker", "GitHub Actions", "Nginx", "Vercel"]
   },
   "valores": [
