@@ -392,44 +392,49 @@ class PipelineService
     },
     content: `// Apontamento de Horas: validação Zod no boundary da API.
 // Tudo que chega na route handler passa por aqui antes
-// de tocar o domínio.
+// de tocar o domínio (Prisma).
 
 import { z } from "zod";
 
-export const RegistroHoras = z.object({
-  data:     z.string().regex(/^\\d{4}-\\d{2}-\\d{2}$/, "AAAA-MM-DD"),
-  inicio:   z.string().regex(/^\\d{2}:\\d{2}$/, "HH:MM"),
-  fim:      z.string().regex(/^\\d{2}:\\d{2}$/, "HH:MM"),
-  pausaMin: z.number().int().min(0).max(480).default(0),
-  cliente:  z.string().min(2).max(80),
-  ticket:   z.string().regex(/^[A-Z]+-\\d+$/).optional(),
-  descricao: z.string().min(5).max(2000),
-})
-  .refine(
-    ({ inicio, fim }) => toMinutes(fim) > toMinutes(inicio),
-    { path: ["fim"], message: "fim deve ser depois do início" }
-  )
-  .transform((r) => ({
-    ...r,
-    duracaoMin: toMinutes(r.fim) - toMinutes(r.inicio) - r.pausaMin,
-  }))
-  .refine(
-    (r) => r.duracaoMin >= 5,
-    { path: ["fim"], message: "duração mínima de 5 minutos" }
-  );
+export const TIPOS_VALIDOS = [
+  "desenvolvimento", "mapeamento", "suporte", "retrabalho",
+  "reuniao", "treinamento", "despesas", "apoio-comercial",
+  "apoio-diversos", "ausencia", "outros",
+] as const;
 
-export type RegistroHorasInput = z.input<typeof RegistroHoras>;
-export type RegistroHorasParsed = z.output<typeof RegistroHoras>;
+export const ApontamentoCreateSchema = z.object({
+  tipo: z.enum(TIPOS_VALIDOS, { message: "Tipo inválido." }),
+  descricao: z
+    .string({ message: "Descrição obrigatória." })
+    .min(1, "Descrição não pode ser vazia.")
+    .max(1000, "Descrição muito longa (máx. 1000 caracteres).")
+    .trim(),
+  data: z
+    .string({ message: "Data obrigatória." })
+    .regex(/^\\d{4}-\\d{2}-\\d{2}$/, "Formato de data inválido. Use AAAA-MM-DD.")
+    .refine((d) => !isNaN(new Date(d).getTime()), "Data inválida."),
+  // Aceita "2.5" ou 2.5 e normaliza: 30min a 24h por apontamento.
+  horas: z
+    .union([z.string(), z.number()])
+    .transform((v) => (typeof v === "string" ? parseFloat(v) : v))
+    .refine((v) => !isNaN(v), "Horas inválidas.")
+    .refine((v) => v >= 0.5, "Mínimo de 30 minutos.")
+    .refine((v) => v <= 24, "Máximo de 24h por apontamento."),
+  clienteId: z.string({ message: "Cliente obrigatório." }).min(1, "Selecione um cliente."),
+  chamado: z.string().max(100, "Chamado muito longo.").optional().nullable(),
+});
 
-function toMinutes(hhmm: string): number {
-  const [h, m] = hhmm.split(":").map(Number);
-  return h * 60 + m;
-}
+export const ApontamentoUpdateSchema = ApontamentoCreateSchema
+  .partial()
+  .extend({ status: z.enum(["pendente", "lancado"]).optional() });
+
+export type ApontamentoCreateInput = z.infer<typeof ApontamentoCreateSchema>;
 
 // Uso em uma route handler do Next.js:
 // const body = await req.json();
-// const data = RegistroHoras.parse(body);   // lança ZodError com 400
-// await prisma.registro.create({ data });
+// const parsed = ApontamentoCreateSchema.safeParse(body);
+// if (!parsed.success) return NextResponse.json({ error }, { status: 400 });
+// await apontamentoRepository.create({ ...parsed.data, usuarioId });
 `,
   },
 
