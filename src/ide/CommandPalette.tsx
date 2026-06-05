@@ -72,7 +72,7 @@ export default function CommandPalette() {
         id: "external.email",
         label: "Enviar e-mail",
         group: "Navegar",
-        run: () => (window.location.href = "mailto:fabriciojadias@gmail.com"),
+        run: () => (window.location.href = "mailto:junioad555@gmail.com"),
       },
     );
 
