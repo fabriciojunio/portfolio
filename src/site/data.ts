@@ -126,24 +126,24 @@ def xg(x, y, header=False):
     role: "Construí a autenticação multiusuário com bcrypt e JWT, o controle de acesso por papel (RBAC), o SLA automático e a camada de auditoria.",
     highlights: [
       "Multiusuário com RBAC: admin, GP, analista e visualizador",
+      "Cada colaborador vê só os próprios lançamentos; GP e admin têm visão consolidada do time",
       "SLA automático: pendente (0-2d), alerta (2-5d) e atraso (5d+)",
-      "Dashboard para GP+ mostrando quem está em atraso, export Excel mensal e log de auditoria",
+      "Export Excel mensal para o financeiro e log de auditoria de cada ação",
     ],
     stack: ["Next.js 14", "Prisma", "PostgreSQL", "JWT", "Tailwind"],
     github: "https://github.com/fabriciojunio/apontamento-horas",
     demo: "https://apontamento-horas.vercel.app",
     year: "2026",
     snippetLang: "typescript",
-    snippet: `export const RegistroHoras = z.object({
-  data:     z.string().regex(/^\\d{4}-\\d{2}-\\d{2}$/),
-  inicio:   z.string().regex(/^\\d{2}:\\d{2}$/),
-  fim:      z.string().regex(/^\\d{2}:\\d{2}$/),
-  cliente:  z.string().min(2).max(80),
-  descricao: z.string().min(5).max(2000),
-}).refine(
-  ({ inicio, fim }) => toMinutes(fim) > toMinutes(inicio),
-  { path: ["fim"], message: "fim deve ser depois do início" },
-);`,
+    snippet: `// Validação no boundary da API (route handler → domínio)
+export const ApontamentoCreate = z.object({
+  tipo:      z.enum(TIPOS),                        // desenvolvimento, suporte, reunião...
+  data:      z.string().regex(/^\\d{4}-\\d{2}-\\d{2}$/, "AAAA-MM-DD"),
+  horas:     z.coerce.number().min(0.5).max(24),  // de 30min a 24h
+  clienteId: z.string().min(1, "selecione um cliente"),
+  chamado:   z.string().max(100).optional().nullable(),
+  descricao: z.string().min(1).max(1000).trim(),
+});`,
   },
   {
     slug: "jis",

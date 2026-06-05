@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useIDE } from "../state/useIDE";
 import { filesByPath, ALL_FILES } from "../vfs";
 import { GitBranchIcon } from "./icons";
-import { LANG_LABEL } from "./icons";
+import { LANG_LABEL } from "./lang";
 
 const TOTAL_FILES = ALL_FILES.length;
+const PROJECT_COUNT = ALL_FILES.filter((f) => f.meta).length;
 
 export default function StatusBar() {
   const { activePath, toggleTerminal, terminalOpen, setPalette } = useIDE();
@@ -29,7 +30,7 @@ export default function StatusBar() {
         main
       </span>
       <span className="flex items-center px-3 border-l border-[#1f222a]">
-        14 projetos · {TOTAL_FILES} arquivos
+        {PROJECT_COUNT} projetos · {TOTAL_FILES} arquivos
       </span>
       <button
         type="button"
