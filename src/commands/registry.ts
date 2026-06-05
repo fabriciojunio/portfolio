@@ -25,7 +25,7 @@ const HELP = [
   "  pwd                   mostra caminho atual",
   "  tree                  árvore completa do workspace",
   "  whoami                quem é você (perfil resumido)",
-  "  projetos              lista os 14 projetos",
+  "  projetos              lista os 13 projetos",
   "  stack                 stack que eu uso",
   "  contato               como me chamar",
   "  ajuda | help          mostra esta lista",

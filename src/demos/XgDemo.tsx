@@ -49,7 +49,9 @@ export default function XgDemo() {
   });
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
-    const rect = (e.target as SVGSVGElement).getBoundingClientRect();
+    // currentTarget = o próprio <svg>; e.target pode ser um filho (circle/text),
+    // o que daria um getBoundingClientRect errado e coordenadas tortas.
+    const rect = e.currentTarget.getBoundingClientRect();
     const px = e.clientX - rect.left;
     const py = e.clientY - rect.top;
     const { x, y } = toPitch(px, py);
@@ -61,7 +63,7 @@ export default function XgDemo() {
   };
 
   const onClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    const rect = (e.target as SVGSVGElement).getBoundingClientRect();
+    const rect = e.currentTarget.getBoundingClientRect();
     const px = e.clientX - rect.left;
     const py = e.clientY - rect.top;
     const { x, y } = toPitch(px, py);

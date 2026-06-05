@@ -240,6 +240,10 @@ function renderInline(text: string) {
     ) {
       j++;
     }
+    // Se nada avançou (marcador sem fechamento, ex.: "`" ou "**" soltos),
+    // consome um caractere como texto literal para garantir progresso e
+    // nunca travar em loop infinito.
+    if (j === i) j = i + 1;
     out.push(text.slice(i, j));
     i = j;
   }

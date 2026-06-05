@@ -26,7 +26,7 @@ interface CardConfig {
   delay: number; // delay da animacao idle
 }
 
-// Primeiro item (KoraCRM) e o destaque: z=0 (frente), maior escala,
+// Primeiro item (JIS) e o destaque: z=0 (frente), maior escala,
 // centro do palco. Os outros distribuidos em torno em profundidades
 // variadas.
 const LAYOUT: CardConfig[] = [

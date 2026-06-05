@@ -5,7 +5,7 @@ const STEPS = [
   { delay: 220,  text: "▸ verificando ambiente...",                                       tone: "muted" },
   { delay: 360,  text: "  node v25.5.0  pnpm 11.8.0  typescript 5.6.3",                   tone: "good" },
   { delay: 520,  text: "▸ inicializando workspace fabricio-junio/portfolio",              tone: "muted" },
-  { delay: 700,  text: "  carregando 14 projetos (3.1 MB)",                               tone: "dim" },
+  { delay: 700,  text: "  carregando 13 projetos (3.1 MB)",                               tone: "dim" },
   { delay: 860,  text: "  registrando 50+ comandos no shell",                             tone: "dim" },
   { delay: 1020, text: "  montando virtual file system",                                  tone: "dim" },
   { delay: 1180, text: "▸ subindo Monaco Editor",                                         tone: "muted" },
