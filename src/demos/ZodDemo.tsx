@@ -1,15 +1,21 @@
 import { useMemo, useState } from "react";
 
-// Replica leve do schema do Apontamento de Horas, sem dependência
-// do Zod em runtime (pra não inflar bundle só por essa demo).
+// Réplica leve do schema real do Apontamento de Horas
+// (lib/validations.ts), sem dependência do Zod em runtime
+// pra não inflar o bundle só por essa demo.
+
+const TIPOS = [
+  "desenvolvimento", "mapeamento", "suporte", "retrabalho",
+  "reuniao", "treinamento", "despesas", "apoio-comercial",
+  "apoio-diversos", "ausencia", "outros",
+] as const;
 
 interface Field {
+  tipo: string;
   data: string;
-  inicio: string;
-  fim: string;
-  pausaMin: number;
+  horas: string;
   cliente: string;
-  ticket: string;
+  chamado: string;
   descricao: string;
 }
 
@@ -18,60 +24,43 @@ interface Issue {
   message: string;
 }
 
-function parseHHMM(s: string): number | null {
-  if (!/^\d{2}:\d{2}$/.test(s)) return null;
-  const [h, m] = s.split(":").map(Number);
-  if (h > 23 || m > 59) return null;
-  return h * 60 + m;
-}
-
-function validate(f: Field): { ok: boolean; issues: Issue[]; duracao: number | null } {
+function validate(f: Field): { ok: boolean; issues: Issue[]; horas: number | null } {
   const issues: Issue[] = [];
 
+  if (!TIPOS.includes(f.tipo as (typeof TIPOS)[number]))
+    issues.push({ path: "tipo", message: "tipo inválido" });
+
   if (!/^\d{4}-\d{2}-\d{2}$/.test(f.data))
-    issues.push({ path: "data", message: "deve ser AAAA-MM-DD" });
+    issues.push({ path: "data", message: "use AAAA-MM-DD" });
+  else if (isNaN(new Date(f.data).getTime()))
+    issues.push({ path: "data", message: "data inexistente" });
 
-  const ini = parseHHMM(f.inicio);
-  if (ini === null) issues.push({ path: "inicio", message: "deve ser HH:MM" });
+  const horas = f.horas.trim() === "" ? NaN : Number(f.horas);
+  if (isNaN(horas)) issues.push({ path: "horas", message: "horas inválidas" });
+  else if (horas < 0.5) issues.push({ path: "horas", message: "mínimo de 30 minutos" });
+  else if (horas > 24) issues.push({ path: "horas", message: "máximo de 24h" });
 
-  const fim = parseHHMM(f.fim);
-  if (fim === null) issues.push({ path: "fim", message: "deve ser HH:MM" });
+  if (f.cliente.trim().length < 1)
+    issues.push({ path: "cliente", message: "selecione um cliente" });
 
-  if (f.pausaMin < 0 || f.pausaMin > 480)
-    issues.push({ path: "pausaMin", message: "entre 0 e 480 minutos" });
+  if (f.chamado.length > 100)
+    issues.push({ path: "chamado", message: "máximo de 100 caracteres" });
 
-  if (f.cliente.length < 2)
-    issues.push({ path: "cliente", message: "mínimo de 2 caracteres" });
-  if (f.cliente.length > 80)
-    issues.push({ path: "cliente", message: "máximo de 80 caracteres" });
+  if (f.descricao.trim().length < 1)
+    issues.push({ path: "descricao", message: "descrição obrigatória" });
+  else if (f.descricao.length > 1000)
+    issues.push({ path: "descricao", message: "máximo de 1000 caracteres" });
 
-  if (f.ticket && !/^[A-Z]+-\d+$/.test(f.ticket))
-    issues.push({ path: "ticket", message: 'formato esperado "PROJ-123"' });
-
-  if (f.descricao.length < 5)
-    issues.push({ path: "descricao", message: "mínimo de 5 caracteres" });
-
-  let duracao: number | null = null;
-  if (ini !== null && fim !== null) {
-    if (fim <= ini) issues.push({ path: "fim", message: "deve ser depois do início" });
-    else {
-      duracao = fim - ini - f.pausaMin;
-      if (duracao < 5)
-        issues.push({ path: "fim", message: "duração mínima de 5 minutos" });
-    }
-  }
-
-  return { ok: issues.length === 0, issues, duracao };
+  return { ok: issues.length === 0, issues, horas: isNaN(horas) ? null : horas };
 }
 
 const DEFAULTS: Field = {
-  data: "2026-05-30",
-  inicio: "09:00",
-  fim: "12:30",
-  pausaMin: 0,
+  tipo: "suporte",
+  data: "2026-06-03",
+  horas: "3",
   cliente: "Credimogiana",
-  ticket: "NEXUM-104",
-  descricao: "Integração com API IBGE no Lecom BPM",
+  chamado: "13311",
+  descricao: "Chamado 13311 - Assinatura Digital Credimogiana",
 };
 
 export default function ZodDemo() {
@@ -92,17 +81,11 @@ export default function ZodDemo() {
 
       <div className="grid md:grid-cols-2 gap-3">
         <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3 space-y-2">
+          <Field label="tipo" value={f.tipo} onChange={set("tipo")} error={errorFor("tipo")} hint="desenvolvimento · suporte · reuniao · retrabalho ..." />
           <Field label="data" value={f.data} onChange={set("data")} error={errorFor("data")} />
-          <Field label="inicio" value={f.inicio} onChange={set("inicio")} error={errorFor("inicio")} />
-          <Field label="fim" value={f.fim} onChange={set("fim")} error={errorFor("fim")} />
-          <Field
-            label="pausaMin"
-            value={String(f.pausaMin)}
-            onChange={(v) => set("pausaMin")(Number(v) || 0)}
-            error={errorFor("pausaMin")}
-          />
+          <Field label="horas" value={f.horas} onChange={set("horas")} error={errorFor("horas")} hint="0.5 a 24 (decimal)" />
           <Field label="cliente" value={f.cliente} onChange={set("cliente")} error={errorFor("cliente")} />
-          <Field label="ticket" value={f.ticket} onChange={set("ticket")} error={errorFor("ticket")} />
+          <Field label="chamado" value={f.chamado} onChange={set("chamado")} error={errorFor("chamado")} hint="opcional" />
           <Field
             label="descricao"
             value={f.descricao}
@@ -131,7 +114,15 @@ export default function ZodDemo() {
           <pre className="mt-2 text-[11.5px] overflow-x-auto whitespace-pre">
 {JSON.stringify(
   result.ok
-    ? { ...f, duracaoMin: result.duracao }
+    ? {
+        tipo: f.tipo,
+        data: f.data,
+        horas: result.horas,
+        cliente: f.cliente,
+        chamado: f.chamado || null,
+        descricao: f.descricao,
+        status: "pendente",
+      }
     : { issues: result.issues.map((i) => ({ field: i.path, error: i.message })) },
   null,
   2,
@@ -149,18 +140,24 @@ function Field({
   onChange,
   error,
   textarea,
+  hint,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   error?: string;
   textarea?: boolean;
+  hint?: string;
 }) {
   return (
     <div>
       <div className="flex items-baseline justify-between">
         <label className="text-[#9ea2ab]">{label}</label>
-        {error && <span className="text-[#cf6464] text-[10.5px]">{error}</span>}
+        {error ? (
+          <span className="text-[#cf6464] text-[10.5px]">{error}</span>
+        ) : hint ? (
+          <span className="text-[#6c7079] text-[10.5px]">{hint}</span>
+        ) : null}
       </div>
       {textarea ? (
         <textarea
