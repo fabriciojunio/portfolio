@@ -21,7 +21,7 @@ integrações via API REST. Implementei a integração com
 a API do IBGE que cortou o tempo de cadastro em 80%.
 Entreguei o projeto Abertura de Conta V13 pra Credimogiana.
 
-Fora do trabalho, mantenho 14 projetos. De **back-end Java
+Fora do trabalho, mantenho 13 projetos. De **back-end Java
 com Spring Boot** (JIS, CodeReview AI) a sistemas do
 **mercado financeiro** (QuantBot ML, GolData e Paiol Tech
 com Open Finance), passando por full-stack em **React**.
