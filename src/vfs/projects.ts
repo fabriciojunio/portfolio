@@ -533,8 +533,8 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
       project: "Quantbot ML",
       github: "https://github.com/fabriciojunio/quantbot-ml",
       demo: null,
-      stack: ["Python", "PyTorch", "FinBERT-PT-BR", "scikit-learn", "FastAPI"],
-      role: "Sistema de renda passiva: screening de FIIs e ações pelo método Barsi/Bazin, projeção da bola de neve de dividendos, sentimento de notícias com FinBERT-PT-BR e camada de risco (kill-switch). 351 testes.",
+      stack: ["Python", "PyTorch", "FinBERT-PT-BR", "FastAPI", "GitHub Actions"],
+      role: "Renda passiva (Barsi/Bazin) que opera sozinha com dinheiro simulado e aprende: carteira paper + feedback que mede picks contra o CDI, multi-fonte (Fundamentus, Banco Central, ~28 feeds), sentimento FinBERT-PT-BR e automação na nuvem (GitHub Actions + CI).",
     },
     content: `# Quantbot ML: triagem de ações pelo método Barsi/Bazin
 # Renda passiva de longo prazo: o que importa é o dividendo
