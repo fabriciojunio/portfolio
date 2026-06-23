@@ -21,8 +21,9 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("todos os projetos devem ter github válido", () => {
+    it("todos os projetos devem ter github válido ou ser privados (null)", () => {
       for (const p of PROJECTS) {
+        if (p.github === null) continue; // repositório privado, sem link público
         expect(p.github).toMatch(/^https:\/\/github\.com\//);
       }
     });
@@ -40,7 +41,7 @@ describe("data.ts — integridade dos dados", () => {
     });
 
     it("snippetLang deve ser um dos valores permitidos", () => {
-      const langs = new Set(["typescript", "python", "java", "php"]);
+      const langs = new Set(["typescript", "python", "java", "php", "csharp"]);
       for (const p of PROJECTS) {
         expect(langs.has(p.snippetLang)).toBe(true);
       }
@@ -204,12 +205,14 @@ describe("Work — extensão de arquivo", () => {
     if (lang === "python") return "py";
     if (lang === "java") return "java";
     if (lang === "php") return "php";
+    if (lang === "csharp") return "cs";
     return "ts";
   };
 
   it("python → py", () => expect(ext("python")).toBe("py"));
   it("java → java", () => expect(ext("java")).toBe("java"));
   it("php → php", () => expect(ext("php")).toBe("php"));
+  it("csharp → cs", () => expect(ext("csharp")).toBe("cs"));
   it("typescript → ts", () => expect(ext("typescript")).toBe("ts"));
   it("desconhecido → ts", () => expect(ext("cobol")).toBe("ts"));
 });

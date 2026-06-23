@@ -36,7 +36,7 @@ export default function ProjectMeta({ file }: Props) {
       )}
 
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11.5px]">
-        {m.github && (
+        {m.github ? (
           <a
             href={m.github}
             target="_blank"
@@ -45,6 +45,8 @@ export default function ProjectMeta({ file }: Props) {
           >
             ↗ código no GitHub
           </a>
+        ) : (
+          <span className="text-[#6c7079]">código privado</span>
         )}
         {m.demo && (
           <a

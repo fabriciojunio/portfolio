@@ -21,7 +21,7 @@ export default function Work() {
         </div>
         <div className="self-end space-y-4">
           <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d6cfc1] max-w-[640px]">
-            Código aberto no GitHub. Clique pra ver o raciocínio, a stack usada e um trecho de código que vale a leitura.
+            A maioria com código aberto no GitHub. Clique pra ver o raciocínio, a stack usada e um trecho de código que vale a leitura.
           </p>
           <p className="font-mono text-[11px] text-[#6f6a60]">
             {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo
@@ -133,15 +133,21 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
               </div>
             )}
 
-            <div className="pt-3 flex flex-wrap gap-4">
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[12.5px] text-[#f5f1e8] underline-offset-4 underline decoration-[#d4a76a]/50 hover:decoration-[#d4a76a]"
-              >
-                código no GitHub →
-              </a>
+            <div className="pt-3 flex flex-wrap items-center gap-4">
+              {project.github ? (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12.5px] text-[#f5f1e8] underline-offset-4 underline decoration-[#d4a76a]/50 hover:decoration-[#d4a76a]"
+                >
+                  código no GitHub →
+                </a>
+              ) : (
+                <span className="font-mono text-[11px] text-[#7a7468]">
+                  código privado
+                </span>
+              )}
               {project.demo && (
                 <a
                   href={project.demo}
@@ -170,5 +176,6 @@ function ext(lang: string): string {
   if (lang === "python") return "py";
   if (lang === "java") return "java";
   if (lang === "php") return "php";
+  if (lang === "csharp") return "cs";
   return "ts";
 }
