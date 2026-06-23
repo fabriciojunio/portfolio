@@ -385,7 +385,6 @@ class PipelineService
     runnable: "zod",
     meta: {
       project: "Pontual - Apontamento de Horas",
-      github: "https://github.com/fabriciojunio/apontamento-horas",
       demo: "https://apontamento-horas.vercel.app",
       stack: ["Next.js 14", "Prisma", "PostgreSQL", "JWT", "Tailwind"],
       role: "Plataforma multiusuário de apontamento de horas com RBAC, SLA automático, dashboards de controle, auditoria e relatórios Excel.",
@@ -585,17 +584,17 @@ print(f"aprovada?   {itau.aprovada()}")
   },
 
   {
-    path: "/projetos/enterprise-project.ts",
-    name: "enterprise-project.ts",
+    path: "/projetos/authcore.ts",
+    name: "authcore.ts",
     language: "typescript",
     meta: {
-      project: "Enterprise Project",
-      github: "https://github.com/fabriciojunio/enterprise-project",
+      project: "AuthCore",
+      github: "https://github.com/fabriciojunio/authcore",
       demo: "https://frontend-tan-mu-38.vercel.app",
       stack: ["Node.js", "Express", "TypeORM", "JWT + 2FA", "Docker"],
-      role: "API REST enterprise com Clean Architecture, JWT + 2FA TOTP, RBAC (3 roles) e 23 testes (unit + integração).",
+      role: "API de autenticação com Clean Architecture, JWT + 2FA TOTP, RBAC (3 roles) e 23 testes (unit + integração).",
     },
-    content: `// Enterprise: refresh-token rotation com blacklist em Redis
+    content: `// AuthCore: refresh-token rotation com blacklist em Redis
 // Cada refresh emite par novo e invalida o anterior.
 
 import { randomBytes } from "node:crypto";
@@ -760,6 +759,116 @@ export function feedback(acertou: boolean): string {
 }
 
 const pick = <T,>(xs: T[]): T => xs[Math.floor(Math.random() * xs.length)];
+`,
+  },
+
+  {
+    path: "/projetos/bravor.ts",
+    name: "bravor.ts",
+    language: "typescript",
+    meta: {
+      project: "BRAVOR",
+      demo: "https://bravor.vercel.app",
+      stack: ["Next.js 15", "React 19", "Prisma", "Supabase", "Capacitor"],
+      role: "Coach de musculação e corrida com treino, nutrição e recuperação adaptativos. Motor de domínio isolado (142 testes, ~94%), sessão JWT httpOnly e segurança no middleware. Repositório privado.",
+    },
+    content: `// BRAVOR: segurança no middleware (sessão + CSRF + headers)
+// Renova o cookie quando passou de 1 dia desde a emissão e
+// aplica headers de segurança nas respostas do próprio middleware.
+
+import { NextResponse, type NextRequest } from "next/server";
+import { verifySession, signSession, COOKIE_NAME, cookieOptions } from "@/lib/session";
+import { validarOrigem } from "@/lib/csrf";
+
+const RENOVAR_APOS_SEG = 24 * 60 * 60;
+
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  if (isPublic(pathname)) return NextResponse.next();
+
+  // CSRF: mutações só com origem confiável (defesa CVE-2025-29927).
+  if (request.method !== "GET" && !validarOrigem(request)) {
+    return new NextResponse("origem inválida", { status: 403 });
+  }
+
+  const session = await verifySession(request.cookies.get(COOKIE_NAME)?.value);
+  if (!session) {
+    const login = new URL("/login", request.url);
+    login.searchParams.set("next", pathname);
+    return NextResponse.redirect(login);
+  }
+
+  const res = NextResponse.next();
+
+  // Renovação deslizante: mantém logado quem usa, expira por inatividade.
+  const idadeSeg = Math.floor(Date.now() / 1000) - session.iat;
+  if (idadeSeg > RENOVAR_APOS_SEG) {
+    res.cookies.set(COOKIE_NAME, await signSession(session), cookieOptions);
+  }
+
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.headers.delete("X-Powered-By");
+  return res;
+}
+`,
+  },
+
+  {
+    path: "/projetos/laboratorio-vr.cs",
+    name: "laboratorio-vr.cs",
+    language: "csharp",
+    meta: {
+      project: "Laboratório VR",
+      github: "https://github.com/fabriciojunio/LaboratorioVR",
+      demo: null,
+      stack: ["Unity", "C#", "Google Cardboard", "Android"],
+      role: "Laboratório de química em VR (Unity) com interação por gaze, pontos de teleporte por dwell e câmera por giroscópio. Build para Android / Google Cardboard.",
+    },
+    content: `// Laboratório VR: ponto de teleporte ativado por gaze (olhar)
+// O usuário olha para o ponto; ele preenche em verde conforme
+// o tempo de permanência e, ao completar, move o camera rig.
+
+using UnityEngine;
+
+public class TeleportPoint : MonoBehaviour
+{
+    public float tempoOlhar = 2f;
+    public Transform cameraRig;
+    private float timer = 0f;
+    private Renderer rend;
+    private Color corOriginal;
+
+    void Start()
+    {
+        rend = GetComponent<Renderer>();
+        if (rend != null) corOriginal = rend.material.color;
+        if (cameraRig == null) cameraRig = Camera.main.transform;
+    }
+
+    public void IniciarOlhar()
+    {
+        timer += Time.deltaTime;
+        float progresso = timer / tempoOlhar;
+        if (rend != null)
+            rend.material.color = Color.Lerp(corOriginal, Color.green, progresso);
+        if (timer >= tempoOlhar) Teleportar();
+    }
+
+    public void PararOlhar()
+    {
+        timer = 0f;
+        if (rend != null) rend.material.color = corOriginal;
+    }
+
+    void Teleportar()
+    {
+        cameraRig.position = new Vector3(
+            transform.position.x, cameraRig.position.y, transform.position.z);
+        timer = 0f;
+    }
+}
 `,
   },
 ];

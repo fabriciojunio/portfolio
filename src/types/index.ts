@@ -4,6 +4,7 @@ export type Language =
   | "python"
   | "java"
   | "php"
+  | "csharp"
   | "json"
   | "markdown"
   | "yaml"
