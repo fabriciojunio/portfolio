@@ -9,11 +9,11 @@ export interface SiteProject {
   role: string;
   highlights?: string[];
   stack: string[];
-  github: string;
+  github: string | null; // null = repositório privado (sem link público)
   demo?: string | null;
   year: string;
   snippet: string;
-  snippetLang: "typescript" | "python" | "java" | "php";
+  snippetLang: "typescript" | "python" | "java" | "php" | "csharp";
 }
 
 const PROJECTS_SOURCE: SiteProject[] = [
@@ -131,7 +131,7 @@ def xg(x, y, header=False):
       "Export Excel mensal para o financeiro e log de auditoria de cada ação",
     ],
     stack: ["Next.js 14", "Prisma", "PostgreSQL", "JWT", "Tailwind"],
-    github: "https://github.com/fabriciojunio/apontamento-horas",
+    github: null, // repositório privado
     demo: "https://apontamento-horas.vercel.app",
     year: "2026",
     snippetLang: "typescript",
@@ -279,8 +279,8 @@ def aprova_barsi(dy_12m: float, payout: float, anos: int) -> bool:
     return dy_12m >= 5.0 and payout >= 40.0 and anos >= 5`,
   },
   {
-    slug: "enterprise-project",
-    name: "Enterprise Project",
+    slug: "authcore",
+    name: "AuthCore",
     oneLine: "JWT RS256 + refresh rotation com blacklist + 2FA TOTP em Node.js",
     what: "Backend Node.js com Clean Architecture, JWT (RS256) + 2FA TOTP via speakeasy, RBAC (3 roles), blacklist Redis. Frontend React 18 + Vite.",
     role: "Implementei a rotação de refresh-token com blacklist em Redis (cada refresh emite par novo e invalida o anterior).",
@@ -289,7 +289,7 @@ def aprova_barsi(dy_12m: float, payout: float, anos: int) -> bool:
       "Rotação de refresh-token: cada emissão invalida o anterior, sem replay attack",
     ],
     stack: ["Node.js", "Express", "TypeORM", "JWT + 2FA", "Docker"],
-    github: "https://github.com/fabriciojunio/enterprise-project",
+    github: "https://github.com/fabriciojunio/authcore",
     demo: "https://frontend-tan-mu-38.vercel.app",
     year: "2025",
     snippetLang: "typescript",
@@ -300,6 +300,138 @@ def aprova_barsi(dy_12m: float, payout: float, anos: int) -> bool:
 
   await this.redis.del(\`rt:\${decoded.jti}\`);       // invalida o atual
   return this.issue(decoded.sub, await this.roleOf(decoded.sub));
+}`,
+  },
+  {
+    slug: "bravor",
+    name: "BRAVOR",
+    oneLine: "Coach de musculação e corrida com treino, nutrição e recuperação adaptativos",
+    what: "App web mobile-first (PWA) e app nativo Android que adapta treino, dieta e recuperação à rotina real do usuário, com base científica. Monorepo com um motor de domínio próprio (fórmulas de treino e nutrição) isolado num pacote testado.",
+    role: "Construí o motor de domínio isolado (packages/core), a sessão JWT em cookie httpOnly com renovação automática no middleware, a proteção CSRF por origem e a mitigação da CVE-2025-29927 do Next.js.",
+    highlights: [
+      "Motor de domínio isolado e testado: 142 testes, cobertura de ~94%",
+      "Sessão JWT (jose) em cookie httpOnly, renovada no middleware sem novo login",
+      "Triagem de segurança (PAR-Q e checagem de dor) antes de liberar treino",
+    ],
+    stack: ["Next.js 15", "React 19", "Prisma", "Supabase", "Capacitor"],
+    github: null, // repositório privado
+    demo: "https://bravor.vercel.app",
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// BRAVOR: renovação de sessão + headers de segurança no middleware
+const RENOVAR_APOS_SEG = 24 * 60 * 60; // renova o cookie após 1 dia
+
+export async function middleware(request: NextRequest) {
+  if (isPublic(request.nextUrl.pathname)) return NextResponse.next();
+
+  const session = await verifySession(cookie(request));
+  if (!session) return redirectLogin(request);
+
+  const res = NextResponse.next();
+  if (agora() - session.iat > RENOVAR_APOS_SEG) {
+    res.cookies.set(COOKIE_NAME, await signSession(session), cookieOptions);
+  }
+  res.headers.set("X-Frame-Options", "DENY");
+  res.headers.set("X-Content-Type-Options", "nosniff");
+  return res;
+}`,
+  },
+  {
+    slug: "mente-viva",
+    name: "Mente Viva",
+    oneLine: "Exercícios cognitivos offline para prevenção do Alzheimer",
+    what: "App mobile gratuito com 7 jogos cognitivos (caça-palavras, memória, Stroop, contas, sequência e mais), cada um em 3 níveis. Funciona 100% offline: nenhum dado sai do aparelho. Licença MIT, pensado para qualquer pessoa reusar em ONGs e grupos de idosos.",
+    role: "Escrevi o engine puro de cada jogo (sem React, totalmente testável) e a camada offline-first. O projeto tem 206 testes e o APK é gerado por GitHub Actions.",
+    highlights: [
+      "7 jogos cobrindo linguagem, memória, atenção e raciocínio numérico",
+      "100% offline: nenhum dado sai do aparelho",
+      "206 testes no engine puro; APK gerado por GitHub Actions",
+    ],
+    stack: ["React Native", "Expo SDK 50", "AsyncStorage", "GitHub Actions"],
+    github: "https://github.com/fabriciojunio/mente-viva",
+    demo: null,
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// Mente Viva: engine puro do jogo (sem React, 100% testável)
+export function commitSelection(state: BoardState): BoardState {
+  const picked = state.selection.map((c) => c.letter).join("");
+  const idx = state.words.findIndex(
+    (w) => !w.found && (w.word === picked || w.word === reverse(picked)),
+  );
+  if (idx < 0) return { ...state, selection: [] };
+
+  const words = [...state.words];
+  words[idx] = { ...words[idx], found: true };
+  return {
+    ...state, words, selection: [],
+    score: state.score + words[idx].word.length * 10,
+  };
+}`,
+  },
+  {
+    slug: "mundo-do-lukinha",
+    name: "Mundo do Lukinha",
+    oneLine: "Jogos educativos que se adaptam à faixa etária da criança",
+    what: "Plataforma educativa para crianças de 3 a 14 anos com jogos de matemática, português, memória e ciências. A dificuldade (número de questões, tempo e limite numérico) se adapta sozinha à faixa etária. Filosofia não punitiva: sempre encoraja, nunca pune.",
+    role: "Defini o modelo de faixas etárias que ajusta dificuldade e tempo por idade, e a camada de feedback positivo. Monorepo pnpm com estado em Zustand e testes em Vitest.",
+    highlights: [
+      "Dificuldade adaptativa por faixa etária (de pintinho a mestre)",
+      "Filosofia não punitiva: o feedback sempre encoraja a criança",
+    ],
+    stack: ["Next.js 14", "TypeScript", "Zustand", "pnpm workspaces"],
+    github: "https://github.com/fabriciojunio/mundo-do-lukinha",
+    demo: "https://mundo-do-lukinha.vercel.app",
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// Mundo do Lukinha: dificuldade adaptativa por faixa etária
+export const FAIXAS: Record<Faixa, FaixaSpec> = {
+  pintinho:    { idade: [3, 5],   segundosPorQuestao: 30, numeroDeQuestoes:  5, limite: 10   },
+  explorador:  { idade: [6, 8],   segundosPorQuestao: 20, numeroDeQuestoes: 10, limite: 50   },
+  aventureiro: { idade: [9, 11],  segundosPorQuestao: 15, numeroDeQuestoes: 15, limite: 100  },
+  mestre:      { idade: [12, 14], segundosPorQuestao: 10, numeroDeQuestoes: 20, limite: 1000 },
+};
+
+export function faixaDaIdade(idade: number): Faixa {
+  if (idade <= 5)  return "pintinho";
+  if (idade <= 8)  return "explorador";
+  if (idade <= 11) return "aventureiro";
+  return "mestre";
+}`,
+  },
+  {
+    slug: "laboratorio-vr",
+    name: "Laboratório VR",
+    oneLine: "Laboratório de química em Realidade Virtual com interação por gaze",
+    what: "Laboratório de química em VR feito em Unity, com interação por gaze (olhar) e suporte a Google Cardboard e ao giroscópio do celular. Olhar para um objeto exibe informações; olhar para um ponto de teleporte preenche em verde e move o usuário. Build para Android.",
+    role: "Implementei o controle por gaze (raycast a partir da câmera), os pontos de teleporte com timer de permanência do olhar e o controle de câmera por giroscópio ou toque.",
+    highlights: [
+      "Interação por gaze: raycast da câmera detecta objetos no campo de visão",
+      "Teleporte por dwell: o ponto preenche em verde conforme o tempo de olhar",
+    ],
+    stack: ["Unity", "C#", "Google Cardboard", "Android"],
+    github: "https://github.com/fabriciojunio/LaboratorioVR",
+    demo: null,
+    year: "2025",
+    snippetLang: "csharp",
+    snippet: `// Laboratório VR: ponto de teleporte ativado por gaze (olhar)
+public class TeleportPoint : MonoBehaviour
+{
+    public float tempoOlhar = 2f;
+    private float timer = 0f;
+
+    public void IniciarOlhar()
+    {
+        timer += Time.deltaTime;
+        float progresso = timer / tempoOlhar;
+        rend.material.color = Color.Lerp(corOriginal, Color.green, progresso);
+        if (timer >= tempoOlhar) Teleportar();
+    }
+
+    public void PararOlhar()
+    {
+        timer = 0f;
+        rend.material.color = corOriginal;
+    }
 }`,
   },
 ];
@@ -313,12 +445,16 @@ const WORK_ORDER = [
   "quantbot-ml",        // mercado financeiro
   "goldata-pro",        // value bets, modelagem financeira
   "paiol-tech",         // SaaS com Open Finance
-  "enterprise-project", // segurança e autenticação
+  "authcore",           // segurança e autenticação
   "apontamento-horas",  // RBAC, SLA, auditoria
+  "bravor",             // full-stack + segurança, motor de domínio
   "koracrm",            // full-stack React
   "mycondpets",         // full-stack React
   "goldata",            // ML aplicado
   "conectagente",       // mobile offline-first
+  "mente-viva",         // mobile offline-first, impacto social
+  "mundo-do-lukinha",   // educação, front-end
+  "laboratorio-vr",     // VR / Unity, projeto acadêmico
 ];
 
 export const PROJECTS: SiteProject[] = WORK_ORDER.map(

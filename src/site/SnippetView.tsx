@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 interface Props {
   code: string;
-  language: "python" | "typescript" | "java" | "php";
+  language: "python" | "typescript" | "java" | "php" | "csharp";
   filename: string;
 }
 
@@ -11,6 +11,7 @@ const KEYWORDS: Record<Props["language"], string[]> = {
   typescript: ["const", "let", "var", "function", "return", "if", "for", "in", "of", "async", "await", "import", "from", "export", "default", "type", "interface", "class", "new", "throw", "as", "extends", "implements", "public", "private", "true", "false", "null", "undefined", "this", "while", "switch", "case", "break"],
   java: ["public", "private", "protected", "static", "final", "class", "interface", "extends", "implements", "return", "if", "for", "while", "new", "throw", "true", "false", "null", "void", "int", "double", "float", "List", "String", "Map", "this", "super", "try", "catch"],
   php: ["public", "private", "function", "return", "if", "use", "namespace", "new", "static", "fn", "match", "true", "false", "null", "class", "abstract", "extends", "implements"],
+  csharp: ["public", "private", "protected", "static", "class", "void", "return", "if", "for", "while", "new", "using", "namespace", "var", "true", "false", "null", "this", "override", "float", "int", "bool", "string", "get", "set"],
 };
 
 interface Token { text: string; cls: string }

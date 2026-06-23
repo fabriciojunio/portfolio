@@ -14,11 +14,14 @@ describe("virtual file system", () => {
     expect(names).toContain("contato.ts");
   });
 
-  it("todo file que tem 'meta' aponta para projeto, github e stack", () => {
+  it("todo file que tem 'meta' aponta para projeto e stack (github só se público)", () => {
     for (const f of ALL_FILES) {
       if (!f.meta) continue;
       expect(f.meta.project, `meta.project em ${f.path}`).toBeTruthy();
-      expect(f.meta.github, `meta.github em ${f.path}`).toMatch(/^https:\/\/github.com\//);
+      // Repositórios privados não têm link público: github fica ausente.
+      if (f.meta.github) {
+        expect(f.meta.github, `meta.github em ${f.path}`).toMatch(/^https:\/\/github.com\//);
+      }
       expect(f.meta.stack && f.meta.stack.length).toBeGreaterThan(0);
     }
   });
