@@ -4,16 +4,16 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
-// Seleção pensada para vagas de engenharia em fintech/banco: JIS
-// (Java + Spring Boot) em destaque (z=0, scale maior, centro),
-// seguido de mercado financeiro (QuantBot ML), back-end Java
-// (CodeReview AI), segurança/autenticação (Enterprise) e Open
+// Os cinco projetos mais fortes, pensados para vagas de engenharia em
+// fintech/banco: JIS (Java + Spring Boot) em destaque (z=0, scale maior,
+// centro), seguido de mercado financeiro (QuantBot ML), back-end Java
+// distribuído (CodeReview AI), segurança/autenticação (AuthCore) e Open
 // Finance (Paiol Tech).
 const PICKED = [
   "jis",
   "quantbot-ml",
   "codereview-ai",
-  "enterprise-project",
+  "authcore",
   "paiol-tech",
 ];
 
@@ -49,6 +49,9 @@ const SYNTAX = {
   },
   php: {
     keywords: ["public", "private", "function", "return", "if", "use", "namespace", "new", "static", "fn", "match", "true", "false", "null"],
+  },
+  csharp: {
+    keywords: ["public", "private", "protected", "static", "class", "void", "return", "if", "for", "while", "new", "using", "namespace", "var", "true", "false", "null", "this", "override", "float", "int", "bool", "string"],
   },
 };
 
@@ -201,5 +204,6 @@ function ext(lang: string): string {
   if (lang === "python") return "py";
   if (lang === "java") return "java";
   if (lang === "php") return "php";
+  if (lang === "csharp") return "cs";
   return "ts";
 }
