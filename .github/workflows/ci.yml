@@ -2,9 +2,18 @@
 
 on:
   push:
-    branches: [main]
+    branches: [main, "melhorias/**"]
   pull_request:
     branches: [main]
+
+# Menor privilégio: o CI só precisa ler o repositório.
+permissions:
+  contents: read
+
+# Cancela execuções antigas do mesmo ref quando chega um push novo.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
@@ -18,6 +27,8 @@ jobs:
           cache: "npm"
       - name: Instalar dependencias
         run: npm ci
+      - name: Auditoria de dependencias de producao
+        run: npm audit --omit=dev --audit-level=high
       - name: Lint
         run: npm run lint
       - name: Testes
