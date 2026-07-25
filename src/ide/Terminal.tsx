@@ -1,7 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 import { runCommand, SUGGESTIONS } from "../commands/registry";
 import type { TerminalEntry } from "../types";
+
+// Revelação leve por linha: só opacidade, rápida (150ms). Anima uma única
+// vez na montagem de cada linha nova, então o terminal continua responsivo.
+const LINE_MOTION = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.15, ease: [0.22, 0.61, 0.36, 1] as const },
+};
 
 const BANNER: TerminalEntry[] = [
   {
@@ -180,18 +189,22 @@ function Prompt({ path }: { path: string }) {
 function Line({ entry }: { entry: TerminalEntry }) {
   if (entry.kind === "input") {
     return (
-      <div className="flex">
+      <m.div className="flex" {...LINE_MOTION}>
         <Prompt path="~" />
         <span className="text-[#e6e3dc]">{entry.text}</span>
-      </div>
+      </m.div>
     );
   }
   if (entry.kind === "system") {
-    return <div className="text-[#6c7079] italic">{entry.text}</div>;
+    return (
+      <m.div className="text-[#6c7079] italic" {...LINE_MOTION}>
+        {entry.text}
+      </m.div>
+    );
   }
   return (
-    <div className="text-[#c9c5ba] whitespace-pre">
+    <m.div className="text-[#c9c5ba] whitespace-pre" {...LINE_MOTION}>
       {entry.text || " "}
-    </div>
+    </m.div>
   );
 }

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { AnimatePresence, m } from "motion/react";
+import { fadeUp, inViewOnce, stagger } from "../motion";
 import { PROJECTS, type SiteProject } from "./data";
 import SnippetView from "./SnippetView";
 
@@ -29,11 +31,16 @@ export default function Work() {
         </div>
       </div>
 
-      <ol className="divide-y divide-white/5 border-y border-white/5">
+      <m.ol
+        className="divide-y divide-white/5 border-y border-white/5"
+        variants={stagger(0.05)}
+        {...inViewOnce}
+        viewport={{ once: true, amount: 0.05 }}
+      >
         {PROJECTS.map((p, i) => (
           <WorkRow key={p.slug} project={p} index={i} />
         ))}
-      </ol>
+      </m.ol>
     </section>
   );
 }
@@ -42,7 +49,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <li id={`work-${project.slug}`} className="group">
+    <m.li id={`work-${project.slug}`} className="group" variants={fadeUp}>
       <button
         type="button"
         onClick={() => setOpen((s) => !s)}
@@ -81,7 +88,15 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         </span>
       </button>
 
+      <AnimatePresence initial={false}>
       {open && (
+        <m.div
+          className="overflow-hidden"
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
+        >
         <div className="pb-10 md:pb-14 pl-[52px] md:pl-[72px] pr-2 md:pr-12 grid md:grid-cols-[1fr_1.4fr] gap-8 md:gap-12">
           <div className="space-y-7">
             <div>
@@ -167,8 +182,10 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
             filename={`${project.slug}.${ext(project.snippetLang)}`}
           />
         </div>
+        </m.div>
       )}
-    </li>
+      </AnimatePresence>
+    </m.li>
   );
 }
 
