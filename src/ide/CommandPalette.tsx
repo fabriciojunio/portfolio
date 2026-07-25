@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 import { ALL_FILES } from "../vfs";
 import { FileIcon } from "./icons";
@@ -90,20 +91,21 @@ export default function CommandPalette() {
     else setQuery("");
   }, [open]);
 
-  if (!open) return null;
-
   const choose = (cmd: CommandDescriptor) => {
     ide.setPalette(false);
     cmd.run();
   };
 
   return (
+    <AnimatePresence>
+    {open && (
     <Backdrop onClose={() => ide.setPalette(false)}>
-      <div
+      <m.div
         role="dialog"
         aria-label="Paleta de comandos"
         className="w-[640px] max-w-[92vw] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl overflow-hidden font-mono"
         onClick={(e) => e.stopPropagation()}
+        {...DIALOG_MOTION}
       >
         <div className="flex items-center px-3 py-2.5 border-b border-[#1f222a]">
           <span className="text-[#6c7079] mr-2">⌕</span>
@@ -172,8 +174,10 @@ export default function CommandPalette() {
             );
           })}
         </ul>
-      </div>
+      </m.div>
     </Backdrop>
+    )}
+    </AnimatePresence>
   );
 }
 
@@ -201,20 +205,21 @@ export function QuickOpen() {
     setIdx(0);
   }, [query]);
 
-  if (!open) return null;
-
   const choose = (path: string) => {
     ide.setQuickOpen(false);
     ide.open(path);
   };
 
   return (
+    <AnimatePresence>
+    {open && (
     <Backdrop onClose={() => ide.setQuickOpen(false)}>
-      <div
+      <m.div
         role="dialog"
         aria-label="Abrir arquivo rápido"
         className="w-[560px] max-w-[92vw] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl overflow-hidden font-mono"
         onClick={(e) => e.stopPropagation()}
+        {...DIALOG_MOTION}
       >
         <div className="flex items-center px-3 py-2.5 border-b border-[#1f222a]">
           <span className="text-[#6c7079] mr-2">→</span>
@@ -267,8 +272,10 @@ export function QuickOpen() {
             );
           })}
         </ul>
-      </div>
+      </m.div>
     </Backdrop>
+    )}
+    </AnimatePresence>
   );
 }
 
@@ -280,15 +287,28 @@ function Backdrop({
   onClose: () => void;
 }) {
   return (
-    <div
-      className="fixed inset-0 bg-black/55 backdrop-blur-[2px] z-50 flex items-start justify-center pt-[12vh] animate-[fadeIn_0.12s_ease-out]"
+    <m.div
+      className="fixed inset-0 bg-black/55 backdrop-blur-[2px] z-50 flex items-start justify-center pt-[12vh]"
       onClick={onClose}
       role="presentation"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.14, ease: [0.22, 0.61, 0.36, 1] }}
     >
       {children}
-    </div>
+    </m.div>
   );
 }
+
+// Transição de entrada/saída das janelas (paleta e abrir rápido): fade + leve
+// escala, curta. AnimatePresence permite animar também o fechamento.
+const DIALOG_MOTION = {
+  initial: { opacity: 0, scale: 0.97, y: -6 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  exit: { opacity: 0, scale: 0.98, y: -4 },
+  transition: { duration: 0.18, ease: [0.22, 0.61, 0.36, 1] as const },
+};
 
 function fuzzy<T extends { label: string; hint?: string; id: string }>(
   list: T[],
