@@ -1,3 +1,5 @@
+import { m } from "motion/react";
+import { fadeUp, inViewOnce, stagger } from "../motion";
 import { STACK_GROUPS } from "./data";
 
 export default function Stack() {
@@ -7,21 +9,21 @@ export default function Stack() {
       className="relative py-28 md:py-40 px-6 md:px-10 max-w-[1280px] mx-auto"
     >
       <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
-        <div>
-          <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#a39c8f]">
+        <m.div variants={stagger()} {...inViewOnce}>
+          <m.p variants={fadeUp} className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#a39c8f]">
             03 · stack
-          </p>
-          <h2 className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#f5f1e8]">
+          </m.p>
+          <m.h2 variants={fadeUp} className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#f5f1e8]">
             Escolho a <em className="text-[#d4a76a] not-italic">ferramenta</em><br />pelo problema.
-          </h2>
-          <p className="mt-8 text-[15.5px] text-[#a39c8f] max-w-[360px] leading-[1.9]">
+          </m.h2>
+          <m.p variants={fadeUp} className="mt-8 text-[15.5px] text-[#a39c8f] max-w-[360px] leading-[1.9]">
             Não acredito em fanboy de stack. Java porque banco, Python porque ML, TypeScript porque toda a web vive nele.
-          </p>
-        </div>
+          </m.p>
+        </m.div>
 
-        <div className="space-y-0">
+        <m.div className="space-y-0" variants={stagger(0.07)} {...inViewOnce}>
           {STACK_GROUPS.map((g) => (
-            <div key={g.label} className="grid grid-cols-[100px_1fr] gap-8 items-start border-t border-white/5 py-7">
+            <m.div key={g.label} variants={fadeUp} className="grid grid-cols-[100px_1fr] gap-8 items-start border-t border-white/5 py-7">
               <div className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#d4a76a] pt-1">
                 {g.label}
               </div>
@@ -32,9 +34,9 @@ export default function Stack() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </m.div>
           ))}
-        </div>
+        </m.div>
       </div>
     </section>
   );

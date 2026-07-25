@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from "react";
+import { AnimatePresence, m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 import { CloseIcon } from "./icons";
 
@@ -39,16 +40,20 @@ export default function RunPanel() {
     return () => ts.forEach(clearTimeout);
   }, [runPanelOpen, activeFile]);
 
-  if (!runPanelOpen) return null;
-
   const kind = activeFile?.runnable;
   const title = kind ? DEMO_TITLES[kind] : "Run";
 
   return (
-    <section
+    <AnimatePresence>
+    {runPanelOpen && (
+    <m.section
       role="complementary"
       aria-label="Painel de execução"
       className="absolute inset-0 z-20 md:static md:z-auto md:w-[44%] md:min-w-[380px] md:max-w-[640px] bg-[#0e0f12] border-t md:border-t-0 md:border-l border-[#1f222a] flex flex-col"
+      initial={{ opacity: 0, x: 10 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 10 }}
+      transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
     >
       <header className="h-9 flex items-center justify-between px-3 border-b border-[#1f222a] bg-[#0a0b0e]">
         <div className="flex items-center gap-2">
@@ -95,6 +100,8 @@ export default function RunPanel() {
           {kind === "vagas-score" && <VagasDemo />}
         </Suspense>
       </div>
-    </section>
+    </m.section>
+    )}
+    </AnimatePresence>
   );
 }
