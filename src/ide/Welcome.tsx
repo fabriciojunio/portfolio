@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence, m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 
 const SEEN_KEY = "fj.portfolio.welcome.v1";
@@ -32,18 +33,26 @@ export default function Welcome() {
     setTimeout(() => ide.setRunPanel(true), 200);
   };
 
-  if (!open) return null;
-
   return (
-    <div
-      className="fixed inset-0 z-40 bg-black/60 backdrop-blur-[3px] flex items-center justify-center px-4 animate-[fadeIn_0.2s_ease-out]"
+    <AnimatePresence>
+    {open && (
+    <m.div
+      className="fixed inset-0 z-40 bg-black/60 backdrop-blur-[3px] flex items-center justify-center px-4"
       role="dialog"
       aria-label="Bem-vindo"
       onClick={close}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
     >
-      <div
+      <m.div
         className="w-full max-w-[560px] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl font-mono text-[#c9c5ba] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, scale: 0.97, y: 6 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.98, y: 4 }}
+        transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
       >
         <div className="px-6 pt-6 pb-4">
           <div className="flex items-center gap-2 text-[10.5px] uppercase tracking-[1.5px] text-[#6c7079]">
@@ -99,8 +108,10 @@ export default function Welcome() {
           <kbd className="text-[#9ea2ab]">Ctrl/⌘+P</kbd> arquivo ·{" "}
           <kbd className="text-[#9ea2ab]">Ctrl/⌘+`</kbd> terminal
         </div>
-      </div>
-    </div>
+      </m.div>
+    </m.div>
+    )}
+    </AnimatePresence>
   );
 }
 
