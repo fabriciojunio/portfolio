@@ -25,6 +25,16 @@ describe("security", () => {
       expect(csp).toContain("worker-src 'self' blob:");
     });
 
+    it("should block plugins and nested framing (object-src/frame-src none)", () => {
+      const csp = getHeader("Content-Security-Policy");
+      expect(csp).toContain("object-src 'none'");
+      expect(csp).toContain("frame-src 'none'");
+    });
+
+    it("should disable the legacy XSS auditor (X-XSS-Protection 0)", () => {
+      expect(getHeader("X-XSS-Protection")).toBe("0");
+    });
+
     it("should NOT allow third-party CDNs", () => {
       const csp = getHeader("Content-Security-Policy");
       expect(csp).not.toMatch(/https?:\/\//);
