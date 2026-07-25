@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { m } from "motion/react";
 
 interface Props {
   onNavigate: (section: string) => void;
@@ -45,7 +46,10 @@ export default function Nav({ onNavigate }: Props) {
   };
 
   return (
-    <header
+    <m.header
+      initial={{ opacity: 0, y: -12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-30 transition-colors duration-300 ${
         scrolled ? "bg-[#0a0a0a]/70 backdrop-blur-md border-b border-white/5" : ""
       }`}
@@ -123,6 +127,6 @@ export default function Nav({ onNavigate }: Props) {
           </nav>
         </div>
       )}
-    </header>
+    </m.header>
   );
 }
