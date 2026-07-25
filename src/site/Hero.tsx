@@ -1,4 +1,6 @@
 import { Suspense, lazy } from "react";
+import { m } from "motion/react";
+import { fadeUp, stagger } from "../motion";
 import { EMPRESAS, SOBRE } from "./data";
 
 const Cards3D = lazy(() => import("./Cards3D"));
@@ -22,8 +24,13 @@ export default function Hero({ onScrollTo }: Props) {
       />
 
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center min-h-[80svh]">
-        <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-12">
+        <m.div
+          className="relative z-10"
+          variants={stagger(0.09, 0.08)}
+          initial="hidden"
+          animate="show"
+        >
+          <m.div variants={fadeUp} className="flex items-center gap-3 mb-12">
             <Avatar />
             <div className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#a39c8f] leading-relaxed">
               <div className="flex items-center gap-2.5 flex-wrap">
@@ -37,42 +44,51 @@ export default function Hero({ onScrollTo }: Props) {
                 {SOBRE.empresa} · {SOBRE.cidade}
               </div>
             </div>
-          </div>
+          </m.div>
 
-          <h1 className="font-serif text-[#d4a76a] tracking-[-0.02em]">
+          <m.h1 variants={fadeUp} className="font-serif text-[#d4a76a] tracking-[-0.02em]">
             <span className="block text-[56px] sm:text-[78px] md:text-[96px] lg:text-[112px] leading-[1.02]">
               Fabrício
             </span>
             <span className="block text-[56px] sm:text-[78px] md:text-[96px] lg:text-[112px] leading-[1.02] text-[#e4bd86] mt-1 md:mt-2">
               Júnio
             </span>
-          </h1>
+          </m.h1>
 
-          <p className="mt-12 max-w-[500px] text-[16px] md:text-[18px] text-[#d6cfc1] leading-[1.9] font-sans">
+          <m.p
+            variants={fadeUp}
+            className="mt-12 max-w-[500px] text-[16px] md:text-[18px] text-[#d6cfc1] leading-[1.9] font-sans"
+          >
             {SOBRE.bio}
-          </p>
+          </m.p>
 
-          <div className="mt-12 flex flex-wrap gap-3">
-            <button
+          <m.div variants={fadeUp} className="mt-12 flex flex-wrap gap-3">
+            <m.button
               type="button"
               onClick={() => onScrollTo("trabalho")}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
               className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#f5f1e8] text-[#0a0a0a] text-[13.5px] font-medium hover:bg-white transition-colors"
             >
               Ver trabalho
               <span aria-hidden className="transition-transform group-hover:translate-x-1">
                 →
               </span>
-            </button>
-            <button
+            </m.button>
+            <m.button
               type="button"
               onClick={() => onScrollTo("contato")}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-[#f5f1e8] text-[13.5px] hover:border-[#d4a76a]/60 hover:text-[#d4a76a] transition-colors"
             >
               Conversar
-            </button>
-          </div>
+            </m.button>
+          </m.div>
 
-        </div>
+        </m.div>
 
         <div className="relative lg:h-[660px] h-[460px]">
           <Suspense fallback={null}>

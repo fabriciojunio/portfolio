@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { MotionProvider } from "../motion/provider";
 import About from "./About";
 import Contact from "./Contact";
 import Footer from "./Footer";
@@ -16,16 +17,18 @@ export default function Site() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f1e8] antialiased">
-      <Nav onNavigate={scrollTo} />
-      <main>
-        <Hero onScrollTo={scrollTo} />
-        <About />
-        <Work />
-        <Stack />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <MotionProvider>
+      <div className="min-h-screen bg-[#0a0a0a] text-[#f5f1e8] antialiased">
+        <Nav onNavigate={scrollTo} />
+        <main>
+          <Hero onScrollTo={scrollTo} />
+          <About />
+          <Work />
+          <Stack />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </MotionProvider>
   );
 }
