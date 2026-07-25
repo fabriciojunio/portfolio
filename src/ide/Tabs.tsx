@@ -1,3 +1,4 @@
+import { m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 import { filesByPath } from "../vfs";
 import { CloseIcon, FileIcon, PlayIcon } from "./icons";
@@ -19,10 +20,13 @@ export default function Tabs() {
           if (!f) return null;
           const isActive = path === activePath;
           return (
-            <li
+            <m.li
               key={path}
               role="tab"
               aria-selected={isActive}
+              initial={{ opacity: 0, x: -6 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.16, ease: [0.22, 0.61, 0.36, 1] }}
               className={`group flex items-center pl-3 pr-2 gap-2 border-r border-[#1f222a] cursor-pointer ${isActive ? "bg-[#13151a] text-[#e6e3dc]" : "text-[#9ea2ab] hover:bg-[#11131a]"}`}
               onClick={() => activate(path)}
             >
@@ -39,7 +43,7 @@ export default function Tabs() {
               >
                 <CloseIcon size={11} />
               </button>
-            </li>
+            </m.li>
           );
         })}
       </ul>
