@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { m } from "motion/react";
 
 const STEPS = [
   { delay: 0,    text: "fabricio-shell v1.0  copyright (c) 2026 Fabrício Júnio",        tone: "dim" },
@@ -60,10 +61,12 @@ export default function BootScreen({ onDone }: Props) {
   }, []);
 
   return (
-    <div
+    <m.div
       role="status"
       aria-label="Inicializando IDE"
       onClick={skip}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
       className="fixed inset-0 z-[60] bg-[#0a0b0e] text-[#e6e3dc] font-mono flex flex-col cursor-pointer"
     >
       <div className="flex-1 flex items-center justify-center">
@@ -75,9 +78,15 @@ export default function BootScreen({ onDone }: Props) {
           </div>
           <div className="text-[13px] leading-[1.7]">
             {STEPS.slice(0, step).map((s, i) => (
-              <div key={i} style={{ color: TONE[s.tone as keyof typeof TONE] }}>
+              <m.div
+                key={i}
+                initial={{ opacity: 0, x: -4 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
+                style={{ color: TONE[s.tone as keyof typeof TONE] }}
+              >
                 {s.text}
-              </div>
+              </m.div>
             ))}
             {step < STEPS.length && (
               <div className="text-[#6c7079]">
@@ -90,6 +99,6 @@ export default function BootScreen({ onDone }: Props) {
       <div className="text-center pb-6 text-[11px] text-[#6c7079]">
         clique, enter ou esc para pular
       </div>
-    </div>
+    </m.div>
   );
 }
