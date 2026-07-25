@@ -1,3 +1,5 @@
+import { m } from "motion/react";
+import { fadeUp, inViewOnce, stagger } from "../motion";
 import { SOBRE } from "./data";
 
 const LINKS = [
@@ -9,23 +11,25 @@ const LINKS = [
 export default function Contact() {
   return (
     <section id="contato" className="relative py-28 md:py-44 px-6 md:px-10 max-w-[1280px] mx-auto">
-      <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#a39c8f]">
-        04 · contato
-      </p>
+      <m.div variants={stagger()} {...inViewOnce}>
+        <m.p variants={fadeUp} className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#a39c8f]">
+          04 · contato
+        </m.p>
 
-      <h2 className="mt-5 font-serif text-[54px] md:text-[80px] lg:text-[110px] leading-[1.0] text-[#f5f1e8] tracking-[-0.02em]">
-        Precisa de
-        <br />
-        um <span className="text-[#d4a76a]">FullStack</span>?
-      </h2>
+        <m.h2 variants={fadeUp} className="mt-5 font-serif text-[54px] md:text-[80px] lg:text-[110px] leading-[1.0] text-[#f5f1e8] tracking-[-0.02em]">
+          Precisa de
+          <br />
+          um <span className="text-[#d4a76a]">FullStack</span>?
+        </m.h2>
 
-      <p className="mt-12 max-w-[520px] text-[16px] md:text-[17.5px] text-[#d6cfc1] leading-[1.9]">
-        Procuro oportunidade FullStack (CLT ou PJ). Topo conversar sobre projeto pontual, freelance técnico ou contratação. Respondo em até 24h úteis.
-      </p>
+        <m.p variants={fadeUp} className="mt-12 max-w-[520px] text-[16px] md:text-[17.5px] text-[#d6cfc1] leading-[1.9]">
+          Procuro oportunidade FullStack (CLT ou PJ). Topo conversar sobre projeto pontual, freelance técnico ou contratação. Respondo em até 24h úteis.
+        </m.p>
+      </m.div>
 
-      <ul className="mt-14 border-t border-white/10 max-w-[640px]">
+      <m.ul className="mt-14 border-t border-white/10 max-w-[640px]" variants={stagger(0.07)} {...inViewOnce}>
         {LINKS.map((l) => (
-          <li key={l.label} className="border-b border-white/10">
+          <m.li key={l.label} variants={fadeUp} className="border-b border-white/10">
             <a
               href={l.href}
               target={l.href.startsWith("http") ? "_blank" : undefined}
@@ -42,9 +46,9 @@ export default function Contact() {
                 →
               </span>
             </a>
-          </li>
+          </m.li>
         ))}
-      </ul>
+      </m.ul>
     </section>
   );
 }
