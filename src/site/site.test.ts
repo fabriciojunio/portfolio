@@ -41,7 +41,7 @@ describe("data.ts — integridade dos dados", () => {
     });
 
     it("snippetLang deve ser um dos valores permitidos", () => {
-      const langs = new Set(["typescript", "python", "java", "php", "csharp"]);
+      const langs = new Set(["typescript", "python", "java", "php", "csharp", "sql"]);
       for (const p of PROJECTS) {
         expect(langs.has(p.snippetLang)).toBe(true);
       }
@@ -110,12 +110,10 @@ describe("data.ts — integridade dos dados", () => {
       expect(EMPRESAS.length).toBeGreaterThanOrEqual(4);
     });
 
-    it("não deve conter Credimogiana", () => {
-      expect(EMPRESAS.join(" ")).not.toContain("Credimogiana");
-    });
-
-    it("deve conter Nexum Tecnologia", () => {
-      expect(EMPRESAS).toContain("Nexum Tecnologia");
+    it("não deve conter nome de cliente nem de empregador", () => {
+      const texto = EMPRESAS.join(" ");
+      expect(texto).not.toContain("Credimogiana");
+      expect(texto).not.toContain("Nexum");
     });
   });
 });

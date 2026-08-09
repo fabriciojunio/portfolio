@@ -194,5 +194,6 @@ function ext(lang: string): string {
   if (lang === "java") return "java";
   if (lang === "php") return "php";
   if (lang === "csharp") return "cs";
+  if (lang === "sql") return "sql";
   return "ts";
 }

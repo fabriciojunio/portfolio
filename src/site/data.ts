@@ -13,7 +13,7 @@ export interface SiteProject {
   demo?: string | null;
   year: string;
   snippet: string;
-  snippetLang: "typescript" | "python" | "java" | "php" | "csharp";
+  snippetLang: "typescript" | "python" | "java" | "php" | "csharp" | "sql";
 }
 
 const PROJECTS_SOURCE: SiteProject[] = [
@@ -120,7 +120,7 @@ def xg(x, y, header=False):
   },
   {
     slug: "apontamento-horas",
-    name: "Pontual - Apontamento de Horas",
+    name: "Horalis",
     oneLine: "Gestão de horas multiusuário com RBAC, SLA e dashboards",
     what: "Plataforma de apontamento de horas por cliente, com múltiplos usuários e papeis (admin, GP, analista, visualizador), SLA automático, dashboards de controle, auditoria e relatórios Excel para o financeiro.",
     role: "Construí a autenticação multiusuário com bcrypt e JWT, o controle de acesso por papel (RBAC), o SLA automático e a camada de auditoria.",
@@ -144,6 +144,139 @@ export const ApontamentoCreate = z.object({
   chamado:   z.string().max(100).optional().nullable(),
   descricao: z.string().min(1).max(1000).trim(),
 });`,
+  },
+  {
+    slug: "balcao",
+    name: "Balcão",
+    oneLine: "IA de vendas no WhatsApp em que o modelo não escreve números",
+    what: "Atendimento, negociação e avaliação de aparelhos usados no WhatsApp para lojas de celular. O modelo entende o cliente e escolhe a estratégia da conversa, mas preço à vista, parcelamento, desconto máximo e valor de troca saem de funções determinísticas. A mensagem final ainda passa por um auditor antes do envio.",
+    role: "Desenhei o auditor de saída, o motor de preço e de avaliação de usado, e as guardas que rodam antes do modelo (pedido de saída, pedido de atendente e escopo).",
+    highlights: [
+      "O modelo devolve texto com marcadores; quem calcula o valor é o domínio",
+      "Auditor reprova qualquer algarismo sem origem numa consulta registrada",
+      "Duas reprovações na mesma conversa escalam para atendimento humano",
+      "Valor de troca só sai acompanhado da ressalva de pré-avaliação (art. 30 do CDC)",
+    ],
+    stack: ["Node 20", "TypeScript", "Fastify", "Prisma", "PostgreSQL", "Zod"],
+    github: null, // repositório privado
+    demo: null,
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// Balcão: o auditor confere cada número antes do envio
+for (const o of extrairOcorrencias(texto)) {
+  if (o.tipo === "monetario" && !combina(o.valor, permitidos.monetarios)) {
+    violacoes.push({
+      tipo: "monetario_nao_autorizado",
+      trecho: o.bruto,
+      motivo: "Valor sem origem em consulta registrada nesta conversa.",
+    });
+  }
+}
+return { aprovado: violacoes.length === 0, violacoes };`,
+  },
+  {
+    slug: "guarda-banco",
+    name: "Guarda Banco",
+    oneLine: "Trava no servidor contra DELETE e UPDATE acidentais",
+    what: "Proteção instalada no próprio banco: todo DELETE ou UPDATE tem limite de linhas afetadas por comando, e passar do limite aborta a transação. Como a regra mora no servidor, vale igual no DBeaver, no Workbench, no SSMS ou no psql. Scripts para PostgreSQL, MySQL e SQL Server.",
+    role: "Defini o núcleo: limite por linhas afetadas em vez de caçar DELETE sem WHERE. Também o controle de nível de aninhamento, que faz a cascata somar no mesmo comando, e o painel local de liberação.",
+    highlights: [
+      "Limite de linhas cobre WHERE amplo demais, OR no lugar de AND e cascata inesperada",
+      "Aborta em BEFORE ROW: falha na linha do limite mais um, sem materializar tudo",
+      "ON DELETE CASCADE entra na conta do comando de origem, não zera o contador",
+      "Liberar a proteção exige motivo escrito e vale só dentro da transação",
+    ],
+    stack: ["PostgreSQL", "PL/pgSQL", "MySQL", "SQL Server", "Python"],
+    github: null, // repositório privado
+    demo: null,
+    year: "2026",
+    snippetLang: "sql",
+    snippet: `-- Guarda Banco: conta as linhas e decide, linha a linha
+create or replace function guarda.contar_e_checar()
+returns trigger language plpgsql security definer as $$
+declare
+    v_linhas bigint;
+    v_limite integer;
+begin
+    v_linhas := guarda.ler_contador(guarda.chave_contador(tg_op)) + 1;
+    perform set_config(guarda.chave_contador(tg_op), v_linhas::text, true);
+
+    if guarda.esta_liberado() then
+        return case when tg_op = 'DELETE' then old else new end;
+    end if;
+
+    v_limite := guarda.limite(tg_table_schema, tg_table_name, tg_op);
+    if v_limite is not null and v_linhas > v_limite then
+        raise exception 'GUARDA: % em %.% passou de % linhas.',
+            tg_op, tg_table_schema, tg_table_name, v_limite;
+    end if;
+
+    return case when tg_op = 'DELETE' then old else new end;
+end;
+$$;`,
+  },
+  {
+    slug: "registraservico",
+    name: "RegistraServiço",
+    oneLine: "Registro de serviços com tipos e campos configuráveis",
+    what: "Sistema multi-tenant de registro de prestação de serviços, pensado para órgãos públicos e equipes de campo. Os tipos de serviço e os campos de cada formulário são configurados pela organização, não escritos no código. Trilha de auditoria, exportação para BI e PWA que instala sem loja.",
+    role: "Modelei o schema configurável (tipo de serviço, campos personalizados e registro em JSON validado) e escrevi o validador dinâmico que confere os dados contra a definição de campos que está no banco.",
+    highlights: [
+      "O formulário não está no código, está no banco: o mesmo motor atende outra organização sem reescrita",
+      "JWT no middleware edge com revogação imediata de sessão",
+      "RBAC de quatro papéis: admin, gestor, operador e visualizador",
+      "Registro em campo em dois toques, com exportação CSV para Power BI",
+    ],
+    stack: ["Next.js 14", "TypeScript", "Prisma", "PostgreSQL", "Zod"],
+    github: null, // repositório privado
+    demo: "https://registraservico.vercel.app",
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// RegistraServiço: valida o registro contra os campos do banco
+export function validarDados(campos: DefinicaoCampo[], entrada: ValoresDados) {
+  const valores: ValoresDados = {};
+  const erros: Record<string, string> = {};
+
+  for (const campo of campos) {
+    if (!campo.ativo) continue;
+    const bruto = entrada[campo.chave];
+
+    if (vazio(bruto)) {
+      if (campo.obrigatorio) erros[campo.chave] = \`"\${campo.rotulo}" é obrigatório.\`;
+      continue;
+    }
+    aplicarTipo(campo, bruto, valores, erros);
+  }
+  return { ok: Object.keys(erros).length === 0, valores, erros };
+}`,
+  },
+  {
+    slug: "sintonia",
+    name: "Sintonia",
+    oneLine: "Rede social onde a conversa gira em torno da música que está tocando",
+    what: "Monorepo com API NestJS, site Next.js e app Expo. Tocando agora em tempo real, conversas com mensagens efêmeras (TTL ou visualização única), foguinho e pet do grupo. A integração com serviços de música é uma porta com adapters.",
+    role: "Montei a fundação: Clean Architecture na API, a porta de provedor de música com adapters, o domínio puro de efemeridade e de streak, e a camada de LGPD (exportação, exclusão com anonimização e expurgo de mídia).",
+    highlights: [
+      "Porta de música com adapters: Last.fm como principal, porque o Spotify trava apps novos em 25 usuários",
+      "Mensagem efêmera expira por TTL ou no ato da leitura, e o job de expurgo apaga de verdade",
+      "Domínio de gamificação puro, sem framework, testado fora do NestJS",
+      "Tema claro e escuro reais, com tokens compartilhados entre web e mobile",
+    ],
+    stack: ["NestJS", "Next.js 15", "Expo", "Prisma", "PostgreSQL", "Turborepo"],
+    github: null, // repositório privado
+    demo: null,
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// Sintonia: a chama do grupo sobe uma vez por dia
+export function registerInteraction(state: StreakState | null, now: Date) {
+  const today = toUtcDay(now);
+  if (!state) return { count: 1, lastActiveDay: today, active: true };
+
+  const gap = daysBetween(state.lastActiveDay, today);
+  if (gap <= 0) return { ...state, active: true };            // mesmo dia
+  if (gap === 1) return { count: state.count + 1, lastActiveDay: today, active: true };
+  return { count: 1, lastActiveDay: today, active: true };    // furou, recomeça
+}`,
   },
   {
     slug: "jis",
@@ -446,7 +579,11 @@ const WORK_ORDER = [
   "goldata-pro",        // value bets, modelagem financeira
   "paiol-tech",         // SaaS com Open Finance
   "authcore",           // segurança e autenticação
+  "guarda-banco",       // confiabilidade de banco de dados
+  "balcao",             // IA aplicada com domínio determinístico
   "apontamento-horas",  // RBAC, SLA, auditoria
+  "registraservico",    // multi-tenant configurável, setor público
+  "sintonia",           // produto em monorepo, API + web + mobile
   "bravor",             // full-stack + segurança, motor de domínio
   "koracrm",            // full-stack React
   "mycondpets",         // full-stack React
@@ -463,14 +600,14 @@ export const PROJECTS: SiteProject[] = WORK_ORDER.map(
 
 export const SOBRE = {
   nome: "Fabrício Júnio",
-  cargo: "Analista de Sistemas Júnior",
-  empresa: "Nexum Tecnologia",
+  cargo: "Desenvolvedor FullStack",
+  empresa: "Atuação como PJ, projetos próprios e clientes",
   cidade: "Bauru, SP",
   bio: "Desenvolvedor FullStack. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
   longBio: [
     "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
-    "Na Nexum trabalho com Lecom BPM, robôs em Java e integrações REST. Implementei a integração com a API do IBGE que cortou em 80% o tempo de cadastro, e atuo em projetos bancários de abertura de conta digital.",
-    "Nos projetos pessoais, vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro: renda passiva com dividendos (QuantBot ML), detecção de value bets (GolData) e SaaS com Open Finance (Paiol Tech).",
+    "No dia a dia trabalho com automação de processos (BPM), robôs em Java e integrações REST, em projetos bancários de abertura de conta digital. Uma das integrações que escrevi, com a API do IBGE, cortou em 80% o tempo de cadastro.",
+    "Nos projetos próprios vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro (QuantBot ML, GolData, Paiol Tech com Open Finance), e a produtos que já estão indo para cliente: Balcão, Horalis e RegistraServiço.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -503,12 +640,13 @@ export const STACK_GROUPS = [
 ];
 
 export const EMPRESAS = [
-  "Nexum Tecnologia",
   "Java",
   "Spring Boot",
   "React",
+  "Next.js",
   "Python",
   "TypeScript",
+  "PostgreSQL",
   "PHP",
   "UNISAGRADO",
   "Incubadora Saruê",

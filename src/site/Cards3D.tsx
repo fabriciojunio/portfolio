@@ -53,6 +53,9 @@ const SYNTAX = {
   csharp: {
     keywords: ["public", "private", "protected", "static", "class", "void", "return", "if", "for", "while", "new", "using", "namespace", "var", "true", "false", "null", "this", "override", "float", "int", "bool", "string"],
   },
+  sql: {
+    keywords: ["create", "or", "replace", "function", "returns", "trigger", "language", "plpgsql", "security", "definer", "declare", "begin", "end", "if", "then", "else", "case", "when", "is", "not", "null", "and", "true", "false", "select", "from", "where", "perform", "raise", "exception", "return", "as", "integer", "bigint", "text"],
+  },
 };
 
 function highlight(code: string, lang: keyof typeof SYNTAX) {
@@ -64,7 +67,9 @@ function highlight(code: string, lang: keyof typeof SYNTAX) {
     // comentarios de linha
     const commentIdx = lang === "python"
       ? line.indexOf("#")
-      : line.indexOf("//");
+      : lang === "sql"
+        ? line.indexOf("--")
+        : line.indexOf("//");
     const codePart = commentIdx >= 0 ? line.slice(0, commentIdx) : line;
     const commentPart = commentIdx >= 0 ? line.slice(commentIdx) : "";
 
@@ -205,5 +210,6 @@ function ext(lang: string): string {
   if (lang === "java") return "java";
   if (lang === "php") return "php";
   if (lang === "csharp") return "cs";
+  if (lang === "sql") return "sql";
   return "ts";
 }
