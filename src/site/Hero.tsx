@@ -41,7 +41,7 @@ export default function Hero({ onScrollTo }: Props) {
                 </span>
               </div>
               <div className="text-[#7a7468] mt-1">
-                {SOBRE.empresa} · {SOBRE.cidade}
+                {SOBRE.cidade}
               </div>
             </div>
           </m.div>
