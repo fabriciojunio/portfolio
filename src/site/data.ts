@@ -601,7 +601,6 @@ export const PROJECTS: SiteProject[] = WORK_ORDER.map(
 export const SOBRE = {
   nome: "Fabrício Júnio",
   cargo: "Desenvolvedor FullStack",
-  empresa: "Atuação como PJ, projetos próprios e clientes",
   cidade: "Bauru, SP",
   bio: "Desenvolvedor FullStack. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
   longBio: [
