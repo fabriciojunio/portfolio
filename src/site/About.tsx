@@ -28,7 +28,6 @@ export default function About() {
 
           <m.div variants={fadeUp} className="pt-6 grid grid-cols-2 gap-x-10 gap-y-5 max-w-[480px]">
             <Info k="Cargo"    v={SOBRE.cargo} />
-            <Info k="Empresa"  v={SOBRE.empresa} />
             <Info k="Cidade"   v={SOBRE.cidade} />
             <Info k="Formação" v="Ciência da Computação, UNISAGRADO" />
           </m.div>

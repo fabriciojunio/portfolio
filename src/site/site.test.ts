@@ -76,9 +76,8 @@ describe("data.ts — integridade dos dados", () => {
       expect(SOBRE.longBio.length).toBe(3);
     });
 
-    it("deve ter cargo, empresa e cidade preenchidos", () => {
+    it("deve ter cargo e cidade preenchidos", () => {
       expect(SOBRE.cargo.length).toBeGreaterThan(0);
-      expect(SOBRE.empresa.length).toBeGreaterThan(0);
       expect(SOBRE.cidade.length).toBeGreaterThan(0);
     });
   });
