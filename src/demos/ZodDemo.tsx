@@ -58,9 +58,9 @@ const DEFAULTS: Field = {
   tipo: "suporte",
   data: "2026-06-03",
   horas: "3",
-  cliente: "Credimogiana",
+  cliente: "Cooperativa de Crédito",
   chamado: "13311",
-  descricao: "Chamado 13311 - Assinatura Digital Credimogiana",
+  descricao: "Chamado 13311 - assinatura digital no fluxo de abertura de conta",
 };
 
 export default function ZodDemo() {
@@ -76,7 +76,7 @@ export default function ZodDemo() {
   return (
     <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
       <p className="text-[11.5px] text-[#9ea2ab]">
-        validação real do schema do Apontamento de Horas: edite e veja o resultado mudar.
+        validação real do schema do Horalis: edite e veja o resultado mudar.
       </p>
 
       <div className="grid md:grid-cols-2 gap-3">

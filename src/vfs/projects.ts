@@ -384,7 +384,7 @@ class PipelineService
     language: "typescript",
     runnable: "zod",
     meta: {
-      project: "Pontual - Apontamento de Horas",
+      project: "Horalis",
       demo: "https://apontamento-horas.vercel.app",
       stack: ["Next.js 14", "Prisma", "PostgreSQL", "JWT", "Tailwind"],
       role: "Plataforma multiusuário de apontamento de horas com RBAC, SLA automático, dashboards de controle, auditoria e relatórios Excel.",
@@ -811,6 +811,315 @@ export async function middleware(request: NextRequest) {
   res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   res.headers.delete("X-Powered-By");
   return res;
+}
+`,
+  },
+
+  {
+    path: "/projetos/balcao.ts",
+    name: "balcao.ts",
+    language: "typescript",
+    meta: {
+      project: "Balcão",
+      demo: null,
+      stack: ["Node 20", "TypeScript", "Fastify", "Prisma", "PostgreSQL", "Zod"],
+      role: "Agente de vendas e trocas no WhatsApp para lojas de celular. O modelo de linguagem não escreve números: quem calcula é o domínio, e um auditor confere cada algarismo antes do envio. Repositório privado.",
+    },
+    content: `// Balcão: o auditor de saída, a última trava antes do envio.
+// Todo número da mensagem precisa ter origem numa consulta
+// registrada nesta conversa. Qualquer outro bloqueia o envio.
+
+export type TipoViolacao =
+  | "monetario_nao_autorizado"
+  | "percentual_nao_autorizado"
+  | "numero_sem_formatacao"
+  | "marcador_nao_resolvido"
+  | "ressalva_ausente";
+
+export interface Violacao {
+  readonly tipo: TipoViolacao;
+  readonly trecho: string;
+  readonly motivo: string;
+}
+
+export interface ContextoAuditoria {
+  /** Valores devolvidos pelas ferramentas nesta rodada, em centavos. */
+  readonly monetariosPermitidos: readonly number[];
+  readonly percentuaisPermitidos: readonly number[];
+  /** Abaixo deste valor, número solto é considerado inofensivo. */
+  readonly limiarNumeroSolto: number;
+  /** Texto exigido na mensagem, como a ressalva de pré-avaliação. */
+  readonly ressalvaExigida?: string;
+}
+
+const combina = (v: number, permitidos: readonly number[], tol = 0) =>
+  permitidos.some((p) => Math.abs(p - v) <= tol);
+
+/**
+ * Não corrige nada: aprova ou reprova. Quem trata a reprovação é o
+ * orquestrador, que tenta de novo e, na segunda falha, chama um humano.
+ */
+export function auditarMensagem(texto: string, ctx: ContextoAuditoria) {
+  const violacoes: Violacao[] = [];
+
+  if (/\\{\\{|\\}\\}/.test(texto)) {
+    violacoes.push({
+      tipo: "marcador_nao_resolvido",
+      trecho: texto.match(/\\{\\{[^}]*\\}\\}?/)?.[0] ?? "{{",
+      motivo: "Sobrou marcador na mensagem final.",
+    });
+  }
+
+  // Valor de troca sem "pré-avaliação" é oferta vinculante (art. 30 do CDC).
+  if (ctx.ressalvaExigida && !texto.toLowerCase().includes(ctx.ressalvaExigida)) {
+    violacoes.push({
+      tipo: "ressalva_ausente",
+      trecho: ctx.ressalvaExigida,
+      motivo: "A mensagem cita valor de troca sem dizer que é pré-avaliação.",
+    });
+  }
+
+  for (const o of extrairOcorrencias(texto)) {
+    if (o.tipo === "monetario" && !combina(o.valor, ctx.monetariosPermitidos)) {
+      violacoes.push({
+        tipo: "monetario_nao_autorizado",
+        trecho: o.bruto,
+        motivo: "Valor sem origem em consulta registrada nesta conversa.",
+      });
+    }
+    // "fica em 1200" é ambíguo para o cliente e barato de refazer:
+    // toda quantia sai formatada, sempre.
+    if (o.tipo === "solto" && o.valor >= ctx.limiarNumeroSolto) {
+      violacoes.push({
+        tipo: "numero_sem_formatacao",
+        trecho: o.bruto,
+        motivo: "Número alto escrito solto, sem formatação de moeda.",
+      });
+    }
+  }
+
+  return { aprovado: violacoes.length === 0, violacoes };
+}
+`,
+  },
+
+  {
+    path: "/projetos/guarda-banco.sql",
+    name: "guarda-banco.sql",
+    language: "sql",
+    meta: {
+      project: "Guarda Banco",
+      demo: null,
+      stack: ["PostgreSQL", "PL/pgSQL", "MySQL", "SQL Server", "Python"],
+      role: "Trava no servidor de banco contra DELETE e UPDATE acidentais: limite de linhas afetadas por comando, auditoria e liberação temporária com motivo. Repositório privado.",
+    },
+    content: `-- Guarda Banco: trigger que conta as linhas e decide, linha a linha.
+--
+-- O núcleo não é detectar DELETE sem WHERE, é limite de linhas
+-- afetadas por comando. Uma regra cobre WHERE amplo demais, OR no
+-- lugar de AND, cascata inesperada e filtro de data errado.
+--
+-- Abortar em BEFORE ROW é melhor que contar no fim: falha na linha
+-- do limite mais um, sem materializar milhões de linhas na memória.
+
+create or replace function guarda.contar_e_checar()
+returns trigger
+language plpgsql
+security definer
+set search_path = pg_catalog, guarda
+as $$
+declare
+    v_chave   text := guarda.chave_contador(tg_op);
+    v_linhas  bigint;
+    v_limite  integer;
+    v_retorno record;
+begin
+    if tg_op = 'DELETE' then
+        v_retorno := old;
+    else
+        v_retorno := new;
+    end if;
+
+    v_linhas := guarda.ler_contador(v_chave) + 1;
+    perform set_config(v_chave, v_linhas::text, true);
+
+    -- Liberação vale só dentro da transação e exige motivo escrito.
+    if guarda.esta_liberado() then
+        return v_retorno;
+    end if;
+
+    -- NULL no limite significa proteção desligada de propósito na tabela.
+    v_limite := guarda.limite(tg_table_schema, tg_table_name, tg_op);
+    if v_limite is null or v_linhas <= v_limite then
+        return v_retorno;
+    end if;
+
+    -- O RAISE EXCEPTION desfaz a transação inteira, e com ela qualquer
+    -- INSERT que fizéssemos na tabela de auditoria. Por isso o registro
+    -- do bloqueio vai para o log do servidor, que não é transacional.
+    raise warning
+        'GUARDA bloqueou % em %.%: % linhas, limite %. usuário=% host=%',
+        tg_op, tg_table_schema, tg_table_name, v_linhas, v_limite,
+        session_user, coalesce(host(inet_client_addr()), 'local');
+
+    raise exception
+        'GUARDA: % em %.% passou de % linhas e foi bloqueado.',
+        tg_op, tg_table_schema, tg_table_name, v_limite
+        using
+            errcode = 'P0001',
+            detail  = 'Provável WHERE mais amplo do que o pretendido, ou CASCADE inesperado.',
+            hint    = 'Se for intencional: BEGIN; SELECT guarda.liberar(''motivo''); ...';
+end;
+$$;
+`,
+  },
+
+  {
+    path: "/projetos/registraservico.ts",
+    name: "registraservico.ts",
+    language: "typescript",
+    meta: {
+      project: "RegistraServiço",
+      demo: "https://registraservico.vercel.app",
+      stack: ["Next.js 14", "TypeScript", "Prisma", "PostgreSQL", "Zod"],
+      role: "Registro de prestação de serviços multi-tenant com tipos e campos configuráveis pela organização, auditoria, exportação para BI e PWA. Repositório privado.",
+    },
+    content: `// RegistraServiço: validação dinâmica dos valores de um registro
+// contra a definição de campos do seu TipoServico.
+//
+// É o coração configurável: o "formulário" não está no código,
+// está no banco. O mesmo motor atende uma autarquia hoje e outra
+// empresa amanhã, sem reescrever nada.
+
+import type { TipoCampo } from "@prisma/client";
+
+export interface DefinicaoCampo {
+  chave: string;
+  rotulo: string;
+  tipo: TipoCampo;
+  obrigatorio: boolean;
+  opcoes: string[];
+  ativo: boolean;
+}
+
+export type ValoresDados = Record<string, unknown>;
+
+const vazio = (v: unknown) =>
+  v === undefined || v === null || (typeof v === "string" && v.trim() === "");
+
+export function validarDados(campos: DefinicaoCampo[], entrada: ValoresDados) {
+  const valores: ValoresDados = {};
+  const erros: Record<string, string> = {};
+
+  for (const campo of campos) {
+    if (!campo.ativo) continue;
+    const bruto = entrada[campo.chave];
+
+    if (vazio(bruto)) {
+      if (campo.obrigatorio) erros[campo.chave] = \`"\${campo.rotulo}" é obrigatório.\`;
+      continue;
+    }
+
+    switch (campo.tipo) {
+      case "TEXTO":
+      case "TEXTO_LONGO":
+      case "FOTO": // FOTO guarda a URL/identificador do anexo
+        if (typeof bruto !== "string") erros[campo.chave] = \`"\${campo.rotulo}" deve ser texto.\`;
+        else valores[campo.chave] = bruto.trim();
+        break;
+
+      case "NUMERO": {
+        const n = typeof bruto === "number" ? bruto : Number(bruto);
+        if (Number.isNaN(n)) erros[campo.chave] = \`"\${campo.rotulo}" deve ser um número.\`;
+        else valores[campo.chave] = n;
+        break;
+      }
+
+      case "DATA": {
+        const d = new Date(String(bruto));
+        if (Number.isNaN(d.getTime())) erros[campo.chave] = \`"\${campo.rotulo}" deve ser uma data válida.\`;
+        else valores[campo.chave] = d.toISOString();
+        break;
+      }
+
+      case "SELECAO": {
+        const s = String(bruto);
+        if (!campo.opcoes.includes(s)) {
+          erros[campo.chave] = \`"\${campo.rotulo}" deve ser uma das opções: \${campo.opcoes.join(", ")}.\`;
+        } else {
+          valores[campo.chave] = s;
+        }
+        break;
+      }
+    }
+  }
+
+  return { ok: Object.keys(erros).length === 0, valores, erros };
+}
+`,
+  },
+
+  {
+    path: "/projetos/sintonia.ts",
+    name: "sintonia.ts",
+    language: "typescript",
+    meta: {
+      project: "Sintonia",
+      demo: null,
+      stack: ["NestJS", "Next.js 15", "Expo", "Prisma", "PostgreSQL", "Turborepo"],
+      role: "Rede social em que a conversa gira em torno da música que está tocando. API NestJS, site Next.js e app Expo no mesmo monorepo, com mensagens efêmeras e gamificação. Repositório privado.",
+    },
+    content: `// Sintonia: domínio puro de gamificação e de efemeridade.
+// Nada de NestJS aqui dentro, o que deixa a regra testável sozinha.
+
+// ── foguinho do grupo ─────────────────────────────────────────────
+// A chama sobe uma vez por dia (UTC) em que há interação. Passou um
+// dia inteiro sem ninguém aparecer, a chama zera.
+
+export interface StreakState {
+  count: number;
+  lastActiveDay: string; // yyyy-mm-dd em UTC
+  active: boolean;
+}
+
+export const toUtcDay = (date: Date) => date.toISOString().slice(0, 10);
+
+function daysBetween(a: string, b: string): number {
+  const da = Date.parse(a + "T00:00:00Z");
+  const db = Date.parse(b + "T00:00:00Z");
+  return Math.round((db - da) / 86_400_000);
+}
+
+export function registerInteraction(state: StreakState | null, now: Date): StreakState {
+  const today = toUtcDay(now);
+  if (!state) return { count: 1, lastActiveDay: today, active: true };
+
+  const gap = daysBetween(state.lastActiveDay, today);
+  if (gap <= 0) return { ...state, active: true };                 // mesmo dia
+  if (gap === 1) return { count: state.count + 1, lastActiveDay: today, active: true };
+  return { count: 1, lastActiveDay: today, active: true };         // furou, recomeça
+}
+
+// ── mensagem efêmera ──────────────────────────────────────────────
+// Toda mensagem tem um momento de expiração. As de visualização única
+// expiram no ato da leitura; as demais, por TTL. Um job de expurgo
+// remove o que passou de expiresAt, e aí a mensagem some de verdade.
+
+export function computeExpiresAt(input: {
+  ttlSeconds: number | null;
+  createdAt: Date;
+  defaultTtlSeconds: number;
+}): Date {
+  const ttl = input.ttlSeconds ?? input.defaultTtlSeconds;
+  return new Date(input.createdAt.getTime() + ttl * 1000);
+}
+
+export function expiresOnView(
+  viewOnce: boolean,
+  seenAt: Date,
+  currentExpiresAt: Date | null,
+): Date | null {
+  return viewOnce ? seenAt : currentExpiresAt;
 }
 `,
   },
