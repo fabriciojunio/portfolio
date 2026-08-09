@@ -9,10 +9,10 @@ export const profileJson: VFile = {
   "idade": 20,
   "cidade": "Bauru, SP",
   "trabalho": {
-    "empresa": "Nexum Tecnologia",
-    "cargo": "Analista de Sistemas Júnior",
-    "desde": "2026",
-    "antes": "Estagiário de Desenvolvimento (2025-2026)"
+    "modelo": "PJ (prestação de serviços)",
+    "cargo": "Desenvolvedor FullStack",
+    "desde": "2025",
+    "atuacao": ["BPM e robôs em Java", "integrações REST", "abertura de conta digital"]
   },
   "formacao": {
     "graduacao": "Ciência da Computação, UNISAGRADO",
