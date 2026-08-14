@@ -1125,6 +1125,138 @@ export function expiresOnView(
   },
 
   {
+    path: "/projetos/contaflux.py",
+    name: "contaflux.py",
+    language: "python",
+    meta: {
+      project: "Contaflux",
+      github: "https://github.com/fabriciojunio/contaflux",
+      demo: null,
+      stack: ["Python", "OpenCV", "NumPy", "YOLO11", "PyInstaller"],
+      role: "Contagem de veículos em vídeo de câmera fixa por cruzamento de linha, com dois detectores: subtração de fundo e reconhecimento.",
+    },
+    content: `# Contaflux: contar quem cruza a linha, e em que sentido
+# Contar presença na tela seria frágil: o número sobe e desce
+# conforme os veículos entram e saem, e um carro parado dentro
+# da cena ficaria sendo contado para sempre.
+
+from dataclasses import dataclass
+
+@dataclass(frozen=True, slots=True)
+class Linha:
+    x1: float
+    y1: float
+    x2: float
+    y2: float
+
+    def lado(self, ponto: tuple[float, float]) -> float:
+        """Sinal indica o lado; magnitude, a distância proporcional."""
+        return (self.x2 - self.x1) * (ponto[1] - self.y1) - (
+            self.y2 - self.y1
+        ) * (ponto[0] - self.x1)
+
+def cruzou(linha: Linha, antes, agora) -> bool:
+    # A troca de sinal entre dois quadros consecutivos significa
+    # que a linha foi atravessada no intervalo.
+    return linha.lado(antes) * linha.lado(agora) < 0
+
+linha = Linha(400, 100, 400, 600)
+print("cruzou:", cruzou(linha, (380, 350), (420, 352)))
+print("mesmo lado:", cruzou(linha, (380, 350), (390, 352)))
+`,
+  },
+
+  {
+    path: "/projetos/cardiocam.py",
+    name: "cardiocam.py",
+    language: "python",
+    meta: {
+      project: "Cardiocam",
+      github: "https://github.com/fabriciojunio/cardiocam",
+      demo: null,
+      stack: ["Python", "OpenCV", "NumPy", "SciPy", "scikit-learn"],
+      role: "Frequência cardíaca por vídeo (rPPG), com quatro algoritmos da literatura comparados no mesmo pipeline.",
+    },
+    content: `# Cardiocam: POS, projeção no plano ortogonal ao tom de pele
+# Variação só de intensidade (a lâmpada oscila, a pessoa anda para
+# uma região mais clara) desloca a cor ao longo da direção do tom
+# de pele. Projetando no plano ortogonal, ela desaparece.
+
+import numpy as np
+
+PROJECAO = np.array([[0.0, 1.0, -1.0],
+                     [-2.0, 1.0, 1.0]])
+
+def combinar(bloco: np.ndarray) -> np.ndarray:
+    """bloco 3xL com as médias R, G e B de cada quadro."""
+    normalizado = bloco / bloco.mean(axis=1, keepdims=True)
+    projetado = PROJECAO @ normalizado
+
+    # O peso cancela o que sobrou de distorção nos dois eixos.
+    alfa = np.std(projetado[0]) / np.std(projetado[1])
+    pulso = projetado[0] + alfa * projetado[1]
+    return pulso - pulso.mean()
+
+fps, batimentos = 30, 72
+t = np.arange(0, 10, 1 / fps)
+pulso = 0.005 * np.sin(2 * np.pi * (batimentos / 60) * t)
+rgb = np.vstack([0.6 + pulso, 0.5 + 2 * pulso, 0.4 + pulso])
+
+sinal = combinar(rgb)
+pico = np.argmax(np.abs(np.fft.rfft(sinal)))
+print("bpm estimado:", round(pico * 60 * fps / len(t)))
+`,
+  },
+
+  {
+    path: "/projetos/kaida.cs",
+    name: "kaida.cs",
+    language: "csharp",
+    meta: {
+      project: "Kaida: Raízes do Esquecimento",
+      github: "https://github.com/fabriciojunio/kaida-raizes-do-esquecimento",
+      demo: null,
+      stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
+      role: "Metroidvania 2D com seis cenas, habilidades que destrancam caminhos e chefe com fases. O jogo inteiro é montado por scripts de editor.",
+    },
+    content: `// Kaida: o pulo perdoa o erro de alguns quadros
+// Coyote time: sair da borda não tira o pulo na hora.
+// Buffer: apertar pulo um pouco antes de encostar no chão vale.
+// Sem os dois, o controle parece que "não responde", e o jogador
+// culpa o jogo, não o próprio tempo de reação.
+
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public PlayerStats stats;
+
+    [HideInInspector] public float coyoteTimer = 0f;
+    [HideInInspector] public float jumpBufferTimer = 0f;
+
+    void TickTimers(float dt)
+    {
+        coyoteTimer = Mathf.Max(0f, coyoteTimer - dt);
+        jumpBufferTimer = Mathf.Max(0f, jumpBufferTimer - dt);
+    }
+
+    public void BufferJump() { jumpBufferTimer = stats.jumpBufferTime; }
+
+    public bool ConsumeJumpBuffer()
+    {
+        if (jumpBufferTimer > 0f) { jumpBufferTimer = 0f; return true; }
+        return false;
+    }
+
+    public bool PodePular()
+    {
+        return (IsGrounded() || coyoteTimer > 0f) && ConsumeJumpBuffer();
+    }
+}
+`,
+  },
+
+  {
     path: "/projetos/laboratorio-vr.cs",
     name: "laboratorio-vr.cs",
     language: "csharp",

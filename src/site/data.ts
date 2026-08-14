@@ -532,6 +532,93 @@ export function faixaDaIdade(idade: number): Faixa {
 }`,
   },
   {
+    slug: "contaflux",
+    name: "Contaflux",
+    oneLine: "Conta veículos em vídeo de câmera fixa, por cruzamento de linha",
+    what: "Conta os carros que passam por uma via a partir de um vídeo de câmera fixa. Cada veículo é acompanhado quadro a quadro e contado uma única vez, no instante em que atravessa uma linha na cena. Separa por sentido, informa o tipo do veículo e estima velocidade. Tem dois detectores: subtração de fundo, que roda sem instalar nada, e reconhecimento por YOLO.",
+    role: "Escrevi a detecção, o rastreio e a regra de contagem, e a dedução automática de onde a linha deve ficar a partir do próprio tráfego. Também a integração do reconhecimento como alternativa à subtração de fundo.",
+    highlights: [
+      "A linha de contagem é deduzida do tráfego: o programa observa alguns segundos e a coloca perpendicular ao sentido dos carros, sem ninguém clicar",
+      "Dois detectores com perguntas diferentes: movimento pergunta se algo se moveu, reconhecimento pergunta se aquilo é um carro",
+      "Carro escuro sobre asfalto escuro era classificado como sombra pelo MOG2 e sumia da conta; resolvido usando duas máscaras",
+      "Validação com cenas sintéticas de gabarito conhecido, mais cinco vídeos reais conferidos olhando as caixas na tela",
+    ],
+    stack: ["Python", "OpenCV", "NumPy", "YOLO11", "PyInstaller"],
+    github: "https://github.com/fabriciojunio/contaflux",
+    demo: null,
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# Contaflux: de que lado da linha o veículo está
+def lado(self, ponto: tuple[float, float]) -> float:
+    # O sinal do produto vetorial diz o lado; a troca de sinal entre
+    # dois quadros significa que a linha foi atravessada no intervalo.
+    return (self.x2 - self.x1) * (ponto[1] - self.y1) - (
+        self.y2 - self.y1
+    ) * (ponto[0] - self.x1)`,
+  },
+  {
+    slug: "cardiocam",
+    name: "Cardiocam",
+    oneLine: "Mede batimentos cardíacos por vídeo, sem encostar na pessoa",
+    what: "Estima frequência cardíaca a partir da variação de cor da pele causada pelo fluxo de sangue, captada por uma webcam comum. A técnica é fotopletismografia remota (rPPG). Implementa e compara quatro algoritmos da literatura: GREEN, CHROM, POS e ICA.",
+    role: "Montei o caminho inteiro, do recorte do rosto até o número na tela, e a comparação entre os quatro algoritmos. Também a correção pelo fundo do quadro, que é o que sustenta a medida com balanço de branco automático.",
+    highlights: [
+      "Quatro algoritmos rPPG comparados no mesmo pipeline, com POS como padrão por ser o mais confiável",
+      "A parede atrás da pessoa não tem pulso: o que oscila nela é luz do ambiente, e serve de medida direta da perturbação",
+      "Com balanço de branco oscilando na banda cardíaca, o acerto foi de 1 em 16 sem a correção por fundo para 16 em 16 com ela",
+      "A variação do pulso fica entre 0,1% e 1% da intensidade, abaixo do ruído de um pixel: a média espacial é o que faz o sinal aparecer",
+    ],
+    stack: ["Python", "OpenCV", "NumPy", "SciPy", "scikit-learn"],
+    github: "https://github.com/fabriciojunio/cardiocam",
+    demo: null,
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# Cardiocam (POS): projeção no plano ortogonal ao tom de pele
+PROJECAO = np.array([[0.0, 1.0, -1.0], [-2.0, 1.0, 1.0]])
+
+def combinar(bloco):
+    # Variação só de intensidade anda na direção do tom de pele,
+    # e ao projetar no plano ortogonal ela desaparece.
+    normalizado = bloco / bloco.mean(axis=1, keepdims=True)
+    projetado = PROJECAO @ normalizado
+
+    alfa = np.std(projetado[0]) / np.std(projetado[1])
+    return projetado[0] + alfa * projetado[1]`,
+  },
+  {
+    slug: "kaida",
+    name: "Kaida: Raízes do Esquecimento",
+    oneLine: "Metroidvania 2D em Unity, com o jogo montado por código",
+    what: "Metroidvania 2D com seis cenas, habilidades que destrancam caminhos, chefe com fases e sistema de save. O projeto gera os próprios assets: um menu no editor fatia os sprites, monta as animações, os prefabs, os tiles e as cenas a partir do código.",
+    role: "Cuidei do controlador do jogador (máquina de estados, um arquivo por estado), do chefe e dos geradores de editor que montam o jogo inteiro a partir do código.",
+    highlights: [
+      "O jogo é montado por scripts de editor: o repositório guarda a receita, não o arquivo de cena binário que ninguém consegue revisar",
+      "Coyote time e buffer de pulo: o salto ainda vale por um instante depois de sair da borda, e o comando dado no ar espera o chão",
+      "Máquina de estados com um arquivo por estado do jogador, em vez de uma cadeia de condições no Update",
+      "Build do Windows publicado em releases, para jogar sem instalar a engine",
+    ],
+    stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
+    github: "https://github.com/fabriciojunio/kaida-raizes-do-esquecimento",
+    demo: null,
+    year: "2026",
+    snippetLang: "csharp",
+    snippet: `// Kaida: o pulo perdoa o erro de alguns quadros
+void TickTimers(float dt)
+{
+    coyoteTimer = Mathf.Max(0f, coyoteTimer - dt);
+    jumpBufferTimer = Mathf.Max(0f, jumpBufferTimer - dt);
+}
+
+// Comando dado no ar, pouco antes de encostar no chão, espera.
+public void BufferJump() { jumpBufferTimer = stats.jumpBufferTime; }
+
+public bool ConsumeJumpBuffer()
+{
+    if (jumpBufferTimer > 0f) { jumpBufferTimer = 0f; return true; }
+    return false;
+}`,
+  },
+  {
     slug: "laboratorio-vr",
     name: "Laboratório VR",
     oneLine: "Laboratório de química em Realidade Virtual com interação por gaze",
@@ -591,6 +678,9 @@ const WORK_ORDER = [
   "conectagente",       // mobile offline-first
   "mente-viva",         // mobile offline-first, impacto social
   "mundo-do-lukinha",   // educação, front-end
+  "cardiocam",          // processamento de imagens e sinais
+  "contaflux",          // visão computacional aplicada
+  "kaida",              // Unity / C#, projeto acadêmico
   "laboratorio-vr",     // VR / Unity, projeto acadêmico
 ];
 
@@ -606,7 +696,7 @@ export const SOBRE = {
   longBio: [
     "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "No dia a dia trabalho com automação de processos (BPM), robôs em Java e integrações REST, em projetos bancários de abertura de conta digital. Uma das integrações que escrevi, com a API do IBGE, cortou em 80% o tempo de cadastro.",
-    "Nos projetos próprios vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro (QuantBot ML, GolData, Paiol Tech com Open Finance), e a produtos que já estão indo para cliente: Balcão, Horalis e RegistraServiço.",
+    "Nos projetos próprios vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro (QuantBot ML, GolData, Paiol Tech com Open Finance), e a produtos que já estão indo para cliente: Balcão, Horalis e RegistraServiço. Na faculdade, os de visão computacional: o Cardiocam mede batimentos cardíacos por vídeo e o Contaflux conta os veículos que passam numa via.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -630,7 +720,7 @@ export const STACK_GROUPS = [
   },
   {
     label: "ml",
-    items: ["scikit-learn", "XGBoost", "PyTorch", "FinBERT-PT-BR", "Ollama (local)"],
+    items: ["scikit-learn", "XGBoost", "PyTorch", "OpenCV", "FinBERT-PT-BR", "Ollama (local)"],
   },
   {
     label: "infra",
