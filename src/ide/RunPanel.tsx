@@ -7,6 +7,9 @@ const XgDemo = lazy(() => import("../demos/XgDemo"));
 const KellyDemo = lazy(() => import("../demos/KellyDemo"));
 const ZodDemo = lazy(() => import("../demos/ZodDemo"));
 const VagasDemo = lazy(() => import("../demos/VagasDemo"));
+const ContafluxDemo = lazy(() => import("../demos/ContafluxDemo"));
+const CardiocamDemo = lazy(() => import("../demos/CardiocamDemo"));
+const KaidaDemo = lazy(() => import("../demos/KaidaDemo"));
 
 const DEMO_TITLES = {
   xg:           "GolData / Expected Goals (xG)",
@@ -14,6 +17,9 @@ const DEMO_TITLES = {
   elo:          "GolData / Elo simplificado",
   zod:          "Apontamento de Horas / Validação Zod",
   "vagas-score": "JIS / Motor de Score de Vagas",
+  "contagem-de-linha": "Contaflux / Contagem por cruzamento de linha",
+  rppg:         "Cardiocam / GREEN e POS lado a lado",
+  pulo:         "Kaida / Coyote time e buffer de pulo",
 } as const;
 
 export default function RunPanel() {
@@ -98,6 +104,9 @@ export default function RunPanel() {
           {kind === "kelly" && <KellyDemo />}
           {kind === "zod" && <ZodDemo />}
           {kind === "vagas-score" && <VagasDemo />}
+          {kind === "contagem-de-linha" && <ContafluxDemo />}
+          {kind === "rppg" && <CardiocamDemo />}
+          {kind === "pulo" && <KaidaDemo />}
         </Suspense>
       </div>
     </m.section>
