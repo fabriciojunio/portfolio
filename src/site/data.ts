@@ -691,9 +691,9 @@ export const PROJECTS: SiteProject[] = WORK_ORDER.map(
 
 export const SOBRE = {
   nome: "Fabrício Júnio",
-  cargo: "Desenvolvedor FullStack",
+  cargo: "Analista de Sistemas",
   cidade: "Bauru, SP",
-  bio: "Desenvolvedor FullStack. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
+  bio: "Analista de Sistemas. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
   longBio: [
     "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "No dia a dia trabalho com automação de processos (BPM), robôs em Java e integrações REST, em projetos bancários de abertura de conta digital. Uma das integrações que escrevi, com a API do IBGE, cortou em 80% o tempo de cadastro.",
