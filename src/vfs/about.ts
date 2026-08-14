@@ -22,12 +22,16 @@ abertura de conta digital. Uma das integrações que
 escrevi, com a API do IBGE, cortou o tempo de cadastro
 em 80%.
 
-Nos projetos próprios, mantenho 19 sistemas. De **back-end
+Nos projetos próprios, mantenho 22 sistemas. De **back-end
 Java com Spring Boot** (JIS, CodeReview AI) a **mercado
 financeiro** (QuantBot ML, GolData e Paiol Tech com Open
 Finance), a produtos que já estão indo para cliente
 (Balcão, Horalis e RegistraServiço), passando por
 full-stack em **React**.
+
+Na faculdade, os de **visão computacional**: o Cardiocam
+mede batimentos cardíacos por vídeo e o Contaflux conta
+os veículos que passam numa via.
 
 ## Como gosto de trabalhar
 
