@@ -43,7 +43,12 @@ casos, **executando** trechos para ver o que eles fazem.
 - \`Ctrl/Cmd + \`\` abre/fecha o terminal.
 - Botão **Run** aparece nos arquivos com demo interativa
   (\`goldata.py\`, \`goldata-pro.py\`, \`jis.java\`,
-  \`apontamento-horas.ts\`).
+  \`apontamento-horas.ts\`, \`contaflux.py\`, \`cardiocam.py\`,
+  \`kaida.cs\`).
+
+As três últimas rodam o mesmo cálculo do projeto de verdade: a linha de
+contagem do Contaflux com veículos cruzando, o GREEN contra o POS do
+Cardiocam sob luz oscilando, e o coyote time do Kaida quadro a quadro.
 
 ## Tente isto no terminal
 

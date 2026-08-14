@@ -1128,6 +1128,7 @@ export function expiresOnView(
     path: "/projetos/contaflux.py",
     name: "contaflux.py",
     language: "python",
+    runnable: "contagem-de-linha",
     meta: {
       project: "Contaflux",
       github: "https://github.com/fabriciojunio/contaflux",
@@ -1170,6 +1171,7 @@ print("mesmo lado:", cruzou(linha, (380, 350), (390, 352)))
     path: "/projetos/cardiocam.py",
     name: "cardiocam.py",
     language: "python",
+    runnable: "rppg",
     meta: {
       project: "Cardiocam",
       github: "https://github.com/fabriciojunio/cardiocam",
@@ -1212,6 +1214,7 @@ print("bpm estimado:", round(pico * 60 * fps / len(t)))
     path: "/projetos/kaida.cs",
     name: "kaida.cs",
     language: "csharp",
+    runnable: "pulo",
     meta: {
       project: "Kaida: Raízes do Esquecimento",
       github: "https://github.com/fabriciojunio/kaida-raizes-do-esquecimento",

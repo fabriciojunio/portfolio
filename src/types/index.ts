@@ -27,7 +27,15 @@ export interface VFile {
   };
 }
 
-export type RunKind = "xg" | "kelly" | "elo" | "zod" | "vagas-score";
+export type RunKind =
+  | "xg"
+  | "kelly"
+  | "elo"
+  | "zod"
+  | "vagas-score"
+  | "contagem-de-linha"
+  | "rppg"
+  | "pulo";
 
 export interface DirNode {
   type: "dir";
