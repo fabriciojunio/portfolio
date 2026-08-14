@@ -5,6 +5,17 @@ import { PROJECTS, type SiteProject } from "./data";
 import SnippetView from "./SnippetView";
 
 const DEMO_COUNT = PROJECTS.filter((p) => p.demo).length;
+const LAB_COUNT = PROJECTS.filter((p) => p.labDemo).length;
+
+/**
+ * Endereço da IDE já com o arquivo aberto e o painel de execução ligado.
+ *
+ * Sem isto, chegar na demo exigia abrir /lab, achar o arquivo na árvore e
+ * reparar no botão Run, que é pedir demais de quem só clicou num projeto.
+ */
+function enderecoDaDemo(caminho: string): string {
+  return `/lab?arquivo=${encodeURIComponent(caminho)}&run=1`;
+}
 
 export default function Work() {
   return (
@@ -26,7 +37,8 @@ export default function Work() {
             A maioria com código aberto no GitHub. Clique pra ver o raciocínio, a stack usada e um trecho de código que vale a leitura.
           </p>
           <p className="font-mono text-[11px] text-[#6f6a60]">
-            {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo
+            {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo ·{" "}
+            {LAB_COUNT} com demo interativa aqui mesmo
           </p>
         </div>
       </div>
@@ -68,6 +80,11 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
             {project.demo && (
               <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#4ade80] border border-[#4ade80]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
                 demo
+              </span>
+            )}
+            {project.labDemo && (
+              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#d4a76a] border border-[#d4a76a]/30 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
+                interativa
               </span>
             )}
           </div>
@@ -146,6 +163,26 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                   ))}
                 </ul>
               </div>
+            )}
+
+            {project.labDemo && (
+              <a
+                href={enderecoDaDemo(project.labDemo)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/demo inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-[#d4a76a] text-[#0a0a0a] text-[13px] font-medium hover:bg-[#e4bd86] transition-colors"
+              >
+                <span aria-hidden className="text-[11px]">
+                  ▸
+                </span>
+                Rodar a demo interativa
+                <span
+                  aria-hidden
+                  className="transition-transform group-hover/demo:translate-x-1"
+                >
+                  →
+                </span>
+              </a>
             )}
 
             <div className="pt-3 flex flex-wrap items-center gap-4">

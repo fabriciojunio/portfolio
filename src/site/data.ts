@@ -11,6 +11,14 @@ export interface SiteProject {
   stack: string[];
   github: string | null; // null = repositório privado (sem link público)
   demo?: string | null;
+  /**
+   * Caminho do arquivo na IDE que tem demo interativa, quando existe.
+   *
+   * A demo mora em /lab, e sem um link daqui ela ficava escondida atrás de
+   * abrir a IDE, achar o arquivo na árvore e reparar no botão Run. Este campo
+   * é o que permite chegar nela direto do card do projeto.
+   */
+  labDemo?: string;
   year: string;
   snippet: string;
   snippetLang: "typescript" | "python" | "java" | "php" | "csharp" | "sql";
@@ -29,6 +37,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     ],
     stack: ["Python", "FastAPI", "XGBoost", "NetworkX", "Plotly"],
     github: "https://github.com/fabriciojunio/goldata",
+    labDemo: "/projetos/goldata.py",
     demo: null,
     year: "2026",
     snippetLang: "python",
@@ -55,6 +64,7 @@ def xg(x, y, header=False):
     ],
     stack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "Redis", "Docker"],
     github: "https://github.com/fabriciojunio/bot-sinais",
+    labDemo: "/projetos/goldata-pro.py",
     demo: null,
     year: "2026",
     snippetLang: "python",
@@ -133,6 +143,7 @@ def xg(x, y, header=False):
     stack: ["Next.js 14", "Prisma", "PostgreSQL", "JWT", "Tailwind"],
     github: null, // repositório privado
     demo: "https://apontamento-horas.vercel.app",
+    labDemo: "/projetos/apontamento-horas.ts",
     year: "2026",
     snippetLang: "typescript",
     snippet: `// Validação no boundary da API (route handler → domínio)
@@ -291,6 +302,7 @@ export function registerInteraction(state: StreakState | null, now: Date) {
     ],
     stack: ["Java 21", "Spring Boot", "Python", "FastAPI", "scikit-learn"],
     github: "https://github.com/fabriciojunio/jis",
+    labDemo: "/projetos/jis.java",
     demo: "https://jis-frontend-mocha.vercel.app",
     year: "2025",
     snippetLang: "java",
@@ -545,6 +557,7 @@ export function faixaDaIdade(idade: number): Faixa {
     ],
     stack: ["Python", "OpenCV", "NumPy", "YOLO11", "PyInstaller"],
     github: "https://github.com/fabriciojunio/contaflux",
+    labDemo: "/projetos/contaflux.py",
     demo: null,
     year: "2026",
     snippetLang: "python",
@@ -570,6 +583,7 @@ def lado(self, ponto: tuple[float, float]) -> float:
     ],
     stack: ["Python", "OpenCV", "NumPy", "SciPy", "scikit-learn"],
     github: "https://github.com/fabriciojunio/cardiocam",
+    labDemo: "/projetos/cardiocam.py",
     demo: null,
     year: "2026",
     snippetLang: "python",
@@ -600,6 +614,7 @@ def combinar(bloco):
     ],
     stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
     github: "https://github.com/fabriciojunio/kaida-raizes-do-esquecimento",
+    labDemo: "/projetos/kaida.cs",
     demo: null,
     year: "2026",
     snippetLang: "csharp",

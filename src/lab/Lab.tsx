@@ -1,11 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "motion/react";
 import { MotionProvider } from "../motion/provider";
 import BootScreen from "../ide/BootScreen";
 import Layout from "../ide/Layout";
+import { useIDE } from "../state/useIDE";
+import { aberturaPedida } from "./aberturaPelaUrl";
+
+/**
+ * Abre o arquivo pedido na URL e, se for o caso, já liga o painel de execução.
+ *
+ * É o que faz o botão "Rodar a demo interativa" da vitrine cair direto na
+ * demo, em vez de largar a pessoa na IDE para procurar o arquivo na árvore.
+ */
+function useAberturaPelaUrl(): void {
+  const { open, setRunPanel } = useIDE();
+
+  useEffect(() => {
+    const pedido = aberturaPedida(window.location.search);
+    if (!pedido) return;
+
+    open(pedido.caminho);
+    if (pedido.rodar) setRunPanel(true);
+  }, [open, setRunPanel]);
+}
 
 export default function Lab() {
   const [ready, setReady] = useState(false);
+  useAberturaPelaUrl();
+
   return (
     <MotionProvider>
       <a

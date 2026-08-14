@@ -47,6 +47,34 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
+    it("todo labDemo aponta para um arquivo que existe e roda", async () => {
+      // Um caminho com erro de digitação levaria o botão "Rodar a demo
+      // interativa" para uma IDE que abre no arquivo padrão, sem erro nenhum
+      // na tela. É a falha silenciosa que este teste existe para pegar.
+      const { filesByPath } = await import("../vfs");
+
+      for (const p of PROJECTS) {
+        if (!p.labDemo) continue;
+        const arquivo = filesByPath.get(p.labDemo);
+        expect(arquivo, `labDemo de ${p.slug}: ${p.labDemo}`).toBeDefined();
+        expect(arquivo!.runnable, `${p.labDemo} precisa ser runnable`).toBeTruthy();
+      }
+    });
+
+    it("todo arquivo runnable da IDE está ligado a algum projeto do site", () => {
+      const comDemo = new Set(
+        PROJECTS.map((p) => p.labDemo).filter(Boolean) as string[],
+      );
+      return import("../vfs").then(({ ALL_FILES }) => {
+        for (const f of ALL_FILES) {
+          if (!f.runnable) continue;
+          expect(comDemo.has(f.path), `${f.path} roda mas nenhum card leva a ele`).toBe(
+            true,
+          );
+        }
+      });
+    });
+
     it("nenhum projeto deve ter travessão no nome ou oneLine", () => {
       for (const p of PROJECTS) {
         expect(p.name).not.toContain("—");
