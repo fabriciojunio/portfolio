@@ -10,6 +10,7 @@ const VagasDemo = lazy(() => import("../demos/VagasDemo"));
 const ContafluxDemo = lazy(() => import("../demos/ContafluxDemo"));
 const CardiocamDemo = lazy(() => import("../demos/CardiocamDemo"));
 const KaidaDemo = lazy(() => import("../demos/KaidaDemo"));
+const PermaneiaDemo = lazy(() => import("../demos/PermaneiaDemo"));
 
 const DEMO_TITLES = {
   xg:           "GolData / Expected Goals (xG)",
@@ -20,6 +21,7 @@ const DEMO_TITLES = {
   "contagem-de-linha": "Contaflux / Contagem por cruzamento de linha",
   rppg:         "Cardiocam / GREEN e POS lado a lado",
   pulo:         "Kaida / Coyote time e buffer de pulo",
+  "fuzzy-evasao": "PermaneIA / Risco de evasão por lógica fuzzy",
 } as const;
 
 export default function RunPanel() {
@@ -107,6 +109,7 @@ export default function RunPanel() {
           {kind === "contagem-de-linha" && <ContafluxDemo />}
           {kind === "rppg" && <CardiocamDemo />}
           {kind === "pulo" && <KaidaDemo />}
+            {kind === "fuzzy-evasao" && <PermaneiaDemo />}
         </Suspense>
       </div>
     </m.section>

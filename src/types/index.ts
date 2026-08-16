@@ -35,7 +35,7 @@ export type RunKind =
   | "vagas-score"
   | "contagem-de-linha"
   | "rppg"
-  | "pulo";
+  | "pulo" | "fuzzy-evasao";
 
 export interface DirNode {
   type: "dir";
