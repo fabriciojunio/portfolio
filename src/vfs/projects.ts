@@ -1125,6 +1125,59 @@ export function expiresOnView(
   },
 
   {
+    path: "/projetos/permaneia.ts",
+    name: "permaneia.ts",
+    language: "typescript",
+    runnable: "fuzzy-evasao",
+    meta: {
+      project: "PermaneIA",
+      github: "https://github.com/fabriciojunio/permaneia",
+      demo: "https://permaneia.vercel.app",
+      stack: ["Next.js 15", "TypeScript", "pgvector", "Gemini API", "Prisma"],
+      role: "Assistente de estudos com RAG sobre documentos institucionais e painel de risco de evasão com um motor fuzzy Mamdani escrito do zero.",
+    },
+    content: `// PermaneIA: defuzzificação por centroide do método de Mamdani.
+// O motor foi escrito do zero, sem biblioteca, para que as quatro
+// etapas ficassem auditáveis: fuzzificação, disparo pelo mínimo,
+// agregação pelo máximo e o centroide abaixo.
+
+const PASSOS = 1000;
+
+export function defuzzificarCentroide(agregado: Record<Termo, number>): number {
+  let numerador = 0;
+  let denominador = 0;
+
+  for (let i = 0; i <= PASSOS; i += 1) {
+    const x = i / PASSOS;
+
+    // União dos consequentes recortados: em cada ponto do universo,
+    // a altura é o maior valor entre os termos já limitados pela
+    // força da regra que os ativou.
+    let altura = 0;
+    for (const termo of TERMOS) {
+      const corte = agregado[termo];
+      if (corte <= 0) continue;
+      altura = Math.max(altura, Math.min(corte, pertinencia[termo](x)));
+    }
+
+    numerador += x * altura;
+    denominador += altura;
+  }
+
+  // Área nula significaria que nenhuma regra disparou. A base é
+  // fatorial completa, então isso não acontece; se acontecer,
+  // devolver o meio do universo é mais honesto do que devolver zero,
+  // que seria lido como "sem risco" e esconderia o defeito.
+  if (denominador === 0) return 0.5;
+  return numerador / denominador;
+}
+
+// O centroide leva em conta a área inteira do conjunto agregado.
+// É por isso que um aluno com uma regra "crítico" fraca e uma
+// "médio" forte recebe um score intermediário, que é exatamente a
+// gradação que justifica usar fuzzy em vez de um classificador.`,
+  },
+  {
     path: "/projetos/contaflux.py",
     name: "contaflux.py",
     language: "python",
