@@ -76,6 +76,39 @@ def xg(x, y, header=False):
     return max(0.0, ((b * prob - q) / b) * fraction)`,
   },
   {
+    slug: "permaneia",
+    name: "PermaneIA",
+    oneLine: "Assistente de estudos com RAG e alerta de risco de evasão",
+    what: "Duas frentes contra a evasão no ensino superior. Um assistente que responde dúvidas do aluno usando apenas os documentos oficiais da disciplina, com a fonte citada, e que admite não saber quando a informação não está no material. E um painel que ordena a turma por risco de evasão calculado com lógica fuzzy.",
+    role: "Escrevi o motor de inferência fuzzy de Mamdani do zero, sem biblioteca, e a camada de RAG inteira: chunking, busca vetorial no pgvector, limiar de relevância e as barreiras contra injeção de prompt.",
+    highlights: [
+      "Um aluno com média 8,6 e presença de 34% recebe risco alto; o critério por nota, que é o usado nas secretarias, diria que está tranquilo",
+      "A calibração do RAG revelou três defeitos que pareciam código correto, entre eles a resposta que recortava a frase com a data e devolvia só a confirmação de que a prova existe",
+      "Funciona sem chave de API: no modo degradado ele transcreve o documento em vez de redigir, o que é ainda mais estrito quanto a não inventar",
+      "26.460 comparações em grade verificam que a faixa de risco nunca melhora quando um sinal do aluno piora",
+      "1.803 testes, e um deles nasceu de um defeito que só existia no artefato publicado, não no código-fonte",
+    ],
+    stack: ["Next.js 15", "TypeScript", "PostgreSQL", "pgvector", "Prisma", "Gemini API"],
+    github: "https://github.com/fabriciojunio/permaneia",
+    labDemo: "/projetos/permaneia.ts",
+    demo: "https://permaneia.vercel.app",
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// Regra 7: o caso que o projeto existe para pegar.
+// Notas boas não anulam presença e engajamento em queda.
+r(7, "baixa", "alta", "baixo", "alto",
+  "Um critério baseado só em nota classificaria este aluno " +
+  "como tranquilo, e ele não está.");
+
+// Disparo pelo mínimo: a regra só vale o quanto vale o seu
+// antecedente mais fraco.
+const forca = Math.min(
+  graus.frequencia[regra.se.frequencia],
+  graus.notas[regra.se.notas],
+  graus.engajamento[regra.se.engajamento],
+);`,
+  },
+  {
     slug: "conectagente",
     name: "ConectAgente",
     oneLine: "App offline-first para Agentes Comunitários do SUS",
@@ -683,6 +716,7 @@ const WORK_ORDER = [
   "paiol-tech",         // SaaS com Open Finance
   "authcore",           // segurança e autenticação
   "guarda-banco",       // confiabilidade de banco de dados
+  "permaneia",          // RAG com fontes citadas + lógica fuzzy
   "balcao",             // IA aplicada com domínio determinístico
   "apontamento-horas",  // RBAC, SLA, auditoria
   "registraservico",    // multi-tenant configurável, setor público
