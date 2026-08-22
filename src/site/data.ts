@@ -636,7 +636,7 @@ def combinar(bloco):
     slug: "kaida",
     name: "Kaida: Raízes do Esquecimento",
     oneLine: "Metroidvania 2D em Unity, com o jogo montado por código",
-    what: "Metroidvania 2D com seis cenas, habilidades que destrancam caminhos, chefe com fases, três níveis de dificuldade e save automático nos marcos de descanso. O projeto gera os próprios assets: um menu no editor fatia os sprites, monta as animações, os prefabs, os tiles e as cenas a partir do código.",
+    what: "Metroidvania 2D com seis cenas, habilidades que destrancam caminhos, chefe em confronto único com barra de vida única, três tentativas por partida, três níveis de dificuldade e save automático nos marcos de descanso. O projeto gera os próprios assets: um menu no editor fatia os sprites, monta as animações, os prefabs, os tiles e as cenas a partir do código.",
     role: "Cuidei do controlador do jogador (máquina de estados, um arquivo por estado), do chefe e dos geradores de editor que montam o jogo inteiro a partir do código.",
     highlights: [
       "O jogo é montado por scripts de editor: o repositório guarda a receita, não o arquivo de cena binário que ninguém consegue revisar",
@@ -646,7 +646,7 @@ def combinar(bloco):
       "Build do Windows publicado em releases, para jogar sem instalar a engine",
     ],
     stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
-    github: "https://github.com/fabriciojunio/kaida-raizes-do-esquecimento",
+    github: "https://github.com/fabriciojunio/kaida",
     labDemo: "/projetos/kaida.cs",
     demo: null,
     year: "2026",
@@ -665,6 +665,39 @@ public bool ConsumeJumpBuffer()
 {
     if (jumpBufferTimer > 0f) { jumpBufferTimer = 0f; return true; }
     return false;
+}`,
+  },
+  {
+    slug: "bicudo",
+    name: "Bicudo",
+    oneLine: "Jogo de um botão em Unity, com o cenário que se mede pela tela",
+    what: "Jogo de um botão na linha do Flappy Bird: o pássaro cai sozinho, sobe quando o jogador manda, e a partida acaba no primeiro encostão. Cena única para os três estados, arte recortada por script, quatro efeitos sonoros gerados por síntese e nenhum arquivo de áudio no repositório.",
+    role: "Projeto individual: fiz tudo, do recorte dos sprites e da montagem da cena por código até os testes e o executável.",
+    highlights: [
+      "O impulso troca a velocidade vertical em vez de somar a ela: dois toques seguidos sobem o mesmo tanto que um, e o jogo passa a ser sobre ritmo",
+      "Sem Rigidbody2D. A colisão é uma consulta de círculo a cada quadro, porque quem move pelo transform atravessa o cano entre dois quadros sem disparar evento nenhum",
+      "O cenário mede a largura visível ao rodar e refaz a conta se a tela muda: com os limites fixos na cena, o chão sumia pela borda e o cano reaparecia do nada à frente do pássaro em monitor ultrawide",
+      "Os quatro efeitos sonoros são sintetizados na inicialização, o que evita uma terceira licença de terceiros num jogo em que quatro bipes resolvem",
+      "46 testes, e três deles abrem a cena que vai no executável: o placar já ficou uma partida inteira em zero enquanto os testes chamavam o método de pontuar direto e passavam verdes",
+    ],
+    stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
+    github: "https://github.com/fabriciojunio/bicudo",
+    labDemo: "/projetos/bicudo.cs",
+    demo: null,
+    year: "2026",
+    snippetLang: "csharp",
+    snippet: `// Bicudo: o impulso troca a velocidade, não soma a ela
+public void Bater()
+{
+    // troca seca: subir sempre a mesma altura, venha de onde vier
+    VelocidadeVertical = impulso;
+}
+
+void Update()
+{
+    VelocidadeVertical -= gravidade * Time.deltaTime;
+    VelocidadeVertical = Mathf.Max(VelocidadeVertical, -quedaMaxima);
+    transform.position += Vector3.up * VelocidadeVertical * Time.deltaTime;
 }`,
   },
   {
@@ -731,6 +764,7 @@ const WORK_ORDER = [
   "cardiocam",          // processamento de imagens e sinais
   "contaflux",          // visão computacional aplicada
   "kaida",              // Unity / C#, projeto acadêmico
+  "bicudo",             // Unity / C#, projeto acadêmico individual
   "laboratorio-vr",     // VR / Unity, projeto acadêmico
 ];
 
