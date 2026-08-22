@@ -1270,10 +1270,10 @@ print("bpm estimado:", round(pico * 60 * fps / len(t)))
     runnable: "pulo",
     meta: {
       project: "Kaida: Raízes do Esquecimento",
-      github: "https://github.com/fabriciojunio/kaida-raizes-do-esquecimento",
+      github: "https://github.com/fabriciojunio/kaida",
       demo: null,
       stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
-      role: "Metroidvania 2D com seis cenas, habilidades que destrancam caminhos e chefe com fases. O jogo inteiro é montado por scripts de editor.",
+      role: "Metroidvania 2D com seis cenas, habilidades que destrancam caminhos e chefe com barra única. O jogo inteiro é montado por scripts de editor.",
     },
     content: `// Kaida: o pulo perdoa o erro de alguns quadros
 // Coyote time: sair da borda não tira o pulo na hora.
@@ -1307,6 +1307,62 @@ public class PlayerController : MonoBehaviour
     public bool PodePular()
     {
         return (IsGrounded() || coyoteTimer > 0f) && ConsumeJumpBuffer();
+    }
+}
+`,
+  },
+
+  {
+    path: "/projetos/bicudo.cs",
+    name: "bicudo.cs",
+    language: "csharp",
+    runnable: "impulso",
+    meta: {
+      project: "Bicudo",
+      github: "https://github.com/fabriciojunio/bicudo",
+      demo: null,
+      stack: ["Unity 2022.3", "C#", "Unity Test Framework"],
+      role: "Jogo de um botão na linha do Flappy Bird, feito sozinho. O cenário mede a tela ao rodar e se ajusta de 4:3 a ultrawide.",
+    },
+    content: `// Bicudo: o impulso TROCA a velocidade, não soma a ela.
+// Uma linha de diferença, e é ela que decide se o jogo é sobre ritmo
+// ou sobre martelar o botão. Somando, dois toques seguidos mandam o
+// pássaro para fora da tela, e a estratégia vira apertar mais rápido.
+
+using UnityEngine;
+
+public class Passaro : MonoBehaviour
+{
+    public float impulso = 6.2f;
+    public float gravidade = 18f;
+    public float quedaMaxima = 10f;
+    public float raio = 0.28f;
+    public LayerMask camadasQueMatam;
+
+    public float VelocidadeVertical { get; private set; }
+
+    public void Bater()
+    {
+        // troca seca: subir sempre a mesma altura, venha de onde vier
+        VelocidadeVertical = impulso;
+    }
+
+    void Update()
+    {
+        VelocidadeVertical -= gravidade * Time.deltaTime;
+        VelocidadeVertical = Mathf.Max(VelocidadeVertical, -quedaMaxima);
+        transform.position += Vector3.up * VelocidadeVertical * Time.deltaTime;
+
+        ConferirBatida();
+    }
+
+    // O pássaro é movido pelo transform, então os eventos de colisão do
+    // Unity não são confiáveis: entre dois quadros ele atravessa o cano
+    // sem disparar nada. Perguntar a cada quadro é barato e não deixa passar.
+    void ConferirBatida()
+    {
+        if (Physics2D.OverlapCircle(transform.position, raio, camadasQueMatam) != null)
+            Morrer();
     }
 }
 `,

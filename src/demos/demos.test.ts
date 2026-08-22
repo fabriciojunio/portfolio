@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import { cruzou, dentroDoSegmento, lado } from "./logica/contagemDeLinha";
 import { estimarBpm, gerar, green, pos } from "./logica/rppg";
 import { ULTIMO_QUADRO_NO_CHAO, simular } from "./logica/pulo";
+import {
+  IMPULSO,
+  QUEDA_MAXIMA,
+  simular as voar,
+  toquesEspacados,
+  velocidadesDepoisDeCadaToque,
+} from "./logica/impulso";
 
 // As demos rodam a mesma conta dos projetos de verdade, e não uma animação
 // que finge o resultado. Estes testes existem para que continue assim: se
@@ -111,5 +118,34 @@ describe("Kaida — coyote time e buffer de pulo", () => {
     const { linha } = simular(10, COYOTE, BUFFER);
     expect(linha[ULTIMO_QUADRO_NO_CHAO].noChao).toBe(true);
     expect(linha[ULTIMO_QUADRO_NO_CHAO + 1].noChao).toBe(false);
+  });
+});
+
+describe("Bicudo — o impulso troca a velocidade, não soma", () => {
+  const seguidos = [0, 6, 12, 18];
+
+  it("trocando, toda batida devolve exatamente o mesmo impulso", () => {
+    const vs = velocidadesDepoisDeCadaToque(seguidos, "troca");
+    for (const v of vs) expect(v).toBeCloseTo(IMPULSO, 5);
+  });
+
+  it("somando, a velocidade cresce a cada batida", () => {
+    const vs = velocidadesDepoisDeCadaToque(seguidos, "soma");
+    for (let i = 1; i < vs.length; i++) expect(vs[i]).toBeGreaterThan(vs[i - 1]);
+  });
+
+  it("é isso que impede o jogo de virar quem aperta mais rápido", () => {
+    const rajada = toquesEspacados(4, 6);
+    expect(voar(rajada, "troca").saiuPeloTeto).toBe(false);
+    expect(voar(rajada, "soma").saiuPeloTeto).toBe(true);
+  });
+
+  it("sem bater asa nenhuma, o pássaro cai e encosta no chão", () => {
+    expect(voar([], "troca").quadroQueCaiu).not.toBeNull();
+  });
+
+  it("a queda tem teto, senão não dá tempo de reagir ao chão", () => {
+    const { linha } = voar([], "troca");
+    for (const q of linha) expect(q.velocidade).toBeGreaterThanOrEqual(-QUEDA_MAXIMA - 1e-9);
   });
 });
