@@ -1134,7 +1134,7 @@ export function expiresOnView(
       github: "https://github.com/fabriciojunio/permaneia",
       demo: "https://permaneia.vercel.app",
       stack: ["Next.js 15", "TypeScript", "pgvector", "Gemini API", "Prisma"],
-      role: "Assistente de estudos com RAG sobre documentos institucionais e painel de risco de evasão com um motor fuzzy Mamdani escrito do zero.",
+      role: "Assistente de estudos com RAG híbrido sobre documentos institucionais, agenda de calendário calculada em código, e painel de risco de evasão com um motor fuzzy Mamdani escrito do zero.",
     },
     content: `// PermaneIA: defuzzificação por centroide do método de Mamdani.
 // O motor foi escrito do zero, sem biblioteca, para que as quatro
