@@ -4,6 +4,12 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      // O Tailwind traz azul-500 como cor de anel de foco e cinza-400 no
+      // placeholder. Num site sem cor, essas duas passam despercebidas na
+      // revisão e aparecem na tela.
+      ringColor: {
+        DEFAULT: "#ffffff",
+      },
       fontFamily: {
         serif: ['"Instrument Serif"', '"EB Garamond"', "Georgia", "serif"],
         sans:  ['"Inter"', "ui-sans-serif", "system-ui"],

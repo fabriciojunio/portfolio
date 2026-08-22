@@ -61,6 +61,18 @@ body {
   box-sizing: border-box;
 }
 
+/* O padrão do Tailwind aqui é cinza-400, que puxa para o frio. */
+::placeholder {
+  color: var(--text-dim);
+  opacity: 1;
+}
+
+/* Mesma história: o anel de foco padrão é azul. O foco continua bem visível,
+   agora pelo contraste, que é o que sustenta o resto da página. */
+:root {
+  --tw-ring-color: rgb(255 255 255 / 0.5);
+}
+
 
 ::-webkit-scrollbar {
   width: 10px;
