@@ -4,18 +4,18 @@ import type { Language } from "../types";
 // arquivo exporte só componentes (regra do Fast Refresh / react-refresh).
 
 export const LANG_COLOR: Record<Language, string> = {
-  typescript: "#6a93c4",
-  javascript: "#d4a247",
-  python:     "#7cb37b",
-  java:       "#cf6464",
-  php:        "#9b7fcb",
-  csharp:     "#8a9b5a",
-  json:       "#d4a247",
-  markdown:   "#9ea2ab",
-  yaml:       "#b48cd4",
-  shell:      "#7cb37b",
-  sql:        "#f0a570",
-  plaintext:  "#9ea2ab",
+  typescript: "#9a9a9a",
+  javascript: "#b8b8b8",
+  python:     "#ededed",
+  java:       "#8a8a8a",
+  php:        "#c4c4c4",
+  csharp:     "#767676",
+  json:       "#b8b8b8",
+  markdown:   "#9a9a9a",
+  yaml:       "#a3a3a3",
+  shell:      "#ededed",
+  sql:        "#d4d4d4",
+  plaintext:  "#9a9a9a",
 };
 
 export const LANG_LABEL: Record<Language, string> = {

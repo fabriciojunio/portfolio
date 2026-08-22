@@ -135,15 +135,15 @@ export default function Terminal() {
   return (
     <section
       aria-label="Terminal"
-      className="h-[34%] min-h-[180px] bg-[#0a0b0e] border-t border-[#1f222a] flex flex-col"
+      className="h-[34%] min-h-[180px] bg-[#0c0c0c] border-t border-[#1c1c1c] flex flex-col"
       onClick={() => inputRef.current?.focus()}
     >
-      <div className="h-7 flex items-center justify-between px-3 border-b border-[#1f222a] text-[10.5px] uppercase tracking-[1.2px] text-[#6c7079] font-mono">
+      <div className="h-7 flex items-center justify-between px-3 border-b border-[#1c1c1c] text-[10.5px] uppercase tracking-[1.2px] text-[#6b6b6b] font-mono">
         <span>terminal</span>
         <button
           type="button"
           onClick={() => ide.setTerminal(false)}
-          className="hover:text-[#e6e3dc] px-2"
+          className="hover:text-[#ededed] px-2"
           title="Fechar terminal"
         >
           ×
@@ -154,7 +154,7 @@ export default function Terminal() {
         {history.map((entry) => (
           <Line key={entry.id} entry={entry} />
         ))}
-        <div className="flex items-center text-[#e6e3dc]">
+        <div className="flex items-center text-[#ededed]">
           <Prompt path={promptPath} />
           <input
             ref={inputRef}
@@ -164,7 +164,7 @@ export default function Terminal() {
             spellCheck={false}
             autoCapitalize="none"
             autoComplete="off"
-            className="flex-1 bg-transparent outline-none border-0 text-[#e6e3dc] caret-[#e36b3a]"
+            className="flex-1 bg-transparent outline-none border-0 text-[#ededed] caret-[#ffffff]"
             aria-label="Entrada do terminal"
           />
         </div>
@@ -177,11 +177,11 @@ export default function Terminal() {
 function Prompt({ path }: { path: string }) {
   return (
     <span className="select-none whitespace-pre">
-      <span className="text-[#7cb37b]">fabricio</span>
-      <span className="text-[#6c7079]">@</span>
-      <span className="text-[#6a93c4]">portfolio</span>
-      <span className="text-[#6c7079]"> {path} </span>
-      <span className="text-[#e36b3a]">$ </span>
+      <span className="text-[#ededed]">fabricio</span>
+      <span className="text-[#6b6b6b]">@</span>
+      <span className="text-[#9a9a9a]">portfolio</span>
+      <span className="text-[#6b6b6b]"> {path} </span>
+      <span className="text-[#ffffff]">$ </span>
     </span>
   );
 }
@@ -191,19 +191,19 @@ function Line({ entry }: { entry: TerminalEntry }) {
     return (
       <m.div className="flex" {...LINE_MOTION}>
         <Prompt path="~" />
-        <span className="text-[#e6e3dc]">{entry.text}</span>
+        <span className="text-[#ededed]">{entry.text}</span>
       </m.div>
     );
   }
   if (entry.kind === "system") {
     return (
-      <m.div className="text-[#6c7079] italic" {...LINE_MOTION}>
+      <m.div className="text-[#6b6b6b] italic" {...LINE_MOTION}>
         {entry.text}
       </m.div>
     );
   }
   return (
-    <m.div className="text-[#c9c5ba] whitespace-pre" {...LINE_MOTION}>
+    <m.div className="text-[#c4c4c4] whitespace-pre" {...LINE_MOTION}>
       {entry.text || " "}
     </m.div>
   );

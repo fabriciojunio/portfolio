@@ -7,11 +7,11 @@ export default function About() {
     <section id="sobre" className="relative py-28 md:py-40 px-6 md:px-10 max-w-[1280px] mx-auto">
       <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
         <m.div variants={stagger()} {...inViewOnce}>
-          <m.p variants={fadeUp} className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#a39c8f]">
+          <m.p variants={fadeUp} className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">
             01 · sobre
           </m.p>
-          <m.h2 variants={fadeUp} className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#f5f1e8]">
-            Código que <em className="text-[#d4a76a] not-italic">funciona</em> em produção.
+          <m.h2 variants={fadeUp} className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#ededed]">
+            Código que <em className="text-[#ffffff] not-italic">funciona</em> em produção.
           </m.h2>
         </m.div>
 
@@ -20,7 +20,7 @@ export default function About() {
             <m.p
               key={i}
               variants={fadeUp}
-              className="font-sans text-[16px] md:text-[17.5px] leading-[1.9] text-[#d6cfc1] max-w-[640px]"
+              className="font-sans text-[16px] md:text-[17.5px] leading-[1.9] text-[#d4d4d4] max-w-[640px]"
             >
               {p}
             </m.p>
@@ -37,7 +37,7 @@ export default function About() {
               href={SOBRE.contato.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[12px] text-[#a39c8f] hover:text-[#d4a76a] transition-colors underline underline-offset-4 decoration-[#d4a76a]/30 hover:decoration-[#d4a76a]"
+              className="font-mono text-[12px] text-[#9a9a9a] hover:text-[#ffffff] transition-colors underline underline-offset-4 decoration-[#ffffff]/30 hover:decoration-[#ffffff]"
             >
               github.com/fabriciojunio →
             </a>
@@ -45,7 +45,7 @@ export default function About() {
               href={SOBRE.contato.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-mono text-[12px] text-[#a39c8f] hover:text-[#d4a76a] transition-colors underline underline-offset-4 decoration-[#d4a76a]/30 hover:decoration-[#d4a76a]"
+              className="font-mono text-[12px] text-[#9a9a9a] hover:text-[#ffffff] transition-colors underline underline-offset-4 decoration-[#ffffff]/30 hover:decoration-[#ffffff]"
             >
               LinkedIn →
             </a>
@@ -59,8 +59,8 @@ export default function About() {
 function Info({ k, v }: { k: string; v: string }) {
   return (
     <div>
-      <div className="font-mono text-[10px] uppercase tracking-[1.4px] text-[#7a7468]">{k}</div>
-      <div className="font-sans text-[14px] text-[#f5f1e8] mt-1.5 leading-snug">{v}</div>
+      <div className="font-mono text-[10px] uppercase tracking-[1.4px] text-[#767676]">{k}</div>
+      <div className="font-sans text-[14px] text-[#ededed] mt-1.5 leading-snug">{v}</div>
     </div>
   );
 }

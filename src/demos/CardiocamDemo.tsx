@@ -31,7 +31,7 @@ export default function CardiocamDemo() {
   const erroPos = Math.abs(resultado.pos.bpm - bpm);
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
       <div className="space-y-2">
         <Deslizante
           rotulo="batimento real"
@@ -81,8 +81,8 @@ export default function CardiocamDemo() {
         />
       </div>
 
-      <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3 text-[11px] text-[#6c7079] leading-relaxed">
-        Suba a <span className="text-[#9ea2ab]">luz oscilando</span>. A variação
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 text-[11px] text-[#6b6b6b] leading-relaxed">
+        Suba a <span className="text-[#9a9a9a]">luz oscilando</span>. A variação
         atinge os três canais de uma vez, e o GREEN não tem como distinguir isso
         de sangue: ele passa a medir a lâmpada. O POS projeta num plano
         ortogonal à direção do tom de pele, onde toda variação puramente de
@@ -121,16 +121,16 @@ function Traçado({
     .join(" ");
 
   const maiorMag = Math.max(...espectro, 1e-9);
-  const cor = erro <= 2 ? "#7cb37b" : erro <= 6 ? "#d4a247" : "#cf6464";
+  const cor = erro <= 2 ? "#ededed" : erro <= 6 ? "#b8b8b8" : "#8a8a8a";
 
   return (
-    <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
       <div className="flex items-baseline justify-between mb-2">
         <div>
-          <span className="text-[11px] uppercase tracking-[1.2px] text-[#e6e3dc]">
+          <span className="text-[11px] uppercase tracking-[1.2px] text-[#ededed]">
             {titulo}
           </span>
-          <span className="ml-2 text-[10.5px] text-[#6c7079]">{descricao}</span>
+          <span className="ml-2 text-[10.5px] text-[#6b6b6b]">{descricao}</span>
         </div>
         <span className="text-[13px]" style={{ color: cor }}>
           {bpm.toFixed(0)} bpm
@@ -143,7 +143,7 @@ function Traçado({
           y1={h / 2}
           x2={w}
           y2={h / 2}
-          stroke="#272b34"
+          stroke="#262626"
           strokeWidth="1"
         />
         <path d={caminho} fill="none" stroke={cor} strokeWidth="1.2" />
@@ -156,12 +156,12 @@ function Traçado({
             className="flex-1"
             style={{
               height: `${Math.max(2, (m / maiorMag) * 100)}%`,
-              background: m === maiorMag ? cor : "#272b34",
+              background: m === maiorMag ? cor : "#262626",
             }}
           />
         ))}
       </div>
-      <div className="mt-1 flex justify-between text-[10px] text-[#6c7079]">
+      <div className="mt-1 flex justify-between text-[10px] text-[#6b6b6b]">
         <span>{BPM_MIN} bpm</span>
         <span>erro {erro.toFixed(1)}</span>
         <span>{BPM_MAX} bpm</span>
@@ -189,7 +189,7 @@ function Deslizante({
 }) {
   return (
     <label className="flex items-center gap-3 text-[11.5px]">
-      <span className="w-[110px] shrink-0 text-[#9ea2ab]">{rotulo}</span>
+      <span className="w-[110px] shrink-0 text-[#9a9a9a]">{rotulo}</span>
       <input
         type="range"
         min={min}
@@ -197,9 +197,9 @@ function Deslizante({
         step={passo}
         value={valor}
         onChange={(e) => aoMudar(Number(e.target.value))}
-        className="flex-1 accent-[#e36b3a]"
+        className="flex-1 accent-[#ffffff]"
       />
-      <span className="w-[150px] shrink-0 text-right text-[#e6e3dc]">
+      <span className="w-[150px] shrink-0 text-right text-[#ededed]">
         {formatar(valor)}
       </span>
     </label>

@@ -176,22 +176,22 @@ export default function Cards3D() {
                       window.scrollTo({ top, behavior: "smooth" });
                     }
                   }}
-                  className="block rounded-xl bg-[#111111]/95 border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-sm hover:border-[#d4a76a]/40 transition-colors"
+                  className="block rounded-[2px] bg-[#101010] border border-white/10 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)] overflow-hidden hover:border-[#ffffff]/40 transition-colors"
                 >
                   <div className="flex items-center gap-2 px-4 py-2.5 border-b border-white/5 bg-black/30">
-                    <span className="w-2 h-2 rounded-full bg-[#d4a76a]/70" />
-                    <span className="font-mono text-[10.5px] text-[#6f6a60] uppercase tracking-[1.2px]">
+                    <span className="w-2 h-2 rounded-full bg-[#ffffff]/70" />
+                    <span className="font-mono text-[10.5px] text-[#767676] uppercase tracking-[1.2px]">
                       {p.slug}.{ext(p.snippetLang)}
                     </span>
                   </div>
-                  <pre className="px-4 py-3 font-mono text-[11.5px] leading-[1.55] text-[#cfc8b9] whitespace-pre overflow-hidden">
+                  <pre className="px-4 py-3 font-mono text-[11.5px] leading-[1.55] text-[#d4d4d4] whitespace-pre overflow-hidden">
                     {highlight(p.snippet.split("\n").slice(0, 7).join("\n"), p.snippetLang)}
                   </pre>
                   <div className="px-4 py-2.5 border-t border-white/5 flex items-center justify-between">
-                    <span className="font-serif text-[14px] text-[#f5f1e8] truncate pr-2">
+                    <span className="font-serif text-[14px] text-[#ededed] truncate pr-2">
                       {p.name}
                     </span>
-                    <span className="font-mono text-[10px] text-[#6f6a60]">
+                    <span className="font-mono text-[10px] text-[#767676]">
                       {p.year}
                     </span>
                   </div>

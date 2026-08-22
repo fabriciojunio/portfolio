@@ -10,16 +10,16 @@ const STEPS = [
   { delay: 860,  text: "  registrando 50+ comandos no shell",                             tone: "dim" },
   { delay: 1020, text: "  montando virtual file system",                                  tone: "dim" },
   { delay: 1180, text: "▸ subindo Monaco Editor",                                         tone: "muted" },
-  { delay: 1340, text: "  tema 'fabricio-dark' aplicado",                                 tone: "dim" },
+  { delay: 1340, text: "  tema 'fabricio-mono' aplicado",                                 tone: "dim" },
   { delay: 1500, text: "▸ headers de segurança: CSP, HSTS, X-Frame-Options DENY",         tone: "good" },
   { delay: 1700, text: "▸ pronto em 247ms · bem-vindo",                                    tone: "accent" },
 ];
 
 const TONE = {
-  dim:    "#6c7079",
-  muted:  "#9ea2ab",
-  good:   "#7cb37b",
-  accent: "#e36b3a",
+  dim:    "#6b6b6b",
+  muted:  "#9a9a9a",
+  good:   "#ededed",
+  accent: "#ffffff",
 } as const;
 
 interface Props {
@@ -67,14 +67,14 @@ export default function BootScreen({ onDone }: Props) {
       onClick={skip}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
-      className="fixed inset-0 z-[60] bg-[#0a0b0e] text-[#e6e3dc] font-mono flex flex-col cursor-pointer"
+      className="fixed inset-0 z-[60] bg-[#0c0c0c] text-[#ededed] font-mono flex flex-col cursor-pointer"
     >
       <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-2xl px-6">
           <div className="flex items-baseline gap-3 mb-4">
-            <span className="text-[#e36b3a] text-[22px] leading-none">▮</span>
+            <span className="text-[#ffffff] text-[22px] leading-none">▮</span>
             <span className="text-[18px]">fabricio-junio</span>
-            <span className="text-[12px] text-[#6c7079]">/ portfolio</span>
+            <span className="text-[12px] text-[#6b6b6b]">/ portfolio</span>
           </div>
           <div className="text-[13px] leading-[1.7]">
             {STEPS.slice(0, step).map((s, i) => (
@@ -89,14 +89,14 @@ export default function BootScreen({ onDone }: Props) {
               </m.div>
             ))}
             {step < STEPS.length && (
-              <div className="text-[#6c7079]">
-                <span className="inline-block w-2 h-[14px] bg-[#e36b3a] align-middle animate-blink" />
+              <div className="text-[#6b6b6b]">
+                <span className="inline-block w-2 h-[14px] bg-[#ffffff] align-middle animate-blink" />
               </div>
             )}
           </div>
         </div>
       </div>
-      <div className="text-center pb-6 text-[11px] text-[#6c7079]">
+      <div className="text-center pb-6 text-[11px] text-[#6b6b6b]">
         clique, enter ou esc para pular
       </div>
     </m.div>

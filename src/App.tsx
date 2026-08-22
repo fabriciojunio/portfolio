@@ -20,7 +20,7 @@ export default function App() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-[#6f6a60] font-mono text-[12px]">
+        <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-[#767676] font-mono text-[12px]">
           carregando…
         </div>
       }

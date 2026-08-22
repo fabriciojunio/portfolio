@@ -9,14 +9,14 @@ export default function ProjectMeta({ file }: Props) {
   if (!m) return null;
 
   return (
-    <div className="bg-[#13151a] border-b border-[#1f222a] px-5 py-3 font-mono text-[12px] text-[#9ea2ab]">
+    <div className="bg-[#151515] border-b border-[#1c1c1c] px-5 py-3 font-mono text-[12px] text-[#9a9a9a]">
       <div className="flex items-center flex-wrap gap-x-3 gap-y-1">
-        <span className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079]">
+        <span className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b]">
           projeto
         </span>
-        <span className="text-[#e6e3dc] text-[13px]">{m.project}</span>
+        <span className="text-[#ededed] text-[13px]">{m.project}</span>
         {m.role && (
-          <span className="text-[#9ea2ab] text-[12px] leading-snug">
+          <span className="text-[#9a9a9a] text-[12px] leading-snug">
             · {m.role}
           </span>
         )}
@@ -27,7 +27,7 @@ export default function ProjectMeta({ file }: Props) {
           {m.stack.map((s) => (
             <span
               key={s}
-              className="text-[10.5px] px-2 py-[2px] rounded-sm border border-[#272b34] bg-[#181a20] text-[#c98a5a]"
+              className="text-[10.5px] px-2 py-[2px] rounded-sm border border-[#262626] bg-[#191919] text-[#b8b8b8]"
             >
               {s}
             </span>
@@ -41,25 +41,25 @@ export default function ProjectMeta({ file }: Props) {
             href={m.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#9ea2ab] hover:text-[#e36b3a] transition-colors"
+            className="text-[#9a9a9a] hover:text-[#ffffff] transition-colors"
           >
             ↗ código no GitHub
           </a>
         ) : (
-          <span className="text-[#6c7079]">código privado</span>
+          <span className="text-[#6b6b6b]">código privado</span>
         )}
         {m.demo && (
           <a
             href={m.demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#9ea2ab] hover:text-[#e36b3a] transition-colors"
+            className="text-[#9a9a9a] hover:text-[#ffffff] transition-colors"
           >
             ↗ demo ao vivo
           </a>
         )}
         {file.runnable && (
-          <span className="text-[#7cb37b]">
+          <span className="text-[#ededed]">
             ▸ tem demo interativa: clique em <strong>Run</strong> no canto.
           </span>
         )}

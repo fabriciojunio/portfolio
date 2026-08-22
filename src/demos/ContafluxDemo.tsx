@@ -180,23 +180,23 @@ export default function ContafluxDemo() {
   const total = totais.descendo + totais.subindo;
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
       <div className="flex flex-wrap items-center gap-3 text-[11.5px]">
-        <span className="text-[#9ea2ab]">
+        <span className="text-[#9a9a9a]">
           conta na troca de sinal de{" "}
-          <span className="text-[#e6e3dc]">(x₂−x₁)(y−y₁) − (y₂−y₁)(x−x₁)</span>
+          <span className="text-[#ededed]">(x₂−x₁)(y−y₁) − (y₂−y₁)(x−x₁)</span>
         </span>
         <button
           type="button"
           onClick={() => setRodando((r) => !r)}
-          className="text-[#9ea2ab] hover:text-[#e6e3dc] underline-offset-2 hover:underline"
+          className="text-[#9a9a9a] hover:text-[#ededed] underline-offset-2 hover:underline"
         >
           {rodando ? "pausar" : "continuar"}
         </button>
         <button
           type="button"
           onClick={zerar}
-          className="text-[#9ea2ab] hover:text-[#e6e3dc] underline-offset-2 hover:underline"
+          className="text-[#9a9a9a] hover:text-[#ededed] underline-offset-2 hover:underline"
         >
           zerar contagem
         </button>
@@ -209,7 +209,7 @@ export default function ContafluxDemo() {
             width={W}
             height={H}
             viewBox={`0 0 ${W} ${H}`}
-            className="bg-[#0a0b0e] border border-[#272b34] rounded select-none"
+            className="bg-[#0c0c0c] border border-[#262626] rounded select-none"
             onMouseMove={aoMover}
             onMouseUp={() => setArrastando(null)}
             onMouseLeave={() => setArrastando(null)}
@@ -219,7 +219,7 @@ export default function ContafluxDemo() {
             {veiculos.map((v) => {
               const recemContado =
                 v.contadoEm !== null && quadro - v.contadoEm < 22;
-              const cor = recemContado ? "#cf6464" : "#7cb37b";
+              const cor = recemContado ? "#8a8a8a" : "#ededed";
               return (
                 <g key={v.id}>
                   <rect
@@ -250,7 +250,7 @@ export default function ContafluxDemo() {
               y1={linha.y1}
               x2={linha.x2}
               y2={linha.y2}
-              stroke="#e36b3a"
+              stroke="#ffffff"
               strokeWidth="2"
             />
             <Alca
@@ -264,7 +264,7 @@ export default function ContafluxDemo() {
               aoPegar={() => setArrastando("p2")}
             />
           </svg>
-          <div className="absolute top-2 left-2 text-[10.5px] text-[#6c7079] font-mono pointer-events-none">
+          <div className="absolute top-2 left-2 text-[10.5px] text-[#6b6b6b] font-mono pointer-events-none">
             arraste as pontas da linha laranja
           </div>
         </div>
@@ -272,7 +272,7 @@ export default function ContafluxDemo() {
         <div className="flex-1 min-w-[220px] space-y-3">
           <Card title="placar">
             <div className="space-y-1">
-              <Row k="total" v={String(total)} color="#f0a570" />
+              <Row k="total" v={String(total)} color="#d4d4d4" />
               <Row k="descendo" v={String(totais.descendo)} />
               <Row k="subindo" v={String(totais.subindo)} />
             </div>
@@ -294,7 +294,7 @@ export default function ContafluxDemo() {
               />
               <Row k="acompanhando" v={String(veiculos.length)} />
             </div>
-            <p className="mt-2 pt-2 border-t border-[#272b34] text-[11px] text-[#6c7079] leading-relaxed">
+            <p className="mt-2 pt-2 border-t border-[#262626] text-[11px] text-[#6b6b6b] leading-relaxed">
               Encoste a linha em uma pista só: o que passa fora do trecho
               desenhado não entra na conta. É assim que se ignora o sentido
               contrário.
@@ -320,8 +320,8 @@ function Alca({
       cx={x}
       cy={y}
       r="6"
-      fill="#0a0b0e"
-      stroke="#e36b3a"
+      fill="#0c0c0c"
+      stroke="#ffffff"
       strokeWidth="1.6"
       className="cursor-grab active:cursor-grabbing"
       onMouseDown={aoPegar}
@@ -332,16 +332,16 @@ function Alca({
 function Row({ k, v, color }: { k: string; v: string; color?: string }) {
   return (
     <div className="flex justify-between text-[11.5px]">
-      <span className="text-[#9ea2ab]">{k}</span>
-      <span style={{ color: color ?? "#e6e3dc" }}>{v}</span>
+      <span className="text-[#9a9a9a]">{k}</span>
+      <span style={{ color: color ?? "#ededed" }}>{v}</span>
     </div>
   );
 }
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
-      <div className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079] mb-2">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+      <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b] mb-2">
         {title}
       </div>
       {children}
@@ -352,15 +352,15 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
 function Pista() {
   return (
     <g>
-      <rect x="0" y="74" width={W} height="156" fill="#15171c" />
-      <line x1="0" y1="74" x2={W} y2="74" stroke="#3a3e48" strokeWidth="1.2" />
-      <line x1="0" y1="230" x2={W} y2="230" stroke="#3a3e48" strokeWidth="1.2" />
+      <rect x="0" y="74" width={W} height="156" fill="#151515" />
+      <line x1="0" y1="74" x2={W} y2="74" stroke="#383838" strokeWidth="1.2" />
+      <line x1="0" y1="230" x2={W} y2="230" stroke="#383838" strokeWidth="1.2" />
       <line
         x1="0"
         y1="152"
         x2={W}
         y2="152"
-        stroke="#d4a247"
+        stroke="#b8b8b8"
         strokeWidth="1.2"
         opacity="0.55"
       />
@@ -369,7 +369,7 @@ function Pista() {
         y1="112"
         x2={W}
         y2="112"
-        stroke="#3a3e48"
+        stroke="#383838"
         strokeWidth="1"
         strokeDasharray="14 12"
       />
@@ -378,7 +378,7 @@ function Pista() {
         y1="192"
         x2={W}
         y2="192"
-        stroke="#3a3e48"
+        stroke="#383838"
         strokeWidth="1"
         strokeDasharray="14 12"
       />

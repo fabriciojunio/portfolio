@@ -5,14 +5,14 @@ import { ChevronIcon, FileIcon, FolderIcon, FolderOpenIcon } from "./icons";
 
 export default function Sidebar() {
   return (
-    <aside className="h-full bg-[#0e0f12] border-r border-[#1f222a] flex flex-col text-[12.5px] text-[#9ea2ab] font-mono select-none">
+    <aside className="h-full bg-[#0c0c0c] border-r border-[#1c1c1c] flex flex-col text-[12.5px] text-[#9a9a9a] font-mono select-none">
       <div className="px-3 pt-3 pb-2 flex items-center justify-between">
-        <span className="text-[10px] uppercase tracking-[1.5px] text-[#6c7079]">
+        <span className="text-[10px] uppercase tracking-[1.5px] text-[#6b6b6b]">
           Explorer
         </span>
-        <span className="text-[10px] text-[#6c7079]">v1.0</span>
+        <span className="text-[10px] text-[#6b6b6b]">v1.0</span>
       </div>
-      <div className="px-2 py-1 text-[#e6e3dc] text-[11px] uppercase tracking-[1px]">
+      <div className="px-2 py-1 text-[#ededed] text-[11px] uppercase tracking-[1px]">
         {TREE.name}
       </div>
       <nav
@@ -21,10 +21,10 @@ export default function Sidebar() {
       >
         <Tree nodes={TREE.children} depth={0} />
       </nav>
-      <div className="px-3 py-2 border-t border-[#1f222a] text-[10.5px] text-[#6c7079] leading-relaxed">
+      <div className="px-3 py-2 border-t border-[#1c1c1c] text-[10.5px] text-[#6b6b6b] leading-relaxed">
         clique num arquivo para abrir.
         <br />
-        <span className="text-[#9ea2ab]">Ctrl/⌘ + P</span> abre rápido.
+        <span className="text-[#9a9a9a]">Ctrl/⌘ + P</span> abre rápido.
       </div>
     </aside>
   );
@@ -47,17 +47,17 @@ function Tree({ nodes, depth }: TreeProps) {
               <button
                 type="button"
                 onClick={() => toggleDir(node.path)}
-                className="w-full flex items-center gap-1.5 px-2 py-[3px] hover:bg-[#13151a] text-left text-[#e6e3dc]"
+                className="w-full flex items-center gap-1.5 px-2 py-[3px] hover:bg-[#151515] text-left text-[#ededed]"
                 style={{ paddingLeft: 8 + depth * 12 }}
               >
                 <ChevronIcon
                   size={10}
-                  className={`transition-transform text-[#6c7079] ${isOpen ? "rotate-90" : ""}`}
+                  className={`transition-transform text-[#6b6b6b] ${isOpen ? "rotate-90" : ""}`}
                 />
                 {isOpen ? (
-                  <FolderOpenIcon size={13} className="text-[#f0a570]" />
+                  <FolderOpenIcon size={13} className="text-[#d4d4d4]" />
                 ) : (
-                  <FolderIcon size={13} className="text-[#c98a5a]" />
+                  <FolderIcon size={13} className="text-[#b8b8b8]" />
                 )}
                 <span className="truncate">{node.name}</span>
               </button>
@@ -74,7 +74,7 @@ function Tree({ nodes, depth }: TreeProps) {
             <button
               type="button"
               onClick={() => open(node.path)}
-              className={`w-full flex items-center gap-1.5 px-2 py-[3px] text-left hover:bg-[#13151a] ${active ? "bg-[#181a20] text-[#e6e3dc]" : "text-[#9ea2ab]"}`}
+              className={`w-full flex items-center gap-1.5 px-2 py-[3px] text-left hover:bg-[#151515] ${active ? "bg-[#191919] text-[#ededed]" : "text-[#9a9a9a]"}`}
               style={{ paddingLeft: 8 + depth * 12 + 12 }}
             >
               <FileIcon language={node.language} size={13} />

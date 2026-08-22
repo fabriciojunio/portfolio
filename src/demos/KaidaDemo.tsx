@@ -27,7 +27,7 @@ export default function KaidaDemo() {
   const salvoPelasRegras = quadroDoPulo !== null && semPerdao.quadroDoPulo === null;
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
       <div className="space-y-2">
         <Deslizante
           rotulo="apertou pulo no quadro"
@@ -62,47 +62,47 @@ export default function KaidaDemo() {
         />
       </div>
 
-      <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3 space-y-3">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 space-y-3">
         <Faixa
           titulo="chão"
-          cor="#3a3e48"
+          cor="#383838"
           celulas={linha.map((l) => (l.noChao ? 1 : 0))}
         />
         <Faixa
           titulo="coyote"
-          cor="#d4a247"
+          cor="#b8b8b8"
           celulas={linha.map((l) => (coyoteTime > 0 ? l.coyote / coyoteTime : 0))}
         />
         <Faixa
           titulo="buffer"
-          cor="#6fa8d6"
+          cor="#8a8a8a"
           celulas={linha.map((l) => (bufferTime > 0 ? l.buffer / bufferTime : 0))}
         />
         <Faixa
           titulo="pulo"
-          cor="#7cb37b"
+          cor="#ededed"
           celulas={linha.map((l) => (l.quadro === quadroDoPulo ? 1 : 0))}
         />
 
-        <div className="flex justify-between text-[10px] text-[#6c7079] pl-[62px]">
+        <div className="flex justify-between text-[10px] text-[#6b6b6b] pl-[62px]">
           <span>quadro 0</span>
           <span>borda no {ULTIMO_QUADRO_NO_CHAO}</span>
           <span>quadro {QUADROS - 1}</span>
         </div>
       </div>
 
-      <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
         <div className="flex justify-between text-[11.5px]">
-          <span className="text-[#9ea2ab]">resultado</span>
-          <span style={{ color: quadroDoPulo === null ? "#cf6464" : "#7cb37b" }}>
+          <span className="text-[#9a9a9a]">resultado</span>
+          <span style={{ color: quadroDoPulo === null ? "#8a8a8a" : "#ededed" }}>
             {quadroDoPulo === null
               ? "não pulou"
               : `pulou no quadro ${quadroDoPulo}`}
           </span>
         </div>
-        <p className="mt-2 text-[11px] text-[#6c7079] leading-relaxed">{motivo}</p>
+        <p className="mt-2 text-[11px] text-[#6b6b6b] leading-relaxed">{motivo}</p>
         {salvoPelasRegras && (
-          <p className="mt-2 pt-2 border-t border-[#272b34] text-[11px] text-[#d4a247] leading-relaxed">
+          <p className="mt-2 pt-2 border-t border-[#262626] text-[11px] text-[#b8b8b8] leading-relaxed">
             Sem coyote e sem buffer, este mesmo comando não teria pulado. É essa
             a diferença entre um controle que perdoa alguns quadros e um que o
             jogador jura estar travado.
@@ -124,7 +124,7 @@ function Faixa({
 }) {
   return (
     <div className="flex items-center gap-2">
-      <span className="w-[54px] shrink-0 text-[10.5px] text-[#9ea2ab] text-right">
+      <span className="w-[54px] shrink-0 text-[10.5px] text-[#9a9a9a] text-right">
         {titulo}
       </span>
       <div className="flex-1 flex gap-[1px] h-[16px]">
@@ -133,7 +133,7 @@ function Faixa({
             key={i}
             className="flex-1 rounded-[1px]"
             style={{
-              background: v > 0 ? cor : "#15171c",
+              background: v > 0 ? cor : "#151515",
               opacity: v > 0 ? 0.35 + v * 0.65 : 1,
             }}
           />
@@ -162,7 +162,7 @@ function Deslizante({
 }) {
   return (
     <label className="flex items-center gap-3 text-[11.5px]">
-      <span className="w-[150px] shrink-0 text-[#9ea2ab]">{rotulo}</span>
+      <span className="w-[150px] shrink-0 text-[#9a9a9a]">{rotulo}</span>
       <input
         type="range"
         min={min}
@@ -170,9 +170,9 @@ function Deslizante({
         step={passo}
         value={valor}
         onChange={(e) => aoMudar(Number(e.target.value))}
-        className="flex-1 accent-[#e36b3a]"
+        className="flex-1 accent-[#ffffff]"
       />
-      <span className="w-[130px] shrink-0 text-right text-[#e6e3dc]">
+      <span className="w-[130px] shrink-0 text-right text-[#ededed]">
         {formatar(valor)}
       </span>
     </label>

@@ -23,19 +23,19 @@ export default function StatusBar() {
   return (
     <footer
       role="status"
-      className="h-6 bg-[#13151a] border-t border-[#1f222a] text-[#9ea2ab] font-mono text-[11px] flex items-stretch select-none"
+      className="h-6 bg-[#151515] border-t border-[#1c1c1c] text-[#9a9a9a] font-mono text-[11px] flex items-stretch select-none"
     >
-      <span className="flex items-center gap-1.5 px-3 text-[#e36b3a]">
+      <span className="flex items-center gap-1.5 px-3 text-[#ffffff]">
         <GitBranchIcon size={11} />
         main
       </span>
-      <span className="flex items-center px-3 border-l border-[#1f222a]">
+      <span className="flex items-center px-3 border-l border-[#1c1c1c]">
         {PROJECT_COUNT} projetos · {TOTAL_FILES} arquivos
       </span>
       <button
         type="button"
         onClick={toggleTerminal}
-        className={`px-3 border-l border-[#1f222a] hover:text-[#e6e3dc] ${terminalOpen ? "text-[#e6e3dc]" : ""}`}
+        className={`px-3 border-l border-[#1c1c1c] hover:text-[#ededed] ${terminalOpen ? "text-[#ededed]" : ""}`}
         aria-pressed={terminalOpen}
       >
         terminal {terminalOpen ? "▾" : "▴"}
@@ -43,7 +43,7 @@ export default function StatusBar() {
       <button
         type="button"
         onClick={() => setPalette(true)}
-        className="px-3 border-l border-[#1f222a] hover:text-[#e6e3dc]"
+        className="px-3 border-l border-[#1c1c1c] hover:text-[#ededed]"
       >
         ⌘K  paleta
       </button>
@@ -52,21 +52,21 @@ export default function StatusBar() {
 
       {file && (
         <>
-          <span className="flex items-center px-3 border-l border-[#1f222a]">
+          <span className="flex items-center px-3 border-l border-[#1c1c1c]">
             {lines} linhas · {chars} chars
           </span>
-          <span className="flex items-center px-3 border-l border-[#1f222a]">
+          <span className="flex items-center px-3 border-l border-[#1c1c1c]">
             UTF-8
           </span>
-          <span className="flex items-center px-3 border-l border-[#1f222a]">
+          <span className="flex items-center px-3 border-l border-[#1c1c1c]">
             LF
           </span>
-          <span className="flex items-center px-3 border-l border-[#1f222a] text-[#e36b3a]">
+          <span className="flex items-center px-3 border-l border-[#1c1c1c] text-[#ffffff]">
             {LANG_LABEL[file.language]}
           </span>
         </>
       )}
-      <span className="flex items-center px-3 border-l border-[#1f222a]">
+      <span className="flex items-center px-3 border-l border-[#1c1c1c]">
         {now}
       </span>
     </footer>

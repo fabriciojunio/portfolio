@@ -15,12 +15,14 @@ export default function Hero({ onScrollTo }: Props) {
       id="topo"
       className="relative min-h-[100svh] pt-24 md:pt-28 pb-16 overflow-hidden"
     >
+      {/*
+        No lugar do brilho radial que ficava aqui: uma régua fina, alinhada à
+        coluna do texto. Ela não decora, mostra onde a grade começa, que é o
+        que sustenta uma página sem cor.
+      */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 72% 38%, rgba(212,167,106,0.10), transparent 70%)",
-        }}
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 left-6 md:left-10 w-px bg-white/[0.06]"
       />
 
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center min-h-[80svh]">
@@ -32,32 +34,32 @@ export default function Hero({ onScrollTo }: Props) {
         >
           <m.div variants={fadeUp} className="flex items-center gap-3 mb-12">
             <Avatar />
-            <div className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#a39c8f] leading-relaxed">
+            <div className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#9a9a9a] leading-relaxed">
               <div className="flex items-center gap-2.5 flex-wrap">
                 <span>{SOBRE.cargo}</span>
-                <span className="flex items-center gap-1.5 normal-case tracking-normal text-[#4ade80] text-[10px]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse shrink-0" />
+                <span className="flex items-center gap-1.5 normal-case tracking-normal text-[#ededed] text-[10px]">
+                  <span className="w-[5px] h-[5px] bg-[#ededed] shrink-0" />
                   disponível
                 </span>
               </div>
-              <div className="text-[#7a7468] mt-1">
+              <div className="text-[#767676] mt-1">
                 {SOBRE.cidade}
               </div>
             </div>
           </m.div>
 
-          <m.h1 variants={fadeUp} className="font-serif text-[#d4a76a] tracking-[-0.02em]">
+          <m.h1 variants={fadeUp} className="font-serif text-[#ffffff] tracking-[-0.02em]">
             <span className="block text-[56px] sm:text-[78px] md:text-[96px] lg:text-[112px] leading-[1.02]">
               Fabrício
             </span>
-            <span className="block text-[56px] sm:text-[78px] md:text-[96px] lg:text-[112px] leading-[1.02] text-[#e4bd86] mt-1 md:mt-2">
+            <span className="block text-[56px] sm:text-[78px] md:text-[96px] lg:text-[112px] leading-[1.02] text-[#ffffff] mt-1 md:mt-2">
               Júnio
             </span>
           </m.h1>
 
           <m.p
             variants={fadeUp}
-            className="mt-12 max-w-[500px] text-[16px] md:text-[18px] text-[#d6cfc1] leading-[1.9] font-sans"
+            className="mt-12 max-w-[500px] text-[16px] md:text-[18px] text-[#d4d4d4] leading-[1.9] font-sans"
           >
             {SOBRE.bio}
           </m.p>
@@ -69,7 +71,7 @@ export default function Hero({ onScrollTo }: Props) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#f5f1e8] text-[#0a0a0a] text-[13.5px] font-medium hover:bg-white transition-colors"
+              className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#ededed] text-[#0a0a0a] text-[12px] font-mono uppercase tracking-[1.4px] hover:bg-white transition-colors"
             >
               Ver trabalho
               <span aria-hidden className="transition-transform group-hover:translate-x-1">
@@ -82,7 +84,7 @@ export default function Hero({ onScrollTo }: Props) {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-[#f5f1e8] text-[13.5px] hover:border-[#d4a76a]/60 hover:text-[#d4a76a] transition-colors"
+              className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/20 text-[#ededed] text-[12px] font-mono uppercase tracking-[1.4px] hover:border-[#ffffff] hover:text-[#ffffff] transition-colors"
             >
               Conversar
             </m.button>
@@ -105,7 +107,7 @@ export default function Hero({ onScrollTo }: Props) {
 function Avatar() {
   return (
     <div className="w-11 h-11 rounded-full bg-[#161616] border border-white/10 flex items-center justify-center overflow-hidden">
-      <span className="font-serif text-[#d4a76a] text-[18px] leading-none">fj</span>
+      <span className="font-serif text-[#ffffff] text-[18px] leading-none">fj</span>
     </div>
   );
 }
@@ -119,10 +121,10 @@ function Marquee({ items }: { items: string[] }) {
         {doubled.map((it, i) => (
           <span
             key={i}
-            className="font-serif text-[19px] md:text-[24px] text-[#7a7468] tracking-tight"
+            className="font-serif text-[19px] md:text-[24px] text-[#767676] tracking-tight"
           >
             {it}
-            <span className="text-[#d4a76a]/50 mx-12">·</span>
+            <span className="text-[#ffffff]/50 mx-12">·</span>
           </span>
         ))}
       </div>
