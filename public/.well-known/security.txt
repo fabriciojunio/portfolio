@@ -1,0 +1,8 @@
+# Política de divulgação de vulnerabilidades (RFC 9116)
+# https://portfolio-a3qn.vercel.app/.well-known/security.txt
+
+Contact: mailto:junioad555@gmail.com
+Expires: 2027-08-22T00:00:00.000Z
+Preferred-Languages: pt-BR, en
+Canonical: https://portfolio-a3qn.vercel.app/.well-known/security.txt
+Policy: https://github.com/fabriciojunio/portfolio/blob/main/SECURITY.md
