@@ -12,32 +12,32 @@ export default function HelpFab() {
         onClick={() => setOpen((s) => !s)}
         aria-label="Como usar este portfólio"
         title="Ajuda"
-        className="fixed bottom-12 right-4 z-30 w-9 h-9 rounded-full bg-[#e36b3a] text-[#0a0b0e] text-[14px] font-bold shadow-lg hover:brightness-110 flex items-center justify-center font-mono"
+        className="fixed bottom-12 right-4 z-30 w-9 h-9 rounded-full bg-[#ffffff] text-[#0c0c0c] text-[14px] font-bold shadow-lg hover:brightness-110 flex items-center justify-center font-mono"
       >
         ?
       </button>
 
       {open && (
         <div
-          className="fixed bottom-24 right-4 z-30 w-[300px] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl p-4 font-mono text-[12px] text-[#c9c5ba] animate-[fadeIn_0.15s_ease-out]"
+          className="fixed bottom-24 right-4 z-30 w-[300px] bg-[#151515] border border-[#262626] rounded-lg shadow-2xl p-4 font-mono text-[12px] text-[#c4c4c4] animate-[fadeIn_0.15s_ease-out]"
           role="dialog"
           aria-label="Ajuda rápida"
         >
-          <div className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079] mb-2">
+          <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b] mb-2">
             como navegar
           </div>
           <ul className="space-y-1.5 mb-3">
             <li>
-              <span className="text-[#e36b3a]">›</span> clique nos arquivos da{" "}
+              <span className="text-[#ffffff]">›</span> clique nos arquivos da{" "}
               <strong>sidebar</strong> à esquerda
             </li>
             <li>
-              <span className="text-[#e36b3a]">›</span> use o{" "}
+              <span className="text-[#ffffff]">›</span> use o{" "}
               <strong>terminal</strong> embaixo: digite{" "}
-              <span className="text-[#f0a570]">ajuda</span>
+              <span className="text-[#d4d4d4]">ajuda</span>
             </li>
             <li>
-              <span className="text-[#e36b3a]">›</span> nos projetos com botão{" "}
+              <span className="text-[#ffffff]">›</span> nos projetos com botão{" "}
               <strong>Run</strong>, clique pra ver demo
             </li>
           </ul>
@@ -94,7 +94,7 @@ function Btn({
     <button
       type="button"
       onClick={onClick}
-      className="text-[11.5px] px-2.5 py-1.5 rounded-sm bg-[#0a0b0e] border border-[#272b34] text-[#9ea2ab] hover:text-[#e6e3dc] hover:border-[#e36b3a]"
+      className="text-[11.5px] px-2.5 py-1.5 rounded-sm bg-[#0c0c0c] border border-[#262626] text-[#9a9a9a] hover:text-[#ededed] hover:border-[#ffffff]"
     >
       {children}
     </button>

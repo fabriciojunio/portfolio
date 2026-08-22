@@ -50,18 +50,18 @@ export default function SnippetView({ code, language, filename }: Props) {
   const lines = useMemo(() => code.split("\n"), [code]);
 
   return (
-    <div className="bg-[#111111] border border-white/10 rounded-lg overflow-hidden">
+    <div className="bg-[#101010] border border-white/10 rounded-lg overflow-hidden">
       <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5 bg-black/30">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#d4a76a]/70" />
-          <span className="font-mono text-[11px] text-[#9b958a]">{filename}</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#ffffff]/70" />
+          <span className="font-mono text-[11px] text-[#9a9a9a]">{filename}</span>
         </div>
-        <span className="font-mono text-[10px] uppercase tracking-[1.4px] text-[#6f6a60]">
+        <span className="font-mono text-[10px] uppercase tracking-[1.4px] text-[#767676]">
           {language}
         </span>
       </div>
       <pre className="px-4 md:px-5 py-4 overflow-x-auto">
-        <code className="font-mono text-[12.5px] leading-[1.65] text-[#cfc8b9] whitespace-pre">
+        <code className="font-mono text-[12.5px] leading-[1.65] text-[#d4d4d4] whitespace-pre">
           {lines.map((line, li) => {
             const tokens = tokenizeLine(line, language);
             return (

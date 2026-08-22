@@ -103,12 +103,12 @@ export default function CommandPalette() {
       <m.div
         role="dialog"
         aria-label="Paleta de comandos"
-        className="w-[640px] max-w-[92vw] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl overflow-hidden font-mono"
+        className="w-[640px] max-w-[92vw] bg-[#151515] border border-[#262626] rounded-lg shadow-2xl overflow-hidden font-mono"
         onClick={(e) => e.stopPropagation()}
         {...DIALOG_MOTION}
       >
-        <div className="flex items-center px-3 py-2.5 border-b border-[#1f222a]">
-          <span className="text-[#6c7079] mr-2">⌕</span>
+        <div className="flex items-center px-3 py-2.5 border-b border-[#1c1c1c]">
+          <span className="text-[#6b6b6b] mr-2">⌕</span>
           <input
             ref={inputRef}
             value={query}
@@ -129,17 +129,17 @@ export default function CommandPalette() {
               }
             }}
             placeholder="digite um comando ou arquivo..."
-            className="flex-1 bg-transparent outline-none text-[#e6e3dc] text-[13px] placeholder:text-[#6c7079]"
+            className="flex-1 bg-transparent outline-none text-[#ededed] text-[13px] placeholder:text-[#6b6b6b]"
             aria-label="Buscar comando"
           />
-          <span className="text-[10px] text-[#6c7079] ml-2">esc</span>
+          <span className="text-[10px] text-[#6b6b6b] ml-2">esc</span>
         </div>
         <ul
           role="listbox"
           className="max-h-[60vh] overflow-y-auto py-1 m-0 p-0 list-none"
         >
           {filtered.length === 0 && (
-            <li className="px-4 py-3 text-[12px] text-[#6c7079]">
+            <li className="px-4 py-3 text-[12px] text-[#6b6b6b]">
               nada encontrado pra "{query}"
             </li>
           )}
@@ -150,23 +150,23 @@ export default function CommandPalette() {
                 key={cmd.id}
                 role="option"
                 aria-selected={active}
-                className={`px-3 py-1.5 cursor-pointer flex items-center justify-between text-[12.5px] ${active ? "bg-[#1f222a] text-[#e6e3dc]" : "text-[#c9c5ba]"}`}
+                className={`px-3 py-1.5 cursor-pointer flex items-center justify-between text-[12.5px] ${active ? "bg-[#1c1c1c] text-[#ededed]" : "text-[#c4c4c4]"}`}
                 onMouseEnter={() => setIdx(i)}
                 onClick={() => choose(cmd)}
               >
                 <span className="flex items-center gap-2 min-w-0">
-                  <span className="text-[10px] uppercase tracking-[1px] text-[#6c7079] w-[68px]">
+                  <span className="text-[10px] uppercase tracking-[1px] text-[#6b6b6b] w-[68px]">
                     {cmd.group}
                   </span>
                   <span className="truncate">{cmd.label}</span>
                   {cmd.hint && (
-                    <span className="text-[#6c7079] text-[11px] ml-1 truncate">
+                    <span className="text-[#6b6b6b] text-[11px] ml-1 truncate">
                       · {cmd.hint}
                     </span>
                   )}
                 </span>
                 {cmd.shortcut && (
-                  <span className="text-[10.5px] text-[#6c7079] ml-3 shrink-0">
+                  <span className="text-[10.5px] text-[#6b6b6b] ml-3 shrink-0">
                     {cmd.shortcut}
                   </span>
                 )}
@@ -217,12 +217,12 @@ export function QuickOpen() {
       <m.div
         role="dialog"
         aria-label="Abrir arquivo rápido"
-        className="w-[560px] max-w-[92vw] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl overflow-hidden font-mono"
+        className="w-[560px] max-w-[92vw] bg-[#151515] border border-[#262626] rounded-lg shadow-2xl overflow-hidden font-mono"
         onClick={(e) => e.stopPropagation()}
         {...DIALOG_MOTION}
       >
-        <div className="flex items-center px-3 py-2.5 border-b border-[#1f222a]">
-          <span className="text-[#6c7079] mr-2">→</span>
+        <div className="flex items-center px-3 py-2.5 border-b border-[#1c1c1c]">
+          <span className="text-[#6b6b6b] mr-2">→</span>
           <input
             ref={inputRef}
             value={query}
@@ -243,10 +243,10 @@ export function QuickOpen() {
               }
             }}
             placeholder="digite parte do nome do arquivo..."
-            className="flex-1 bg-transparent outline-none text-[#e6e3dc] text-[13px] placeholder:text-[#6c7079]"
+            className="flex-1 bg-transparent outline-none text-[#ededed] text-[13px] placeholder:text-[#6b6b6b]"
             aria-label="Buscar arquivo"
           />
-          <span className="text-[10px] text-[#6c7079] ml-2">esc</span>
+          <span className="text-[10px] text-[#6b6b6b] ml-2">esc</span>
         </div>
         <ul
           role="listbox"
@@ -259,13 +259,13 @@ export function QuickOpen() {
                 key={f.path}
                 role="option"
                 aria-selected={active}
-                className={`px-3 py-1.5 cursor-pointer flex items-center gap-2 text-[12.5px] ${active ? "bg-[#1f222a] text-[#e6e3dc]" : "text-[#c9c5ba]"}`}
+                className={`px-3 py-1.5 cursor-pointer flex items-center gap-2 text-[12.5px] ${active ? "bg-[#1c1c1c] text-[#ededed]" : "text-[#c4c4c4]"}`}
                 onMouseEnter={() => setIdx(i)}
                 onClick={() => choose(f.path)}
               >
                 <FileIcon language={f.language} size={12} />
                 <span className="truncate">{f.name}</span>
-                <span className="text-[#6c7079] text-[11px] ml-auto truncate">
+                <span className="text-[#6b6b6b] text-[11px] ml-auto truncate">
                   {f.path}
                 </span>
               </li>

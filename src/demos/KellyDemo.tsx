@@ -50,8 +50,8 @@ export default function KellyDemo() {
   }
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
-      <p className="text-[11.5px] text-[#9ea2ab]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
+      <p className="text-[11.5px] text-[#9a9a9a]">
         critério de Kelly fracionário (1/4): quanto da banca apostar dado uma probabilidade e
         uma odd. Edge ≤ 0 = não aposta.
       </p>
@@ -97,28 +97,28 @@ export default function KellyDemo() {
         </Card>
 
         <Card title="saída">
-          <Row k="edge esperado" v={`${(e * 100).toFixed(2)}%`} color={e > 0.04 ? "#7cb37b" : "#cf6464"} />
-          <Row k="value pick?" v={isValue ? "sim" : "não"} color={isValue ? "#7cb37b" : "#cf6464"} />
+          <Row k="edge esperado" v={`${(e * 100).toFixed(2)}%`} color={e > 0.04 ? "#ededed" : "#8a8a8a"} />
+          <Row k="value pick?" v={isValue ? "sim" : "não"} color={isValue ? "#ededed" : "#8a8a8a"} />
           <Row k="kelly% da banca" v={`${(k * 100).toFixed(2)}%`} />
-          <Row k="stake sugerido" v={`R$ ${stake.toFixed(2)}`} color="#f0a570" />
+          <Row k="stake sugerido" v={`R$ ${stake.toFixed(2)}`} color="#d4d4d4" />
 
-          <div className="mt-3 pt-3 border-t border-[#272b34]">
+          <div className="mt-3 pt-3 border-t border-[#262626]">
             <button
               type="button"
               onClick={simulate}
-              className="text-[11.5px] px-3 py-1.5 rounded-sm border border-[#272b34] bg-[#0a0b0e] text-[#e6e3dc] hover:border-[#e36b3a] hover:text-[#e36b3a]"
+              className="text-[11.5px] px-3 py-1.5 rounded-sm border border-[#262626] bg-[#0c0c0c] text-[#ededed] hover:border-[#ffffff] hover:text-[#ffffff]"
             >
               ▸ simular 500 apostas
             </button>
             {trial && (
               <div className="mt-2 space-y-0.5">
-                <Row k="banca final" v={`R$ ${trial.bank.toFixed(2)}`} color={trial.bank > bank ? "#7cb37b" : "#cf6464"} />
+                <Row k="banca final" v={`R$ ${trial.bank.toFixed(2)}`} color={trial.bank > bank ? "#ededed" : "#8a8a8a"} />
                 <Row k="vitórias" v={String(trial.wins)} />
                 <Row k="derrotas" v={String(trial.losses)} />
                 <Row
                   k="ROI"
                   v={`${(((trial.bank - bank) / bank) * 100).toFixed(2)}%`}
-                  color={trial.bank > bank ? "#7cb37b" : "#cf6464"}
+                  color={trial.bank > bank ? "#ededed" : "#8a8a8a"}
                 />
               </div>
             )}
@@ -149,8 +149,8 @@ function Slider({
   return (
     <div className="space-y-1">
       <div className="flex justify-between text-[11.5px]">
-        <span className="text-[#9ea2ab]">{label}</span>
-        <span className="text-[#e6e3dc]">{display}</span>
+        <span className="text-[#9a9a9a]">{label}</span>
+        <span className="text-[#ededed]">{display}</span>
       </div>
       <input
         type="range"
@@ -159,7 +159,7 @@ function Slider({
         max={max}
         step={step}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-[#e36b3a]"
+        className="w-full accent-[#ffffff]"
       />
     </div>
   );
@@ -168,16 +168,16 @@ function Slider({
 function Row({ k, v, color }: { k: string; v: string; color?: string }) {
   return (
     <div className="flex justify-between text-[11.5px]">
-      <span className="text-[#9ea2ab]">{k}</span>
-      <span style={{ color: color ?? "#e6e3dc" }}>{v}</span>
+      <span className="text-[#9a9a9a]">{k}</span>
+      <span style={{ color: color ?? "#ededed" }}>{v}</span>
     </div>
   );
 }
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3 space-y-2">
-      <div className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079]">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 space-y-2">
+      <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b]">
         {title}
       </div>
       {children}

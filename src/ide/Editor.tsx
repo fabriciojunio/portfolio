@@ -25,7 +25,7 @@ export default function Editor() {
 
   if (!activeFile) {
     return (
-      <div className="flex-1 flex items-center justify-center text-[#6c7079] font-mono text-[12px] bg-[#0e0f12]">
+      <div className="flex-1 flex items-center justify-center text-[#6b6b6b] font-mono text-[12px] bg-[#0c0c0c]">
         nenhum arquivo aberto. abra um pela sidebar ou Ctrl/⌘+P.
       </div>
     );
@@ -34,7 +34,7 @@ export default function Editor() {
   // Markdown não precisa do Monaco — renderiza limpo e leve.
   if (activeFile.language === "markdown") {
     return (
-      <div className="flex-1 overflow-y-auto bg-[#0e0f12]">
+      <div className="flex-1 overflow-y-auto bg-[#0c0c0c]">
         {activeFile.meta && <ProjectMeta file={activeFile} />}
         <MarkdownView source={activeFile.content} />
       </div>
@@ -42,12 +42,12 @@ export default function Editor() {
   }
 
   return (
-    <div className="flex-1 flex flex-col min-h-0 bg-[#0e0f12]">
+    <div className="flex-1 flex flex-col min-h-0 bg-[#0c0c0c]">
       {activeFile.meta && <ProjectMeta file={activeFile} />}
       <div className="flex-1 min-h-0">
         <Suspense
           fallback={
-            <div className="flex items-center justify-center h-full text-[#6c7079] font-mono text-[12px]">
+            <div className="flex items-center justify-center h-full text-[#6b6b6b] font-mono text-[12px]">
               carregando editor...
             </div>
           }

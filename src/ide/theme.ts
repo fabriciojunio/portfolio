@@ -1,43 +1,51 @@
 import type { Monaco } from "@monaco-editor/react";
 
-// Paleta autoral — não tenta imitar VSCode. Tons quentes,
-// fundo grafite, acento em ferrugem/coral. Foi pensada
-// pra dar identidade ao IDE (não cair no genérico).
+// Paleta monocromática. Um cinza só, do preto ao branco, sem viés quente nem
+// frio: viés de matiz é o que faz um monocromático parecer "quase colorido".
+//
+// Tirar a cor não pode custar a leitura do código, então a diferença que a cor
+// fazia passa a ser feita por brilho e por estilo. A hierarquia é uma escolha,
+// e não o resultado de sortear cinzas: o controle de fluxo é o mais claro da
+// tela, o comentário é o mais apagado, e o corpo do código fica no meio. O
+// olho procura primeiro onde o código decide, e não onde ele guarda dados.
 
 export const PALETTE = {
-  bg:           "#0e0f12",
-  panel:        "#13151a",
-  panelAlt:     "#181a20",
-  line:         "#1f222a",
-  lineStrong:   "#272b34",
-  text:         "#e6e3dc",
-  textMuted:    "#9ea2ab",
-  textDim:      "#6c7079",
-  accent:       "#e36b3a",   // ferrugem
-  accentSoft:   "#f0a570",
-  good:         "#7cb37b",
-  warn:         "#d4a247",
-  info:         "#6a93c4",
-  bad:          "#cf6464",
-  selection:    "#3a2e26",
+  bg:           "#0c0c0c",
+  panel:        "#151515",
+  panelAlt:     "#191919",
+  line:         "#1c1c1c",
+  lineStrong:   "#262626",
+  text:         "#ededed",
+  textMuted:    "#9a9a9a",
+  textDim:      "#6b6b6b",
+  accent:       "#ffffff",
+  accentSoft:   "#d4d4d4",
+  good:         "#ededed",
+  warn:         "#b8b8b8",
+  info:         "#9a9a9a",
+  bad:          "#8a8a8a",
+  selection:    "#2e2e2e",
 } as const;
 
+// A rampa de sintaxe, do mais apagado ao mais claro. Está em ordem de
+// propósito para poder ser lida como escala: se um dia entrar um token novo,
+// ele escolhe o degrau, e não uma cor.
 const HL = {
-  keyword:    "c98a5a",   // ferrugem clara
-  control:    "e36b3a",
-  string:     "a9c47a",
-  number:     "d4a247",
-  comment:    "5e6168",
-  type:       "8fb4d4",
-  variable:   "e6e3dc",
-  fn:         "f0a570",
-  constant:   "d68b8b",
-  punctuation:"9ea2ab",
-  decorator:  "b48cd4",
-  property:   "e6e3dc",
+  comment:    "5c5c5c", // sai da frente
+  punctuation:"6b6b6b", // estrutura, presente mas silenciosa
+  string:     "9a9a9a", // dado lê mais baixo que lógica
+  decorator:  "a3a3a3",
+  number:     "b8b8b8",
+  constant:   "b8b8b8",
+  type:       "c4c4c4",
+  variable:   "d4d4d4", // corpo do código
+  property:   "d4d4d4",
+  fn:         "ededed", // nome que se procura ao varrer o arquivo
+  keyword:    "f5f5f5",
+  control:    "ffffff", // onde o código decide
 } as const;
 
-export const THEME_NAME = "fabricio-dark";
+export const THEME_NAME = "fabricio-mono";
 
 export function defineTheme(monaco: Monaco): void {
   monaco.editor.defineTheme(THEME_NAME, {
@@ -47,8 +55,8 @@ export function defineTheme(monaco: Monaco): void {
       { token: "",                       foreground: HL.variable },
       { token: "comment",                foreground: HL.comment, fontStyle: "italic" },
       { token: "keyword",                foreground: HL.keyword },
-      { token: "keyword.control",        foreground: HL.control },
-      { token: "keyword.flow",           foreground: HL.control },
+      { token: "keyword.control",        foreground: HL.control, fontStyle: "bold" },
+      { token: "keyword.flow",           foreground: HL.control, fontStyle: "bold" },
       { token: "keyword.operator",       foreground: HL.keyword },
       { token: "storage",                foreground: HL.keyword },
       { token: "storage.type",           foreground: HL.type },
@@ -67,11 +75,11 @@ export function defineTheme(monaco: Monaco): void {
       { token: "delimiter",              foreground: HL.punctuation },
       { token: "punctuation",            foreground: HL.punctuation },
       { token: "tag",                    foreground: HL.keyword },
-      { token: "metatag",                foreground: HL.decorator },
+      { token: "metatag",                foreground: HL.decorator, fontStyle: "italic" },
       { token: "attribute.name",         foreground: HL.fn },
       { token: "attribute.value",        foreground: HL.string },
-      { token: "decorator",              foreground: HL.decorator },
-      { token: "annotation",             foreground: HL.decorator },
+      { token: "decorator",              foreground: HL.decorator, fontStyle: "italic" },
+      { token: "annotation",             foreground: HL.decorator, fontStyle: "italic" },
       // markdown
       { token: "keyword.md",             foreground: HL.control, fontStyle: "bold" },
       { token: "string.md",              foreground: HL.string },
@@ -79,21 +87,21 @@ export function defineTheme(monaco: Monaco): void {
     colors: {
       "editor.background":              PALETTE.bg,
       "editor.foreground":              PALETTE.text,
-      "editorLineNumber.foreground":    PALETTE.textDim,
+      "editorLineNumber.foreground":    "#3a3a3a",
       "editorLineNumber.activeForeground": PALETTE.textMuted,
-      "editor.lineHighlightBackground": "#16181d",
-      "editor.lineHighlightBorder":     "#16181d",
+      "editor.lineHighlightBackground": "#141414",
+      "editor.lineHighlightBorder":     "#141414",
       "editorCursor.foreground":        PALETTE.accent,
       "editor.selectionBackground":     PALETTE.selection,
-      "editor.inactiveSelectionBackground": "#2a221c",
-      "editorWhitespace.foreground":    "#22252c",
-      "editorIndentGuide.background":   "#1c1f25",
-      "editorIndentGuide.activeBackground": "#2b2f37",
+      "editor.inactiveSelectionBackground": "#232323",
+      "editorWhitespace.foreground":    "#222222",
+      "editorIndentGuide.background":   "#1c1c1c",
+      "editorIndentGuide.activeBackground": "#2e2e2e",
       "editorGutter.background":        PALETTE.bg,
-      "scrollbarSlider.background":     "#2a2d35aa",
-      "scrollbarSlider.hoverBackground":"#3a3e48aa",
-      "scrollbarSlider.activeBackground":"#4a4f5aaa",
-      "editorBracketMatch.background":  "#2a221c",
+      "scrollbarSlider.background":     "#2a2a2aaa",
+      "scrollbarSlider.hoverBackground":"#383838aa",
+      "scrollbarSlider.activeBackground":"#4a4a4aaa",
+      "editorBracketMatch.background":  "#232323",
       "editorBracketMatch.border":      PALETTE.accent,
     },
   });

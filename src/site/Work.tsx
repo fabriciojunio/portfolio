@@ -25,18 +25,18 @@ export default function Work() {
     >
       <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-16">
         <div>
-          <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#a39c8f]">
+          <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">
             02 · trabalho
           </p>
-          <h2 className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#f5f1e8]">
-            Projetos que <em className="text-[#d4a76a] not-italic">construí</em>.
+          <h2 className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#ededed]">
+            Projetos que <em className="text-[#ffffff] not-italic">construí</em>.
           </h2>
         </div>
         <div className="self-end space-y-4">
-          <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d6cfc1] max-w-[640px]">
+          <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">
             A maioria com código aberto no GitHub. Clique pra ver o raciocínio, a stack usada e um trecho de código que vale a leitura.
           </p>
-          <p className="font-mono text-[11px] text-[#6f6a60]">
+          <p className="font-mono text-[11px] text-[#767676]">
             {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo ·{" "}
             {LAB_COUNT} com demo interativa aqui mesmo
           </p>
@@ -68,37 +68,37 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         className="w-full text-left py-8 md:py-9 flex items-center gap-5 md:gap-10"
         aria-expanded={open}
       >
-        <span className="font-mono text-[11px] text-[#7a7468] w-8 shrink-0 tabular-nums">
+        <span className="font-mono text-[11px] text-[#767676] w-8 shrink-0 tabular-nums">
           {String(index + 1).padStart(2, "0")}
         </span>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-3 flex-wrap">
-            <span className="font-serif text-[24px] md:text-[30px] text-[#f5f1e8] leading-[1.15]">
+            <span className="font-serif text-[24px] md:text-[30px] text-[#ededed] leading-[1.15]">
               {project.name}
             </span>
             {project.demo && (
-              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#4ade80] border border-[#4ade80]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
+              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#ededed] border border-[#ededed]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
                 demo
               </span>
             )}
             {project.labDemo && (
-              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#d4a76a] border border-[#d4a76a]/30 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
+              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#ffffff] border border-[#ffffff]/30 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
                 interativa
               </span>
             )}
           </div>
-          <p className="mt-2 text-[14px] md:text-[15px] text-[#a39c8f] font-sans leading-relaxed">
+          <p className="mt-2 text-[14px] md:text-[15px] text-[#9a9a9a] font-sans leading-relaxed">
             {project.oneLine}
           </p>
         </div>
 
-        <span className="hidden md:block font-mono text-[11px] text-[#7a7468] tabular-nums shrink-0">
+        <span className="hidden md:block font-mono text-[11px] text-[#767676] tabular-nums shrink-0">
           {project.year}
         </span>
 
         <span
-          className={`shrink-0 w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[#a39c8f] group-hover:border-[#d4a76a]/60 group-hover:text-[#d4a76a] transition-all ${open ? "rotate-45 border-[#d4a76a]/60 text-[#d4a76a]" : ""}`}
+          className={`shrink-0 w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[#9a9a9a] group-hover:border-[#ffffff]/60 group-hover:text-[#ffffff] transition-all ${open ? "rotate-45 border-[#ffffff]/60 text-[#ffffff]" : ""}`}
           aria-hidden
         >
           +
@@ -117,28 +117,28 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         <div className="pb-10 md:pb-14 pl-[52px] md:pl-[72px] pr-2 md:pr-12 grid md:grid-cols-[1fr_1.4fr] gap-8 md:gap-12">
           <div className="space-y-7">
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
+              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
                 o que é
               </div>
-              <p className="mt-3 text-[14.5px] text-[#d6cfc1] leading-[1.85]">
+              <p className="mt-3 text-[14.5px] text-[#d4d4d4] leading-[1.85]">
                 {project.what}
               </p>
             </div>
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
+              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
                 meu papel
               </div>
-              <p className="mt-3 text-[14.5px] text-[#d6cfc1] leading-[1.85]">
+              <p className="mt-3 text-[14.5px] text-[#d4d4d4] leading-[1.85]">
                 {project.role}
               </p>
             </div>
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
+              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
                 stack
               </div>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
                 {project.stack.map((s) => (
-                  <span key={s} className="font-mono text-[12px] text-[#d6cfc1]">
+                  <span key={s} className="font-mono text-[12px] text-[#d4d4d4]">
                     {s}
                   </span>
                 ))}
@@ -147,16 +147,16 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
 
             {project.highlights && project.highlights.length > 0 && (
               <div>
-                <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#7a7468]">
+                <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
                   destaques
                 </div>
                 <ul className="mt-3 space-y-2">
                   {project.highlights.map((h, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="mt-0.5 font-mono text-[11px] text-[#7da3c4]/50 shrink-0">
+                      <span className="mt-0.5 font-mono text-[11px] text-[#b8b8b8]/50 shrink-0">
                         ↳
                       </span>
-                      <span className="font-mono text-[12px] text-[#7da3c4] leading-relaxed">
+                      <span className="font-mono text-[12px] text-[#b8b8b8] leading-relaxed">
                         {h}
                       </span>
                     </li>
@@ -170,7 +170,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                 href={enderecoDaDemo(project.labDemo)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/demo inline-flex items-center gap-2.5 px-5 py-3 rounded-full bg-[#d4a76a] text-[#0a0a0a] text-[13px] font-medium hover:bg-[#e4bd86] transition-colors"
+                className="group/demo inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#ffffff] text-[#0a0a0a] text-[12px] font-mono uppercase tracking-[1.4px] hover:bg-[#ffffff] transition-colors"
               >
                 <span aria-hidden className="text-[11px]">
                   ▸
@@ -191,12 +191,12 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[12.5px] text-[#f5f1e8] underline-offset-4 underline decoration-[#d4a76a]/50 hover:decoration-[#d4a76a]"
+                  className="text-[12.5px] text-[#ededed] underline-offset-4 underline decoration-[#ffffff]/50 hover:decoration-[#ffffff]"
                 >
                   código no GitHub →
                 </a>
               ) : (
-                <span className="font-mono text-[11px] text-[#7a7468]">
+                <span className="font-mono text-[11px] text-[#767676]">
                   código privado
                 </span>
               )}
@@ -205,7 +205,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[12.5px] text-[#f5f1e8] underline-offset-4 underline decoration-[#d4a76a]/50 hover:decoration-[#d4a76a]"
+                  className="text-[12.5px] text-[#ededed] underline-offset-4 underline decoration-[#ffffff]/50 hover:decoration-[#ffffff]"
                 >
                   demo ao vivo →
                 </a>

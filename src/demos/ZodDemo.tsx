@@ -74,13 +74,13 @@ export default function ZodDemo() {
     result.issues.find((i) => i.path === k)?.message;
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
-      <p className="text-[11.5px] text-[#9ea2ab]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
+      <p className="text-[11.5px] text-[#9a9a9a]">
         validação real do schema do Horalis: edite e veja o resultado mudar.
       </p>
 
       <div className="grid md:grid-cols-2 gap-3">
-        <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3 space-y-2">
+        <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 space-y-2">
           <Field label="tipo" value={f.tipo} onChange={set("tipo")} error={errorFor("tipo")} hint="desenvolvimento · suporte · reuniao · retrabalho ..." />
           <Field label="data" value={f.data} onChange={set("data")} error={errorFor("data")} />
           <Field label="horas" value={f.horas} onChange={set("horas")} error={errorFor("horas")} hint="0.5 a 24 (decimal)" />
@@ -95,16 +95,16 @@ export default function ZodDemo() {
           />
         </div>
 
-        <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
+        <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
           <div className="flex items-center justify-between">
-            <div className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079]">
+            <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b]">
               resultado do parse
             </div>
             <span
               className="text-[11px] px-2 py-0.5 rounded-sm border"
               style={{
-                color: result.ok ? "#7cb37b" : "#cf6464",
-                borderColor: result.ok ? "#7cb37b66" : "#cf646466",
+                color: result.ok ? "#ededed" : "#8a8a8a",
+                borderColor: result.ok ? "#ededed66" : "#8a8a8a66",
               }}
             >
               {result.ok ? "✓ válido" : `✗ ${result.issues.length} erro(s)`}
@@ -152,11 +152,11 @@ function Field({
   return (
     <div>
       <div className="flex items-baseline justify-between">
-        <label className="text-[#9ea2ab]">{label}</label>
+        <label className="text-[#9a9a9a]">{label}</label>
         {error ? (
-          <span className="text-[#cf6464] text-[10.5px]">{error}</span>
+          <span className="text-[#8a8a8a] text-[10.5px]">{error}</span>
         ) : hint ? (
-          <span className="text-[#6c7079] text-[10.5px]">{hint}</span>
+          <span className="text-[#6b6b6b] text-[10.5px]">{hint}</span>
         ) : null}
       </div>
       {textarea ? (
@@ -164,17 +164,17 @@ function Field({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           rows={2}
-          className={`mt-0.5 w-full bg-[#13151a] border ${
-            error ? "border-[#cf646488]" : "border-[#272b34]"
-          } rounded-sm px-2 py-1 text-[#e6e3dc] outline-none focus:border-[#e36b3a]`}
+          className={`mt-0.5 w-full bg-[#151515] border ${
+            error ? "border-[#8a8a8a88]" : "border-[#262626]"
+          } rounded-sm px-2 py-1 text-[#ededed] outline-none focus:border-[#ffffff]`}
         />
       ) : (
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={`mt-0.5 w-full bg-[#13151a] border ${
-            error ? "border-[#cf646488]" : "border-[#272b34]"
-          } rounded-sm px-2 py-1 text-[#e6e3dc] outline-none focus:border-[#e36b3a]`}
+          className={`mt-0.5 w-full bg-[#151515] border ${
+            error ? "border-[#8a8a8a88]" : "border-[#262626]"
+          } rounded-sm px-2 py-1 text-[#ededed] outline-none focus:border-[#ffffff]`}
           spellCheck={false}
         />
       )}

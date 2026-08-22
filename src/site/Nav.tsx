@@ -51,14 +51,14 @@ export default function Nav({ onNavigate }: Props) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-30 transition-colors duration-300 ${
-        scrolled ? "bg-[#0a0a0a]/70 backdrop-blur-md border-b border-white/5" : ""
+        scrolled ? "bg-[#0a0a0a] border-b border-white/10" : ""
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
         <button
           type="button"
           onClick={() => go("topo")}
-          className="text-[#f5f1e8] font-serif text-[15px] tracking-tight"
+          className="text-[#ededed] font-serif text-[15px] tracking-tight"
           aria-label="Topo"
         >
           fj.
@@ -72,8 +72,8 @@ export default function Nav({ onNavigate }: Props) {
               onClick={() => go(it.id)}
               className={`transition-colors duration-200 ${
                 active === it.id
-                  ? "text-[#d4a76a]"
-                  : "text-[#9b958a] hover:text-[#f5f1e8]"
+                  ? "text-[#ffffff]"
+                  : "text-[#9a9a9a] hover:text-[#ededed]"
               }`}
             >
               {it.label}
@@ -86,7 +86,7 @@ export default function Nav({ onNavigate }: Props) {
             href="https://github.com/fabriciojunio"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[12.5px] text-[#9b958a] hover:text-[#f5f1e8] transition-colors"
+            className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors"
           >
             GitHub →
           </a>
@@ -97,15 +97,15 @@ export default function Nav({ onNavigate }: Props) {
           aria-label="Abrir menu"
           aria-expanded={open}
           onClick={() => setOpen((s) => !s)}
-          className="md:hidden text-[#f5f1e8] text-[13px] font-mono tracking-wide"
+          className="md:hidden text-[#ededed] text-[13px] font-mono tracking-wide"
         >
           {open ? "Fechar" : "Menu"}
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-white/5 bg-[#0a0a0a]/95 backdrop-blur-md">
-          <nav className="px-6 py-4 flex flex-col gap-3 text-[#f5f1e8] font-sans text-[14px]">
+        <div className="md:hidden border-t border-white/10 bg-[#0a0a0a]">
+          <nav className="px-6 py-4 flex flex-col gap-3 text-[#ededed] font-sans text-[14px]">
             {ITEMS.map((it) => (
               <button
                 key={it.id}
@@ -120,7 +120,7 @@ export default function Nav({ onNavigate }: Props) {
               href="https://github.com/fabriciojunio"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-left py-1 text-[#d4a76a]"
+              className="text-left py-1 text-[#ffffff]"
             >
               GitHub →
             </a>

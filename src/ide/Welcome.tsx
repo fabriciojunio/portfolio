@@ -47,7 +47,7 @@ export default function Welcome() {
       transition={{ duration: 0.2, ease: [0.22, 0.61, 0.36, 1] }}
     >
       <m.div
-        className="w-full max-w-[560px] bg-[#13151a] border border-[#272b34] rounded-lg shadow-2xl font-mono text-[#c9c5ba] overflow-hidden"
+        className="w-full max-w-[560px] bg-[#151515] border border-[#262626] rounded-lg shadow-2xl font-mono text-[#c4c4c4] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
         initial={{ opacity: 0, scale: 0.97, y: 6 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -55,14 +55,14 @@ export default function Welcome() {
         transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
       >
         <div className="px-6 pt-6 pb-4">
-          <div className="flex items-center gap-2 text-[10.5px] uppercase tracking-[1.5px] text-[#6c7079]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#e36b3a]" />
+          <div className="flex items-center gap-2 text-[10.5px] uppercase tracking-[1.5px] text-[#6b6b6b]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#ffffff]" />
             portfólio · fabrício júnio
           </div>
-          <h1 className="mt-2 text-[20px] text-[#e6e3dc] font-medium leading-snug">
+          <h1 className="mt-2 text-[20px] text-[#ededed] font-medium leading-snug">
             Esse portfólio é, ele mesmo, um projeto.
           </h1>
-          <p className="mt-2 text-[13px] text-[#9ea2ab] leading-relaxed">
+          <p className="mt-2 text-[13px] text-[#9a9a9a] leading-relaxed">
             Em vez de um site rolável com cards, montei um IDE de verdade no
             browser. Você navega pelos meus projetos como navegaria pelo meu
             workspace: abrindo arquivos, lendo o código e, em alguns,
@@ -76,11 +76,11 @@ export default function Welcome() {
           <Tip k="③ Run" v="botão verde nos projetos com demo" />
         </div>
 
-        <div className="px-6 py-4 flex flex-col sm:flex-row gap-2 border-t border-[#1f222a] mt-2">
+        <div className="px-6 py-4 flex flex-col sm:flex-row gap-2 border-t border-[#1c1c1c] mt-2">
           <button
             type="button"
             onClick={openDemo}
-            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#e36b3a] text-[#0a0b0e] font-medium hover:brightness-110"
+            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#ffffff] text-[#0c0c0c] font-medium hover:brightness-110"
           >
             ▸ ver uma demo interativa (Java)
           </button>
@@ -90,23 +90,23 @@ export default function Welcome() {
               close();
               ide.open("/sobre.md");
             }}
-            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#0a0b0e] border border-[#272b34] text-[#e6e3dc] hover:border-[#e36b3a]"
+            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#0c0c0c] border border-[#262626] text-[#ededed] hover:border-[#ffffff]"
           >
             ler sobre mim
           </button>
           <button
             type="button"
             onClick={close}
-            className="text-[11.5px] px-3 py-2.5 text-[#6c7079] hover:text-[#e6e3dc]"
+            className="text-[11.5px] px-3 py-2.5 text-[#6b6b6b] hover:text-[#ededed]"
           >
             explorar
           </button>
         </div>
 
-        <div className="px-6 pb-5 text-[10.5px] text-[#6c7079]">
-          atalhos: <kbd className="text-[#9ea2ab]">Ctrl/⌘+K</kbd> paleta ·{" "}
-          <kbd className="text-[#9ea2ab]">Ctrl/⌘+P</kbd> arquivo ·{" "}
-          <kbd className="text-[#9ea2ab]">Ctrl/⌘+`</kbd> terminal
+        <div className="px-6 pb-5 text-[10.5px] text-[#6b6b6b]">
+          atalhos: <kbd className="text-[#9a9a9a]">Ctrl/⌘+K</kbd> paleta ·{" "}
+          <kbd className="text-[#9a9a9a]">Ctrl/⌘+P</kbd> arquivo ·{" "}
+          <kbd className="text-[#9a9a9a]">Ctrl/⌘+`</kbd> terminal
         </div>
       </m.div>
     </m.div>
@@ -117,11 +117,11 @@ export default function Welcome() {
 
 function Tip({ k, v }: { k: string; v: string }) {
   return (
-    <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-2.5">
-      <div className="text-[10px] uppercase tracking-[1.2px] text-[#e36b3a]">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-2.5">
+      <div className="text-[10px] uppercase tracking-[1.2px] text-[#ffffff]">
         {k}
       </div>
-      <div className="text-[11.5px] text-[#c9c5ba] mt-1 leading-snug">{v}</div>
+      <div className="text-[11.5px] text-[#c4c4c4] mt-1 leading-snug">{v}</div>
     </div>
   );
 }

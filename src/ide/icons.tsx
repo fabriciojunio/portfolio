@@ -91,7 +91,7 @@ export function GitBranchIcon({ size = 12, className }: Props) {
 }
 
 export function FileIcon({ language, size = 14, className }: Props & { language: Language }) {
-  const color = LANG_COLOR[language] ?? "#9ea2ab";
+  const color = LANG_COLOR[language] ?? "#9a9a9a";
   return (
     <svg width={size} height={size} viewBox="0 0 16 16" className={className}>
       <path

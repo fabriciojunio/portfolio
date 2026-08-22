@@ -8,10 +8,11 @@ import {
 } from "./logica/fuzzy";
 
 const COR: Record<TermoRisco, string> = {
-  baixo: "#22a06e",
-  medio: "#d9a015",
-  alto: "#e2703a",
-  critico: "#d0473f",
+  // Sem matiz, quem ordena é o brilho: quanto mais claro, mais grave.
+  baixo: "#5c5c5c",
+  medio: "#8a8a8a",
+  alto: "#c4c4c4",
+  critico: "#ffffff",
 };
 
 const ROTULO: Record<TermoRisco, string> = {
@@ -47,9 +48,9 @@ function Controle({
 }) {
   return (
     <label className="block">
-      <span className="flex items-baseline justify-between text-xs text-zinc-400">
+      <span className="flex items-baseline justify-between text-xs text-neutral-400">
         <span>{rotulo}</span>
-        <span className="font-mono text-zinc-200">
+        <span className="font-mono text-neutral-200">
           {valor}
           {sufixo}
         </span>
@@ -61,7 +62,7 @@ function Controle({
         step={passo}
         value={valor}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="mt-1 w-full accent-emerald-500"
+        className="mt-1 w-full accent-neutral-300"
       />
     </label>
   );
@@ -96,7 +97,7 @@ export default function PermaneiaDemo() {
 
   return (
     <div className="space-y-4 text-sm">
-      <p className="text-xs leading-relaxed text-zinc-400">
+      <p className="text-xs leading-relaxed text-neutral-400">
         Sistema fuzzy de Mamdani com 27 regras que estima risco de evasão. Mexa nos três sinais e
         compare com o critério que a maioria das secretarias usa hoje, que é olhar só a média.
       </p>
@@ -111,7 +112,7 @@ export default function PermaneiaDemo() {
               setNotas(p.notas);
               setAcessos(p.acessos);
             }}
-            className="rounded border border-zinc-700 px-2 py-1 text-xs text-zinc-300 hover:border-emerald-600 hover:text-zinc-100"
+            className="rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-500 hover:text-neutral-100"
           >
             {p.nome}
           </button>
@@ -124,9 +125,9 @@ export default function PermaneiaDemo() {
         <Controle rotulo="Acessos" valor={acessos} min={0} max={40} passo={1} sufixo="" onChange={setAcessos} />
       </div>
 
-      <div className="rounded border border-zinc-800 bg-zinc-900/60 p-3">
+      <div className="rounded border border-neutral-800 bg-neutral-900/60 p-3">
         <div className="flex items-baseline justify-between">
-          <span className="text-xs text-zinc-400">Score defuzzificado pelo centroide</span>
+          <span className="text-xs text-neutral-400">Score defuzzificado pelo centroide</span>
           <span className="font-mono text-lg font-bold" style={{ color: COR[r.faixa] }}>
             {r.score.toFixed(3)} · {ROTULO[r.faixa]}
           </span>
@@ -139,13 +140,13 @@ export default function PermaneiaDemo() {
             y1="4"
             x2={r.score * 320}
             y2="64"
-            stroke="#e6eaef"
+            stroke="#ededed"
             strokeWidth="1"
             strokeDasharray="3 3"
           />
-          <line x1="0" y1="64" x2="320" y2="64" stroke="#3f3f46" strokeWidth="1" />
+          <line x1="0" y1="64" x2="320" y2="64" stroke="#3a3a3a" strokeWidth="1" />
         </svg>
-        <p className="text-[10px] text-zinc-500">
+        <p className="text-[10px] text-neutral-500">
           A linha tracejada é o centro de gravidade da área. Engajamento normalizado:{" "}
           {engajamento.toFixed(2)} de 10.
         </p>
@@ -153,20 +154,20 @@ export default function PermaneiaDemo() {
 
       <div
         className={`rounded border p-3 ${
-          divergem ? "border-amber-700/70 bg-amber-950/30" : "border-zinc-800 bg-zinc-900/60"
+          divergem ? "border-neutral-700/70 bg-neutral-900/30" : "border-neutral-800 bg-neutral-900/60"
         }`}
       >
         <p className="text-xs">
-          <span className="text-zinc-400">Critério por nota:</span>{" "}
-          <span className="font-medium text-zinc-100">{porNota}</span>
+          <span className="text-neutral-400">Critério por nota:</span>{" "}
+          <span className="font-medium text-neutral-100">{porNota}</span>
           {divergem && (
-            <span className="ml-2 text-amber-300">
+            <span className="ml-2 text-neutral-200">
               diverge do fuzzy, que aponta {ROTULO[r.faixa]}
             </span>
           )}
         </p>
         {divergem && (
-          <p className="mt-1 text-[11px] leading-relaxed text-amber-200/80">
+          <p className="mt-1 text-[11px] leading-relaxed text-neutral-100/80">
             É este o aluno que o critério da secretaria não enxerga: o abandono é precedido por
             desengajamento, não por queda de nota.
           </p>
@@ -174,17 +175,17 @@ export default function PermaneiaDemo() {
       </div>
 
       <div>
-        <p className="mb-1 text-xs text-zinc-400">
+        <p className="mb-1 text-xs text-neutral-400">
           Regras que mais pesaram, de {r.disparadas.length} disparadas:
         </p>
         <ul className="space-y-1">
           {r.disparadas.slice(0, 3).map((d) => (
-            <li key={d.id} className="rounded border border-zinc-800 bg-zinc-900/40 p-2 text-[11px]">
-              <span className="font-mono text-zinc-500">regra {d.id}</span>{" "}
+            <li key={d.id} className="rounded border border-neutral-800 bg-neutral-900/40 p-2 text-[11px]">
+              <span className="font-mono text-neutral-500">regra {d.id}</span>{" "}
               <span className="font-mono" style={{ color: COR[d.entao] }}>
                 força {d.forca.toFixed(2)} → {d.entao}
               </span>
-              <p className="mt-0.5 leading-relaxed text-zinc-400">{d.porque}</p>
+              <p className="mt-0.5 leading-relaxed text-neutral-400">{d.porque}</p>
             </li>
           ))}
         </ul>

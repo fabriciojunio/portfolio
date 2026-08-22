@@ -12,7 +12,7 @@ export default function MarkdownView({ source }: Props) {
   const blocks = useMemo(() => parseBlocks(source), [source]);
 
   return (
-    <article className="prose-narrow font-sans text-[#c9c5ba] text-[14px] leading-[1.65] px-8 md:px-14 py-8 max-w-[760px] mx-auto w-full">
+    <article className="prose-narrow font-sans text-[#c4c4c4] text-[14px] leading-[1.65] px-8 md:px-14 py-8 max-w-[760px] mx-auto w-full">
       {blocks.map((b, i) => renderBlock(b, i))}
     </article>
   );
@@ -118,19 +118,19 @@ function renderBlock(b: Block, key: number) {
   switch (b.kind) {
     case "h1":
       return (
-        <h1 key={key} className="text-[28px] text-[#e6e3dc] font-semibold mt-2 mb-4 leading-tight">
+        <h1 key={key} className="text-[28px] text-[#ededed] font-semibold mt-2 mb-4 leading-tight">
           {b.text}
         </h1>
       );
     case "h2":
       return (
-        <h2 key={key} className="text-[18px] text-[#e6e3dc] font-semibold mt-7 mb-2 leading-snug">
+        <h2 key={key} className="text-[18px] text-[#ededed] font-semibold mt-7 mb-2 leading-snug">
           {b.text}
         </h2>
       );
     case "h3":
       return (
-        <h3 key={key} className="text-[15px] text-[#e6e3dc] font-medium mt-5 mb-2">
+        <h3 key={key} className="text-[15px] text-[#ededed] font-medium mt-5 mb-2">
           {b.text}
         </h3>
       );
@@ -145,7 +145,7 @@ function renderBlock(b: Block, key: number) {
         <ul key={key} className="my-3 pl-5 list-none space-y-1.5">
           {b.items.map((it, j) => (
             <li key={j} className="relative">
-              <span className="absolute -left-4 top-[9px] w-1 h-1 rounded-full bg-[#e36b3a]" />
+              <span className="absolute -left-4 top-[9px] w-1 h-1 rounded-full bg-[#ffffff]" />
               {renderInline(it)}
             </li>
           ))}
@@ -155,7 +155,7 @@ function renderBlock(b: Block, key: number) {
       return (
         <blockquote
           key={key}
-          className="border-l-2 border-[#e36b3a] pl-4 my-4 text-[#9ea2ab] italic"
+          className="border-l-2 border-[#ffffff] pl-4 my-4 text-[#9a9a9a] italic"
         >
           {renderInline(b.text)}
         </blockquote>
@@ -164,15 +164,15 @@ function renderBlock(b: Block, key: number) {
       return (
         <pre
           key={key}
-          className="my-4 bg-[#0a0b0e] border border-[#272b34] rounded p-3 overflow-x-auto"
+          className="my-4 bg-[#0c0c0c] border border-[#262626] rounded p-3 overflow-x-auto"
         >
-          <code className="font-mono text-[12.5px] text-[#c9c5ba] whitespace-pre">
+          <code className="font-mono text-[12.5px] text-[#c4c4c4] whitespace-pre">
             {b.code}
           </code>
         </pre>
       );
     case "hr":
-      return <hr key={key} className="my-6 border-[#1f222a]" />;
+      return <hr key={key} className="my-6 border-[#1c1c1c]" />;
   }
 }
 
@@ -191,7 +191,7 @@ function renderInline(text: string) {
         out.push(
           <code
             key={key++}
-            className="font-mono text-[12.5px] px-1 py-[1px] rounded bg-[#13151a] border border-[#1f222a] text-[#f0a570]"
+            className="font-mono text-[12.5px] px-1 py-[1px] rounded bg-[#151515] border border-[#1c1c1c] text-[#d4d4d4]"
           >
             {text.slice(i + 1, end)}
           </code>,
@@ -205,7 +205,7 @@ function renderInline(text: string) {
       const end = text.indexOf("**", i + 2);
       if (end > i) {
         out.push(
-          <strong key={key++} className="text-[#e6e3dc] font-medium">
+          <strong key={key++} className="text-[#ededed] font-medium">
             {text.slice(i + 2, end)}
           </strong>,
         );
@@ -222,7 +222,7 @@ function renderInline(text: string) {
           href={linkMatch[2]}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#e36b3a] underline-offset-2 hover:underline"
+          className="text-[#ffffff] underline-offset-2 hover:underline"
         >
           {linkMatch[1]}
         </a>,

@@ -65,13 +65,13 @@ export default function VagasDemo() {
     );
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
-      <p className="text-[11.5px] text-[#9ea2ab]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
+      <p className="text-[11.5px] text-[#9a9a9a]">
         motor de score do JIS (pesos: remoto 30% · stack match 25% · senioridade 20% · salário 15% · tier 10%).
       </p>
 
-      <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
-        <div className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079] mb-2">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+        <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b] mb-2">
           sua stack (selecione)
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -82,7 +82,7 @@ export default function VagasDemo() {
                 type="button"
                 key={s}
                 onClick={() => toggle(s)}
-                className={`text-[11px] px-2 py-[3px] rounded-sm border transition-colors ${on ? "border-[#e36b3a] text-[#e36b3a] bg-[#1a120e]" : "border-[#272b34] text-[#9ea2ab] hover:text-[#e6e3dc]"}`}
+                className={`text-[11px] px-2 py-[3px] rounded-sm border transition-colors ${on ? "border-[#ffffff] text-[#ffffff] bg-[#151515]" : "border-[#262626] text-[#9a9a9a] hover:text-[#ededed]"}`}
               >
                 {s}
               </button>
@@ -95,17 +95,17 @@ export default function VagasDemo() {
         {ranked.map(({ v, s }, i) => (
           <li
             key={v.empresa}
-            className="flex items-stretch bg-[#0a0b0e] border border-[#272b34] rounded p-3"
+            className="flex items-stretch bg-[#0c0c0c] border border-[#262626] rounded p-3"
           >
-            <div className="w-8 text-[#6c7079] text-[11px] mr-2">
+            <div className="w-8 text-[#6b6b6b] text-[11px] mr-2">
               {String(i + 1).padStart(2, "0")}.
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-baseline gap-2">
-                <span className="text-[#e6e3dc] font-medium">{v.cargo}</span>
-                <span className="text-[#9ea2ab] text-[11.5px]">{v.empresa}</span>
+                <span className="text-[#ededed] font-medium">{v.cargo}</span>
+                <span className="text-[#9a9a9a] text-[11.5px]">{v.empresa}</span>
                 {v.remoto && (
-                  <span className="text-[10px] text-[#7cb37b] uppercase tracking-[1px]">
+                  <span className="text-[10px] text-[#ededed] uppercase tracking-[1px]">
                     remoto
                   </span>
                 )}
@@ -118,8 +118,8 @@ export default function VagasDemo() {
                       key={t}
                       className="text-[10.5px] px-1.5 py-[1px] rounded-sm border"
                       style={{
-                        color: match ? "#e36b3a" : "#6c7079",
-                        borderColor: match ? "#e36b3a66" : "#272b34",
+                        color: match ? "#ffffff" : "#6b6b6b",
+                        borderColor: match ? "#ffffff66" : "#262626",
                       }}
                     >
                       {t}
@@ -127,15 +127,15 @@ export default function VagasDemo() {
                   );
                 })}
               </div>
-              <div className="mt-1 text-[10.5px] text-[#6c7079]">
+              <div className="mt-1 text-[10.5px] text-[#6b6b6b]">
                 R$ {v.salario.toLocaleString("pt-BR")} · tier {(v.tier * 10).toFixed(0)}
               </div>
             </div>
             <div className="ml-3 flex flex-col items-end justify-center">
-              <span className="text-[18px] text-[#f0a570] tabular-nums">
+              <span className="text-[18px] text-[#d4d4d4] tabular-nums">
                 {(s * 100).toFixed(0)}
               </span>
-              <span className="text-[10px] text-[#6c7079]">score</span>
+              <span className="text-[10px] text-[#6b6b6b]">score</span>
             </div>
           </li>
         ))}

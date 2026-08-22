@@ -73,24 +73,24 @@ export default function XgDemo() {
   };
 
   return (
-    <div className="space-y-3 text-[12.5px] font-mono text-[#c9c5ba]">
+    <div className="space-y-3 text-[12.5px] font-mono text-[#c4c4c4]">
       <div className="flex flex-wrap items-center gap-3 text-[11.5px]">
-        <span className="text-[#9ea2ab]">
-          modelo: <span className="text-[#e6e3dc]">logistic(3.10 − 0.14·dist + 0.012·ang − 0.45·header)</span>
+        <span className="text-[#9a9a9a]">
+          modelo: <span className="text-[#ededed]">logistic(3.10 − 0.14·dist + 0.012·ang − 0.45·header)</span>
         </span>
         <label className="flex items-center gap-1.5 cursor-pointer">
           <input
             type="checkbox"
             checked={header}
             onChange={(e) => setHeader(e.target.checked)}
-            className="accent-[#e36b3a]"
+            className="accent-[#ffffff]"
           />
           cabeceio
         </label>
         <button
           type="button"
           onClick={() => setShots([])}
-          className="text-[#9ea2ab] hover:text-[#e6e3dc] underline-offset-2 hover:underline"
+          className="text-[#9a9a9a] hover:text-[#ededed] underline-offset-2 hover:underline"
         >
           limpar chutes
         </button>
@@ -102,7 +102,7 @@ export default function XgDemo() {
             width={W}
             height={H}
             viewBox={`0 0 ${W} ${H}`}
-            className="bg-[#0a0b0e] border border-[#272b34] rounded cursor-crosshair"
+            className="bg-[#0c0c0c] border border-[#262626] rounded cursor-crosshair"
             onMouseMove={onMove}
             onMouseLeave={() => setHover(null)}
             onClick={onClick}
@@ -117,21 +117,21 @@ export default function XgDemo() {
                     cx={px}
                     cy={py}
                     r={6 + s.prob * 26}
-                    fill="#e36b3a"
+                    fill="#ffffff"
                     opacity={0.12}
                   />
                   <circle
                     cx={px}
                     cy={py}
                     r={4}
-                    fill="#e36b3a"
-                    stroke="#0a0b0e"
+                    fill="#ffffff"
+                    stroke="#0c0c0c"
                     strokeWidth="1.4"
                   />
                   <text
                     x={px + 8}
                     y={py - 6}
-                    fill="#e6e3dc"
+                    fill="#ededed"
                     fontSize="11"
                     fontFamily="JetBrains Mono"
                   >
@@ -147,13 +147,13 @@ export default function XgDemo() {
                   cy={toPx(hover.x, hover.y).py}
                   r="5"
                   fill="none"
-                  stroke="#f0a570"
+                  stroke="#d4d4d4"
                   strokeWidth="1.4"
                 />
               </g>
             )}
           </svg>
-          <div className="absolute top-2 left-2 text-[10.5px] text-[#6c7079] font-mono pointer-events-none">
+          <div className="absolute top-2 left-2 text-[10.5px] text-[#6b6b6b] font-mono pointer-events-none">
             clique pra registrar um chute
           </div>
         </div>
@@ -171,13 +171,13 @@ export default function XgDemo() {
                 />
               </div>
             ) : (
-              <span className="text-[#6c7079]">passe o mouse pelo campo.</span>
+              <span className="text-[#6b6b6b]">passe o mouse pelo campo.</span>
             )}
           </Card>
 
           <Card title={`chutes (${shots.length})`}>
             {shots.length === 0 ? (
-              <span className="text-[#6c7079]">nenhum chute registrado.</span>
+              <span className="text-[#6b6b6b]">nenhum chute registrado.</span>
             ) : (
               <>
                 <div className="space-y-0.5 max-h-[120px] overflow-y-auto">
@@ -186,7 +186,7 @@ export default function XgDemo() {
                       key={s.id}
                       className="flex justify-between text-[11.5px]"
                     >
-                      <span className="text-[#9ea2ab]">
+                      <span className="text-[#9a9a9a]">
                         #{i + 1}{" "}
                         ({s.x.toFixed(0)}, {s.y.toFixed(0)})
                         {s.header && " ⚽ header"}
@@ -197,9 +197,9 @@ export default function XgDemo() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-2 pt-2 border-t border-[#272b34] flex justify-between">
-                  <span className="text-[#9ea2ab]">xG acumulado</span>
-                  <span className="text-[#f0a570]">
+                <div className="mt-2 pt-2 border-t border-[#262626] flex justify-between">
+                  <span className="text-[#9a9a9a]">xG acumulado</span>
+                  <span className="text-[#d4d4d4]">
                     {shots.reduce((acc, s) => acc + s.prob, 0).toFixed(2)}
                   </span>
                 </div>
@@ -213,25 +213,25 @@ export default function XgDemo() {
 }
 
 function probColor(p: number): string {
-  if (p > 0.6) return "#7cb37b";
-  if (p > 0.3) return "#d4a247";
-  if (p > 0.1) return "#f0a570";
-  return "#cf6464";
+  if (p > 0.6) return "#ededed";
+  if (p > 0.3) return "#b8b8b8";
+  if (p > 0.1) return "#d4d4d4";
+  return "#8a8a8a";
 }
 
 function Row({ k, v, color }: { k: string; v: string; color?: string }) {
   return (
     <div className="flex justify-between text-[11.5px]">
-      <span className="text-[#9ea2ab]">{k}</span>
-      <span style={{ color: color ?? "#e6e3dc" }}>{v}</span>
+      <span className="text-[#9a9a9a]">{k}</span>
+      <span style={{ color: color ?? "#ededed" }}>{v}</span>
     </div>
   );
 }
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[#0a0b0e] border border-[#272b34] rounded p-3">
-      <div className="text-[10px] uppercase tracking-[1.2px] text-[#6c7079] mb-2">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+      <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b] mb-2">
         {title}
       </div>
       {children}
@@ -240,7 +240,7 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
 }
 
 function Pitch({ w, h }: { w: number; h: number }) {
-  const stroke = "#3a3e48";
+  const stroke = "#383838";
   return (
     <g fill="none" stroke={stroke} strokeWidth="1.1">
       <rect x="0.5" y="0.5" width={w - 1} height={h - 1} />
@@ -251,7 +251,7 @@ function Pitch({ w, h }: { w: number; h: number }) {
       {/* área pequena direita */}
       <rect x={w - 27.5} y={h / 2 - 45} width="27.5" height="90" />
       {/* gol direito */}
-      <rect x={w - 2} y={h / 2 - 18} width="6" height="36" stroke="#e36b3a" strokeWidth="1.4" />
+      <rect x={w - 2} y={h / 2 - 18} width="6" height="36" stroke="#ffffff" strokeWidth="1.4" />
       {/* área grande esquerda */}
       <rect x="0" y={h / 2 - 90} width="82.5" height="180" />
       <rect x="0" y={h / 2 - 45} width="27.5" height="90" />

@@ -10,7 +10,7 @@ export default function Tabs() {
   const active = activePath ? filesByPath.get(activePath) : null;
 
   return (
-    <div className="h-9 bg-[#0e0f12] border-b border-[#1f222a] flex items-stretch text-[12px] font-mono select-none">
+    <div className="h-9 bg-[#0c0c0c] border-b border-[#1c1c1c] flex items-stretch text-[12px] font-mono select-none">
       <ul
         role="tablist"
         className="flex flex-1 items-stretch overflow-x-auto m-0 p-0 list-none"
@@ -27,7 +27,7 @@ export default function Tabs() {
               initial={{ opacity: 0, x: -6 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.16, ease: [0.22, 0.61, 0.36, 1] }}
-              className={`group flex items-center pl-3 pr-2 gap-2 border-r border-[#1f222a] cursor-pointer ${isActive ? "bg-[#13151a] text-[#e6e3dc]" : "text-[#9ea2ab] hover:bg-[#11131a]"}`}
+              className={`group flex items-center pl-3 pr-2 gap-2 border-r border-[#1c1c1c] cursor-pointer ${isActive ? "bg-[#151515] text-[#ededed]" : "text-[#9a9a9a] hover:bg-[#111111]"}`}
               onClick={() => activate(path)}
             >
               <FileIcon language={f.language} size={12} />
@@ -39,7 +39,7 @@ export default function Tabs() {
                   e.stopPropagation();
                   close(path);
                 }}
-                className="text-[#6c7079] hover:text-[#e6e3dc] p-0.5 rounded-sm opacity-60 group-hover:opacity-100"
+                className="text-[#6b6b6b] hover:text-[#ededed] p-0.5 rounded-sm opacity-60 group-hover:opacity-100"
               >
                 <CloseIcon size={11} />
               </button>
@@ -51,7 +51,7 @@ export default function Tabs() {
         <button
           type="button"
           onClick={() => setRunPanel(!runPanelOpen)}
-          className={`flex items-center gap-1.5 px-3 border-l border-[#1f222a] text-[11.5px] ${runPanelOpen ? "text-[#e36b3a]" : "text-[#9ea2ab] hover:text-[#e6e3dc]"}`}
+          className={`flex items-center gap-1.5 px-3 border-l border-[#1c1c1c] text-[11.5px] ${runPanelOpen ? "text-[#ffffff]" : "text-[#9a9a9a] hover:text-[#ededed]"}`}
           title="Executar demo deste arquivo"
         >
           <PlayIcon size={12} />
