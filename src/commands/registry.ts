@@ -61,7 +61,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
     case "whoami":
       return {
         lines: [
-          "Fabrício Júnio Alves Dias, 20 anos, Bauru/SP",
+          "Fabrício Júnio Almeida Dias, 21 anos, Bauru/SP",
           "Desenvolvedor FullStack, atuando como PJ",
           "Ciência da Computação na UNISAGRADO",
           "  github:   github.com/fabriciojunio",

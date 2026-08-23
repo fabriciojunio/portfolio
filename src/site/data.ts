@@ -779,7 +779,7 @@ export const SOBRE = {
   cidade: "Bauru, SP",
   bio: "Analista de Sistemas. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
   longBio: [
-    "Tenho 20 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
+    "Tenho 21 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
     "No dia a dia trabalho com automação de processos (BPM), robôs em Java e integrações REST, em projetos bancários de abertura de conta digital. Uma das integrações que escrevi, com a API do IBGE, cortou em 80% o tempo de cadastro.",
     "Nos projetos próprios vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro (QuantBot ML, GolData, Paiol Tech com Open Finance), e a produtos que já estão indo para cliente: Balcão, Horalis e RegistraServiço. Na faculdade, os de visão computacional: o Cardiocam mede batimentos cardíacos por vídeo e o Contaflux conta os veículos que passam numa via.",
   ],
