@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { fadeUp, inViewOnce, stagger } from "../motion";
-import { PROJECTS, type SiteProject } from "./data";
+import {
+  PROJETOS_EIXO,
+  PROJETOS_PRODUTO,
+  PROJETOS_FACULDADE,
+  PROJETOS_OUTROS,
+  type SiteProject,
+} from "./data";
 import SnippetView from "./SnippetView";
-
-const DEMO_COUNT = PROJECTS.filter((p) => p.demo).length;
-const LAB_COUNT = PROJECTS.filter((p) => p.labDemo).length;
 
 /**
  * Endereço da IDE já com o arquivo aberto e o painel de execução ligado.
@@ -17,13 +20,38 @@ function enderecoDaDemo(caminho: string): string {
   return `/lab?arquivo=${encodeURIComponent(caminho)}&run=1`;
 }
 
+/**
+ * A vitrine deixou de ser uma lista corrida de 24 itens.
+ *
+ * Lista corrida obriga quem chega a decidir sozinho o que importa, e a resposta
+ * óbvia é que nada importa muito. Aqui a página já diz qual é o eixo, o que já
+ * tem usuário, o que é da faculdade e o que é acervo.
+ */
+const BLOCOS: { titulo: string; nota: string; itens: SiteProject[] }[] = [
+  {
+    titulo: "Back-end",
+    nota: "O eixo. Fila, streaming, autenticação e banco, que é onde passo o dia.",
+    itens: PROJETOS_EIXO,
+  },
+  {
+    titulo: "Produto com usuário",
+    nota: "Saíram de projeto pessoal e foram para cliente. Três deles com o código fechado.",
+    itens: PROJETOS_PRODUTO,
+  },
+  {
+    titulo: "Faculdade",
+    nota: "Trabalhos de disciplina na UNISAGRADO, entre eles os de visão computacional e os de Unity.",
+    itens: PROJETOS_FACULDADE,
+  },
+];
+
 export default function Work() {
   return (
     <section
       id="trabalho"
       className="relative py-28 md:py-40 px-6 md:px-10 max-w-[1280px] mx-auto"
     >
-      <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-16">
+      <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-20">
         <div>
           <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">
             02 · trabalho
@@ -34,13 +62,40 @@ export default function Work() {
         </div>
         <div className="self-end space-y-4">
           <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">
-            A maioria com código aberto no GitHub. Clique pra ver o raciocínio, a stack usada e um trecho de código que vale a leitura.
-          </p>
-          <p className="font-mono text-[11px] text-[#767676]">
-            {PROJECTS.length} projetos · {DEMO_COUNT} com demo ao vivo ·{" "}
-            {LAB_COUNT} com demo interativa aqui mesmo
+            Comece pelos cinco primeiros. Clique em qualquer um pra ver o problema, a decisão que
+            tomei e um trecho de código que vale a leitura.
           </p>
         </div>
+      </div>
+
+      <div className="space-y-20 md:space-y-24">
+        {BLOCOS.map((bloco) => (
+          <Bloco key={bloco.titulo} {...bloco} />
+        ))}
+        <Acervo />
+      </div>
+    </section>
+  );
+}
+
+function Bloco({
+  titulo,
+  nota,
+  itens,
+}: {
+  titulo: string;
+  nota: string;
+  itens: SiteProject[];
+}) {
+  return (
+    <div>
+      <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1 mb-6">
+        <h3 className="font-serif text-[26px] md:text-[32px] text-[#ededed] leading-tight">
+          {titulo}
+        </h3>
+        <p className="font-mono text-[11px] text-[#767676] max-w-[560px] leading-relaxed">
+          {nota}
+        </p>
       </div>
 
       <m.ol
@@ -49,11 +104,48 @@ export default function Work() {
         {...inViewOnce}
         viewport={{ once: true, amount: 0.05 }}
       >
-        {PROJECTS.map((p, i) => (
+        {itens.map((p, i) => (
           <WorkRow key={p.slug} project={p} index={i} />
         ))}
       </m.ol>
-    </section>
+    </div>
+  );
+}
+
+/**
+ * O que veio antes do eixo atual. Fica fechado porque é acervo, não vitrine,
+ * mas continua acessível: apagar do site não apaga que eu escrevi.
+ */
+function Acervo() {
+  const [aberto, setAberto] = useState(false);
+
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={() => setAberto((s) => !s)}
+        className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#767676] hover:text-[#ededed] transition-colors"
+        aria-expanded={aberto}
+      >
+        {aberto ? "−" : "+"} projetos anteriores ({PROJETOS_OUTROS.length})
+      </button>
+
+      <AnimatePresence initial={false}>
+        {aberto && (
+          <m.ol
+            className="mt-6 divide-y divide-white/5 border-y border-white/5 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {PROJETOS_OUTROS.map((p, i) => (
+              <WorkRow key={p.slug} project={p} index={i} />
+            ))}
+          </m.ol>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 

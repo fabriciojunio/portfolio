@@ -29,7 +29,7 @@ export default function Welcome() {
 
   const openDemo = () => {
     close();
-    ide.open("/projetos/jis.java");
+    ide.open("/projetos/codereview-ai.java");
     setTimeout(() => ide.setRunPanel(true), 200);
   };
 

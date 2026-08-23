@@ -325,32 +325,31 @@ export function registerInteraction(state: StreakState | null, now: Date) {
   },
   {
     slug: "jis",
-    name: "JIS / Sistema de Vagas IA",
-    oneLine: "Coleta e ranqueia vagas e publica top-5 no Telegram",
-    what: "Sistema que coleta vagas de Gupy, GeekHunter e Programathor, aplica score híbrido (regras + RandomForest) e envia as melhores oportunidades às 19h via Telegram.",
-    role: "Escrevi o motor de score em Java e o serviço ML em Python (FastAPI + scikit-learn). Calibrei pesos por ROI das vagas que abri.",
+    name: "JIS",
+    oneLine: "Agregador de vagas que estima a chance real de cada uma",
+    what: "Coleta vagas de oito fontes públicas sem exigir chave de API, descarta o que não tem chance (vaga velha, senioridade acima, região que não contrata quem está no Brasil) e monta o prompt do currículo sob medida para a vaga que sobrou.",
+    role: "Escrevi o critério de corte a partir de pesquisa de recrutamento em vez de chute: aderência mínima de stack, prazo até a vaga virar fantasma e filtro de região. O que reprova em qualquer um deles não recebe nota, é descartado.",
     highlights: [
-      "Coleta automatizada em 3 plataformas: Gupy, GeekHunter e Programathor",
-      "Score híbrido: regras determinísticas + RandomForest calibrado",
-      "Envio automático dos top-5 todo dia às 19h via Telegram",
+      "Oito fontes reais, entre elas LinkedIn, Remotive, RemoteOK e WeWorkRemotely",
+      "Vaga com mais de 30 dias é descartada: a faixa de vaga fantasma vai de 20% a 35% do total publicado",
+      "Sem banco de dados: as vagas vêm em tempo real com cache de 30 minutos e o funil fica no navegador",
     ],
-    stack: ["Java 21", "Spring Boot", "Python", "FastAPI", "scikit-learn"],
+    stack: ["Next.js 15", "React 19", "TypeScript", "Vitest"],
     github: "https://github.com/fabriciojunio/jis",
-    labDemo: "/projetos/jis.java",
+    labDemo: "/projetos/jis.ts",
     demo: "https://jis-frontend-mocha.vercel.app",
-    year: "2025",
-    snippetLang: "java",
-    snippet: `public static double scoreRules(Job job, List<String> userStack) {
-    double remote = job.isRemote() ? 1.0 : 0.2;
-    double match  = stackMatch(job.tags(), userStack);
-    double sen    = senLevel(job.title());
-    double sal    = salaryRange(job.salary());
+    year: "2026",
+    snippetLang: "typescript",
+    snippet: `// Os três primeiros não são peso, são porta. Reprovou, nem pontua.
+if (vaga.senioridade === "senior" || vaga.senioridade === "lead") return null;
+if (vaga.regiao === "outra") return null;
+if (vaga.publicadaEmDias > DIAS_ATE_VIRAR_FANTASMA) return null;
 
-    return  WEIGHTS.get("remoto")      * remote
-          + WEIGHTS.get("stack_match") * match
-          + WEIGHTS.get("senioridade") * sen
-          + WEIGHTS.get("salario")     * sal;
-}`,
+const aderencia = proporcaoDeStack(vaga.stack);
+if (aderencia < ADERENCIA_MINIMA) return null;
+
+const recencia = 1 - vaga.publicadaEmDias / DIAS_ATE_VIRAR_FANTASMA;
+return Math.round(100 * (0.65 * aderencia + 0.35 * recencia));`,
   },
   {
     slug: "codereview-ai",
@@ -739,49 +738,74 @@ public class TeleportPoint : MonoBehaviour
   },
 ];
 
-// Ordem de exibição pensada para vagas de engenharia em fintech/banco:
-// linguagem mais pedida (Java + Spring) na frente, depois mercado
-// financeiro, segurança bancária e, por fim, full-stack e mobile.
-const WORK_ORDER = [
-  "jis",                // Java 21 + Spring Boot
-  "codereview-ai",      // Java 21 + Spring Boot
-  "quantbot-ml",        // mercado financeiro
-  "goldata-pro",        // value bets, modelagem financeira
-  "paiol-tech",         // SaaS com Open Finance
-  "authcore",           // segurança e autenticação
-  "guarda-banco",       // confiabilidade de banco de dados
-  "permaneia",          // RAG com fontes citadas + lógica fuzzy
-  "balcao",             // IA aplicada com domínio determinístico
-  "apontamento-horas",  // RBAC, SLA, auditoria
-  "registraservico",    // multi-tenant configurável, setor público
-  "sintonia",           // produto em monorepo, API + web + mobile
-  "bravor",             // full-stack + segurança, motor de domínio
-  "koracrm",            // full-stack React
-  "mycondpets",         // full-stack React
-  "goldata",            // ML aplicado
-  "conectagente",       // mobile offline-first
-  "mente-viva",         // mobile offline-first, impacto social
-  "mundo-do-lukinha",   // educação, front-end
-  "cardiocam",          // processamento de imagens e sinais
-  "contaflux",          // visão computacional aplicada
-  "kaida",              // Unity / C#, projeto acadêmico
-  "bicudo",             // Unity / C#, projeto acadêmico individual
-  "laboratorio-vr",     // VR / Unity, projeto acadêmico
+// A vitrine é dividida por peso, não por ordem corrida.
+//
+// O eixo é back-end: integração, fila, segurança e banco. Vem primeiro porque é
+// o que eu faço no trabalho e é o que quero que a pessoa leia antes de tudo.
+// Depois vêm os produtos que já têm usuário, os trabalhos de faculdade e, por
+// último, o que ficou de projetos antigos.
+
+const EIXO = [
+  "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
+  "paiol-tech",         // NestJS com CQRS, Open Finance
+  "guarda-banco",       // proteção de escrita dentro do servidor de banco
+  "authcore",           // JWT RS256, 2FA, RBAC, auditoria
+  "quantbot-ml",        // engenharia de dados e CI que quebra o build
 ];
 
-export const PROJECTS: SiteProject[] = WORK_ORDER.map(
-  (slug) => PROJECTS_SOURCE.find((p) => p.slug === slug)!,
-);
+const PRODUTO = [
+  "balcao",             // o modelo não escreve número, quem calcula é o domínio
+  "apontamento-horas",  // RBAC, SLA e exportação
+  "registraservico",    // multi-tenant configurável
+  "conectagente",       // offline-first, incubado na Saruê
+];
+
+const FACULDADE = [
+  "permaneia",          // RAG com fonte citada e fuzzy escrito do zero
+  "cardiocam",          // rPPG, quatro algoritmos comparados
+  "contaflux",          // visão computacional aplicada
+  "mycondpets",         // web em equipe de cinco
+  "kaida",              // Unity, cenas geradas por código
+  "bicudo",             // Unity, individual
+  "laboratorio-vr",     // VR com interação por gaze
+];
+
+const OUTROS = [
+  "jis",
+  "goldata",
+  "goldata-pro",
+  "sintonia",
+  "bravor",
+  "koracrm",
+  "mente-viva",
+  "mundo-do-lukinha",
+];
+
+const porSlug = (slug: string) =>
+  PROJECTS_SOURCE.find((p) => p.slug === slug)!;
+
+export const PROJETOS_EIXO: SiteProject[] = EIXO.map(porSlug);
+export const PROJETOS_PRODUTO: SiteProject[] = PRODUTO.map(porSlug);
+export const PROJETOS_FACULDADE: SiteProject[] = FACULDADE.map(porSlug);
+export const PROJETOS_OUTROS: SiteProject[] = OUTROS.map(porSlug);
+
+export const PROJECTS: SiteProject[] = [
+  ...PROJETOS_EIXO,
+  ...PROJETOS_PRODUTO,
+  ...PROJETOS_FACULDADE,
+  ...PROJETOS_OUTROS,
+];
 
 export const SOBRE = {
   nome: "Fabrício Júnio",
-  cargo: "Analista de Sistemas",
+  cargo: "Desenvolvedor back-end",
   cidade: "Bauru, SP",
-  bio: "Analista de Sistemas. Java em banco, Python em ML, TypeScript no frontend. Prefiro código em produção a código em README.",
+  bio: "Back-end em Java, integração e automação de processo que já está em produção. Prefiro medir antes de mexer a corrigir no escuro.",
   longBio: [
-    "Tenho 21 anos. Curso Ciência da Computação na UNISAGRADO e participo da Incubadora Saruê, na UNESP Bauru.",
-    "No dia a dia trabalho com automação de processos (BPM), robôs em Java e integrações REST, em projetos bancários de abertura de conta digital. Uma das integrações que escrevi, com a API do IBGE, cortou em 80% o tempo de cadastro.",
-    "Nos projetos próprios vou de back-end Java com Spring Boot (JIS, CodeReview AI) a sistemas do mercado financeiro (QuantBot ML, GolData, Paiol Tech com Open Finance), e a produtos que já estão indo para cliente: Balcão, Horalis e RegistraServiço. Na faculdade, os de visão computacional: o Cardiocam mede batimentos cardíacos por vídeo e o Contaflux conta os veículos que passam numa via.",
+    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho na área de Serviços da Digihub, que faz parte do grupo Lecom. A carteira é de treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
+    "O que eu faço não é começar sistema do zero. É mexer em processo de negócio vivo, com centenas de instâncias em andamento no momento em que a alteração sobe. Integração e robô em Java, regra de tela em JavaScript, roteamento de processo e SQL de diagnóstico.",
+    "Isso me obrigou a um hábito que virou o meu jeito de trabalhar: eu reproduzo a regra atual, rodo contra o histórico real e só confio no modelo quando ele acerta o passado. Se a simulação não prevê o que já aconteceu, ela não serve para prever o que vai acontecer. Numa correção recente isso apareceu como 330 acertos em 331 processos antes de eu mudar uma linha.",
+    "Nos projetos próprios o eixo é o mesmo. CodeReview AI é Java 21 com Spring Boot, fila e streaming. Paiol Tech separa comando de consulta com CQRS. Guarda Banco impede DELETE acidental dentro do próprio servidor de banco. E três produtos já estão indo para cliente: Balcão, Horalis e RegistraServiço.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -792,38 +816,38 @@ export const SOBRE = {
 
 export const STACK_GROUPS = [
   {
-    label: "back",
-    items: ["Java + Spring Boot", "Node + NestJS", "FastAPI (Python)", "Laravel"],
+    label: "eixo",
+    items: ["Java 21", "Spring Boot", "SQL", "API REST", "JavaScript"],
   },
   {
-    label: "front",
-    items: ["React 19", "Next.js 15", "React Native + Expo", "TypeScript strict"],
+    label: "back",
+    items: ["NestJS", "Node + TypeScript", "FastAPI (Python)"],
   },
   {
     label: "dados",
-    items: ["PostgreSQL", "Redis", "Supabase", "SQLite (WAL + FTS)"],
-  },
-  {
-    label: "ml",
-    items: ["scikit-learn", "XGBoost", "PyTorch", "OpenCV", "FinBERT-PT-BR", "Ollama (local)"],
+    items: ["PostgreSQL", "MySQL", "Redis", "SQLite (WAL + FTS)"],
   },
   {
     label: "infra",
-    items: ["Docker", "GitHub Actions", "Nginx", "Vercel"],
+    items: ["Docker", "RabbitMQ", "GitHub Actions", "Nginx"],
+  },
+  {
+    label: "também uso",
+    items: ["React 19", "Next.js 15", "React Native", "scikit-learn", "XGBoost"],
   },
 ];
 
 export const EMPRESAS = [
   "Java",
   "Spring Boot",
-  "React",
-  "Next.js",
-  "Python",
-  "TypeScript",
+  "SQL",
+  "API REST",
   "PostgreSQL",
-  "PHP",
+  "Docker",
+  "RabbitMQ",
+  "BPM",
+  "Digihub",
   "UNISAGRADO",
   "Incubadora Saruê",
-  "UNESP Bauru",
   "Bauru, SP",
 ];

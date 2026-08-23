@@ -246,7 +246,7 @@ export const SUGGESTIONS = [
   "cat perfil.json",
   "open projetos/goldata.py",
   "open projetos/apontamento-horas.ts",
-  "open projetos/jis.java",
+  "open projetos/jis.ts",
   "tree",
   "whoami",
   "projetos",

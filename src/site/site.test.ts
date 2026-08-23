@@ -100,8 +100,8 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("deve ter 3 parágrafos na longBio", () => {
-      expect(SOBRE.longBio.length).toBe(3);
+    it("deve ter 4 parágrafos na longBio", () => {
+      expect(SOBRE.longBio.length).toBe(4);
     });
 
     it("deve ter cargo e cidade preenchidos", () => {
@@ -122,12 +122,13 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("deve ter grupo back, front, dados, ml e infra", () => {
+    it("deve abrir pelo eixo e ter back, dados e infra", () => {
       const labels = STACK_GROUPS.map((g) => g.label);
+      // O primeiro grupo é o posicionamento: quem lê a lista de cima para
+      // baixo tem que sair sabendo o que eu faço, não o que eu já toquei.
+      expect(labels[0]).toBe("eixo");
       expect(labels).toContain("back");
-      expect(labels).toContain("front");
       expect(labels).toContain("dados");
-      expect(labels).toContain("ml");
       expect(labels).toContain("infra");
     });
   });
