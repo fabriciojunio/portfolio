@@ -4,17 +4,16 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
-// Os cinco projetos mais fortes, pensados para vagas de engenharia em
-// fintech/banco: JIS (Java + Spring Boot) em destaque (z=0, scale maior,
-// centro), seguido de mercado financeiro (QuantBot ML), back-end Java
-// distribuído (CodeReview AI), segurança/autenticação (AuthCore) e Open
-// Finance (Paiol Tech).
+// Os cinco que sustentam o eixo de back-end, na ordem em que quero que sejam
+// lidos: CodeReview AI (Java 21 e Spring Boot) no centro, depois CQRS e Open
+// Finance (Paiol Tech), proteção de banco (Guarda Banco), autenticação e RBAC
+// (AuthCore) e engenharia de dados com CI (QuantBot ML).
 const PICKED = [
-  "jis",
-  "quantbot-ml",
   "codereview-ai",
-  "authcore",
   "paiol-tech",
+  "guarda-banco",
+  "authcore",
+  "quantbot-ml",
 ];
 
 interface CardConfig {

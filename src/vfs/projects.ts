@@ -109,67 +109,58 @@ for (x, y, tag) in [(94, 34, "pênalti"),
   },
 
   {
-    path: "/projetos/jis.java",
-    name: "jis.java",
-    language: "java",
+    path: "/projetos/jis.ts",
+    name: "jis.ts",
+    language: "typescript",
     runnable: "vagas-score",
     meta: {
-      project: "JIS: Sistema de Vagas IA",
+      project: "JIS: agregador de vagas",
       github: "https://github.com/fabriciojunio/jis",
       demo: "https://jis-frontend-mocha.vercel.app",
-      stack: ["Java 21", "Spring Boot", "Python", "FastAPI", "scikit-learn"],
-      role: "Coleta vagas (Gupy, GeekHunter, Programathor), aplica score híbrido (regras + RandomForest) e envia top-5 às 19h via Telegram.",
+      stack: ["Next.js 15", "TypeScript", "React 19", "Vitest"],
+      role: "Coleta vagas de oito fontes públicas, estima a chance real de contratação de cada uma e monta o prompt do currículo sob medida.",
     },
-    content: `// JIS: motor de score híbrido
-// Regras com pesos + chamada ao serviço Python (RandomForest)
+    content: `// JIS: a chance de uma vaga, calculada com o que a pesquisa de
+// recrutamento diz, e não com o que dá vontade de acreditar.
 
-package com.fabricio.jis.scoring;
+type Vaga = {
+  titulo: string;
+  stack: string[];
+  publicadaEmDias: number;
+  regiao: "brasil" | "latam" | "worldwide" | "outra";
+  senioridade: "junior" | "pleno" | "senior" | "lead";
+};
 
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+const MEU_STACK = ["java", "spring", "typescript", "node", "sql"];
 
-public final class JobScorer {
+// Cobrir metade dos requisitos já iguala a taxa de entrevista de quem
+// cobre quase todos. Acima disso o ganho some, então o corte fica aqui.
+const ADERENCIA_MINIMA = 0.5;
 
-    private static final Map<String, Double> WEIGHTS = Map.of(
-        "remoto",       0.30,
-        "stack_match",  0.25,
-        "senioridade",  0.20,
-        "salario",      0.15,
-        "empresa_tier", 0.10
-    );
+// Vaga com mais de 30 dias tem chance alta de ser fantasma: publicada
+// para formar banco de currículo, sem posição aberta do outro lado.
+const DIAS_ATE_VIRAR_FANTASMA = 30;
 
-    public static double scoreRules(Job job, List<String> userStack) {
-        double remote   = job.isRemote() ? 1.0 : 0.2;
-        double match    = stackMatch(job.tags(), userStack);
-        double sen      = senLevel(job.title());
-        double sal      = salaryRange(job.salary());
-        double tier     = job.companyTier();
+export function chanceDeContratacao(vaga: Vaga): number | null {
+  // Os três primeiros não são peso, são porta. Reprovou, nem pontua.
+  if (vaga.senioridade === "senior" || vaga.senioridade === "lead") return null;
+  if (vaga.regiao === "outra") return null;
+  if (vaga.publicadaEmDias > DIAS_ATE_VIRAR_FANTASMA) return null;
 
-        return  WEIGHTS.get("remoto")       * remote
-              + WEIGHTS.get("stack_match")  * match
-              + WEIGHTS.get("senioridade")  * sen
-              + WEIGHTS.get("salario")      * sal
-              + WEIGHTS.get("empresa_tier") * tier;
-    }
+  const aderencia = proporcaoDeStack(vaga.stack);
+  if (aderencia < ADERENCIA_MINIMA) return null;
 
-    private static double stackMatch(List<String> tags, List<String> user) {
-        long hits = tags.stream().filter(user::contains).count();
-        return Math.min(1.0, hits / 3.0);
-    }
+  const recencia = 1 - vaga.publicadaEmDias / DIAS_ATE_VIRAR_FANTASMA;
 
-    private static double senLevel(String title) {
-        String t = title.toLowerCase();
-        if (Pattern.matches(".*\\\\b(junior|jr|estag)\\\\b.*", t)) return 1.0;
-        if (Pattern.matches(".*\\\\bpleno\\\\b.*", t))             return 0.6;
-        if (Pattern.matches(".*\\\\b(senior|sr|tech lead)\\\\b.*", t)) return 0.2;
-        return 0.5;
-    }
+  return Math.round(100 * (0.65 * aderencia + 0.35 * recencia));
+}
 
-    private static double salaryRange(int salary) {
-        if (salary <= 0) return 0.4;
-        return Math.min(1.0, salary / 8000.0);
-    }
+function proporcaoDeStack(exigido: string[]): number {
+  if (exigido.length === 0) return 0;
+  const tenho = exigido.filter((t) =>
+    MEU_STACK.includes(t.toLowerCase()),
+  ).length;
+  return tenho / exigido.length;
 }
 `,
   },
