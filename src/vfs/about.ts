@@ -8,7 +8,7 @@ export const aboutMd: VFile = {
 
 > Desenvolvedor FullStack, atuando como PJ. Bauru, SP.
 
-Tenho 20 anos, curso Ciência da Computação na UNISAGRADO
+Tenho 21 anos, curso Ciência da Computação na UNISAGRADO
 e participo da Incubadora Saruê (UNESP Bauru).
 
 Escrevo software porque gosto de ver coisa funcionando
