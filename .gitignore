@@ -17,7 +17,3 @@ dist-types
 .env*.local
 
 .github/java-upgrade/
-
-# Saída de build do gerador em Java. O HTML gerado (gerado/) é versionado
-# de propósito: a Vercel serve estático e não precisa de JVM.
-gerador/target/

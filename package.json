@@ -5,14 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node monta-dist.mjs",
+    "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "gerar": "npx tsx exporta-conteudo.mts && cd gerador && mvn -q -B package -DskipTests && cd .. && java -jar gerador/target/gerador.jar conteudo/site.json gerado",
-    "test:gerador": "cd gerador && mvn -B test"
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@fontsource/instrument-serif": "^5.2.8",
@@ -43,7 +41,6 @@
     "jsdom": "^25.0.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "tsx": "^4.23.12",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.59.4",
     "vite": "^7.3.6",
