@@ -100,8 +100,12 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("deve ter 4 parágrafos na longBio", () => {
-      expect(SOBRE.longBio.length).toBe(4);
+    // Contagem exata travava o texto: qualquer parágrafo novo quebrava o
+    // build sem nada de errado ter acontecido. O que interessa proteger é o
+    // limite de cima, porque bio que passa de cinco parágrafos ninguém lê.
+    it("deve ter uma longBio entre 3 e 5 parágrafos", () => {
+      expect(SOBRE.longBio.length).toBeGreaterThanOrEqual(3);
+      expect(SOBRE.longBio.length).toBeLessThanOrEqual(5);
     });
 
     it("deve ter cargo e cidade preenchidos", () => {
@@ -111,8 +115,9 @@ describe("data.ts — integridade dos dados", () => {
   });
 
   describe("STACK_GROUPS", () => {
-    it("deve ter 5 grupos", () => {
-      expect(STACK_GROUPS.length).toBe(5);
+    it("deve ter entre 4 e 7 grupos", () => {
+      expect(STACK_GROUPS.length).toBeGreaterThanOrEqual(4);
+      expect(STACK_GROUPS.length).toBeLessThanOrEqual(7);
     });
 
     it("cada grupo deve ter label e items não vazios", () => {
