@@ -867,28 +867,32 @@ export const SOBRE = {
 
 export const STACK_GROUPS = [
   {
+    // Java abre a lista e leva o teste junto, porque em vaga de back-end
+    // "escreve teste" é pedido tanto quanto a linguagem.
     label: "eixo",
-    items: ["Java 21", "Spring Boot", "SQL", "API REST", "JavaScript"],
-  },
-  {
-    label: "back",
-    items: ["NestJS", "Node + TypeScript", "FastAPI (Python)"],
-  },
-  {
-    label: "dados",
-    items: ["PostgreSQL", "MySQL", "Redis", "SQLite (WAL + FTS)"],
+    items: ["Java 21", "Spring Boot", "SQL", "API REST", "JUnit"],
   },
   {
     label: "mensageria",
     items: ["Kafka", "RabbitMQ", "outbox transacional", "saga"],
   },
   {
+    label: "dados",
+    items: ["PostgreSQL", "MySQL", "Redis", "SQLite (WAL + FTS)"],
+  },
+  {
     label: "infra",
-    items: ["Docker", "GitHub Actions", "Nginx", "Kubernetes"],
+    items: ["Docker", "Kubernetes", "GitHub Actions", "Nginx"],
+  },
+  {
+    // Front tem grupo próprio, e não "também uso". A tela eu entrego quando
+    // precisa, e esconder isso faria eu parecer menos completo do que sou.
+    label: "front",
+    items: ["React 19", "TypeScript", "Next.js 15", "React Native"],
   },
   {
     label: "também uso",
-    items: ["React 19", "Next.js 15", "React Native", "scikit-learn", "XGBoost"],
+    items: ["Node + TypeScript", "NestJS", "FastAPI (Python)", "scikit-learn"],
   },
 ];
 
