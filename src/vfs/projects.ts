@@ -981,12 +981,12 @@ export function auditarMensagem(texto: string, ctx: ContextoAuditoria) {
     name: "guarda-banco.sql",
     language: "sql",
     meta: {
-      project: "Guarda Banco",
+      project: "Guarda do Banco",
       demo: null,
       stack: ["PostgreSQL", "PL/pgSQL", "MySQL", "SQL Server", "Python"],
       role: "Trava no servidor de banco contra DELETE e UPDATE acidentais: limite de linhas afetadas por comando, auditoria e liberação temporária com motivo. Repositório privado.",
     },
-    content: `-- Guarda Banco: trigger que conta as linhas e decide, linha a linha.
+    content: `-- Guarda do Banco: trigger que conta as linhas e decide, linha a linha.
 --
 -- O núcleo não é detectar DELETE sem WHERE, é limite de linhas
 -- afetadas por comando. Uma regra cobre WHERE amplo demais, OR no
