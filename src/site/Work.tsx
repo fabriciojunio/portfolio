@@ -62,8 +62,7 @@ export default function Work() {
         </div>
         <div className="self-end space-y-4">
           <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">
-            Comece pelos cinco primeiros. Clique em qualquer um pra ver o problema, a decisão que
-            tomei e um trecho de código que vale a leitura.
+            Clique em qualquer um: o problema, a decisão que tomei e um trecho de código.
           </p>
         </div>
       </div>

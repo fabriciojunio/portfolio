@@ -14,7 +14,7 @@ export const contato = {
 } as const;
 
 // Para uma proposta:
-// - assunto claro (ex.: "Vaga FullStack Pleno, Empresa X")
+// - assunto claro (ex.: "Vaga Back-end Java Pleno, Empresa X")
 // - escopo, prazo e modelo (CLT / PJ / freelancer técnico)
 // - eu respondo em 24h úteis.
 

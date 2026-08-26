@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { PROJECTS, SOBRE, STACK_GROUPS, EMPRESAS } from "./data";
+import { TRADUCOES } from "./i18n-projetos";
+import { DICIONARIO, IDIOMAS } from "./i18n";
 
 describe("data.ts — integridade dos dados", () => {
   describe("PROJECTS", () => {
@@ -246,4 +248,61 @@ describe("Work — extensão de arquivo", () => {
   it("csharp → cs", () => expect(ext("csharp")).toBe("cs"));
   it("typescript → ts", () => expect(ext("typescript")).toBe("ts"));
   it("desconhecido → ts", () => expect(ext("cobol")).toBe("ts"));
+});
+
+/**
+ * O site é publicado em três idiomas, e quem escreve o conteúdo escreve em
+ * português. Sem estes testes, um projeto novo entra, o gerador em Java falha
+ * no build do CI e a mensagem chega longe de onde o texto foi escrito.
+ */
+describe("tradução", () => {
+  it("todo projeto tem texto em inglês e espanhol", () => {
+    for (const p of PROJECTS) {
+      for (const idioma of ["en", "es"] as const) {
+        const texto = TRADUCOES[idioma][p.slug];
+        expect(texto, `${p.slug} em ${idioma}`).toBeDefined();
+        expect(texto.oneLine.length, `${p.slug} em ${idioma}`).toBeGreaterThan(0);
+        expect(texto.what.length, `${p.slug} em ${idioma}`).toBeGreaterThan(0);
+        expect(texto.role.length, `${p.slug} em ${idioma}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  /**
+   * Contagem diferente não parece defeito na tela: parece que o projeto tem
+   * menos a dizer em inglês.
+   */
+  it("os destaques batem em quantidade entre os três idiomas", () => {
+    for (const p of PROJECTS) {
+      const esperado = (p.highlights ?? []).length;
+      for (const idioma of ["en", "es"] as const) {
+        expect(TRADUCOES[idioma][p.slug].highlights, `${p.slug} em ${idioma}`)
+          .toHaveLength(esperado);
+      }
+    }
+  });
+
+  it("não sobra tradução de projeto que já saiu do site", () => {
+    const slugs = new Set(PROJECTS.map((p) => p.slug));
+    for (const idioma of ["en", "es"] as const) {
+      for (const slug of Object.keys(TRADUCOES[idioma])) {
+        expect(slugs.has(slug), `${slug} em ${idioma} não existe mais`).toBe(true);
+      }
+    }
+  });
+
+  it("os três idiomas têm o dicionário do site completo", () => {
+    for (const { codigo } of IDIOMAS) {
+      const t = DICIONARIO[codigo];
+      expect(t, codigo).toBeDefined();
+      expect(t.htmlLang.length).toBeGreaterThan(0);
+      expect(t.sobre.longBio.length).toBeGreaterThanOrEqual(3);
+      expect(t.sobre.titulo).toHaveLength(3);
+      expect(t.contato.titulo).toHaveLength(3);
+    }
+  });
+
+  it("o português continua sendo o principal", () => {
+    expect(IDIOMAS[0].codigo).toBe("pt");
+  });
 });

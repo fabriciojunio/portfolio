@@ -19,11 +19,11 @@ export default function Contact() {
         <m.h2 variants={fadeUp} className="mt-5 font-serif text-[54px] md:text-[80px] lg:text-[110px] leading-[1.0] text-[#ededed] tracking-[-0.02em]">
           Precisa de
           <br />
-          um <span className="text-[#ffffff]">FullStack</span>?
+          um <span className="text-[#ffffff]">back-end</span>?
         </m.h2>
 
         <m.p variants={fadeUp} className="mt-12 max-w-[520px] text-[16px] md:text-[17.5px] text-[#d4d4d4] leading-[1.9]">
-          Procuro oportunidade FullStack (CLT ou PJ). Topo conversar sobre projeto pontual, freelance técnico ou contratação. Respondo em até 24h úteis.
+          Java, Spring Boot e integração. Respondo em até 24h úteis.
         </m.p>
       </m.div>
 

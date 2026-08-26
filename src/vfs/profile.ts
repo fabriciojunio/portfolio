@@ -6,11 +6,11 @@ export const profileJson: VFile = {
   language: "json",
   content: `{
   "nome": "Fabrício Júnio Almeida Dias",
-  "idade": 20,
+  "idade": 21,
   "cidade": "Bauru, SP",
   "trabalho": {
     "modelo": "PJ (prestação de serviços)",
-    "cargo": "Desenvolvedor FullStack",
+    "cargo": "Desenvolvedor back-end",
     "desde": "2025",
     "atuacao": ["BPM e robôs em Java", "integrações REST", "abertura de conta digital"]
   },

@@ -62,7 +62,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
       return {
         lines: [
           "Fabrício Júnio Almeida Dias, 21 anos, Bauru/SP",
-          "Desenvolvedor FullStack, atuando como PJ",
+          "Desenvolvedor back-end: Java, Spring Boot e integracao",
           "Ciência da Computação na UNISAGRADO",
           "  github:   github.com/fabriciojunio",
           "  linkedin: linkedin.com/in/fabríciojúnio",
