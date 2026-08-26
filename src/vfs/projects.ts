@@ -5,6 +5,88 @@ import type { VFile } from "../types";
 
 export const projectFiles: VFile[] = [
   {
+    path: "/projetos/feira-do-comando.java",
+    name: "feira-do-comando.java",
+    language: "java",
+    meta: {
+      project: "Feira do Comando",
+      github: "https://github.com/fabriciojunio/feira-do-comando",
+      demo: null,
+      stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "React 19"],
+      role: "Tres servicos conversando por Kafka, com outbox transacional, consumidor idempotente e saga que compensa.",
+    },
+    content: `// A saga do pedido.
+//
+// O caso dificil nao e o caminho feliz: e a aprovacao do pagamento
+// que chega DEPOIS de o cancelamento ja ter comecado. O dinheiro
+// saiu, entao ignorar nao e opcao. Tem que voltar.
+
+sealed interface Evento permits PedidoCriado, EstoqueReservado,
+        EstoqueRecusado, PagamentoAprovado, PagamentoRecusado { }
+
+Decisao processar(Evento evento, Instant agora) {
+    return switch (evento) {
+
+        case EstoqueReservado e when status == RECEBIDO ->
+            avancar(ESTOQUE_RESERVADO,
+                    new CobrancaSolicitada(id, total));
+
+        case PagamentoAprovado p when status == ESTOQUE_RESERVADO ->
+            avancar(CONFIRMADO, new PedidoConfirmado(id));
+
+        // Aqui mora o valor da saga.
+        case PagamentoAprovado p when status == CANCELANDO ->
+            new Decisao(false,
+                List.of(new PagamentoEstornado(
+                    id, p.valor(), Motivo.PEDIDO_CANCELADO)),
+                "aprovacao tardia: estornando");
+
+        // Evento repetido nao muda nada, e isso e de proposito:
+        // o Kafka entrega ao menos uma vez, nao exatamente uma.
+        default -> Decisao.ignorar("evento fora de ordem ou repetido");
+    };
+}
+
+// Sem "default" no switch de um sealed interface, o compilador
+// cobra todo caso novo. Evento novo sem tratamento nao compila.`,
+  },
+  {
+    path: "/projetos/outorga.java",
+    name: "outorga.java",
+    language: "java",
+    meta: {
+      project: "Outorga",
+      github: "https://github.com/fabriciojunio/outorga",
+      demo: null,
+      stack: ["Java 21", "Spring Boot", "PostgreSQL", "Next.js"],
+      role: "Streaming white-label multi-tenant onde a licenca de exibicao e invariante de dominio.",
+    },
+    content: `// Sem outorga, nao vai ao ar.
+//
+// A licenca entra por PARAMETRO, e nao por consulta la dentro.
+// Parece detalhe e nao e: assim quem chama e obrigado a ter a
+// licenca em maos, e nao existe caminho de codigo capaz de
+// publicar sem ela. A regra de negocio passa a ser cobrada pelo
+// compilador, e nao por revisao de codigo.
+
+public Result<Titulo> publicar(Licenca licenca, Instant agora) {
+    if (!licenca.cobre(this.territorio, agora))
+        return Result.erro(FalhaDeNegocio.SEM_LICENCA_VIGENTE);
+
+    return Result.ok(comStatus(Status.PUBLICADO));
+}
+
+// A varredura horaria funciona nos DOIS sentidos: tira do ar o
+// que venceu e devolve o que foi renovado. O segundo sentido
+// existe porque um canal derrubado na mao voltou sozinho, e o
+// teste que pegou isso ficou.
+
+void revisarDireitos(Instant agora) {
+    if (licenca.venceu(agora))      bloquearPorDireito();
+    else if (bloqueadoPorDireito)   liberarPorDireito();
+}`,
+  },
+  {
     path: "/projetos/goldata-pro.py",
     name: "goldata-pro.py",
     language: "python",

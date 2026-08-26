@@ -6,7 +6,7 @@ export const aboutMd: VFile = {
   language: "markdown",
   content: `# Fabrício Júnio
 
-> Desenvolvedor FullStack, atuando como PJ. Bauru, SP.
+> Desenvolvedor back-end. Java, Spring Boot e integracao. Bauru, SP.
 
 Tenho 21 anos, curso Ciência da Computação na UNISAGRADO
 e participo da Incubadora Saruê (UNESP Bauru).

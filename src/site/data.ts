@@ -27,7 +27,7 @@ export interface SiteProject {
 const PROJECTS_SOURCE: SiteProject[] = [
   {
     slug: "feira",
-    name: "Feira",
+    name: "Feira do Comando",
     oneLine: "Pedidos orientados a eventos com saga e compensação",
     what: "Três serviços Spring Boot (pedidos, estoque, pagamentos) conversando por Kafka. Cada um com o próprio banco, nenhum lendo tabela do outro. A saga precisa sobreviver a mensagem repetida, fora de ordem e atrasada.",
     role: "Escrevi tudo: os contratos de evento selados, o outbox transacional compartilhado, o consumidor idempotente e a saga do pedido. O caso que mais deu trabalho foi a corrida em que o pagamento é aprovado durante o cancelamento, que termina em estorno.",
@@ -51,9 +51,9 @@ case PagamentoAprovado p when status == CANCELANDO ->
         "aprovacao tardia: estornando");`,
   },
   {
-    slug: "mirante",
-    name: "Mirante",
-    oneLine: "Streaming white-label onde a licença é a regra central",
+    slug: "outorga",
+    name: "Outorga",
+    oneLine: "Streaming white-label: sem outorga, não vai ao ar",
     what: "Plataforma de streaming multi-tenant. A regra que organiza o sistema inteiro é uma só: nada vai ao ar sem licença vigente para o território e a janela de exibição.",
     role: "Modelei o domínio inteiro. Publicar é a única porta para o ar, e ela exige a licença na assinatura do método, então não existe caminho de código que publique sem ela. Uma varredura horária tira do ar o que venceu e devolve o que foi renovado.",
     highlights: [
@@ -63,7 +63,7 @@ case PagamentoAprovado p when status == CANCELANDO ->
       "260 testes contra PostgreSQL de verdade",
     ],
     stack: ["Java 21", "Spring Boot", "PostgreSQL", "JdbcClient", "Next.js"],
-    github: "https://github.com/fabriciojunio/mirante",
+    github: "https://github.com/fabriciojunio/outorga",
     demo: null,
     year: "2026",
     snippetLang: "java",
@@ -162,8 +162,8 @@ const forca = Math.min(
   {
     slug: "conectagente",
     name: "ConectAgente",
-    oneLine: "App offline-first para Agentes Comunitários do SUS",
-    what: "Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza com Supabase ao reconectar. 5 módulos clínicos por morador, metas mensais, audit log LGPD.",
+    oneLine: "Iniciação científica: coleta em campo sem internet para agentes do SUS",
+    what: "Projeto de iniciação científica, incubado na Saruê (UNESP Bauru). Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza ao reconectar. Nunca foi para campo com agente de verdade: é pesquisa, não produto em uso.",
     role: "Arquitetei o engine de sync (outbox pattern com retries e conflict resolution) e o esquema do SQLite com índices FTS pra busca offline.",
     highlights: [
       "Outbox pattern com retry e conflict resolution: sync funciona até sem sinal",
@@ -271,7 +271,7 @@ return { aprovado: violacoes.length === 0, violacoes };`,
   },
   {
     slug: "guarda-banco",
-    name: "Guarda Banco",
+    name: "Guarda do Banco",
     oneLine: "Trava no servidor contra DELETE e UPDATE acidentais",
     what: "Proteção instalada no próprio banco: todo DELETE ou UPDATE tem limite de linhas afetadas por comando, e passar do limite aborta a transação. Como a regra mora no servidor, vale igual no DBeaver, no Workbench, no SSMS ou no psql. Scripts para PostgreSQL, MySQL e SQL Server.",
     role: "Defini o núcleo: limite por linhas afetadas em vez de caçar DELETE sem WHERE. Também o controle de nível de aninhamento, que faz a cascata somar no mesmo comando, e o painel local de liberação.",
@@ -797,7 +797,7 @@ public class TeleportPoint : MonoBehaviour
 
 const EIXO = [
   "feira",              // Kafka, outbox, saga com compensação
-  "mirante",            // multi-tenant, licença como invariante de domínio
+  "outorga",            // multi-tenant, licença como invariante de domínio
   "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
   "paiol-tech",         // NestJS com CQRS, Open Finance
   "guarda-banco",       // proteção de escrita dentro do servidor de banco
@@ -809,10 +809,10 @@ const PRODUTO = [
   "balcao",             // o modelo não escreve número, quem calcula é o domínio
   "apontamento-horas",  // RBAC, SLA e exportação
   "registraservico",    // multi-tenant configurável
-  "conectagente",       // offline-first, incubado na Saruê
 ];
 
 const FACULDADE = [
+  "conectagente",       // iniciação científica, sem cliente em campo
   "permaneia",          // RAG com fonte citada e fuzzy escrito do zero
   "cardiocam",          // rPPG, quatro algoritmos comparados
   "contaflux",          // visão computacional aplicada
