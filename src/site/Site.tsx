@@ -5,6 +5,7 @@ import Contact from "./Contact";
 import Footer from "./Footer";
 import Hero from "./Hero";
 import Nav from "./Nav";
+import ProvedorDeIdioma from "./ProvedorDeIdioma";
 import Stack from "./Stack";
 import Work from "./Work";
 
@@ -17,18 +18,20 @@ export default function Site() {
   }, []);
 
   return (
-    <MotionProvider>
-      <div className="min-h-screen bg-[#0a0a0a] text-[#ededed] antialiased">
-        <Nav onNavigate={scrollTo} />
-        <main>
-          <Hero onScrollTo={scrollTo} />
-          <About />
-          <Work />
-          <Stack />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </MotionProvider>
+    <ProvedorDeIdioma>
+      <MotionProvider>
+        <div className="min-h-screen bg-[#0a0a0a] text-[#ededed] antialiased">
+          <Nav onNavigate={scrollTo} />
+          <main>
+            <Hero onScrollTo={scrollTo} />
+            <About />
+            <Work />
+            <Stack />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </MotionProvider>
+    </ProvedorDeIdioma>
   );
 }

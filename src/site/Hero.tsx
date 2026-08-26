@@ -1,7 +1,8 @@
 import { Suspense, lazy } from "react";
 import { m } from "motion/react";
 import { fadeUp, stagger } from "../motion";
-import { EMPRESAS, SOBRE } from "./data";
+import { EMPRESAS } from "./data";
+import { useTextos } from "./i18n";
 
 const Cards3D = lazy(() => import("./Cards3D"));
 
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export default function Hero({ onScrollTo }: Props) {
+  const t = useTextos();
+
   return (
     <section
       id="topo"
@@ -36,14 +39,14 @@ export default function Hero({ onScrollTo }: Props) {
             <Avatar />
             <div className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#9a9a9a] leading-relaxed">
               <div className="flex items-center gap-2.5 flex-wrap">
-                <span>{SOBRE.cargo}</span>
+                <span>{t.sobre.cargo}</span>
                 <span className="flex items-center gap-1.5 normal-case tracking-normal text-[#ededed] text-[10px]">
                   <span className="w-[5px] h-[5px] bg-[#ededed] shrink-0" />
-                  disponível
+                  {t.hero.disponivel}
                 </span>
               </div>
               <div className="text-[#767676] mt-1">
-                {SOBRE.cidade}
+                {t.sobre.cidade}
               </div>
             </div>
           </m.div>
@@ -61,7 +64,7 @@ export default function Hero({ onScrollTo }: Props) {
             variants={fadeUp}
             className="mt-12 max-w-[500px] text-[16px] md:text-[18px] text-[#d4d4d4] leading-[1.9] font-sans"
           >
-            {SOBRE.bio}
+            {t.sobre.bio}
           </m.p>
 
           <m.div variants={fadeUp} className="mt-12 flex flex-wrap gap-3">
@@ -73,7 +76,7 @@ export default function Hero({ onScrollTo }: Props) {
               transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
               className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#ededed] text-[#0a0a0a] text-[12px] font-mono uppercase tracking-[1.4px] hover:bg-white transition-colors"
             >
-              Ver trabalho
+              {t.hero.verTrabalho}
               <span aria-hidden className="transition-transform group-hover:translate-x-1">
                 →
               </span>
@@ -86,7 +89,7 @@ export default function Hero({ onScrollTo }: Props) {
               transition={{ duration: 0.18, ease: [0.22, 0.61, 0.36, 1] }}
               className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/20 text-[#ededed] text-[12px] font-mono uppercase tracking-[1.4px] hover:border-[#ffffff] hover:text-[#ffffff] transition-colors"
             >
-              Conversar
+              {t.hero.conversar}
             </m.button>
           </m.div>
 
