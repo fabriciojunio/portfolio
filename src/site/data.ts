@@ -38,7 +38,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "165 testes, nenhum deles precisando de Docker instalado",
     ],
     stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "React 19", "ArchUnit"],
-    github: "https://github.com/fabriciojunio/feira",
+    github: "https://github.com/fabriciojunio/feira-do-comando",
     demo: null,
     year: "2026",
     snippetLang: "java",
