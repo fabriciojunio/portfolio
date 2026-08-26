@@ -1,22 +1,25 @@
 import { m } from "motion/react";
 import { fadeUp, inViewOnce, stagger } from "../motion";
 import { SOBRE } from "./data";
+import { useTextos } from "./i18n";
 
 export default function About() {
+  const t = useTextos();
+
   return (
     <section id="sobre" className="relative py-28 md:py-40 px-6 md:px-10 max-w-[1280px] mx-auto">
       <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20">
         <m.div variants={stagger()} {...inViewOnce}>
           <m.p variants={fadeUp} className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">
-            01 · sobre
+            {t.sobre.secao}
           </m.p>
           <m.h2 variants={fadeUp} className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#ededed]">
-            Código que <em className="text-[#ffffff] not-italic">funciona</em> em produção.
+            {t.sobre.titulo[0]}<em className="text-[#ffffff] not-italic">{t.sobre.titulo[1]}</em>{t.sobre.titulo[2]}
           </m.h2>
         </m.div>
 
         <m.div className="space-y-8" variants={stagger()} {...inViewOnce}>
-          {SOBRE.longBio.map((p, i) => (
+          {t.sobre.longBio.map((p, i) => (
             <m.p
               key={i}
               variants={fadeUp}
@@ -27,9 +30,9 @@ export default function About() {
           ))}
 
           <m.div variants={fadeUp} className="pt-6 grid grid-cols-2 gap-x-10 gap-y-5 max-w-[480px]">
-            <Info k="Cargo"    v={SOBRE.cargo} />
-            <Info k="Cidade"   v={SOBRE.cidade} />
-            <Info k="Formação" v="Ciência da Computação, UNISAGRADO" />
+            <Info k={t.sobre.rotuloCargo}    v={t.sobre.cargo} />
+            <Info k={t.sobre.rotuloCidade}   v={t.sobre.cidade} />
+            <Info k={t.sobre.rotuloFormacao} v={t.sobre.formacaoValor} />
           </m.div>
 
           <m.div variants={fadeUp} className="pt-6 flex flex-wrap gap-5">

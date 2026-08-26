@@ -9,6 +9,31 @@ import {
   type SiteProject,
 } from "./data";
 import SnippetView from "./SnippetView";
+import { useIdioma, useTextos } from "./i18n";
+import { TRADUCOES, type TextoDoProjeto } from "./i18n-projetos";
+
+/**
+ * O texto do projeto no idioma corrente.
+ *
+ * O português mora no próprio projeto, porque é onde o texto é escrito e
+ * revisado; as traduções ficam à parte. Se faltar tradução, cai no português
+ * em vez de mostrar espaço em branco: um card sem texto parece projeto vazio,
+ * e o teste em site.test.ts já cobra que nenhuma falte.
+ */
+function useTextoDoProjeto(p: SiteProject): TextoDoProjeto {
+  const { idioma } = useIdioma();
+  if (idioma === "pt") {
+    return { oneLine: p.oneLine, what: p.what, role: p.role, highlights: p.highlights ?? [] };
+  }
+  return (
+    TRADUCOES[idioma][p.slug] ?? {
+      oneLine: p.oneLine,
+      what: p.what,
+      role: p.role,
+      highlights: p.highlights ?? [],
+    }
+  );
+}
 
 /**
  * Endereço da IDE já com o arquivo aberto e o painel de execução ligado.
@@ -27,25 +52,14 @@ function enderecoDaDemo(caminho: string): string {
  * óbvia é que nada importa muito. Aqui a página já diz qual é o eixo, o que já
  * tem usuário, o que é da faculdade e o que é acervo.
  */
-const BLOCOS: { titulo: string; nota: string; itens: SiteProject[] }[] = [
-  {
-    titulo: "Back-end",
-    nota: "O eixo. Fila, streaming, autenticação e banco, que é onde passo o dia.",
-    itens: PROJETOS_EIXO,
-  },
-  {
-    titulo: "Produto com usuário",
-    nota: "Saíram de projeto pessoal e foram para cliente. Três deles com o código fechado.",
-    itens: PROJETOS_PRODUTO,
-  },
-  {
-    titulo: "Faculdade",
-    nota: "Trabalhos de disciplina na UNISAGRADO, entre eles os de visão computacional e os de Unity.",
-    itens: PROJETOS_FACULDADE,
-  },
-];
-
 export default function Work() {
+  const t = useTextos();
+  const BLOCOS = [
+    { ...t.trabalho.blocos.backend,   itens: PROJETOS_EIXO },
+    { ...t.trabalho.blocos.produto,   itens: PROJETOS_PRODUTO },
+    { ...t.trabalho.blocos.faculdade, itens: PROJETOS_FACULDADE },
+  ];
+
   return (
     <section
       id="trabalho"
@@ -54,15 +68,15 @@ export default function Work() {
       <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-20">
         <div>
           <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">
-            02 · trabalho
+            {t.trabalho.secao}
           </p>
           <h2 className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#ededed]">
-            Projetos que <em className="text-[#ffffff] not-italic">construí</em>.
+            {t.trabalho.titulo[0]}<em className="text-[#ffffff] not-italic">{t.trabalho.titulo[1]}</em>{t.trabalho.titulo[2]}
           </h2>
         </div>
         <div className="self-end space-y-4">
           <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">
-            Clique em qualquer um: o problema, a decisão que tomei e um trecho de código.
+            {t.trabalho.chamada}
           </p>
         </div>
       </div>
@@ -116,6 +130,7 @@ function Bloco({
  * mas continua acessível: apagar do site não apaga que eu escrevi.
  */
 function Acervo() {
+  const t = useTextos();
   const [aberto, setAberto] = useState(false);
 
   return (
@@ -126,7 +141,7 @@ function Acervo() {
         className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#767676] hover:text-[#ededed] transition-colors"
         aria-expanded={aberto}
       >
-        {aberto ? "−" : "+"} projetos anteriores ({PROJETOS_OUTROS.length})
+        {aberto ? "−" : "+"} {t.trabalho.acervo} ({PROJETOS_OUTROS.length})
       </button>
 
       <AnimatePresence initial={false}>
@@ -149,6 +164,8 @@ function Acervo() {
 }
 
 function WorkRow({ project, index }: { project: SiteProject; index: number }) {
+  const t = useTextos();
+  const texto = useTextoDoProjeto(project);
   const [open, setOpen] = useState(false);
 
   return (
@@ -180,7 +197,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
             )}
           </div>
           <p className="mt-2 text-[14px] md:text-[15px] text-[#9a9a9a] font-sans leading-relaxed">
-            {project.oneLine}
+            {texto.oneLine}
           </p>
         </div>
 
@@ -212,7 +229,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                 o que é
               </div>
               <p className="mt-3 text-[14.5px] text-[#d4d4d4] leading-[1.85]">
-                {project.what}
+                {texto.what}
               </p>
             </div>
             <div>
@@ -220,7 +237,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                 meu papel
               </div>
               <p className="mt-3 text-[14.5px] text-[#d4d4d4] leading-[1.85]">
-                {project.role}
+                {texto.role}
               </p>
             </div>
             <div>
@@ -236,13 +253,13 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
               </div>
             </div>
 
-            {project.highlights && project.highlights.length > 0 && (
+            {texto.highlights.length > 0 && (
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
                   destaques
                 </div>
                 <ul className="mt-3 space-y-2">
-                  {project.highlights.map((h, i) => (
+                  {texto.highlights.map((h, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <span className="mt-0.5 font-mono text-[11px] text-[#b8b8b8]/50 shrink-0">
                         ↳
@@ -266,7 +283,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                 <span aria-hidden className="text-[11px]">
                   ▸
                 </span>
-                Rodar a demo interativa
+                {t.trabalho.verDemo}
                 <span
                   aria-hidden
                   className="transition-transform group-hover/demo:translate-x-1"

@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { m } from "motion/react";
+import SeletorDeIdioma from "./SeletorDeIdioma";
+import { useTextos } from "./i18n";
 
 interface Props {
   onNavigate: (section: string) => void;
 }
 
-const ITEMS = [
-  { id: "sobre",    label: "Sobre" },
-  { id: "trabalho", label: "Trabalho" },
-  { id: "stack",    label: "Stack" },
-  { id: "contato",  label: "Contato" },
-];
-
 export default function Nav({ onNavigate }: Props) {
+  const t = useTextos();
+  const ITEMS = [
+    { id: "sobre",    label: t.nav.sobre },
+    { id: "trabalho", label: t.nav.trabalho },
+    { id: "stack",    label: t.nav.stack },
+    { id: "contato",  label: t.nav.contato },
+  ];
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
@@ -33,7 +36,7 @@ export default function Nav({ onNavigate }: Props) {
       },
       { rootMargin: "-30% 0px -65% 0px" },
     );
-    ITEMS.forEach(({ id }) => {
+    ["sobre", "trabalho", "stack", "contato"].forEach((id) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -59,7 +62,7 @@ export default function Nav({ onNavigate }: Props) {
           type="button"
           onClick={() => go("topo")}
           className="text-[#ededed] font-serif text-[15px] tracking-tight"
-          aria-label="Topo"
+          aria-label={t.nav.topo}
         >
           fj.
         </button>
@@ -82,6 +85,7 @@ export default function Nav({ onNavigate }: Props) {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
+          <SeletorDeIdioma />
           <a
             href="https://github.com/fabriciojunio"
             target="_blank"
@@ -94,12 +98,12 @@ export default function Nav({ onNavigate }: Props) {
 
         <button
           type="button"
-          aria-label="Abrir menu"
+          aria-label={t.nav.abrirMenu}
           aria-expanded={open}
           onClick={() => setOpen((s) => !s)}
           className="md:hidden text-[#ededed] text-[13px] font-mono tracking-wide"
         >
-          {open ? "Fechar" : "Menu"}
+          {open ? t.nav.fechar : t.nav.menu}
         </button>
       </div>
 
@@ -124,6 +128,9 @@ export default function Nav({ onNavigate }: Props) {
             >
               GitHub →
             </a>
+            <div className="pt-2 border-t border-white/10 mt-1">
+              <SeletorDeIdioma compacto />
+            </div>
           </nav>
         </div>
       )}
