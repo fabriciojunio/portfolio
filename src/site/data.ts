@@ -29,15 +29,16 @@ const PROJECTS_SOURCE: SiteProject[] = [
     slug: "feira",
     name: "Feira do Comando",
     oneLine: "Pedidos orientados a eventos com saga e compensação",
-    what: "Três serviços Spring Boot (pedidos, estoque, pagamentos) conversando por Kafka. Cada um com o próprio banco, nenhum lendo tabela do outro. A saga precisa sobreviver a mensagem repetida, fora de ordem e atrasada.",
-    role: "Escrevi tudo: os contratos de evento selados, o outbox transacional compartilhado, o consumidor idempotente e a saga do pedido. O caso que mais deu trabalho foi a corrida em que o pagamento é aprovado durante o cancelamento, que termina em estorno.",
+    what: "Quatro serviços Spring Boot conversando por Kafka. Cada um com o próprio banco, nenhum lendo tabela do outro. A saga precisa sobreviver a mensagem repetida, fora de ordem e atrasada, e um modelo de leitura em MongoDB responde numa consulta o que antes exigia juntar três serviços no navegador.",
+    role: "Escrevi tudo: os contratos de evento selados, o outbox transacional compartilhado, o consumidor idempotente, a saga do pedido e a projeção que alimenta o modelo de leitura. O caso que mais deu trabalho foi a corrida em que o pagamento é aprovado durante o cancelamento, que termina em estorno.",
     highlights: [
       "Outbox com SELECT FOR UPDATE SKIP LOCKED, para rodar em várias instâncias",
       "Concorrência provada com dez threads reais contra um PostgreSQL real",
-      "12 regras de ArchUnit que quebram o build quando a camada é furada",
-      "165 testes, nenhum deles precisando de Docker instalado",
+      "Modelo de leitura em MongoDB: o documento é derivado dos eventos, então pode ser jogado fora e reconstruído do tópico",
+      "O CI cria um cluster Kubernetes de verdade e aplica os manifestos, além de validar o Terraform",
+      "189 testes, nenhum deles precisando de Docker instalado",
     ],
-    stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "React 19", "ArchUnit"],
+    stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "MongoDB", "Kubernetes", "Terraform", "React 19"],
     github: "https://github.com/fabriciojunio/feira-do-comando",
     demo: null,
     year: "2026",
@@ -878,11 +879,11 @@ export const STACK_GROUPS = [
   },
   {
     label: "dados",
-    items: ["PostgreSQL", "MySQL", "Redis", "SQLite (WAL + FTS)"],
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "SQLite (WAL + FTS)"],
   },
   {
     label: "infra",
-    items: ["Docker", "Kubernetes", "GitHub Actions", "Nginx"],
+    items: ["Docker", "Kubernetes", "Terraform", "GitHub Actions", "Nginx"],
   },
   {
     // Front tem grupo próprio, e não "também uso". A tela eu entrego quando

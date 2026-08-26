@@ -12,8 +12,8 @@ export const projectFiles: VFile[] = [
       project: "Feira do Comando",
       github: "https://github.com/fabriciojunio/feira-do-comando",
       demo: null,
-      stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "React 19"],
-      role: "Tres servicos conversando por Kafka, com outbox transacional, consumidor idempotente e saga que compensa.",
+      stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "MongoDB", "Kubernetes"],
+      role: "Quatro servicos conversando por Kafka, com outbox transacional, consumidor idempotente, saga que compensa e modelo de leitura em MongoDB.",
     },
     content: `// A saga do pedido.
 //
@@ -49,6 +49,49 @@ Decisao processar(Evento evento, Instant agora) {
 
 // Sem "default" no switch de um sealed interface, o compilador
 // cobra todo caso novo. Evento novo sem tratamento nao compila.`,
+  },
+  {
+    path: "/projetos/modelo-de-leitura.java",
+    name: "modelo-de-leitura.java",
+    language: "java",
+    meta: {
+      project: "Feira do Comando: modelo de leitura",
+      github: "https://github.com/fabriciojunio/feira-do-comando",
+      demo: null,
+      stack: ["Java 21", "Spring Boot", "MongoDB", "Kafka"],
+      role: "Projecao que monta em MongoDB o documento que a tela precisa ler.",
+    },
+    content: `// Cada servico tem o proprio banco, e nenhum responde sozinho
+// "como esta o meu pedido": a saga vive em pedidos, a reserva em
+// estoque e a cobranca em pagamentos. Quem juntava era o navegador,
+// com tres chamadas.
+//
+// Este servico le os mesmos eventos, com grupo proprio, e mantem um
+// documento por pedido. Uma leitura devolve tudo.
+
+@KafkaListener(topics = {PEDIDOS, ESTOQUE, PAGAMENTOS}, groupId = "consulta")
+public void receber(String carga) throws Exception {
+    projetor.aplicar(mapeador.deJson(carga));
+}
+
+// Kafka entrega ao MENOS uma vez. Sem esta guarda, reprocessar uma
+// particao duplicaria a linha do tempo, e o cliente veria "estoque
+// separado" duas vezes num pedido que reservou uma.
+public boolean registrar(UUID idDoEvento, String oQue,
+                         String detalhe, Instant quando) {
+    if (eventosAplicados.contains(idDoEvento)) {
+        return false;
+    }
+    eventosAplicados.add(idDoEvento);
+    linhaDoTempo.add(new Marco(oQue, detalhe, quando));
+    versao++;
+    return true;
+}
+
+// MongoDB e nao um quarto PostgreSQL porque o que a tela quer E um
+// documento. E a escolha se defende pelo lado oposto: este dado nao e
+// fonte da verdade. Ele e derivado dos eventos e pode ser jogado fora
+// e reconstruido do topico.`,
   },
   {
     path: "/projetos/outorga.java",

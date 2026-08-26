@@ -25,13 +25,14 @@ export interface TextoDoProjeto {
 const en: Record<string, TextoDoProjeto> = {
   feira: {
     oneLine: "Event-driven orders with a saga that compensates",
-    what: "Three Spring Boot services (orders, inventory, payments) talking over Kafka. Each owns its database and none reads another's tables. The saga has to survive messages that arrive twice, out of order, or late.",
-    role: "I wrote all of it: the sealed event contracts, the shared transactional outbox, the idempotent consumer and the order saga. The hardest case was the race where a payment is approved while the order is being cancelled, which ends in a refund.",
+    what: "Four Spring Boot services talking over Kafka. Each owns its database and none reads another's tables. The saga has to survive messages that arrive twice, out of order, or late, and a MongoDB read model answers in one query what previously required joining three services in the browser.",
+    role: "I wrote all of it: the sealed event contracts, the shared transactional outbox, the idempotent consumer, the order saga and the projection that feeds the read model. The hardest case was the race where a payment is approved while the order is being cancelled, which ends in a refund.",
     highlights: [
       "Outbox using SELECT FOR UPDATE SKIP LOCKED, so several instances can run at once",
       "Concurrency proven with ten real threads against a real PostgreSQL",
-      "12 ArchUnit rules that break the build when a layer boundary is crossed",
-      "165 tests, none of which need Docker installed",
+      "A MongoDB read model whose document is derived from the events, so it can be thrown away and rebuilt from the topic",
+      "CI spins up a real Kubernetes cluster and applies the manifests, on top of validating the Terraform",
+      "189 tests, none of which need Docker installed",
     ],
   },
   outorga: {
@@ -297,13 +298,14 @@ const en: Record<string, TextoDoProjeto> = {
 const es: Record<string, TextoDoProjeto> = {
   feira: {
     oneLine: "Pedidos orientados a eventos con saga y compensación",
-    what: "Tres servicios Spring Boot (pedidos, inventario, pagos) conversando por Kafka. Cada uno con su propia base de datos, ninguno leyendo tablas del otro. La saga tiene que sobrevivir a mensajes repetidos, desordenados y atrasados.",
-    role: "Lo escribí todo: los contratos de evento sellados, el outbox transaccional compartido, el consumidor idempotente y la saga del pedido. El caso más difícil fue la carrera en que el pago se aprueba mientras el pedido se está cancelando, que termina en reembolso.",
+    what: "Cuatro servicios Spring Boot conversando por Kafka. Cada uno con su propia base de datos, ninguno leyendo tablas del otro. La saga tiene que sobrevivir a mensajes repetidos, desordenados y atrasados, y un modelo de lectura en MongoDB responde en una consulta lo que antes exigía unir tres servicios en el navegador.",
+    role: "Lo escribí todo: los contratos de evento sellados, el outbox transaccional compartido, el consumidor idempotente, la saga del pedido y la proyección que alimenta el modelo de lectura. El caso más difícil fue la carrera en que el pago se aprueba mientras el pedido se está cancelando, que termina en reembolso.",
     highlights: [
       "Outbox con SELECT FOR UPDATE SKIP LOCKED, para correr en varias instancias",
       "Concurrencia probada con diez hilos reales contra un PostgreSQL real",
-      "12 reglas de ArchUnit que rompen el build cuando se perfora una capa",
-      "165 pruebas, ninguna de ellas requiere tener Docker instalado",
+      "Modelo de lectura en MongoDB: el documento se deriva de los eventos, así que puede tirarse y reconstruirse desde el tópico",
+      "El CI levanta un clúster Kubernetes real y aplica los manifiestos, además de validar el Terraform",
+      "189 pruebas, ninguna de ellas requiere tener Docker instalado",
     ],
   },
   outorga: {
