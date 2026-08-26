@@ -125,7 +125,7 @@ const pt: Textos = {
     longBio: [
       "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
       "Não começo sistema do zero. Mexo em processo de negócio vivo, com centenas de instâncias rodando na hora em que a alteração sobe: robô e integração em Java, regra de tela em JavaScript, roteamento e SQL de diagnóstico. Por isso reproduzo a regra atual e rodo contra o histórico real antes de mudar qualquer linha. Se o modelo não acerta o passado, não serve para prever o futuro.",
-      "Nos projetos próprios o eixo é o mesmo. A Feira do Comando são três serviços Spring Boot conversando por Kafka, com outbox transacional e saga que compensa. O Outorga trata a licença de exibição como invariante: não existe caminho de código que publique sem ela. Os dois sobem PostgreSQL e Kafka de verdade nos testes, que foi como apareceram quatro defeitos que mock nenhum mostraria.",
+      "Nos projetos próprios o eixo é o mesmo. A Feira do Comando são três serviços Spring Boot conversando por Kafka, com outbox transacional e saga que compensa. O Outorga trata a licença de exibição como invariante: não existe caminho de código que publique sem ela. Um modelo de leitura em MongoDB responde numa consulta o que antes exigia juntar três serviços. Os dois sobem banco e Kafka de verdade nos testes, que foi como apareceram quatro defeitos que mock nenhum mostraria.",
     ],
   },
   trabalho: {
@@ -208,7 +208,7 @@ const en: Textos = {
     longBio: [
       "I am 21, studying Computer Science at UNISAGRADO, and I work on integration and process automation at Digihub, part of the Lecom group. I serve thirteen clients across insurance, healthcare, credit unions, auditing and the judiciary.",
       "I do not start systems from scratch. I change live business processes, with hundreds of instances running at the moment the change ships: Java integrations and robots, screen rules in JavaScript, process routing and diagnostic SQL. So I reproduce the current rule and run it against real history before changing a single line. If the model does not get the past right, it is no good at predicting the future.",
-      "My own projects follow the same axis. Feira do Comando is three Spring Boot services talking over Kafka, with a transactional outbox and a saga that compensates. Outorga treats the broadcast licence as an invariant: no code path can publish without one. Both start a real PostgreSQL and a real Kafka in their tests, which is how four defects turned up that no mock would have shown.",
+      "My own projects follow the same axis. Feira do Comando is three Spring Boot services talking over Kafka, with a transactional outbox and a saga that compensates. Outorga treats the broadcast licence as an invariant: no code path can publish without one. A MongoDB read model answers in one query what used to require joining three services. Both start a real database and a real Kafka in their tests, which is how four defects turned up that no mock would have shown.",
     ],
   },
   trabalho: {
@@ -291,7 +291,7 @@ const es: Textos = {
     longBio: [
       "Tengo 21 años, estudio Ciencias de la Computación en UNISAGRADO y trabajo en integración y automatización de procesos en Digihub, del grupo Lecom. Atiendo a trece clientes de seguros, salud, cooperativas de crédito, auditoría y el poder judicial.",
       "No empiezo sistemas desde cero. Modifico procesos de negocio vivos, con cientos de instancias corriendo en el momento en que el cambio sale: integraciones y robots en Java, reglas de pantalla en JavaScript, ruteo de procesos y SQL de diagnóstico. Por eso reproduzco la regla actual y la corro contra el historial real antes de cambiar una sola línea. Si el modelo no acierta el pasado, no sirve para predecir el futuro.",
-      "Mis proyectos propios siguen el mismo eje. Feira do Comando son tres servicios Spring Boot conversando por Kafka, con outbox transaccional y una saga que compensa. Outorga trata la licencia de exhibición como invariante: no existe camino de código capaz de publicar sin ella. Los dos levantan un PostgreSQL y un Kafka reales en las pruebas, que fue como aparecieron cuatro defectos que ningún mock habría mostrado.",
+      "Mis proyectos propios siguen el mismo eje. Feira do Comando son tres servicios Spring Boot conversando por Kafka, con outbox transaccional y una saga que compensa. Outorga trata la licencia de exhibición como invariante: no existe camino de código capaz de publicar sin ella. Un modelo de lectura en MongoDB responde en una consulta lo que antes exigía unir tres servicios. Los dos levantan una base y un Kafka reales en las pruebas, que fue como aparecieron cuatro defectos que ningún mock habría mostrado.",
     ],
   },
   trabalho: {
