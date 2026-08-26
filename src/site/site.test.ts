@@ -129,14 +129,22 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("deve abrir pelo eixo e ter back, dados e infra", () => {
+    it("deve abrir pelo eixo e ter mensageria, dados e infra", () => {
       const labels = STACK_GROUPS.map((g) => g.label);
       // O primeiro grupo é o posicionamento: quem lê a lista de cima para
       // baixo tem que sair sabendo o que eu faço, não o que eu já toquei.
       expect(labels[0]).toBe("eixo");
-      expect(labels).toContain("back");
+      expect(labels).toContain("mensageria");
       expect(labels).toContain("dados");
       expect(labels).toContain("infra");
+    });
+
+    it("o front aparece, mas depois do eixo", () => {
+      // Dizer que entrego a tela é verdade e conta a favor. Dizer isso antes
+      // do back-end é que desfaz o posicionamento.
+      const labels = STACK_GROUPS.map((g) => g.label);
+      expect(labels).toContain("front");
+      expect(labels.indexOf("front")).toBeGreaterThan(labels.indexOf("eixo"));
     });
   });
 
