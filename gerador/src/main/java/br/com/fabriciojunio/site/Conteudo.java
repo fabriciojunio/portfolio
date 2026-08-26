@@ -24,7 +24,6 @@ import java.util.Map;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 record Conteudo(
-        String geradoEm,
         Blocos blocos,
         Map<String, Textos> textos,
         Contato contato,
