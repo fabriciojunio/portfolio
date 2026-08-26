@@ -26,6 +26,56 @@ export interface SiteProject {
 
 const PROJECTS_SOURCE: SiteProject[] = [
   {
+    slug: "feira",
+    name: "Feira",
+    oneLine: "Pedidos orientados a eventos com saga e compensação",
+    what: "Três serviços Spring Boot (pedidos, estoque, pagamentos) conversando por Kafka. Cada um com o próprio banco, nenhum lendo tabela do outro. A saga precisa sobreviver a mensagem repetida, fora de ordem e atrasada.",
+    role: "Escrevi tudo: os contratos de evento selados, o outbox transacional compartilhado, o consumidor idempotente e a saga do pedido. O caso que mais deu trabalho foi a corrida em que o pagamento é aprovado durante o cancelamento, que termina em estorno.",
+    highlights: [
+      "Outbox com SELECT FOR UPDATE SKIP LOCKED, para rodar em várias instâncias",
+      "Concorrência provada com dez threads reais contra um PostgreSQL real",
+      "12 regras de ArchUnit que quebram o build quando a camada é furada",
+      "165 testes, nenhum deles precisando de Docker instalado",
+    ],
+    stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "React 19", "ArchUnit"],
+    github: "https://github.com/fabriciojunio/feira",
+    demo: null,
+    year: "2026",
+    snippetLang: "java",
+    snippet: `// A aprovação chegou depois de o cancelamento começar.
+// O dinheiro já saiu: não dá para ignorar, tem que voltar.
+case PagamentoAprovado p when status == CANCELANDO ->
+    new Decisao(false,
+        List.of(new PagamentoEstornado(
+            id, p.valor(), Motivo.PEDIDO_CANCELADO)),
+        "aprovacao tardia: estornando");`,
+  },
+  {
+    slug: "mirante",
+    name: "Mirante",
+    oneLine: "Streaming white-label onde a licença é a regra central",
+    what: "Plataforma de streaming multi-tenant. A regra que organiza o sistema inteiro é uma só: nada vai ao ar sem licença vigente para o território e a janela de exibição.",
+    role: "Modelei o domínio inteiro. Publicar é a única porta para o ar, e ela exige a licença na assinatura do método, então não existe caminho de código que publique sem ela. Uma varredura horária tira do ar o que venceu e devolve o que foi renovado.",
+    highlights: [
+      "Domínio sem uma linha de Spring, verificado por teste de arquitetura",
+      "Todo repositório recebe o tenant na assinatura, não em variável de contexto",
+      "LGPD com exportação e anonimização implementadas, não prometidas",
+      "260 testes contra PostgreSQL de verdade",
+    ],
+    stack: ["Java 21", "Spring Boot", "PostgreSQL", "JdbcClient", "Next.js"],
+    github: "https://github.com/fabriciojunio/mirante",
+    demo: null,
+    year: "2026",
+    snippetLang: "java",
+    snippet: `// A licença entra por parâmetro, e não por consulta interna.
+// Quem chama é obrigado a tê-la em mãos: não há como publicar sem.
+public Result<Titulo> publicar(Licenca licenca, Instant agora) {
+    if (!licenca.cobre(this.territorio, agora))
+        return Result.erro(FalhaDeNegocio.SEM_LICENCA_VIGENTE);
+    return Result.ok(comStatus(Status.PUBLICADO));
+}`,
+  },
+  {
     slug: "goldata",
     name: "GolData",
     oneLine: "Analytics de futebol com Machine Learning",
@@ -746,6 +796,8 @@ public class TeleportPoint : MonoBehaviour
 // último, o que ficou de projetos antigos.
 
 const EIXO = [
+  "feira",              // Kafka, outbox, saga com compensação
+  "mirante",            // multi-tenant, licença como invariante de domínio
   "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
   "paiol-tech",         // NestJS com CQRS, Open Finance
   "guarda-banco",       // proteção de escrita dentro do servidor de banco
@@ -805,7 +857,8 @@ export const SOBRE = {
     "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho na área de Serviços da Digihub, que faz parte do grupo Lecom. A carteira é de treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
     "O que eu faço não é começar sistema do zero. É mexer em processo de negócio vivo, com centenas de instâncias em andamento no momento em que a alteração sobe. Integração e robô em Java, regra de tela em JavaScript, roteamento de processo e SQL de diagnóstico.",
     "Isso me obrigou a um hábito que virou o meu jeito de trabalhar: eu reproduzo a regra atual, rodo contra o histórico real e só confio no modelo quando ele acerta o passado. Se a simulação não prevê o que já aconteceu, ela não serve para prever o que vai acontecer. Numa correção recente isso apareceu como 330 acertos em 331 processos antes de eu mudar uma linha.",
-    "Nos projetos próprios o eixo é o mesmo. CodeReview AI é Java 21 com Spring Boot, fila e streaming. Paiol Tech separa comando de consulta com CQRS. Guarda Banco impede DELETE acidental dentro do próprio servidor de banco. E três produtos já estão indo para cliente: Balcão, Horalis e RegistraServiço.",
+    "Nos projetos próprios o eixo é o mesmo, e o mais recente é o que melhor traduz o que eu faço: o Feira são três serviços em Spring Boot conversando por Kafka, com outbox transacional, consumidor idempotente e uma saga que compensa. O Mirante leva a mesma disciplina para modelagem de domínio, com a licença de exibição como invariante. Antes deles vieram o CodeReview AI, com fila e streaming, o Paiol Tech separando comando de consulta, e o Guarda Banco, que impede DELETE acidental dentro do próprio servidor de banco. Três produtos já estão indo para cliente: Balcão, Horalis e RegistraServiço.",
+    "Uma coisa que eu não abro mão: teste que só conversa com mock não prova concorrência nem integração. Os testes do Feira sobem PostgreSQL e Kafka de verdade, e foi assim que apareceram quatro defeitos que a suíte anterior não via.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -828,8 +881,12 @@ export const STACK_GROUPS = [
     items: ["PostgreSQL", "MySQL", "Redis", "SQLite (WAL + FTS)"],
   },
   {
+    label: "mensageria",
+    items: ["Kafka", "RabbitMQ", "outbox transacional", "saga"],
+  },
+  {
     label: "infra",
-    items: ["Docker", "RabbitMQ", "GitHub Actions", "Nginx"],
+    items: ["Docker", "GitHub Actions", "Nginx", "Kubernetes"],
   },
   {
     label: "também uso",
@@ -844,6 +901,7 @@ export const EMPRESAS = [
   "API REST",
   "PostgreSQL",
   "Docker",
+  "Kafka",
   "RabbitMQ",
   "BPM",
   "Digihub",
