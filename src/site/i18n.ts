@@ -153,7 +153,7 @@ const pt: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["Escolho a ", "ferramenta", " pelo problema."],
-    nota: "Não acredito em fanboy de stack. Java porque banco, Python porque ML, TypeScript porque toda a web vive nele.",
+    nota: "Não escolho linguagem por gosto. Java é onde passo o dia: processo de negócio vivo e integração que precisa aguentar o sistema do outro lado cair. Python quando o problema é dado. TypeScript porque a tela precisa existir.",
     grupos: {
       eixo: "eixo",
       back: "back",
@@ -236,7 +236,7 @@ const en: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["I pick the ", "tool", " for the problem."],
-    nota: "I do not do stack fandom. Java because of the database, Python because of ML, TypeScript because the whole web lives there.",
+    nota: "I do not pick a language by taste. Java is where I spend the day: live business processes, and integrations that have to survive the system on the other end going down. Python when the problem is data. TypeScript because the screen has to exist.",
     grupos: {
       eixo: "core",
       back: "backend",
@@ -319,7 +319,7 @@ const es: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["Elijo la ", "herramienta", " según el problema."],
-    nota: "No creo en el fanatismo por un stack. Java por la base de datos, Python por ML, TypeScript porque toda la web vive ahí.",
+    nota: "No elijo lenguaje por gusto. Java es donde paso el día: procesos de negocio vivos e integraciones que tienen que sobrevivir a que el sistema del otro lado se caiga. Python cuando el problema son los datos. TypeScript porque la pantalla tiene que existir.",
     grupos: {
       eixo: "eje",
       back: "back",
