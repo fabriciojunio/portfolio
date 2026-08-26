@@ -398,6 +398,18 @@ class GeradorDoSiteTest {
         assertThat(css).contains("--bg: #0a0a0a").contains("prefers-reduced-motion");
     }
 
+    /**
+     * O JSON de conteudo tambem entra na comparacao do CI, e nao so o HTML.
+     * Um carimbo de tempo dentro dele faria a comparacao acusar diferenca em
+     * todo build sem nada ter mudado, e o time aprenderia a ignorar o job.
+     */
+    @Test
+    @DisplayName("o conteudo exportado nao carrega carimbo de tempo")
+    void conteudoSemCarimboDeTempo() throws IOException {
+        String json = Files.readString(arquivoDeConteudo());
+        assertThat(json).doesNotContain("geradoEm");
+    }
+
     @Test
     @DisplayName("os tres idiomas estao declarados e sao unicos")
     void idiomasDeclarados() {

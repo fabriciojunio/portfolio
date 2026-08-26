@@ -33,7 +33,12 @@ const bloco = (itens: SiteProject[]) =>
   }));
 
 const saida = {
-  geradoEm: new Date().toISOString(),
+  // Sem carimbo de tempo aqui, de propósito.
+  //
+  // A saída é comparada no CI para garantir que o gerado bate com o gerador, e
+  // qualquer campo que mude a cada execução torna essa comparação impossível:
+  // ela acusaria diferença em todo build, sem nada ter mudado de verdade.
+  // Quando o conteúdo mudou é o que o histórico do Git guarda, e melhor.
   blocos: {
     backend: bloco(PROJETOS_EIXO),
     produto: bloco(PROJETOS_PRODUTO),
