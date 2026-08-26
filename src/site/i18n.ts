@@ -361,9 +361,16 @@ export function useTextos(): Textos {
 export const CHAVE_ARMAZENAMENTO = "fj:idioma";
 
 /**
- * Idioma inicial: o que a pessoa escolheu antes, senão o do navegador, senão
- * português. A leitura vai dentro de try porque navegador em janela anônima ou
- * com dados de site bloqueados lança ao tocar em localStorage.
+ * Idioma inicial: português, a menos que a pessoa já tenha escolhido outro.
+ *
+ * Não há detecção pelo idioma do navegador de propósito. O site abre em
+ * português para todo mundo, e quem quiser outro troca no seletor, que fica
+ * visível no topo. Detectar pelo navegador entregaria a versão em inglês para
+ * um brasileiro com o sistema em inglês, que é caso comum e vira a impressão
+ * errada logo na primeira tela.
+ *
+ * A leitura vai dentro de try porque navegador em janela anônima, ou com dados
+ * de site bloqueados, lança só de encostar no localStorage.
  */
 export function idiomaInicial(): Idioma {
   try {
@@ -372,15 +379,7 @@ export function idiomaInicial(): Idioma {
       return guardado;
     }
   } catch {
-    // Sem armazenamento: segue para a detecção pelo navegador.
-  }
-
-  try {
-    const doNavegador = navigator.language.slice(0, 2).toLowerCase();
-    if (doNavegador === "en") return "en";
-    if (doNavegador === "es") return "es";
-  } catch {
-    // Ambiente sem navigator, como a renderização em teste.
+    // Sem armazenamento: abre em português, como qualquer primeira visita.
   }
 
   return IDIOMA_PADRAO;
