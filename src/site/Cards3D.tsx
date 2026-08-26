@@ -4,16 +4,18 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
-// Os cinco que sustentam o eixo de back-end, na ordem em que quero que sejam
-// lidos: CodeReview AI (Java 21 e Spring Boot) no centro, depois CQRS e Open
-// Finance (Paiol Tech), proteção de banco (Guarda Banco), autenticação e RBAC
-// (AuthCore) e engenharia de dados com CI (QuantBot ML).
+// Os cinco que sustentam o eixo de back-end, na mesma ordem da vitrine: o
+// primeiro fica no centro e é o que a pessoa lê primeiro.
+//
+// A ordem aqui não é decoração. Antes, os dois projetos que abrem a vitrine
+// não apareciam nesta lista, e a primeira coisa que alguém via no topo do site
+// eram projetos que eu mesmo coloco em terceiro e quinto lugar.
 const PICKED = [
-  "codereview-ai",
-  "paiol-tech",
-  "guarda-banco",
-  "authcore",
-  "quantbot-ml",
+  "feira",          // Kafka, outbox e saga com compensação
+  "outorga",        // licença de exibição como invariante de domínio
+  "codereview-ai",  // Java 21, fila com DLQ e streaming
+  "authcore",       // JWT com rotação, 2FA e RBAC
+  "guarda-banco",   // proteção contra escrita acidental no servidor
 ];
 
 interface CardConfig {

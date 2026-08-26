@@ -46,7 +46,7 @@ os veículos que passam numa via.
 
 \`Quantbot ML\`: renda passiva que opera sozinha na nuvem e aprende (Barsi/Bazin + FinBERT-PT-BR).
 \`Balcão\`: agente de vendas no WhatsApp em que o modelo não escreve números.
-\`Guarda Banco\`: trava no servidor contra DELETE e UPDATE acidentais.
+\`Guarda do Banco\`: trava no servidor contra DELETE e UPDATE acidentais.
 \`Sintonia\`: rede social em torno da música que está tocando.
 
 ---

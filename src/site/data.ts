@@ -286,7 +286,7 @@ return { aprovado: violacoes.length === 0, violacoes };`,
     demo: null,
     year: "2026",
     snippetLang: "sql",
-    snippet: `-- Guarda Banco: conta as linhas e decide, linha a linha
+    snippet: `-- Guarda do Banco: conta as linhas e decide, linha a linha
 create or replace function guarda.contar_e_checar()
 returns trigger language plpgsql security definer as $$
 declare
@@ -854,11 +854,9 @@ export const SOBRE = {
   cidade: "Bauru, SP",
   bio: "Back-end em Java, integração e automação de processo que já está em produção. Prefiro medir antes de mexer a corrigir no escuro.",
   longBio: [
-    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho na área de Serviços da Digihub, que faz parte do grupo Lecom. A carteira é de treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
-    "O que eu faço não é começar sistema do zero. É mexer em processo de negócio vivo, com centenas de instâncias em andamento no momento em que a alteração sobe. Integração e robô em Java, regra de tela em JavaScript, roteamento de processo e SQL de diagnóstico.",
-    "Isso me obrigou a um hábito que virou o meu jeito de trabalhar: eu reproduzo a regra atual, rodo contra o histórico real e só confio no modelo quando ele acerta o passado. Se a simulação não prevê o que já aconteceu, ela não serve para prever o que vai acontecer. Numa correção recente isso apareceu como 330 acertos em 331 processos antes de eu mudar uma linha.",
-    "Nos projetos próprios o eixo é o mesmo, e o mais recente é o que melhor traduz o que eu faço: o Feira são três serviços em Spring Boot conversando por Kafka, com outbox transacional, consumidor idempotente e uma saga que compensa. O Mirante leva a mesma disciplina para modelagem de domínio, com a licença de exibição como invariante. Antes deles vieram o CodeReview AI, com fila e streaming, o Paiol Tech separando comando de consulta, e o Guarda Banco, que impede DELETE acidental dentro do próprio servidor de banco. Três produtos já estão indo para cliente: Balcão, Horalis e RegistraServiço.",
-    "Uma coisa que eu não abro mão: teste que só conversa com mock não prova concorrência nem integração. Os testes do Feira sobem PostgreSQL e Kafka de verdade, e foi assim que apareceram quatro defeitos que a suíte anterior não via.",
+    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
+    "Não começo sistema do zero. Mexo em processo de negócio vivo, com centenas de instâncias rodando na hora em que a alteração sobe: robô e integração em Java, regra de tela em JavaScript, roteamento e SQL de diagnóstico. Por isso reproduzo a regra atual e rodo contra o histórico real antes de mudar qualquer linha. Se o modelo não acerta o passado, não serve para prever o futuro.",
+    "Nos projetos próprios o eixo é o mesmo. A Feira do Comando são três serviços Spring Boot conversando por Kafka, com outbox transacional e saga que compensa. O Outorga trata a licença de exibição como invariante: não existe caminho de código que publique sem ela. Os dois sobem PostgreSQL e Kafka de verdade nos testes, que foi como apareceram quatro defeitos que mock nenhum mostraria.",
   ],
   contato: {
     email: "junioad555@gmail.com",
