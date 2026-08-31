@@ -669,7 +669,7 @@ def lado(self, ponto: tuple[float, float]) -> float:
     ],
     stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "Flyway", "React", "Tailwind"],
     github: "https://github.com/fabriciojunio/vitrine-bauru",
-    demo: null,
+    demo: "https://vitrine-bauru.vercel.app",
     year: "2026",
     snippetLang: "java",
     snippet: `// Vitrine Bauru: o contador de erro sobrevive ao rollback
