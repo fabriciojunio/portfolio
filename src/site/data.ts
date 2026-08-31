@@ -654,6 +654,36 @@ def lado(self, ponto: tuple[float, float]) -> float:
     ) * (ponto[0] - self.x1)`,
   },
   {
+    slug: "vitrine-bauru",
+    name: "Vitrine Bauru",
+    oneLine: "Vitrine dos pequenos negócios de Bauru, em quatro serviços Spring",
+    what: "Projeto de extensão com a SEDECON, a secretaria de desenvolvimento econômico da prefeitura. O empreendedor cadastra o negócio, a secretaria confere e aprova, e a loja entra numa vitrine pública onde o consumidor fala direto no WhatsApp de quem produz. São quatro serviços Spring Boot com banco próprio cada um, conversando por evento, mais um gateway na borda e um front em React.",
+    role: "Escrevi o sistema inteiro: os contratos de evento selados, o outbox e o inbox compartilhados, a máquina de estados do cadastro, a saga de exclusão da LGPD, a projeção que alimenta a busca pública e a tela toda. Também a decisão de transporte que deixa o mesmo código rodar com Kafka e sem ele.",
+    highlights: [
+      "O transporte de evento é uma interface com dois adaptadores: Kafka em produção e chamada no processo quando não há corretor, o que deixa o sistema inteiro subir num JAR só para a defesa do trabalho",
+      "Exclusão de dados pela LGPD é uma saga com prazo e reenvio: três serviços precisam confirmar o apagamento antes de o pedido fechar",
+      "O contador de senha errada e a revogação de sessão gravam em transação própria, porque a exceção que os disparava desfazia os dois no rollback; foi um teste de integração que achou isso",
+      "Documento aceita o CNPJ alfanumérico que passou a valer em julho de 2026, com o dígito calculado pelo valor ASCII menos 48",
+      "1.123 testes verdes sem precisar de Docker: PostgreSQL embarcado e Kafka embarcado sobem dentro do próprio teste",
+      "Treze regras de arquitetura conferidas por ArchUnit, entre elas nenhum controlador devolvendo entidade JPA",
+    ],
+    stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "Flyway", "React", "Tailwind"],
+    github: "https://github.com/fabriciojunio/vitrine-bauru",
+    demo: null,
+    year: "2026",
+    snippetLang: "java",
+    snippet: `// Vitrine Bauru: o contador de erro sobrevive ao rollback
+// Transação própria de propósito: na de fora, a exceção lançada logo
+// depois desfazia o incremento, e a conta nunca chegava a travar.
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+public void anotarSenhaErrada(UUID usuarioId) {
+    usuarios.findById(usuarioId).ifPresent(usuario -> {
+        usuario.registrarErroDeSenha(relogio.instant());
+        usuarios.save(usuario);
+    });
+}`,
+  },
+  {
     slug: "cardiocam",
     name: "Cardiocam",
     oneLine: "Mede batimentos cardíacos por vídeo, sem encostar na pessoa",
@@ -813,6 +843,7 @@ const PRODUTO = [
 ];
 
 const FACULDADE = [
+  "vitrine-bauru",      // extensão com a SEDECON, quatro serviços Spring
   "conectagente",       // iniciação científica, sem cliente em campo
   "permaneia",          // RAG com fonte citada e fuzzy escrito do zero
   "cardiocam",          // rPPG, quatro algoritmos comparados
