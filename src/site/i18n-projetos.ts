@@ -162,6 +162,8 @@ const en: Record<string, TextoDoProjeto> = {
       "The document field accepts the alphanumeric CNPJ that came into force in July 2026, with the check digit computed from the ASCII value minus 48",
       "1,042 green tests with no Docker required: embedded PostgreSQL and embedded Kafka start inside the test itself",
       "Thirteen architecture rules enforced by ArchUnit, one of them being that no controller returns a JPA entity",
+      "Deployed end to end on free tiers: database on Neon, containerised API on Render and the site on Vercel, behind a three-stage CI",
+      "The Kubernetes manifests had an autoscaler pointing at a Deployment that did not exist; I wrote a coherence check that runs in CI with no cluster and fails on exactly that case",
     ],
   },
   cardiocam: {
@@ -448,6 +450,8 @@ const es: Record<string, TextoDoProjeto> = {
       "El documento acepta el CNPJ alfanumérico vigente desde julio de 2026, con el dígito calculado a partir del valor ASCII menos 48",
       "1.042 pruebas en verde sin necesidad de Docker: PostgreSQL y Kafka embebidos arrancan dentro de la propia prueba",
       "Trece reglas de arquitectura verificadas con ArchUnit, entre ellas que ningún controlador devuelva una entidad JPA",
+      "Publicado de punta a punta en capas gratuitas: base de datos en Neon, API en contenedor en Render y el sitio en Vercel, con un CI de tres etapas",
+      "Los manifiestos de Kubernetes tenían un autoescalador apuntando a un Deployment inexistente; escribí una verificación de coherencia que corre en CI sin clúster y rechaza ese caso",
     ],
   },
   cardiocam: {

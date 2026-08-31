@@ -656,9 +656,9 @@ def lado(self, ponto: tuple[float, float]) -> float:
   {
     slug: "vitrine-bauru",
     name: "Vitrine Bauru",
-    oneLine: "Vitrine dos pequenos negócios de Bauru, em quatro serviços Spring",
-    what: "Projeto de extensão com a SEDECON, a secretaria de desenvolvimento econômico da prefeitura. O empreendedor cadastra o negócio, a secretaria confere e aprova, e a loja entra numa vitrine pública onde o consumidor fala direto no WhatsApp de quem produz. São quatro serviços Spring Boot com banco próprio cada um, conversando por evento, mais um gateway na borda e um front em React.",
-    role: "Escrevi o sistema inteiro: os contratos de evento selados, o outbox e o inbox compartilhados, a máquina de estados do cadastro, a saga de exclusão da LGPD, a projeção que alimenta a busca pública e a tela toda. Também a decisão de transporte que deixa o mesmo código rodar com Kafka e sem ele.",
+    oneLine: "Vitrine dos pequenos negócios de Bauru, em quatro serviços por evento",
+    what: "Projeto de extensão com a SEDECON, a secretaria de desenvolvimento econômico da prefeitura de Bauru. O empreendedor cadastra o negócio, a secretaria confere e aprova, e a loja entra numa vitrine pública onde o consumidor fala direto no WhatsApp de quem produz. São quatro serviços Spring Boot com banco próprio cada um, conversando por evento, mais um gateway na borda e um front em React. Está no ar, com banco, API e site publicados, e não só rodando na minha máquina.",
+    role: "Escrevi o sistema inteiro e coloquei no ar: os contratos de evento selados, o outbox e o inbox compartilhados, a máquina de estados do cadastro, a saga de exclusão da LGPD, a projeção que alimenta a busca pública, a tela toda e a implantação. Também a decisão de transporte que deixa o mesmo código rodar com Kafka e sem ele.",
     highlights: [
       "O transporte de evento é uma interface com dois adaptadores: Kafka em produção e chamada no processo quando não há corretor, o que deixa o sistema inteiro subir num JAR só para a defesa do trabalho",
       "Exclusão de dados pela LGPD é uma saga com prazo e reenvio: três serviços precisam confirmar o apagamento antes de o pedido fechar",
@@ -666,8 +666,22 @@ def lado(self, ponto: tuple[float, float]) -> float:
       "Documento aceita o CNPJ alfanumérico que passou a valer em julho de 2026, com o dígito calculado pelo valor ASCII menos 48",
       "1.042 testes verdes sem precisar de Docker: PostgreSQL embarcado e Kafka embarcado sobem dentro do próprio teste",
       "Treze regras de arquitetura conferidas por ArchUnit, entre elas nenhum controlador devolvendo entidade JPA",
+      "Publicado de ponta a ponta em camada gratuita: banco no Neon, API em contêiner no Render e o site na Vercel, com CI de três estágios",
+      "Os manifestos do Kubernetes tinham um autoscaler apontando para um Deployment que não existia; escrevi uma conferência de coerência que roda no CI sem cluster e reprova esse caso",
     ],
-    stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "Flyway", "React", "Tailwind"],
+    stack: [
+      "Java 21",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Cloud Gateway",
+      "Kafka",
+      "PostgreSQL",
+      "Flyway",
+      "Docker",
+      "Kubernetes",
+      "React",
+      "TypeScript",
+    ],
     github: "https://github.com/fabriciojunio/vitrine-bauru",
     demo: "https://vitrine-bauru.vercel.app",
     year: "2026",
@@ -828,6 +842,7 @@ public class TeleportPoint : MonoBehaviour
 
 const EIXO = [
   "feira",              // Kafka, outbox, saga com compensação
+  "vitrine-bauru",      // quatro serviços por evento, no ar com cliente real
   "outorga",            // multi-tenant, licença como invariante de domínio
   "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
   "paiol-tech",         // NestJS com CQRS, Open Finance
@@ -843,7 +858,6 @@ const PRODUTO = [
 ];
 
 const FACULDADE = [
-  "vitrine-bauru",      // extensão com a SEDECON, quatro serviços Spring
   "conectagente",       // iniciação científica, sem cliente em campo
   "permaneia",          // RAG com fonte citada e fuzzy escrito do zero
   "cardiocam",          // rPPG, quatro algoritmos comparados
