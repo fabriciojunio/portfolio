@@ -664,7 +664,7 @@ def lado(self, ponto: tuple[float, float]) -> float:
       "Exclusão de dados pela LGPD é uma saga com prazo e reenvio: três serviços precisam confirmar o apagamento antes de o pedido fechar",
       "O contador de senha errada e a revogação de sessão gravam em transação própria, porque a exceção que os disparava desfazia os dois no rollback; foi um teste de integração que achou isso",
       "Documento aceita o CNPJ alfanumérico que passou a valer em julho de 2026, com o dígito calculado pelo valor ASCII menos 48",
-      "1.123 testes verdes sem precisar de Docker: PostgreSQL embarcado e Kafka embarcado sobem dentro do próprio teste",
+      "1.042 testes verdes sem precisar de Docker: PostgreSQL embarcado e Kafka embarcado sobem dentro do próprio teste",
       "Treze regras de arquitetura conferidas por ArchUnit, entre elas nenhum controlador devolvendo entidade JPA",
     ],
     stack: ["Java 21", "Spring Boot", "Kafka", "PostgreSQL", "Flyway", "React", "Tailwind"],
