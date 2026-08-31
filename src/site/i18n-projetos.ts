@@ -151,6 +151,19 @@ const en: Record<string, TextoDoProjeto> = {
       "2,093 tests and nine documented defects, one of which existed only in the published artefact and not in the source",
     ],
   },
+  "vitrine-bauru": {
+    oneLine: "A shop window for Bauru's small businesses, in four Spring services",
+    what: "A university extension project with SEDECON, the city's economic development department. The owner registers the business, the department checks and approves it, and the shop goes into a public window where the customer talks straight to whoever makes the product, on WhatsApp. Four Spring Boot services, each with its own database, talking over events, plus an edge gateway and a React front end.",
+    role: "I wrote the whole system: the sealed event contracts, the shared outbox and inbox, the registration state machine, the LGPD deletion saga, the projection that feeds the public search and the entire interface. Also the transport decision that lets the same code run with Kafka and without it.",
+    highlights: [
+      "Event transport is one interface with two adapters: Kafka in production, an in-process call when there is no broker, so the whole system boots from a single JAR for the class presentation",
+      "Deleting personal data under LGPD is a saga with a deadline and retries: three services have to confirm the erasure before the request can close",
+      "The failed-password counter and the session revocation write in their own transaction, because the exception that triggered them rolled both back; an integration test is what caught it",
+      "The document field accepts the alphanumeric CNPJ that came into force in July 2026, with the check digit computed from the ASCII value minus 48",
+      "1,123 green tests with no Docker required: embedded PostgreSQL and embedded Kafka start inside the test itself",
+      "Thirteen architecture rules enforced by ArchUnit, one of them being that no controller returns a JPA entity",
+    ],
+  },
   cardiocam: {
     oneLine: "Measures heart rate from video, without touching the person",
     what: "It estimates heart rate from the colour shift in skin caused by blood flow, captured on an ordinary webcam. The technique is remote photoplethysmography (rPPG). It implements and compares four algorithms from the literature: GREEN, CHROM, POS and ICA.",
@@ -422,6 +435,19 @@ const es: Record<string, TextoDoProjeto> = {
       "Cuando el material no responde, igual responde sobre la universidad y el contenido, y el aviso de que eso no tiene fuente lo escribe el código, no el modelo",
       "Funciona sin clave de API: en modo degradado transcribe el documento en vez de redactar, lo que es aún más estricto en cuanto a no inventar",
       "2.093 pruebas y nueve defectos documentados, uno de ellos existiendo solo en el artefacto publicado y no en el código fuente",
+    ],
+  },
+  "vitrine-bauru": {
+    oneLine: "Escaparate de los pequeños negocios de Bauru, en cuatro servicios Spring",
+    what: "Proyecto de extensión con la SEDECON, la secretaría de desarrollo económico del municipio. El emprendedor registra su negocio, la secretaría lo verifica y lo aprueba, y la tienda entra en un escaparate público donde el consumidor habla directo por WhatsApp con quien produce. Son cuatro servicios Spring Boot, cada uno con su propia base de datos, comunicándose por eventos, más una pasarela en el borde y un front en React.",
+    role: "Escribí el sistema entero: los contratos de evento sellados, el outbox y el inbox compartidos, la máquina de estados del registro, la saga de eliminación de la LGPD, la proyección que alimenta la búsqueda pública y toda la interfaz. También la decisión de transporte que permite que el mismo código funcione con Kafka y sin él.",
+    highlights: [
+      "El transporte de eventos es una interfaz con dos adaptadores: Kafka en producción y llamada en proceso cuando no hay corredor, lo que permite levantar todo el sistema desde un solo JAR para la defensa del trabajo",
+      "Eliminar datos por la LGPD es una saga con plazo y reenvío: tres servicios deben confirmar el borrado antes de que la solicitud se cierre",
+      "El contador de contraseña incorrecta y la revocación de sesión escriben en transacción propia, porque la excepción que los disparaba deshacía ambos; lo encontró una prueba de integración",
+      "El documento acepta el CNPJ alfanumérico vigente desde julio de 2026, con el dígito calculado a partir del valor ASCII menos 48",
+      "1.123 pruebas en verde sin necesidad de Docker: PostgreSQL y Kafka embebidos arrancan dentro de la propia prueba",
+      "Trece reglas de arquitectura verificadas con ArchUnit, entre ellas que ningún controlador devuelva una entidad JPA",
     ],
   },
   cardiocam: {
