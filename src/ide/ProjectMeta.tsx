@@ -58,6 +58,9 @@ export default function ProjectMeta({ file }: Props) {
             ↗ demo ao vivo
           </a>
         )}
+        {m.demoAcesso && (
+          <span className="text-[#6b6b6b]">entrar com {m.demoAcesso}</span>
+        )}
         {file.runnable && (
           <span className="text-[#ededed]">
             ▸ tem demo interativa: clique em <strong>Run</strong> no canto.

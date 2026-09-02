@@ -12,6 +12,14 @@ export interface SiteProject {
   github: string | null; // null = repositório privado (sem link público)
   demo?: string | null;
   /**
+   * Como entrar na demo, quando ela tem tela de login.
+   *
+   * Quem abre o link e esbarra num formulário de senha fecha a aba. O acesso é
+   * de um ambiente de demonstração, com dados de mentira e nada real atrás, e
+   * por isso pode ficar à vista.
+   */
+  demoAcesso?: string;
+  /**
    * Caminho do arquivo na IDE que tem demo interativa, quando existe.
    *
    * A demo mora em /lab, e sem um link daqui ela ficava escondida atrás de
@@ -43,7 +51,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "OpenTelemetry",
       "k6", "PostgreSQL", "MongoDB", "Kubernetes", "Terraform", "React 19"],
     github: "https://github.com/fabriciojunio/feira-do-comando",
-    demo: null,
+    demo: "https://feira-do-comando.vercel.app",
     year: "2026",
     snippetLang: "java",
     snippet: `// A aprovação chegou depois de o cancelamento começar.
@@ -68,7 +76,8 @@ case PagamentoAprovado p when status == CANCELANDO ->
     ],
     stack: ["Java 21", "Spring Boot", "PostgreSQL", "JdbcClient", "Next.js"],
     github: "https://github.com/fabriciojunio/outorga",
-    demo: null,
+    demo: "https://outorga-tv.vercel.app",
+    demoAcesso: "espectador@exemplo.com / demonstracao2026",
     year: "2026",
     snippetLang: "java",
     snippet: `// A licença entra por parâmetro, e não por consulta interna.
@@ -391,7 +400,7 @@ export function registerInteraction(state: StreakState | null, now: Date) {
     stack: ["Next.js 15", "React 19", "TypeScript", "Vitest"],
     github: "https://github.com/fabriciojunio/jis",
     labDemo: "/projetos/jis.ts",
-    demo: "https://jis-frontend-mocha.vercel.app",
+    demo: "https://jis-vagas.vercel.app",
     year: "2026",
     snippetLang: "typescript",
     snippet: `// Os três primeiros não são peso, são porta. Reprovou, nem pontua.
