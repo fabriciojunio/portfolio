@@ -157,6 +157,7 @@ const en: Record<string, TextoDoProjeto> = {
     role: "I wrote the whole system: the sealed event contracts, the shared outbox and inbox, the registration state machine, the LGPD deletion saga, the projection that feeds the public search and the entire interface. Also the transport decision that lets the same code run with Kafka, with Amazon SNS and with no broker at all.",
     highlights: [
       "Event transport is one interface with three adapters: Kafka where a broker exists, Amazon SNS on the managed deployment, and an in-process call when there is no broker at all",
+      "Distributed tracing survives the outbox: the context goes into a column and then into a Kafka header or an SNS attribute, because the event is published by another thread and the context would die at commit",
       "The third adapter came out of a mistake of mine: I had written in the decision record that no managed messaging had a permanent free tier, because I searched for managed Kafka instead of searching for the problem. SNS and SQS are permanently free on AWS, and the adapter went in without touching the outbox, the inbox or any consumer",
       "Deleting personal data under LGPD is a saga with a deadline and retries: three services have to confirm the erasure before the request can close",
       "The failed-password counter and the session revocation write in their own transaction, because the exception that triggered them rolled both back; an integration test is what caught it",
@@ -446,6 +447,7 @@ const es: Record<string, TextoDoProjeto> = {
     role: "Escribí el sistema entero: los contratos de evento sellados, el outbox y el inbox compartidos, la máquina de estados del registro, la saga de eliminación de la LGPD, la proyección que alimenta la búsqueda pública y toda la interfaz. También la decisión de transporte que permite que el mismo código funcione con Kafka, con Amazon SNS y sin corredor alguno.",
     highlights: [
       "El transporte de eventos es una interfaz con tres adaptadores: Kafka donde hay corredor, Amazon SNS en el despliegue gestionado y llamada en proceso cuando no hay corredor alguno",
+      "El rastreo distribuido atraviesa el outbox: el contexto va en una columna y después en cabecera de Kafka o atributo de SNS, porque el evento lo publica otro hilo y el contexto moriría en el commit",
       "El tercer adaptador nació de un error mío: había escrito en el documento de decisión que no existía mensajería gestionada gratuita, porque busqué Kafka gestionado en lugar de buscar el problema. SNS y SQS están en la capa permanentemente gratuita de AWS, y el adaptador entró sin tocar el outbox, el inbox ni ningún consumidor",
       "Eliminar datos por la LGPD es una saga con plazo y reenvío: tres servicios deben confirmar el borrado antes de que la solicitud se cierre",
       "El contador de contraseña incorrecta y la revocación de sesión escriben en transacción propia, porque la excepción que los disparaba deshacía ambos; lo encontró una prueba de integración",
