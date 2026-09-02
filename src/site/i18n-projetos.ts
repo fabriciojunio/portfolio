@@ -154,9 +154,10 @@ const en: Record<string, TextoDoProjeto> = {
   "vitrine-bauru": {
     oneLine: "A shop window for Bauru's small businesses, in four Spring services",
     what: "A university extension project with SEDECON, the city's economic development department. The owner registers the business, the department checks and approves it, and the shop goes into a public window where the customer talks straight to whoever makes the product, on WhatsApp. Four Spring Boot services, each with its own database, talking over events, plus an edge gateway and a React front end.",
-    role: "I wrote the whole system: the sealed event contracts, the shared outbox and inbox, the registration state machine, the LGPD deletion saga, the projection that feeds the public search and the entire interface. Also the transport decision that lets the same code run with Kafka and without it.",
+    role: "I wrote the whole system: the sealed event contracts, the shared outbox and inbox, the registration state machine, the LGPD deletion saga, the projection that feeds the public search and the entire interface. Also the transport decision that lets the same code run with Kafka, with Amazon SNS and with no broker at all.",
     highlights: [
-      "Event transport is one interface with two adapters: Kafka in production, an in-process call when there is no broker, so the whole system boots from a single JAR for the class presentation",
+      "Event transport is one interface with three adapters: Kafka where a broker exists, Amazon SNS on the managed deployment, and an in-process call when there is no broker at all",
+      "The third adapter came out of a mistake of mine: I had written in the decision record that no managed messaging had a permanent free tier, because I searched for managed Kafka instead of searching for the problem. SNS and SQS are permanently free on AWS, and the adapter went in without touching the outbox, the inbox or any consumer",
       "Deleting personal data under LGPD is a saga with a deadline and retries: three services have to confirm the erasure before the request can close",
       "The failed-password counter and the session revocation write in their own transaction, because the exception that triggered them rolled both back; an integration test is what caught it",
       "The document field accepts the alphanumeric CNPJ that came into force in July 2026, with the check digit computed from the ASCII value minus 48",
@@ -442,9 +443,10 @@ const es: Record<string, TextoDoProjeto> = {
   "vitrine-bauru": {
     oneLine: "Escaparate de los pequeños negocios de Bauru, en cuatro servicios Spring",
     what: "Proyecto de extensión con la SEDECON, la secretaría de desarrollo económico del municipio. El emprendedor registra su negocio, la secretaría lo verifica y lo aprueba, y la tienda entra en un escaparate público donde el consumidor habla directo por WhatsApp con quien produce. Son cuatro servicios Spring Boot, cada uno con su propia base de datos, comunicándose por eventos, más una pasarela en el borde y un front en React.",
-    role: "Escribí el sistema entero: los contratos de evento sellados, el outbox y el inbox compartidos, la máquina de estados del registro, la saga de eliminación de la LGPD, la proyección que alimenta la búsqueda pública y toda la interfaz. También la decisión de transporte que permite que el mismo código funcione con Kafka y sin él.",
+    role: "Escribí el sistema entero: los contratos de evento sellados, el outbox y el inbox compartidos, la máquina de estados del registro, la saga de eliminación de la LGPD, la proyección que alimenta la búsqueda pública y toda la interfaz. También la decisión de transporte que permite que el mismo código funcione con Kafka, con Amazon SNS y sin corredor alguno.",
     highlights: [
-      "El transporte de eventos es una interfaz con dos adaptadores: Kafka en producción y llamada en proceso cuando no hay corredor, lo que permite levantar todo el sistema desde un solo JAR para la defensa del trabajo",
+      "El transporte de eventos es una interfaz con tres adaptadores: Kafka donde hay corredor, Amazon SNS en el despliegue gestionado y llamada en proceso cuando no hay corredor alguno",
+      "El tercer adaptador nació de un error mío: había escrito en el documento de decisión que no existía mensajería gestionada gratuita, porque busqué Kafka gestionado en lugar de buscar el problema. SNS y SQS están en la capa permanentemente gratuita de AWS, y el adaptador entró sin tocar el outbox, el inbox ni ningún consumidor",
       "Eliminar datos por la LGPD es una saga con plazo y reenvío: tres servicios deben confirmar el borrado antes de que la solicitud se cierre",
       "El contador de contraseña incorrecta y la revocación de sesión escriben en transacción propia, porque la excepción que los disparaba deshacía ambos; lo encontró una prueba de integración",
       "El documento acepta el CNPJ alfanumérico vigente desde julio de 2026, con el dígito calculado a partir del valor ASCII menos 48",
