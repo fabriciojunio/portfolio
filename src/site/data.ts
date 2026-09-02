@@ -922,7 +922,7 @@ export const STACK_GROUPS = [
   },
   {
     label: "mensageria",
-    items: ["Kafka", "RabbitMQ", "outbox transacional", "saga"],
+    items: ["Kafka", "Amazon SNS e SQS", "RabbitMQ", "outbox transacional", "saga"],
   },
   {
     label: "dados",
@@ -930,7 +930,7 @@ export const STACK_GROUPS = [
   },
   {
     label: "infra",
-    items: ["Docker", "Kubernetes", "Terraform", "GitHub Actions", "Nginx"],
+    items: ["AWS (SNS, SQS)", "Terraform", "Docker", "Kubernetes", "GitHub Actions"],
   },
   {
     // Front tem grupo próprio, e não "também uso". A tela eu entrego quando
