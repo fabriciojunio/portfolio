@@ -28,6 +28,7 @@ const en: Record<string, TextoDoProjeto> = {
     what: "Four Spring Boot services talking over Kafka. Each owns its database and none reads another's tables. The saga has to survive messages that arrive twice, out of order, or late, and a MongoDB read model answers in one query what previously required joining three services in the browser.",
     role: "I wrote all of it: the sealed event contracts, the shared transactional outbox, the idempotent consumer, the order saga and the projection that feeds the read model. The hardest case was the race where a payment is approved while the order is being cancelled, which ends in a refund.",
     highlights: [
+      "Distributed tracing survives the outbox: the context is stored in a column and propagated in a Kafka header, otherwise it dies at commit and the dashboard shows loose traces instead of one whole saga",
       "Outbox using SELECT FOR UPDATE SKIP LOCKED, so several instances can run at once",
       "Concurrency proven with ten real threads against a real PostgreSQL",
       "A MongoDB read model whose document is derived from the events, so it can be thrown away and rebuilt from the topic",
@@ -318,6 +319,7 @@ const es: Record<string, TextoDoProjeto> = {
     what: "Cuatro servicios Spring Boot conversando por Kafka. Cada uno con su propia base de datos, ninguno leyendo tablas del otro. La saga tiene que sobrevivir a mensajes repetidos, desordenados y atrasados, y un modelo de lectura en MongoDB responde en una consulta lo que antes exigía unir tres servicios en el navegador.",
     role: "Lo escribí todo: los contratos de evento sellados, el outbox transaccional compartido, el consumidor idempotente, la saga del pedido y la proyección que alimenta el modelo de lectura. El caso más difícil fue la carrera en que el pago se aprueba mientras el pedido se está cancelando, que termina en reembolso.",
     highlights: [
+      "El rastreo distribuido atraviesa el outbox: el contexto se guarda en una columna y se propaga en cabecera de Kafka, si no muere en el commit y el panel muestra rastros sueltos en vez de una saga entera",
       "Outbox con SELECT FOR UPDATE SKIP LOCKED, para correr en varias instancias",
       "Concurrencia probada con diez hilos reales contra un PostgreSQL real",
       "Modelo de lectura en MongoDB: el documento se deriva de los eventos, así que puede tirarse y reconstruirse desde el tópico",
