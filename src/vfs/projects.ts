@@ -98,7 +98,7 @@ public boolean registrar(UUID idDoEvento, String oQue,
     name: "outorga.java",
     language: "java",
     meta: {
-      project: "Outorga",
+      project: "Outorga TV",
       github: "https://github.com/fabriciojunio/outorga",
       demo: "https://outorga-tv.vercel.app",
       demoAcesso: "espectador@exemplo.com / demonstracao2026",

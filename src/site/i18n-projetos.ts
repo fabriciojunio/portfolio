@@ -33,7 +33,8 @@ const en: Record<string, TextoDoProjeto> = {
       "Concurrency proven with ten real threads against a real PostgreSQL",
       "A MongoDB read model whose document is derived from the events, so it can be thrown away and rebuilt from the topic",
       "CI spins up a real Kubernetes cluster and applies the manifests, on top of validating the Terraform",
-      "189 tests, none of which need Docker installed",
+      "A migration that drops or renames a column fails the build: the rollout is gradual and the old version's dispatcher keeps reading the outbox during the swap",
+      "187 tests, none of which need Docker installed",
     ],
   },
   outorga: {
@@ -44,7 +45,8 @@ const en: Record<string, TextoDoProjeto> = {
       "Domain without a single line of Spring, enforced by an architecture test",
       "Every repository takes the tenant in its signature, never from a context variable",
       "Data-protection export and anonymisation implemented, not promised",
-      "260 tests against a real PostgreSQL",
+      "A migration that drops or renames a column fails the build: during a deploy both versions run together, and a column that disappears here denies content to someone who paid for it",
+      "275 tests against a real PostgreSQL",
     ],
   },
   "codereview-ai": {
@@ -54,7 +56,9 @@ const en: Record<string, TextoDoProjeto> = {
     highlights: [
       "Asynchronous processing through a RabbitMQ queue, one ticket ID per review",
       "24-hour Redis cache keyed by the SHA-256 of the code, so nothing is analysed twice",
-      "Detects bugs, code smells and SOLID violations in Java, Python and JS",
+      "The request's trace rides in the message header: without it the queue wait, the largest slice of the user's wait, falls into the gap between two unrelated traces",
+      "One trace span per database query, by wrapping the DataSource, which is what makes an N+1 visible",
+      "A migration that drops or renames a column fails the build: during the swap the consumer is halfway through work it already accepted",
     ],
   },
   "paiol-tech": {
@@ -324,7 +328,8 @@ const es: Record<string, TextoDoProjeto> = {
       "Concurrencia probada con diez hilos reales contra un PostgreSQL real",
       "Modelo de lectura en MongoDB: el documento se deriva de los eventos, así que puede tirarse y reconstruirse desde el tópico",
       "El CI levanta un clúster Kubernetes real y aplica los manifiestos, además de validar el Terraform",
-      "189 pruebas, ninguna de ellas requiere tener Docker instalado",
+      "Una migración que borra o renombra columna reprueba en el build: la actualización es gradual y el despachador de la versión anterior sigue leyendo el outbox durante el cambio",
+      "187 pruebas, ninguna de ellas requiere tener Docker instalado",
     ],
   },
   outorga: {
@@ -335,7 +340,8 @@ const es: Record<string, TextoDoProjeto> = {
       "Dominio sin una línea de Spring, verificado por prueba de arquitectura",
       "Todo repositorio recibe el tenant en la firma, nunca de una variable de contexto",
       "Exportación y anonimización de datos personales implementadas, no prometidas",
-      "260 pruebas contra un PostgreSQL real",
+      "Una migración que borra o renombra columna reprueba en el build: durante un despliegue ambas versiones corren juntas, y una columna que desaparece aquí niega contenido a quien pagó",
+      "275 pruebas contra un PostgreSQL real",
     ],
   },
   "codereview-ai": {
@@ -345,7 +351,9 @@ const es: Record<string, TextoDoProjeto> = {
     highlights: [
       "Procesamiento asíncrono por cola RabbitMQ, un ticket por análisis",
       "Caché Redis de 24 h por SHA-256 del código: nada se analiza dos veces",
-      "Detecta errores, code smells y violaciones de SOLID en Java, Python y JS",
+      "El rastro de la petición viaja en la cabecera del mensaje: sin eso la espera en la cola, la mayor parte de la espera del usuario, cae en el hueco entre dos rastros sueltos",
+      "Un tramo de rastro por consulta a la base, envolviendo el DataSource, que es lo que hace visible el N+1",
+      "Una migración que borra o renombra columna reprueba en el build: durante el cambio el consumidor está a mitad de un trabajo ya aceptado",
     ],
   },
   "paiol-tech": {
