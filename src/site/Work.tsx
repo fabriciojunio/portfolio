@@ -319,6 +319,12 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
                 </a>
               )}
             </div>
+
+            {project.demoAcesso && (
+              <p className="pt-1.5 font-mono text-[11px] text-[#767676]">
+                entrar com {project.demoAcesso}
+              </p>
+            )}
           </div>
 
           <SnippetView

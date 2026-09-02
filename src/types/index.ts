@@ -22,6 +22,7 @@ export interface VFile {
     project?: string;
     github?: string;
     demo?: string | null;
+    demoAcesso?: string;
     stack?: string[];
     role?: string;
   };
