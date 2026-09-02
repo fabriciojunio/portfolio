@@ -661,6 +661,7 @@ def lado(self, ponto: tuple[float, float]) -> float:
     role: "Escrevi o sistema inteiro e coloquei no ar: os contratos de evento selados, o outbox e o inbox compartilhados, a máquina de estados do cadastro, a saga de exclusão da LGPD, a projeção que alimenta a busca pública, a tela toda e a implantação. Também a decisão de transporte que deixa o mesmo código rodar com Kafka, com Amazon SNS e sem corretor nenhum.",
     highlights: [
       "O transporte de evento é uma interface com três adaptadores: Kafka onde há corretor, Amazon SNS na implantação gerenciada e chamada no processo quando não há corretor nenhum",
+      "O rastro distribuído atravessa o outbox: o contexto vai numa coluna e depois em cabeçalho do Kafka ou atributo do SNS, porque o evento é publicado por outra thread e o contexto morreria no commit",
       "O terceiro adaptador nasceu de um erro meu: eu tinha escrito no documento de decisão que não existia mensageria gerenciada gratuita, porque procurei por Kafka gerenciado em vez de procurar pelo problema. SNS e SQS estão na camada permanentemente gratuita da AWS, e o adaptador entrou sem tocar no outbox, no inbox nem em nenhum consumidor",
       "Exclusão de dados pela LGPD é uma saga com prazo e reenvio: três serviços precisam confirmar o apagamento antes de o pedido fechar",
       "O contador de senha errada e a revogação de sessão gravam em transação própria, porque a exceção que os disparava desfazia os dois no rollback; foi um teste de integração que achou isso",
@@ -677,6 +678,7 @@ def lado(self, ponto: tuple[float, float]) -> float:
       "Spring Cloud Gateway",
       "Kafka",
       "Amazon SNS e SQS",
+      "OpenTelemetry",
       "PostgreSQL",
       "Flyway",
       "Docker",
