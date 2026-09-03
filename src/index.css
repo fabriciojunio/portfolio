@@ -117,7 +117,7 @@ kbd {
   background: rgba(255, 255, 255, 0.04);
 }
 
-/* Syntax highlighting minimo (usado em Cards3D e SnippetView) */
+/* Syntax highlighting mínimo (usado em Cards3D e SnippetView) */
 .syn-k { color: #ffffff; }                  /* keyword (ambar quente) */
 .syn-s { color: #9a9a9a; }                  /* string (verde sutil)   */
 .syn-n { color: #ffffff; }                  /* number (ambar palido)  */

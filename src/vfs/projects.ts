@@ -17,9 +17,9 @@ export const projectFiles: VFile[] = [
     },
     content: `// A saga do pedido.
 //
-// O caso dificil nao e o caminho feliz: e a aprovacao do pagamento
-// que chega DEPOIS de o cancelamento ja ter comecado. O dinheiro
-// saiu, entao ignorar nao e opcao. Tem que voltar.
+// O caso difícil não é o caminho feliz: é a aprovação do pagamento
+// que chega DEPOIS de o cancelamento já ter começado. O dinheiro
+// saiu, então ignorar não é opção. Tem que voltar.
 
 sealed interface Evento permits PedidoCriado, EstoqueReservado,
         EstoqueRecusado, PagamentoAprovado, PagamentoRecusado { }
@@ -41,14 +41,14 @@ Decisao processar(Evento evento, Instant agora) {
                     id, p.valor(), Motivo.PEDIDO_CANCELADO)),
                 "aprovacao tardia: estornando");
 
-        // Evento repetido nao muda nada, e isso e de proposito:
-        // o Kafka entrega ao menos uma vez, nao exatamente uma.
+        // Evento repetido não muda nada, e isso é de propósito:
+        // o Kafka entrega ao menos uma vez, não exatamente uma.
         default -> Decisao.ignorar("evento fora de ordem ou repetido");
     };
 }
 
 // Sem "default" no switch de um sealed interface, o compilador
-// cobra todo caso novo. Evento novo sem tratamento nao compila.`,
+// cobra todo caso novo. Evento novo sem tratamento não compila.`,
   },
   {
     path: "/projetos/modelo-de-leitura.java",
@@ -61,12 +61,12 @@ Decisao processar(Evento evento, Instant agora) {
       stack: ["Java 21", "Spring Boot", "MongoDB", "Kafka"],
       role: "Projecao que monta em MongoDB o documento que a tela precisa ler.",
     },
-    content: `// Cada servico tem o proprio banco, e nenhum responde sozinho
-// "como esta o meu pedido": a saga vive em pedidos, a reserva em
-// estoque e a cobranca em pagamentos. Quem juntava era o navegador,
-// com tres chamadas.
+    content: `// Cada serviço tem o próprio banco, e nenhum responde sozinho
+// "como está o meu pedido": a saga vive em pedidos, a reserva em
+// estoque e a cobrança em pagamentos. Quem juntava era o navegador,
+// com três chamadas.
 //
-// Este servico le os mesmos eventos, com grupo proprio, e mantem um
+// Este serviço lê os mesmos eventos, com grupo próprio, e mantém um
 // documento por pedido. Uma leitura devolve tudo.
 
 @KafkaListener(topics = {PEDIDOS, ESTOQUE, PAGAMENTOS}, groupId = "consulta")
@@ -75,7 +75,7 @@ public void receber(String carga) throws Exception {
 }
 
 // Kafka entrega ao MENOS uma vez. Sem esta guarda, reprocessar uma
-// particao duplicaria a linha do tempo, e o cliente veria "estoque
+// partição duplicaria a linha do tempo, e o cliente veria "estoque
 // separado" duas vezes num pedido que reservou uma.
 public boolean registrar(UUID idDoEvento, String oQue,
                          String detalhe, Instant quando) {
@@ -88,10 +88,10 @@ public boolean registrar(UUID idDoEvento, String oQue,
     return true;
 }
 
-// MongoDB e nao um quarto PostgreSQL porque o que a tela quer E um
-// documento. E a escolha se defende pelo lado oposto: este dado nao e
-// fonte da verdade. Ele e derivado dos eventos e pode ser jogado fora
-// e reconstruido do topico.`,
+// MongoDB e não um quarto PostgreSQL porque o que a tela quer É um
+// documento. E a escolha se defende pelo lado oposto: este dado não é
+// fonte da verdade. Ele é derivado dos eventos e pode ser jogado fora
+// e reconstruído do tópico.`,
   },
   {
     path: "/projetos/outorga.java",
@@ -105,13 +105,13 @@ public boolean registrar(UUID idDoEvento, String oQue,
       stack: ["Java 21", "Spring Boot", "PostgreSQL", "Next.js"],
       role: "Streaming white-label multi-tenant onde a licenca de exibicao e invariante de dominio.",
     },
-    content: `// Sem outorga, nao vai ao ar.
+    content: `// Sem outorga, não vai ao ar.
 //
-// A licenca entra por PARAMETRO, e nao por consulta la dentro.
-// Parece detalhe e nao e: assim quem chama e obrigado a ter a
-// licenca em maos, e nao existe caminho de codigo capaz de
-// publicar sem ela. A regra de negocio passa a ser cobrada pelo
-// compilador, e nao por revisao de codigo.
+// A licença entra por PARÂMETRO, e não por consulta lá dentro.
+// Parece detalhe e não é: assim quem chama é obrigado a ter a
+// licença em mãos, e não existe caminho de código capaz de
+// publicar sem ela. A regra de negócio passa a ser cobrada pelo
+// compilador, e não por revisão de código.
 
 public Result<Titulo> publicar(Licenca licenca, Instant agora) {
     if (!licenca.cobre(this.territorio, agora))
@@ -120,9 +120,9 @@ public Result<Titulo> publicar(Licenca licenca, Instant agora) {
     return Result.ok(comStatus(Status.PUBLICADO));
 }
 
-// A varredura horaria funciona nos DOIS sentidos: tira do ar o
+// A varredura horária funciona nos DOIS sentidos: tira do ar o
 // que venceu e devolve o que foi renovado. O segundo sentido
-// existe porque um canal derrubado na mao voltou sozinho, e o
+// existe porque um canal derrubado na mão voltou sozinho, e o
 // teste que pegou isso ficou.
 
 void revisarDireitos(Instant agora) {
