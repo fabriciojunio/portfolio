@@ -288,12 +288,15 @@ const en: Record<string, TextoDoProjeto> = {
     ],
   },
   koracrm: {
-    oneLine: "A Kanban pipeline in Laravel and React with per-stage auditing",
-    what: "A full CRM with a drag-and-drop Kanban sales pipeline, contact management, interaction history and conversion analytics. Laravel 11 backend with Sanctum and Swagger.",
-    role: "I built the pipeline movement service with change auditing, and the per-stage conversion query.",
+    oneLine: "A Laravel CRM whose application layer never touches Eloquent",
+    what: "Leads, a five-stage sales pipeline, tasks with deadlines, a dashboard with value per stage, a team with access profiles, and an audit trail recording every change with its author. It serves data-subject requests under Brazilian privacy law without losing history.",
+    role: "I wrote the whole backend in four layers, and the rule that holds it together is that services take a DTO and talk to a repository interface, never to Eloquent. Swapping the ORM should not force a rewrite of business rules.",
     highlights: [
-      "Drag-and-drop Kanban with the position persisted, so client and database never drift apart",
-      "Automatic auditing: every move between stages is recorded",
+      "Two domain rules tested from both sides: a lead is always born in the first stage, and a lead marked won or lost never returns to the pipeline",
+      "The application layer does not know Eloquent, which is what keeps the rules testable without a database",
+      "Automatic auditing: every move between stages is recorded with its author",
+      "126 tests, 90% backend coverage, and CI fails below 85%",
+      "Only the interface is published: the demo runs in the browser with sample data, because the Laravel API is not deployed",
     ],
   },
   "mente-viva": {
@@ -313,6 +316,43 @@ const en: Record<string, TextoDoProjeto> = {
     highlights: [
       "Difficulty adapts by age band, from chick to master",
       "A non-punitive philosophy: the feedback always encourages the child",
+    ],
+  },
+  almanaque: {
+    oneLine: "Multi-tenant business directory and classifieds, with the support console inside",
+    what: "A platform for publishing business directories and classifieds: every client gets their own portal, with their own categories, advertisers and subscription. Shipped with it is the support console, which is the unusual part: a ticket queue ordered by impact, triage into four buckets, and a known-issues base linked to the release that fixed each one.",
+    role: "I wrote all of it, from the domain to the console. The decision that shaped the system most was treating support as part of the product rather than a spreadsheet beside it: a ticket cannot be closed without a classification, and nothing is classified as a product defect without being reproduced on a clean environment.",
+    highlights: [
+      "Multi-tenancy with a test behind it: one portal cannot see another's data, and that is enforced by the suite rather than trusted to whoever writes the next query",
+      "Elasticsearch search with relevance and accent handling, falling back to the database when the index is down, because a failing search must not take the directory with it",
+      "The billing job can run twice without charging twice: the billing period is the idempotency key",
+      "Three retries before cancelling an overdue subscription, instead of cutting access on the first declined card",
+      "A ticket closed without saying what it was is exactly what stops you from finding out, three months later, that the same defect came back",
+      "PHPStan level 8, end-to-end Playwright, and Kubernetes manifests in the repository",
+    ],
+  },
+  "maranata-conecta": {
+    oneLine: "A church system in production, where silence is a feature",
+    what: "Members, groups, service schedule, duty rosters, a hymn library and projection for a church in Bauru. It is live with real people using it, on old phones and old laptops, which is what the church actually has.",
+    role: "I designed and wrote the whole system, including the move from a server application to serverless functions, which removed cold starts and the cost of a machine left running. A person's roles decide what they see, and their calendar is assembled from the groups they belong to.",
+    highlights: [
+      "Notifications must not be annoying: what repeats every week becomes one digest on Saturday, and only what changes is announced as it happens. Teaching people to ignore the church's notification is the worst possible outcome",
+      "Nine roles with explicit permissions and no implicit hierarchy: being allowed to schedule your worship group's rehearsal does not let you schedule a church-wide service",
+      "Granting a governing role requires being a pastor, and nobody can promote anyone above their own reach",
+      "Passwords with scrypt and constant-time comparison, an HMAC-signed session, and five failures lock the account for fifteen minutes",
+      "The public calendar is cached at the edge and the signed-in one never is: the cache varies by cookie, otherwise one person's roster shows up for another",
+      "You can browse the week without an account, because a visitor also needs to know when the service starts",
+    ],
+  },
+  baliza: {
+    oneLine: "Free parking spaces read from the camera already on the pole",
+    what: "Tells which spaces in a parking lot are free from the video of a fixed camera. No sensors in the ground, no new cabling, no construction: the camera already there for security frames dozens of spaces at once.",
+    role: "A computer vision assignment in a group of four. I built both detectors, the training run on PKLot, and the measurement that decides which one to use per camera.",
+    highlights: [
+      "There are two detectors and the difference is stated honestly: the general COCO model finds cars in any lot with no training, and the trained one finds the space itself, which is what saves a large lot where a car is twenty pixels wide",
+      "Preference does not choose: each parking map stores the detector that measured better on that camera, and the program prints which one it loaded",
+      "If the trained weights are not on disk, it falls back to the general detector instead of failing",
+      "The trained model memorises the lot and does not generalise to an unseen camera, and the experiment was built precisely to measure that cost rather than hide it",
     ],
   },
 };
@@ -583,12 +623,15 @@ const es: Record<string, TextoDoProjeto> = {
     ],
   },
   koracrm: {
-    oneLine: "Pipeline Kanban en Laravel y React con auditoría por etapa",
-    what: "CRM completo con pipeline de ventas Kanban de arrastrar y soltar, gestión de contactos, historial de interacciones y analítica de conversión. Backend Laravel 11 con Sanctum y Swagger.",
-    role: "Implementé el servicio de movimiento del pipeline con auditoría de cambios, y la consulta de conversión por etapa.",
+    oneLine: "CRM en Laravel donde la capa de aplicación no conoce Eloquent",
+    what: "Leads, embudo de ventas en cinco etapas, tareas con plazo, panel con valor por etapa, equipo con perfiles de acceso y auditoría de cada cambio con su autor. Atiende solicitudes del titular de los datos sin perder el historial.",
+    role: "Escribí todo el backend en cuatro capas, y la regla que lo sostiene es que el servicio recibe un DTO y habla con una interfaz de repositorio, nunca con Eloquent. Cambiar el ORM no debería obligar a reescribir reglas de negocio.",
     highlights: [
-      "Kanban de arrastrar y soltar con la posición persistida, sin desincronía entre cliente y base",
-      "Auditoría automática: cada movimiento entre etapas queda registrado",
+      "Dos reglas de dominio probadas por ambos lados: el lead nace siempre en la primera etapa, y un lead ganado o perdido no vuelve al embudo",
+      "La capa de aplicación no conoce Eloquent, y eso es lo que mantiene la regla comprobable sin base de datos",
+      "Auditoría automática: cada movimiento entre etapas queda registrado con su autor",
+      "126 pruebas, 90% de cobertura en el backend, y el CI falla por debajo del 85%",
+      "Solo la interfaz está publicada: la demostración corre en el navegador con datos de ejemplo, porque la API en Laravel no está desplegada",
     ],
   },
   "mente-viva": {
@@ -608,6 +651,43 @@ const es: Record<string, TextoDoProjeto> = {
     highlights: [
       "La dificultad se adapta por franja etaria, de pollito a maestro",
       "Filosofía no punitiva: el refuerzo siempre alienta al niño",
+    ],
+  },
+  almanaque: {
+    oneLine: "Guía de empresas y clasificados multi-inquilino, con la consola de quien atiende",
+    what: "Plataforma para publicar guías de empresas y clasificados: cada cliente tiene su propio portal, con sus categorías, sus anunciantes y su suscripción. Junto con el producto viene la consola de soporte, que es la parte poco común: cola de tickets por impacto, triaje en cuatro cajas y base de problemas conocidos ligada a la versión que corrigió cada uno.",
+    role: "Lo escribí todo, del dominio a la consola. La decisión que más moldeó el sistema fue tratar la atención como parte del producto y no como una planilla al lado: un ticket no se cierra sin clasificación, y nada se clasifica como defecto sin haber sido reproducido en un entorno limpio.",
+    highlights: [
+      "Multi-inquilino con prueba detrás: un portal no ve el dato del otro, y eso lo exige la batería en vez de confiarlo al cuidado de quien escribe la próxima consulta",
+      "Búsqueda en Elasticsearch con relevancia y acentos, con respaldo en la base cuando el índice cae, porque una búsqueda caída no puede llevarse la guía con ella",
+      "La rutina de cobro puede correr dos veces sin cobrar dos veces: el ciclo de facturación es la clave de idempotencia",
+      "Tres intentos antes de cancelar una suscripción morosa, en vez de cortar en el primer rechazo de tarjeta",
+      "Un ticket cerrado sin decir qué era es justo lo que impide descubrir, tres meses después, que el mismo defecto volvió",
+      "PHPStan nivel 8, Playwright de punta a punta y manifiestos de Kubernetes en el repositorio",
+    ],
+  },
+  "maranata-conecta": {
+    oneLine: "Sistema de iglesia en producción, donde el silencio es una función",
+    what: "Miembros, grupos, agenda de cultos, turnos de servicio, banco de alabanzas y proyección para una iglesia de Bauru. Está en el aire con gente real usándolo, en celulares viejos y portátiles viejos, que es lo que la iglesia tiene.",
+    role: "Diseñé y escribí el sistema entero, incluida la migración de una aplicación en servidor a funciones sin servidor, que eliminó el arranque en frío y el costo de una máquina encendida. El papel de cada persona define lo que ve, y su agenda se arma a partir de los grupos a los que pertenece.",
+    highlights: [
+      "El aviso no puede ser molesto: lo que se repite cada semana se vuelve un resumen el sábado, y solo lo que cambia se avisa en el momento. Enseñarle a la persona a ignorar la notificación de la iglesia es el peor resultado posible",
+      "Nueve papeles con permisos explícitos y sin jerarquía implícita: poder agendar el ensayo de tu grupo de alabanza no te deja agendar un culto de toda la iglesia",
+      "Conceder un cargo de gobierno exige ser pastor, y nadie promueve a alguien por encima de su propio alcance",
+      "Contraseña con scrypt y comparación en tiempo constante, sesión firmada con HMAC, y cinco errores bloquean la cuenta por quince minutos",
+      "La agenda pública se cachea en el borde y la de quien entró nunca: el caché varía por cookie, si no el turno de uno aparece para otro",
+      "Se puede ver la semana sin cuenta, porque el visitante también necesita saber a qué hora empieza el culto",
+    ],
+  },
+  baliza: {
+    oneLine: "Plazas libres de estacionamiento leídas por la cámara que ya está en el poste",
+    what: "Dice qué plazas de un patio están libres a partir del video de una cámara fija. Sin sensores en el piso, sin cable nuevo, sin obra: la cámara que ya está ahí por seguridad encuadra decenas de plazas a la vez.",
+    role: "Trabajo de Visión Computacional en grupo de cuatro. Armé los dos detectores, el entrenamiento sobre PKLot y la medición que decide cuál usar en cada cámara.",
+    highlights: [
+      "Son dos detectores y la diferencia se dice con honestidad: el general de COCO encuentra autos en cualquier patio sin entrenamiento, y el entrenado encuentra la plaza en sí, que es lo que salva un patio grande donde el auto mide veinte píxeles",
+      "No elige el gusto: cada mapa de plazas guarda el detector que midió mejor en esa cámara, y el programa imprime cuál cargó",
+      "Si los pesos entrenados no están en disco, cae al detector general en vez de fallar",
+      "El modelo entrenado memoriza el patio y no generaliza a una cámara nunca vista, y el experimento se armó justamente para medir ese costo en lugar de esconderlo",
     ],
   },
 };

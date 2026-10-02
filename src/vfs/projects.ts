@@ -1541,4 +1541,132 @@ public class TeleportPoint : MonoBehaviour
 }
 `,
   },
+  {
+    path: "/projetos/almanaque.php",
+    name: "almanaque.php",
+    language: "php",
+    meta: {
+      project: "Almanaque",
+      github: "https://github.com/fabriciojunio/almanaque",
+      demo: "https://almanaque-ecru.vercel.app",
+      stack: ["PHP 8.3", "Symfony 7.4", "Doctrine", "MySQL 8", "Elasticsearch 9", "Redis"],
+      role: "Guia e classificados multi-inquilino, com console de suporte: fila por impacto, triagem em quatro caixas e base de problemas conhecidos.",
+    },
+    content: `<?php
+// Cobrança da assinatura.
+//
+// Esta rotina vai rodar duas vezes. Não é hipótese: é tentativa
+// repetida, fila reprocessada e alguém rodando na mão no mesmo dia.
+// A proteção não é "tomar cuidado", é a chave ser a competência.
+
+namespace App\\\\Assinatura;
+
+final class CobrarCiclo
+{
+    public function __construct(
+        private readonly Cobrancas \\$cobrancas,
+        private readonly Relogio \\$relogio,
+    ) {
+    }
+
+    public function executar(Assinatura \\$assinatura, Competencia \\$ciclo): Cobranca
+    {
+        \\$ja = \\$this->cobrancas->doCiclo(\\$assinatura, \\$ciclo);
+        if (\\$ja !== null) {
+            return \\$ja;   // mesmo ciclo, mesma cobrança
+        }
+
+        return \\$this->cobrancas->abrir(\\$assinatura, \\$ciclo, \\$this->relogio->agora());
+    }
+
+    // Cartão recusado não cancela no primeiro erro. São três
+    // tentativas, porque limite estourado na segunda-feira costuma
+    // estar resolvido na quinta, e cliente cortado não volta.
+    public function emAtraso(Cobranca \\$cobranca): Decisao
+    {
+        return \\$cobranca->tentativas() < 3
+            ? Decisao::TENTAR_DE_NOVO
+            : Decisao::CANCELAR;
+    }
+}
+`,
+  },
+  {
+    path: "/projetos/maranata-conecta.java",
+    name: "maranata-conecta.java",
+    language: "java",
+    meta: {
+      project: "Maranata Conecta",
+      demo: "https://maranata-conecta.vercel.app",
+      stack: ["Java 21", "Spring Boot 3.5", "PostgreSQL", "Vercel Functions"],
+      role: "Sistema de igreja em producao: membros, grupos, agenda, escalas e louvores, com nove papeis de permissao explicita.",
+    },
+    content: `// Permissão aqui não é hierarquia, é lista.
+//
+// O erro que isso evita: o dirigente do grupo de louvor marcou um
+// "Culto especial" para a igreja inteira. Ele podia marcar encontro,
+// e marcar encontro parecia uma coisa só. Não é.
+
+enum Permissao {
+    CRIAR_ENCONTRO_DO_GRUPO,
+    CRIAR_ENCONTRO_DA_IGREJA,   // secretaria, cooperador e pastor
+    DEFINIR_PAPEL,
+    VER_CONTATO_DO_MEMBRO,
+}
+
+// Marcar no grupo não é marcar na igreja.
+boolean alcancaOGrupo(Pessoa quem, Long grupoId) {
+    if (grupoId == null) {
+        return quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
+    }
+    return quem.dirige(grupoId) || quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
+}
+
+// E ninguém promove alguém acima do próprio alcance. Sem esta
+// linha, um administrador se tornava pastor sozinho.
+boolean podeConceder(Pessoa quem, Papel novo) {
+    if (novo.ehDeGoverno()) {
+        return quem.ehPastor() || naoExistePastorAinda();
+    }
+    return quem.alcance() > novo.alcance();
+}
+`,
+  },
+  {
+    path: "/projetos/baliza.py",
+    name: "baliza.py",
+    language: "python",
+    meta: {
+      project: "Baliza",
+      github: "https://github.com/fabriciojunio/baliza",
+      demo: null,
+      stack: ["Python", "YOLO11", "OpenCV", "Streamlit"],
+      role: "Ocupacao de vagas de estacionamento pela camera fixa, com dois detectores e medicao decidindo qual usar em cada patio.",
+    },
+    content: `# Dois detectores, e a escolha não é de gosto.
+#
+# O geral do COCO acha CARRO e funciona em qualquer pátio sem treino.
+# O treinado acha a VAGA, e é o único que serve quando o pátio é
+# fotografado de longe e o carro tem vinte pixels de largura.
+#
+# Cada mapa guarda o que mediu melhor NAQUELA câmera. O programa
+# imprime qual carregou, porque esconder isso é o começo de alguém
+# acreditar num número que não vale para o pátio dele.
+
+def carregar(mapa: MapaDeVagas) -> Detector:
+    if mapa.detector == "vagas" and PESOS_VAGAS.exists():
+        return DetectorDeVagas(PESOS_VAGAS)
+    # sem os pesos treinados, cair no geral é melhor que falhar
+    return DetectorDeVeiculos(PESOS_COCO)
+
+
+def ocupada(vaga: Poligono, caixas: list[Caixa], limiar: float = 0.25) -> bool:
+    """Vaga com veículo em cima está ocupada.
+
+    O limiar é de área coberta, não de distância ao centro: carro
+    estacionado torto cobre a vaga sem ficar centralizado nela.
+    """
+    return any(vaga.fracao_coberta(c) >= limiar for c in caixas)
+`,
+  },
 ];
