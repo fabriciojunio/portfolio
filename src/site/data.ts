@@ -202,14 +202,17 @@ const forca = Math.min(
   {
     slug: "koracrm",
     name: "KoraCRM",
-    oneLine: "Pipeline Kanban em Laravel + React com auditoria por estágio",
-    what: "CRM completo com pipeline de vendas Kanban (drag-and-drop), gestão de contatos, histórico de interações e analytics de conversão. Backend Laravel 11 com Sanctum + Swagger.",
-    role: "Implementei o service de movimentação do pipeline com auditoria de mudanças e a query de conversão por estágio.",
+    oneLine: "CRM em Laravel onde a camada de aplicação não conhece Eloquent",
+    what: "Lead, funil de vendas em cinco estágios, tarefa com prazo, painel com valor por estágio, equipe com perfil de acesso e auditoria de toda alteração com autor. Atende pedido de LGPD do titular sem perder o histórico.",
+    role: "Escrevi o back-end inteiro em quatro camadas, e a regra que sustenta tudo é que o serviço recebe um DTO e conversa com uma interface de repositório, nunca com o Eloquent. Trocar o ORM não deveria obrigar a reescrever regra de negócio.",
     highlights: [
-      "Drag-and-drop Kanban com posição persistida, sem dessync entre cliente e banco",
-      "Auditoria automática: cada movimentação entre estágios fica registrada",
+      "Duas regras de domínio com teste dos dois lados: lead nasce sempre em novo, e lead em ganho ou perdido não volta para o funil",
+      "A camada de aplicação não conhece Eloquent, e é isso que mantém a regra testável sem banco",
+      "Auditoria automática: cada movimentação entre estágios fica registrada com autor",
+      "126 testes, cobertura de 90% no back-end, e o CI reprova abaixo de 85%",
+      "Só a interface está publicada: a demonstração roda no navegador com dados de exemplo, porque o Laravel não está no ar",
     ],
-    stack: ["Laravel 11", "React 18", "Sanctum", "PostgreSQL", "Redis", "AWS S3"],
+    stack: ["PHP 8.2", "Laravel 11", "React 18", "Sanctum", "MySQL 8", "Redis", "Pest", "PHPStan", "Docker"],
     github: "https://github.com/fabriciojunio/KoraCRM",
     demo: "https://koracrm-frontend.vercel.app",
     year: "2026",
@@ -851,6 +854,94 @@ public class TeleportPoint : MonoBehaviour
     }
 }`,
   },
+  {
+    slug: "almanaque",
+    name: "Almanaque",
+    oneLine: "Guia e classificados multi-inquilino, com o console de quem atende",
+    what: "Plataforma para publicar guias de empresas e classificados: cada cliente tem o portal dele, com categorias, anunciantes e assinatura próprios. Junto com o produto vem o console de suporte, que é a parte incomum: fila de chamados por impacto, triagem em quatro caixas e base de problemas conhecidos ligada à versão que corrigiu.",
+    role: "Escrevi tudo, do domínio ao console. A decisão que mais moldou o sistema foi tratar o atendimento como parte do produto, e não como planilha ao lado: chamado não fecha sem classificação, e nada é classificado como defeito sem ter sido reproduzido num ambiente limpo.",
+    highlights: [
+      "Multi-inquilino com teste: um portal não enxerga o dado do outro, e isso é cobrado na bateria, não confiado ao cuidado de quem escreve a consulta",
+      "Busca no Elasticsearch com relevância e acento, e reserva no banco quando o índice cai, porque busca fora do ar não pode derrubar o guia",
+      "A rotina de cobrança roda duas vezes sem cobrar duas vezes: a competência do ciclo é a chave de idempotência",
+      "Inadimplência com três tentativas antes do cancelamento, e não corte no primeiro erro de cartão",
+      "Chamado fechado sem dizer o que era é o que impede descobrir, três meses depois, que o mesmo defeito voltou",
+      "PHPStan nível 8, Playwright de ponta a ponta e Kubernetes no repositório",
+    ],
+    stack: ["PHP 8.3", "Symfony 7.4", "Doctrine", "MySQL 8", "Elasticsearch 9", "Redis", "Twig", "Docker", "Kubernetes", "S3"],
+    github: "https://github.com/fabriciojunio/almanaque",
+    demo: "https://almanaque-ecru.vercel.app",
+    demoAcesso: "suporte@almanaque.com.br / demonstracao2026",
+    year: "2026",
+    snippetLang: "php",
+    snippet: `// A cobrança mensal pode ser disparada duas vezes: por tentativa
+// repetida, por fila reprocessada, por alguém rodando na mão.
+// A chave é a competência, não o instante da chamada.
+public function cobrar(Assinatura \\$assinatura, Competencia \\$ciclo): Cobranca
+{
+    \\$ja = \\$this->cobrancas->doCiclo(\\$assinatura, \\$ciclo);
+    if (\\$ja !== null) {
+        return \\$ja;   // mesmo ciclo, mesma cobrança, sem débito novo
+    }
+
+    return \\$this->cobrancas->abrir(\\$assinatura, \\$ciclo);
+}`,
+  },
+  {
+    slug: "maranata-conecta",
+    name: "Maranata Conecta",
+    oneLine: "Sistema de igreja em produção, onde o silêncio é funcionalidade",
+    what: "Membros, grupos, agenda de cultos, escalas, banco de louvores e projeção para a Igreja Cristã Maranata de Bauru. Está no ar com gente de verdade usando, em celular antigo e notebook antigo, que é o que a igreja tem.",
+    role: "Projetei e escrevi o sistema inteiro, incluindo a migração de uma aplicação em servidor para funções sem servidor, que tirou a hibernação e o custo de máquina ligada. O papel de cada pessoa define o que ela vê, e a agenda dela é montada a partir dos grupos de que participa.",
+    highlights: [
+      "O aviso não pode ser chato: o que se repete toda semana vira um resumo no sábado, e só o que muda é avisado na hora. Ensinar a pessoa a ignorar a notificação da igreja é o pior resultado possível",
+      "Nove papéis com permissão explícita, sem hierarquia implícita: marcar ensaio do grupo de louvor não dá direito a marcar culto da igreja",
+      "Quem concede cargo de governo precisa ser pastor, e ninguém promove alguém acima do próprio alcance",
+      "Senha com scrypt e comparação em tempo constante, sessão assinada por HMAC, e cinco erros travam a conta por quinze minutos",
+      "A agenda pública é cacheada na borda, e a agenda de quem entrou nunca: o cache é por cookie, senão a escala de um aparece para outro",
+      "Dá para entrar sem conta e ver a semana, porque visitante também precisa saber o horário do culto",
+    ],
+    stack: ["Java 21", "Spring Boot 3.5", "JavaScript", "PostgreSQL", "Vercel Functions", "Docker", "Kubernetes"],
+    github: null,
+    demo: "https://maranata-conecta.vercel.app",
+    year: "2026",
+    snippetLang: "java",
+    snippet: `// Marcar no grupo não é marcar na igreja.
+// O dirigente do louvor marca o ensaio dele; culto da igreja
+// inteira é da secretaria, do cooperador ou do pastor.
+boolean alcancaOGrupo(Pessoa quem, Long grupoId) {
+    if (grupoId == null) {
+        return quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
+    }
+    return quem.dirige(grupoId) || quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
+}`,
+  },
+  {
+    slug: "baliza",
+    name: "Baliza",
+    oneLine: "Vagas livres de estacionamento pela câmera que já está no poste",
+    what: "Diz quais vagas de um pátio estão livres a partir do vídeo de uma câmera fixa. Sem sensor no piso, sem cabo novo, sem obra: a câmera que já está lá por segurança enquadra dezenas de vagas ao mesmo tempo.",
+    role: "Trabalho de Visão Computacional em grupo de quatro. Montei os dois detectores, o treino no PKLot e a medição que decide qual deles usar em cada câmera.",
+    highlights: [
+      "São dois detectores, e a diferença é honesta: o geral do COCO acha carro em qualquer pátio sem treino, e o treinado acha a vaga em si, que é o que salva pátio grande onde o carro tem vinte pixels",
+      "Quem escolhe não é o gosto: cada mapa de vagas guarda o detector que mediu melhor naquela câmera, e o programa imprime qual carregou",
+      "Se os pesos treinados não estiverem em disco, cai no detector geral em vez de falhar",
+      "O modelo treinado decora o pátio e não generaliza para câmera nunca vista, e o experimento foi montado justamente para medir esse custo em vez de escondê-lo",
+    ],
+    stack: ["Python", "YOLO11", "OpenCV", "Streamlit", "PKLot"],
+    github: "https://github.com/fabriciojunio/baliza",
+    demo: null,
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# O detector geral enxerga o carro; o treinado enxerga a vaga.
+# Em pátio fotografado de longe o carro tem vinte pixels e o
+# geral simplesmente não o vê, por isso cada mapa guarda o seu.
+def carregar(mapa: MapaDeVagas) -> Detector:
+    if mapa.detector == "vagas" and PESOS_VAGAS.exists():
+        return DetectorDeVagas(PESOS_VAGAS)
+    # sem os pesos treinados, cair no geral é melhor que falhar
+    return DetectorDeVeiculos(PESOS_COCO)`,
+  },
 ];
 
 // A vitrine é dividida por peso, não por ordem corrida.
@@ -864,6 +955,7 @@ const EIXO = [
   "feira",              // Kafka, outbox, saga com compensação
   "vitrine-bauru",      // quatro serviços por evento, no ar com cliente real
   "outorga",            // multi-tenant, licença como invariante de domínio
+  "almanaque",          // multi-inquilino, busca e o console de quem atende
   "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
   "paiol-tech",         // NestJS com CQRS, Open Finance
   "guarda-banco",       // proteção de escrita dentro do servidor de banco
@@ -872,8 +964,10 @@ const EIXO = [
 ];
 
 const PRODUTO = [
+  "maranata-conecta",   // no ar com gente de verdade, papel define o que se vê
   "balcao",             // o modelo não escreve número, quem calcula é o domínio
   "apontamento-horas",  // RBAC, SLA e exportação
+  "koracrm",            // quatro camadas, aplicação sem Eloquent
   "registraservico",    // multi-tenant configurável
 ];
 
@@ -882,6 +976,7 @@ const FACULDADE = [
   "permaneia",          // RAG com fonte citada e fuzzy escrito do zero
   "cardiocam",          // rPPG, quatro algoritmos comparados
   "contaflux",          // visão computacional aplicada
+  "baliza",             // dois detectores, e a medição decide qual usar
   "mycondpets",         // web em equipe de cinco
   "kaida",              // Unity, cenas geradas por código
   "bicudo",             // Unity, individual
@@ -894,7 +989,6 @@ const OUTROS = [
   "goldata-pro",
   "sintonia",
   "bravor",
-  "koracrm",
   "mente-viva",
   "mundo-do-lukinha",
 ];
