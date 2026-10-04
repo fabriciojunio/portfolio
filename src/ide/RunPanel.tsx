@@ -3,8 +3,6 @@ import { AnimatePresence, m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 import { CloseIcon } from "./icons";
 
-const XgDemo = lazy(() => import("../demos/XgDemo"));
-const KellyDemo = lazy(() => import("../demos/KellyDemo"));
 const ZodDemo = lazy(() => import("../demos/ZodDemo"));
 const VagasDemo = lazy(() => import("../demos/VagasDemo"));
 const ContafluxDemo = lazy(() => import("../demos/ContafluxDemo"));
@@ -14,9 +12,6 @@ const BicudoDemo = lazy(() => import("../demos/BicudoDemo"));
 const PermaneiaDemo = lazy(() => import("../demos/PermaneiaDemo"));
 
 const DEMO_TITLES = {
-  xg:           "GolData / Expected Goals (xG)",
-  kelly:        "GolData Pro / Kelly + Value Bets",
-  elo:          "GolData / Elo simplificado",
   zod:          "Apontamento de Horas / Validação Zod",
   "vagas-score": "JIS / Motor de Score de Vagas",
   "contagem-de-linha": "Contaflux / Contagem por cruzamento de linha",
@@ -104,8 +99,6 @@ export default function RunPanel() {
             </div>
           }
         >
-          {kind === "xg" && <XgDemo />}
-          {kind === "kelly" && <KellyDemo />}
           {kind === "zod" && <ZodDemo />}
           {kind === "vagas-score" && <VagasDemo />}
           {kind === "contagem-de-linha" && <ContafluxDemo />}
