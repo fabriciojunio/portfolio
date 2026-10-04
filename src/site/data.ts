@@ -121,6 +121,86 @@ if n > limite_por_fatia and a < b:
     continue                               # e o que falhar fica declarado`,
   },
   {
+    slug: "verbete",
+    name: "Verbete",
+    oneLine: "Projetos de lei classificados por tema, com a medida do vazamento",
+    what: "Classifica proposição legislativa pelos 32 temas oficiais da Câmara, a partir da ementa. É o motor de um produto de monitoramento regulatório: saber, no dia em que a proposição é apresentada, quais clientes ela afeta. 4.500 projetos de lei de 2022 a 2024, com a taxonomia vinda da própria API.",
+    role: "Escrevi o leitor da API com paginação e registro de falha, as métricas multirrótulo, os três candidatos, a curva de abstenção e a extração de explicação. 41 testes, nenhum deles chamando a API.",
+    highlights: [
+      "O resultado principal é o tamanho do vazamento de anotação: o campo de palavras-chave da API é preenchido pela mesma indexação humana que atribui o tema, e usá-lo faz o micro-F1 ir de 0,542 para 0,682. Um modelo que o usasse pareceria 26% melhor do que vai ser quando a proposição chegar sem indexação",
+      "A divisão é temporal e não aleatória: proposição sobre o mesmo assunto reaparece a cada legislatura com ementa quase igual, e divisão aleatória poria a quase-cópia nos dois lados",
+      "A distância entre micro e macro F1 é o resultado, não um detalhe: ela mede o quanto o modelo funciona só nos temas comuns, e o mais raro tem 14 casos contra 1.207 do mais comum",
+      "A resposta de produto é negativa e está escrita: o alvo de 0,70 de micro-F1 não é alcançado em cobertura nenhuma, e o melhor ponto da curva é 0,694 respondendo um décimo dos casos",
+      "A regra de dicionário entra como linha de base e não é espantalho: ela sozinha já acerta um dos temas em dois terços dos casos, e o modelo ganha 1,84x dela",
+      "Um limiar por tema, ajustado na validação: corte único para 32 temas de frequências muito diferentes é simplicidade falsa",
+      "O classificador é linear de propósito: num setor regulado, explicação que não vem do modelo que decidiu é uma segunda opinião",
+    ],
+    stack: ["Python 3.12", "scikit-learn", "pandas", "NumPy", "Matplotlib"],
+    github: "https://github.com/fabriciojunio/verbete",
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# As keywords vêm da MESMA indexação que atribui o tema, então
+# usá-las é usar parte do trabalho que produziu o rótulo. Ficam
+# atrás de uma chave, e o projeto mede os dois casos.
+partes = [registro.get("ementa") or ""]
+if usar_ementa_detalhada:
+    partes.append(registro.get("ementa_detalhada") or "")
+if usar_keywords:                      # <- +0,140 de micro-F1
+    partes.append(registro.get("keywords") or "")`,
+  },
+  {
+    slug: "prumo",
+    name: "Prumo",
+    oneLine: "O desempenho passado de um fundo prevê o futuro?",
+    what: "Responde, em 42,3 milhões de linhas de cota diária da CVM, a pergunta que uma mesa de seleção de fundos responde todo dia. 40.961 séries de fundo, de 2018 a 2025, processadas ano a ano para caber na memória, carregando a última cota de um ano para o seguinte.",
+    role: "Escrevi o leitor dos três arquivos da CVM com a medição de cobertura de cada junção, o cálculo de retorno e risco, as três medidas de persistência e a análise de taxa. 58 testes, que rodam contra dois mundos sintéticos de resposta conhecida.",
+    highlights: [
+      "A resposta é 'quase nada, e depende da classe': renda fixa persiste de verdade, com razão de chances de 3,82, e ações não persiste, com 0,94 e intervalo encostando em 1 pelo lado de cima",
+      "Em dinheiro não vale nada: a diferença entre o melhor e o pior quintil é de 0,72% no ano seguinte, e a dispersão dentro de cada quintil é de 19,20%. Vinte e seis vezes maior",
+      "O achado que não estava no roteiro: a matriz de transição é em U. Do quintil pior, 30,0% ficam e 29,6% vão direto para o melhor. Quem está nas pontas é o fundo volátil, e o que persiste é o risco, não o retorno",
+      "O viés de sobrevivência está medido: só 19% das séries existem do início ao fim do período, e 37% somem antes do fim",
+      "A seção da taxa de administração é sobre o dado e não sobre o mercado: ela só existe no cadastro antigo, que virou histórico depois da Resolução CVM 175 e casa com 24,3% dos fundos, e quem tem taxa conhecida rende 4,2 pontos percentuais menos que o resto",
+      "O comportamento do dado foi medido e nada disso está na documentação: o CNPJ vem como texto num arquivo e como inteiro noutro, o que faz a junção casar zero linhas sem erro nenhum",
+      "Com 120 mil pares, 37 de 42 testes são significativos com e sem correção: o valor-p para de informar e o tamanho do efeito é o que resta",
+    ],
+    stack: ["Python 3.12", "pandas", "NumPy", "SciPy", "Matplotlib", "PyArrow"],
+    github: "https://github.com/fabriciojunio/prumo",
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# O 1.0 na frente é o valor ANTES do primeiro retorno, e ele
+# precisa estar no topo: sem ele, um fundo que só cai desde o
+# primeiro dia tem a pior queda medida pela metade.
+acumulado = np.concatenate([[1.0], np.cumprod(1.0 + r)])
+topo = np.maximum.accumulate(acumulado)
+queda = acumulado / topo - 1.0      # <- pego por teste`,
+  },
+  {
+    slug: "trato",
+    name: "Trato",
+    oneLine: "Quem contatar, e não quem vai pagar",
+    what: "Modelagem de uplift num experimento aleatorizado de verdade, com 64 mil pessoas e 21 mil no controle. Um modelo de resposta prevê quem paga; um modelo de uplift prevê quem paga por causa do contato. Usar o primeiro para escolher quem contatar manda mensagem para quem já ia pagar sozinho.",
+    role: "Escrevi a conferência da aleatorização, as medidas de uplift, os quatro candidatos e a tradução para dinheiro com custo e valor declarados. 34 testes, em mundos sintéticos de efeito conhecido.",
+    highlights: [
+      "Antes de concluir que o modelo é fraco, o projeto mede se existe heterogeneidade para achar: o efeito dentro de 19 subgrupos conhecidos de antemão, sem modelo nenhum e com correção de multiplicidade",
+      "Num braço do experimento nenhuma fatia difere do efeito geral, e os modelos confirmam sem separar topo de fundo de forma distinguível do acaso. O resultado negativo está correto, e isso só dá para afirmar porque a heterogeneidade foi medida em separado",
+      "No outro braço ela existe e é interpretável, com 3,4x de diferença entre quem comprou de um lado e do outro. Aí o modelo encontra: separação de 3x entre os 30% do topo e do fundo, com intervalos que não se sobrepõem",
+      "Em dinheiro: 11,6% a mais de resultado contatando 25 pontos percentuais menos gente",
+      "O Qini engana e o projeto mostra como: o ganho da curva é uma contagem de eventos, então quem ordena por respondentes acumula ganho cedo mesmo sem separar efeito nenhum",
+      "O piso do acaso é a média de trinta sorteios e não um: um sorteio só produz Qini de −0,117 a +0,143 nesta base",
+      "Uplift não tem rótulo individual: ninguém é observado contatado e não contatado ao mesmo tempo. Toda a validação é por grupo, e essa ausência de métrica individual é deliberada",
+    ],
+    stack: ["Python 3.12", "scikit-learn", "pandas", "NumPy", "SciPy"],
+    github: "https://github.com/fabriciojunio/trato",
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# O efeito do contato, medido DENTRO do grupo que o modelo
+# escolheu. É assim que se valida uplift: não existe rótulo
+# individual, porque ninguém é visto nos dois estados.
+for nome in grupos_distintos:
+    m = grupos == nome
+    e = efeito_medio(y[m], tratado[m])   # <- medido, não previsto`,
+  },
+  {
     slug: "feira",
     name: "Feira do Comando",
     oneLine: "Pedidos orientados a eventos com saga e compensação",
@@ -1048,6 +1128,9 @@ const EIXO = [
   "lastro",             // TCC: estrutura de dependência aprendida, não desenhada
   "anteparo",           // IFRS 9: a hipótese de LGD pesa mais que o algoritmo
   "decurso",            // jurimetria: a conta de planilha erra 1,23x para baixo
+  "prumo",              // fundos: o que persiste é o risco, não o retorno
+  "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
+  "trato",              // uplift: medir se há heterogeneidade antes de culpar o modelo
   "permaneia",          // RAG com fonte citada e fuzzy de Mamdani escrito do zero
   "baliza",             // dois detectores e um terceiro sem rede neural, medidos
   "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo
