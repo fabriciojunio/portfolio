@@ -42,11 +42,13 @@ const PROJECTS_SOURCE: SiteProject[] = [
     highlights: [
       "A fase que prova o método vem antes da que o aplica: primeiro em redes cuja estrutura é conhecida, com Friedman, Wilcoxon pareado e correção de Benjamini-Hochberg; só depois no dado real, sem reajustar nenhum parâmetro",
       "Essa fase pegou um defeito que o dado real jamais denunciaria: a primeira versão do aprendiz perdia da escalada de colina, e a diferença crescia com o tamanho do problema. O espaço da máscara tem 435 bits em 30 vértices, e a evolução gastava o orçamento procurando o que, dada a ordem, pode ser calculado",
-      "O grafo de correlação com limiar, que é como boa parte da literatura financeira monta rede, entra como contraexemplo e é medido: metade das arestas que ele cria não existe",
+      "Com a máscara calculada em vez de evoluída, o aprendiz passou ao primeiro posto médio entre sete algoritmos nas mesmas 840 execuções. Ganha da busca tabu e da escalada de colina com tamanho de efeito alto, e empata com o PC, o que está relatado como empate e não como vitória",
+      "O teto da codificação está medido em separado: com a ordem topológica verdadeira o erro estrutural cai para 7,07, contra 40,38 de uma ordem sorteada. A ordem é a parte difícil, e não é adivinhável, porque ordenar por variância marginal fica em 12,25",
+      "O grafo de correlação com limiar, que é como boa parte da literatura financeira monta rede, entra como contraexemplo e é medido: dois terços das arestas que ele cria não existem",
       "Comparação em CPDAG, não em DAG: dois grafos com o mesmo esqueleto e os mesmos colisores são indistinguíveis a partir de dado observacional, e cobrar a direção seria cobrar o impossível",
       "Detector de desdobramento e grupamento com três critérios simultâneos, auditável: encontrou nove eventos em 14 anos, entre eles o 1:2 do Banco do Brasil em 2024 e o 1:4 do BTG em 2021",
       "A curva de deriva usa só pares de janelas sem sobreposição, e a similaridade entre reamostragens da mesma janela entra como teto de ruído: sem esse número a meia-vida não tem leitura",
-      "3.471 pregões de 2012 a 2025, 22 instituições, 154 janelas e 38 testes que verificam propriedade matemática, não implementação",
+      "3.471 pregões de 2012 a 2025, 22 instituições, 154 janelas e 55 testes que verificam propriedade matemática, não implementação",
     ],
     stack: ["Python 3.12", "NumPy", "SciPy", "NetworkX", "pandas", "scikit-learn", "Matplotlib"],
     github: null,
@@ -62,6 +64,61 @@ for pos in range(n):
         pontuador, no, candidatos, grau_max,
         penalidade_por_aresta=0.5 * log(N),   # <- o termo do BIC
     )                                  # sem ele, o guloso satura`,
+  },
+  {
+    slug: "anteparo",
+    name: "Anteparo",
+    oneLine: "Provisão para perda esperada de crédito sob IFRS 9",
+    what: "Calcula a provisão do jeito que a norma manda: PD, LGD e EAD, com classificação em estágios, sobreposição prospectiva e monitoramento. A conta é ECL = PD × LGD × EAD; o trabalho está em decidir qual PD entra nela, e em medir de quanto o modelo ganha de não ter modelo.",
+    role: "Escrevi o domínio inteiro: a regra de transferência entre estágios, as métricas de discriminação e calibração, o PSI com faixas vindas da referência, as três medidas de equidade e a tabela de sensibilidade. O domínio opera sobre numpy e tipos próprios, sem conhecer arquivo nem biblioteca de modelo.",
+    highlights: [
+      "O resultado que importa não é do modelo: a provisão varia 1,45x só mudando a hipótese de LGD dentro da faixa declarada, bem mais do que a distância entre o melhor e o pior algoritmo de PD",
+      "O critério de escolha não é o maior Gini, é o maior Gini entre os candidatos com erro de calibração dentro do dobro do melhor. Provisão usa a probabilidade como número, não como ordem",
+      "A regra sem aprendizado de máquina entra na comparação em pé de igualdade, e o ganho sobre ela é de 1,51x em Gini. Sem esse número não dá para dizer que a complexidade se paga",
+      "O estágio exige duas condições ao mesmo tempo, aumento relativo da PD e aumento absoluto: só a razão dispararia a carteira inteira quando a PD é baixa",
+      "O achado de equidade que a média esconde: num grupo de 91 casos o modelo superestima o risco por um fator de quase cinco, com AUC pior que o acaso",
+      "Tirar sexo, escolaridade e estado civil custa −0,0024 de Gini, ou seja, o modelo fica marginalmente melhor sem elas. Com custo zero, não existe argumento técnico para manter",
+      "Base de Taiwan, declarada: não existe base pública brasileira de contrato a contrato com inadimplência rotulada, e usar dado real estrangeiro é melhor que inventar dado brasileiro",
+    ],
+    stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "pytest"],
+    github: "https://github.com/fabriciojunio/anteparo",
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# O estágio não é nível de risco, é AUMENTO desde a originação.
+# Só a razão dispararia a carteira inteira quando a PD é baixa:
+# sair de 0,1% para 0,3% é o triplo e não é aumento relevante.
+subiu = (pd_atual / pd_originacao >= RAZAO_MINIMA) & (
+    pd_atual - pd_originacao >= AUMENTO_ABSOLUTO_MINIMO
+)
+estagio = np.where(tem_perda, 3, np.where(subiu | atraso_30, 2, 1))`,
+  },
+  {
+    slug: "decurso",
+    name: "Decurso",
+    oneLine: "Quanto um processo judicial dura, e quanto disso vira provisão",
+    what: "Estima duração e desfecho de processo a partir da API pública do CNJ, e transforma as duas coisas em provisão pelo critério do CPC 25. O DataJud tem o insumo e não tem nenhuma das respostas prontas: não traz desfecho rotulado, não traz valor da causa e não traz duração, e as três precisam ser derivadas da lista de movimentos.",
+    role: "Escrevi o coletor tolerante a falha, a derivação de desfecho com as três defesas contra vazamento, a análise de sobrevivência com Kaplan-Meier e log-rank, o modelo com linha de base e o cálculo de provisão. 126 testes, nenhum deles tocando a API.",
+    highlights: [
+      "A conta que sai de planilha, a média dos processos já encerrados, descarta 21,3% da base e erra para baixo por 1,23x: 794 dias contra 974 da mediana de Kaplan-Meier. O erro não é aleatório, e é maior justamente na vara mais lenta",
+      "Comparando a duração entre assuntos, 12 dos 55 pares pareceriam diferentes a 5% e só 6 sobrevivem à correção de Benjamini-Hochberg",
+      "O modelo de desfecho dá resultado negativo e está relatado como tal: o ritmo de andamento nos primeiros 180 dias não prevê nada. A taxa histórica do órgão carrega sinal pequeno, AUC de 0,572",
+      "A classificação do CPC 25 sai degenerada por motivo estrutural: modelo calibrado numa taxa base de 0,32 concentra as previsões perto da média e nunca cruza o corte de 'mais provável que não'. Inflar a probabilidade para cruzar quebraria a calibração",
+      "A hipótese de valor em risco move a provisão 4,00x contra 1,06x da escolha do modelo",
+      "O comportamento da API foi medido, não presumido: ordenação devolve 504 em qualquer forma, o que inviabiliza search_after, e a contagem sem track_total_hits para em 10.000, fazendo uma consulta de 300 mil parecer de 10 mil",
+      "A coleta divide o período até cada fatia caber e grava o que faltou, fatia por fatia: a desta base veio incompleta, 2.648 de 9.852, e isso está declarado em vez de invisível",
+    ],
+    stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "SciPy", "Matplotlib"],
+    github: "https://github.com/fabriciojunio/decurso",
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# Ordenação devolve 504 nesta API, então search_after não serve.
+# Sobra dividir o período até cada fatia caber na paginação rasa.
+n = self.contar(indice, consulta)          # com track_total_hits
+if n > limite_por_fatia and a < b:
+    meio = a + (b - a) // 2
+    pilha.append((meio + timedelta(days=1), b))
+    pilha.append((a, meio))
+    continue                               # e o que falhar fica declarado`,
   },
   {
     slug: "feira",
@@ -989,6 +1046,8 @@ def carregar(mapa: MapaDeVagas) -> Detector:
 
 const EIXO = [
   "lastro",             // TCC: estrutura de dependência aprendida, não desenhada
+  "anteparo",           // IFRS 9: a hipótese de LGD pesa mais que o algoritmo
+  "decurso",            // jurimetria: a conta de planilha erra 1,23x para baixo
   "permaneia",          // RAG com fonte citada e fuzzy de Mamdani escrito do zero
   "baliza",             // dois detectores e um terceiro sem rede neural, medidos
   "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo
