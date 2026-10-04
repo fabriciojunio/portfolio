@@ -63,7 +63,8 @@ export interface Textos {
     titulo: [string, string, string];
     chamada: string;
     blocos: {
-      backend: { titulo: string; nota: string };
+      ia: { titulo: string; nota: string };
+      parceria: { titulo: string; nota: string };
       produto: { titulo: string; nota: string };
       faculdade: { titulo: string; nota: string };
     };
@@ -133,17 +134,21 @@ const pt: Textos = {
     titulo: ["Projetos que ", "construí", "."],
     chamada: "Clique em qualquer um: o problema, a decisão que tomei e um trecho de código.",
     blocos: {
-      backend: {
-        titulo: "Back-end",
-        nota: "O eixo. Fila, evento, autenticação e banco, que é onde passo o dia.",
+      ia: {
+        titulo: "Modelo e decisão",
+        nota: "O eixo. Onde o resultado precisa ser defendido, e não só treinado: baseline antes do modelo, divisão temporal honesta e o limite escrito junto com o número.",
+      },
+      parceria: {
+        titulo: "Parceria e extensão",
+        nota: "Com cliente fora da faculdade: prefeitura, agente de saúde e comunidade.",
       },
       produto: {
-        titulo: "Produto com usuário",
-        nota: "Saíram de projeto pessoal e foram para cliente.",
+        titulo: "Back-end e produto",
+        nota: "Fila, evento, autenticação e banco, que é onde passo o dia.",
       },
       faculdade: {
-        titulo: "Faculdade e pesquisa",
-        nota: "Trabalhos de disciplina na UNISAGRADO e a iniciação científica.",
+        titulo: "Faculdade",
+        nota: "Trabalhos de disciplina na UNISAGRADO.",
       },
     },
     acervo: "projetos anteriores",
@@ -155,6 +160,8 @@ const pt: Textos = {
     titulo: ["Escolho a ", "ferramenta", " pelo problema."],
     nota: "Não escolho linguagem por gosto. Java é onde passo o dia: processo de negócio vivo e integração que precisa aguentar o sistema do outro lado cair. Python quando o problema é dado. TypeScript porque a tela precisa existir.",
     grupos: {
+      "dados e modelo": "dados e modelo",
+      metodo: "método",
       eixo: "eixo",
       mensageria: "mensageria",
       dados: "dados",
@@ -216,17 +223,21 @@ const en: Textos = {
     titulo: ["Things I ", "built", "."],
     chamada: "Open any of them: the problem, the decision I made, and a piece of the code.",
     blocos: {
-      backend: {
-        titulo: "Backend",
-        nota: "The axis. Queues, events, authentication and databases, which is where I spend the day.",
+      ia: {
+        titulo: "Models and decisions",
+        nota: "The axis. Where a result has to be defended, not just trained: baseline before the fancy model, honest temporal splits, and the limitation written next to the number.",
+      },
+      parceria: {
+        titulo: "Partnerships and outreach",
+        nota: "Built with clients outside the university: city hall, community health workers and a congregation.",
       },
       produto: {
-        titulo: "Shipped to customers",
-        nota: "These left the side-project stage and went to real clients.",
+        titulo: "Backend and product",
+        nota: "Queues, events, authentication and databases, which is where I spend the day.",
       },
       faculdade: {
-        titulo: "University and research",
-        nota: "Coursework at UNISAGRADO plus the undergraduate research project.",
+        titulo: "Coursework",
+        nota: "Course projects at UNISAGRADO.",
       },
     },
     acervo: "earlier projects",
@@ -238,6 +249,8 @@ const en: Textos = {
     titulo: ["I pick the ", "tool", " for the problem."],
     nota: "I do not pick a language by taste. Java is where I spend the day: live business processes, and integrations that have to survive the system on the other end going down. Python when the problem is data. TypeScript because the screen has to exist.",
     grupos: {
+      "dados e modelo": "data and models",
+      metodo: "method",
       eixo: "core",
       mensageria: "messaging",
       dados: "data",
@@ -299,16 +312,20 @@ const es: Textos = {
     titulo: ["Cosas que ", "construí", "."],
     chamada: "Abrí cualquiera: el problema, la decisión que tomé y un fragmento de código.",
     blocos: {
-      backend: {
-        titulo: "Back-end",
-        nota: "El eje. Colas, eventos, autenticación y base de datos, que es donde paso el día.",
+      ia: {
+        titulo: "Modelo y decisión",
+        nota: "El eje. Donde el resultado tiene que defenderse, no solo entrenarse: baseline antes del modelo complejo, división temporal honesta y el límite escrito junto al número.",
+      },
+      parceria: {
+        titulo: "Alianzas y extensión",
+        nota: "Con clientes fuera de la universidad: municipio, agentes de salud y comunidad.",
       },
       produto: {
-        titulo: "Producto con usuarios",
-        nota: "Dejaron de ser proyecto personal y llegaron a clientes reales.",
+        titulo: "Back-end y producto",
+        nota: "Colas, eventos, autenticación y base de datos, que es donde paso el día.",
       },
       faculdade: {
-        titulo: "Universidad e investigación",
+        titulo: "Universidad",
         nota: "Trabajos de cursada en UNISAGRADO y el proyecto de iniciación científica.",
       },
     },
@@ -321,6 +338,8 @@ const es: Textos = {
     titulo: ["Elijo la ", "herramienta", " según el problema."],
     nota: "No elijo lenguaje por gusto. Java es donde paso el día: procesos de negocio vivos e integraciones que tienen que sobrevivir a que el sistema del otro lado se caiga. Python cuando el problema son los datos. TypeScript porque la pantalla tiene que existir.",
     grupos: {
+      "dados e modelo": "datos y modelos",
+      metodo: "método",
       eixo: "eje",
       mensageria: "mensajería",
       dados: "datos",

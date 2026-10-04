@@ -23,6 +23,20 @@ export interface TextoDoProjeto {
 }
 
 const en: Record<string, TextoDoProjeto> = {
+  lastro: {
+    oneLine: "A dependency network between banks, learned by an evolutionary algorithm",
+    what: "My final-year thesis. From daily returns on the Brazilian exchange it learns the dependency structure among listed financial institutions, and measures how long that structure lasts. The network is neither drawn by hand nor carved out of a correlation matrix: it is learned as a Gaussian Bayesian network, with the search done by a multi-objective evolutionary algorithm that returns the whole frontier between fit and number of edges.",
+    role: "I wrote the entire system: the reader for the exchange's fixed-width historical format, corporate-event detection and auditing, the Gaussian likelihood computed from the covariance matrix with caching, NSGA-II over the ordering encoding, the three baselines, the block bootstrap and the statistical analysis.",
+    highlights: [
+      "The phase that proves the method comes before the phase that applies it: first on networks whose structure is known, with Friedman, paired Wilcoxon and Benjamini-Hochberg correction; only then on real data, without retuning a single parameter",
+      "That phase caught a flaw the real data would never have revealed: the first version of the learner lost to hill climbing, and the gap grew with problem size. The mask space has 435 bits at 30 vertices, and evolution was spending its whole budget searching for something that, given the ordering, can simply be computed",
+      "The correlation-threshold graph, which is how much of the financial-network literature builds its graphs, is included as a counterexample and measured: half the edges it creates do not exist",
+      "Comparison on CPDAGs, not DAGs: two graphs with the same skeleton and the same colliders are indistinguishable from observational data, and charging for direction would be charging for the impossible",
+      "Split and reverse-split detector with three simultaneous criteria, fully auditable: it found nine events across 14 years, among them Banco do Brasil's 1:2 in 2024 and BTG's 1:4 in 2021",
+      "The drift curve uses only non-overlapping window pairs, and the similarity between resamples of the same window enters as a noise ceiling: without that number the half-life has no reading",
+      "3,471 trading days from 2012 to 2025, 22 institutions, 154 windows and 38 tests that check mathematical properties rather than implementation",
+    ],
+  },
   feira: {
     oneLine: "Event-driven orders with a saga that compensates",
     what: "Four Spring Boot services talking over Kafka. Each owns its database and none reads another's tables. The saga has to survive messages that arrive twice, out of order, or late, and a MongoDB read model answers in one query what previously required joining three services in the browser.",
@@ -358,6 +372,20 @@ const en: Record<string, TextoDoProjeto> = {
 };
 
 const es: Record<string, TextoDoProjeto> = {
+  lastro: {
+    oneLine: "Red de dependencia entre bancos aprendida por un algoritmo evolutivo",
+    what: "Mi trabajo final de carrera. A partir de los retornos diarios de la bolsa brasileña aprende la estructura de dependencia entre las instituciones financieras listadas, y mide cuánto dura esa estructura. La red no se dibuja a mano ni se recorta de una matriz de correlación: se aprende como red bayesiana gaussiana, con la búsqueda a cargo de un algoritmo evolutivo multiobjetivo que devuelve la frontera completa entre ajuste y número de aristas.",
+    role: "Escribí el sistema entero: el lector del formato histórico de la bolsa, la detección y auditoría de eventos corporativos, la verosimilitud gaussiana calculada desde la matriz de covarianza con caché, NSGA-II sobre la codificación por orden, las tres referencias de comparación, el bootstrap por bloques y el análisis estadístico.",
+    highlights: [
+      "La fase que prueba el método va antes que la que lo aplica: primero en redes cuya estructura se conoce, con Friedman, Wilcoxon pareado y corrección de Benjamini-Hochberg; recién después sobre datos reales, sin reajustar ningún parámetro",
+      "Esa fase detectó una falla que los datos reales nunca habrían delatado: la primera versión del algoritmo perdía contra ascenso de colina, y la diferencia crecía con el tamaño del problema. El espacio de la máscara tiene 435 bits con 30 vértices, y la evolución gastaba todo el presupuesto buscando algo que, dado el orden, se puede calcular",
+      "El grafo de correlación con umbral, que es como buena parte de la literatura financiera arma sus redes, entra como contraejemplo y se mide: la mitad de las aristas que crea no existe",
+      "Comparación en CPDAG y no en DAG: dos grafos con el mismo esqueleto y los mismos colisionadores son indistinguibles a partir de datos observacionales, y exigir la dirección sería exigir lo imposible",
+      "Detector de splits y contrasplits con tres criterios simultáneos y auditable: encontró nueve eventos en 14 años, entre ellos el 1:2 de Banco do Brasil en 2024 y el 1:4 de BTG en 2021",
+      "La curva de deriva usa solo pares de ventanas sin solapamiento, y la similitud entre remuestreos de la misma ventana entra como techo de ruido: sin ese número la vida media no se puede leer",
+      "3.471 ruedas de 2012 a 2025, 22 instituciones, 154 ventanas y 38 pruebas que verifican propiedades matemáticas, no implementación",
+    ],
+  },
   feira: {
     oneLine: "Pedidos orientados a eventos con saga y compensación",
     what: "Cuatro servicios Spring Boot conversando por Kafka. Cada uno con su propia base de datos, ninguno leyendo tablas del otro. La saga tiene que sobrevivir a mensajes repetidos, desordenados y atrasados, y un modelo de lectura en MongoDB responde en una consulta lo que antes exigía unir tres servicios en el navegador.",
