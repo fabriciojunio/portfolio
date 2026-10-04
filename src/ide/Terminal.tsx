@@ -21,7 +21,7 @@ const BANNER: TerminalEntry[] = [
   {
     id: 2,
     kind: "system",
-    text: "tente: ls projetos · cat sobre.md · open projetos/goldata.py · run",
+    text: "tente: ls projetos · cat sobre.md · open projetos/permaneia.ts · run",
   },
 ];
 

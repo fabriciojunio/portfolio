@@ -65,8 +65,6 @@ export interface Textos {
     blocos: {
       ia: { titulo: string; nota: string };
       parceria: { titulo: string; nota: string };
-      produto: { titulo: string; nota: string };
-      faculdade: { titulo: string; nota: string };
     };
     acervo: string;
     verDemo: string;
@@ -140,18 +138,10 @@ const pt: Textos = {
       },
       parceria: {
         titulo: "Parceria e extensão",
-        nota: "Com cliente fora da faculdade: prefeitura, agente de saúde e comunidade.",
-      },
-      produto: {
-        titulo: "Back-end e produto",
-        nota: "Fila, evento, autenticação e banco, que é onde passo o dia.",
-      },
-      faculdade: {
-        titulo: "Faculdade",
-        nota: "Trabalhos de disciplina na UNISAGRADO.",
+        nota: "Com cliente fora da faculdade: a Secretaria de Defesa do Consumidor de Bauru, iniciação científica em campo e uma comunidade usando todo domingo.",
       },
     },
-    acervo: "projetos anteriores",
+    acervo: "back-end, produto e faculdade",
     verDemo: "Rodar a demo interativa",
     fechar: "Fechar",
   },
@@ -229,18 +219,10 @@ const en: Textos = {
       },
       parceria: {
         titulo: "Partnerships and outreach",
-        nota: "Built with clients outside the university: city hall, community health workers and a congregation.",
-      },
-      produto: {
-        titulo: "Backend and product",
-        nota: "Queues, events, authentication and databases, which is where I spend the day.",
-      },
-      faculdade: {
-        titulo: "Coursework",
-        nota: "Course projects at UNISAGRADO.",
+        nota: "Built with clients outside the university: Bauru's consumer protection agency, undergraduate research in the field, and a congregation using it every Sunday.",
       },
     },
-    acervo: "earlier projects",
+    acervo: "backend, product and coursework",
     verDemo: "Run the interactive demo",
     fechar: "Close",
   },
@@ -318,18 +300,10 @@ const es: Textos = {
       },
       parceria: {
         titulo: "Alianzas y extensión",
-        nota: "Con clientes fuera de la universidad: municipio, agentes de salud y comunidad.",
-      },
-      produto: {
-        titulo: "Back-end y producto",
-        nota: "Colas, eventos, autenticación y base de datos, que es donde paso el día.",
-      },
-      faculdade: {
-        titulo: "Universidad",
-        nota: "Trabajos de cursada en UNISAGRADO y el proyecto de iniciación científica.",
+        nota: "Con clientes fuera de la universidad: la agencia de defensa del consumidor de Bauru, iniciación científica en campo y una comunidad que lo usa cada domingo.",
       },
     },
-    acervo: "proyectos anteriores",
+    acervo: "back-end, producto y universidad",
     verDemo: "Ejecutar la demo interactiva",
     fechar: "Cerrar",
   },

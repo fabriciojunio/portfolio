@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { PROJECTS, SOBRE, STACK_GROUPS, EMPRESAS } from "./data";
+import {
+  PROJECTS,
+  PROJETOS_EIXO,
+  PROJETOS_PARCERIA,
+  PROJETOS_ACERVO,
+  SOBRE,
+  STACK_GROUPS,
+  EMPRESAS,
+} from "./data";
 import { TRADUCOES } from "./i18n-projetos";
 import { DICIONARIO, IDIOMAS } from "./i18n";
 
@@ -81,6 +89,66 @@ describe("data.ts — integridade dos dados", () => {
       for (const p of PROJECTS) {
         expect(p.name).not.toContain("—");
         expect(p.oneLine).not.toContain("—");
+      }
+    });
+  });
+
+  describe("os três blocos da vitrine", () => {
+    // A página tem dois blocos abertos e um acervo fechado. Se um projeto
+    // ficar de fora dos três, ele desaparece do site sem ninguém notar: o
+    // card não é renderizado e nenhum outro teste repara na ausência.
+    it("os três blocos cobrem PROJECTS sem sobra e sem repetição", () => {
+      const nosBlocos = [
+        ...PROJETOS_EIXO,
+        ...PROJETOS_PARCERIA,
+        ...PROJETOS_ACERVO,
+      ].map((p) => p.slug);
+
+      expect(new Set(nosBlocos).size).toBe(nosBlocos.length);
+      expect([...nosBlocos].sort()).toEqual([...PROJECTS.map((p) => p.slug)].sort());
+    });
+
+    it("nenhum slug do agrupamento aponta para projeto que não existe", () => {
+      // `porSlug` usa `!` e devolve undefined silenciosamente num slug
+      // errado de digitação. O card viria vazio em vez de dar erro.
+      for (const p of [...PROJETOS_EIXO, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO]) {
+        expect(p).toBeDefined();
+        expect(p.slug).toBeTruthy();
+      }
+    });
+
+    it("o eixo abre pelo trabalho de conclusão e tem os seis projetos de IA", () => {
+      expect(PROJETOS_EIXO[0].slug).toBe("lastro");
+      for (const slug of ["anteparo", "decurso", "prumo", "verbete", "trato"]) {
+        expect(PROJETOS_EIXO.map((p) => p.slug)).toContain(slug);
+      }
+    });
+
+    it("a parceria tem a extensão com a SEDECON e a iniciação científica", () => {
+      const slugs = PROJETOS_PARCERIA.map((p) => p.slug);
+      expect(slugs).toContain("vitrine-bauru");
+      expect(slugs).toContain("conectagente");
+    });
+
+    it("o acervo não é maior que o resto da página inteira", () => {
+      // O acervo é o fundo de gaveta. Se ele passar a ser a maior parte do
+      // site, a página voltou a ser a lista corrida que o redesenho tirou.
+      const abertos = PROJETOS_EIXO.length + PROJETOS_PARCERIA.length;
+      expect(PROJETOS_ACERVO.length).toBeLessThanOrEqual(abertos);
+    });
+
+    it("o motor de apostas não voltou para a vitrine", () => {
+      // Saiu por decisão de posicionamento, não por acidente: as vagas que
+      // esse portfólio persegue são de banco e de consultoria. Este teste
+      // existe para que uma reorganização futura não o traga de volta sem
+      // que a decisão seja tomada de novo.
+      const proibidos = ["goldata", "goldata-pro"];
+      for (const slug of proibidos) {
+        expect(PROJECTS.map((p) => p.slug)).not.toContain(slug);
+      }
+      for (const p of PROJECTS) {
+        expect(p.oneLine.toLowerCase()).not.toContain("value bet");
+        expect(p.oneLine.toLowerCase()).not.toContain("aposta");
       }
     });
   });

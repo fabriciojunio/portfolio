@@ -258,56 +258,6 @@ public Result<Titulo> publicar(Licenca licenca, Instant agora) {
 }`,
   },
   {
-    slug: "goldata",
-    name: "GolData",
-    oneLine: "Analytics de futebol com Machine Learning",
-    what: "Plataforma de análise de futebol com xG (Expected Goals), xA, métricas de pressão e rede de passes. API FastAPI com JWT, rate limiting e cache por partida.",
-    role: "Modelei o xG em XGBoost calibrado sobre ~80k chutes da Série A. Construí a rede de passes com NetworkX (centralidade, hubs de criação).",
-    highlights: [
-      "~80k chutes da Série A no dataset de treino",
-      "xG calibrado com isotonic calibration (Brier Score < 0.18)",
-    ],
-    stack: ["Python", "FastAPI", "XGBoost", "NetworkX", "Plotly"],
-    github: "https://github.com/fabriciojunio/goldata",
-    labDemo: "/projetos/goldata.py",
-    demo: null,
-    year: "2026",
-    snippetLang: "python",
-    snippet: `from math import exp
-
-def xg(x, y, header=False):
-    f = shot_features(x, y)
-    z = (3.10
-         - 0.140 * f["distance"]
-         + 0.012 * f["angle_deg"]
-         - 0.45  * (1 if header else 0))
-    return 1 / (1 + exp(-z))`,
-  },
-  {
-    slug: "goldata-pro",
-    name: "GolData / Robô de Sinais",
-    oneLine: "Value bets com ML ensemble + auditoria SHA-256",
-    what: "Motor Dixon-Coles + Elo (60/40) que detecta value bets com edge > 4%. Calcula stake via Kelly fracionário (1/4) e publica picks no Telegram. Site público exibe histórico auditável por hash.",
-    role: "Cuidei do motor de detecção (ValueBetDetector + Kelly), do feedback loop que ajusta MIN_EDGE por ROI acumulado, e do hash de auditoria pública.",
-    highlights: [
-      "Edge mínimo de 4%: filtra ruído estatístico antes de publicar",
-      "Kelly fracionário 1/4 para gestão de risco por stake",
-      "Auditoria pública: cada pick assinado com SHA-256",
-    ],
-    stack: ["Python", "FastAPI", "Next.js", "PostgreSQL", "Redis", "Docker"],
-    github: "https://github.com/fabriciojunio/bot-sinais",
-    labDemo: "/projetos/goldata-pro.py",
-    demo: null,
-    year: "2026",
-    snippetLang: "python",
-    snippet: `def kelly_fraction(prob, odds, fraction=0.25):
-    b = odds - 1
-    if b <= 0:
-        return 0.0
-    q = 1 - prob
-    return max(0.0, ((b * prob - q) / b) * fraction)`,
-  },
-  {
     slug: "permaneia",
     name: "PermaneIA",
     oneLine: "Assistente de estudos com RAG e alerta de risco de evasão",
@@ -642,32 +592,6 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
 }`,
   },
   {
-    slug: "mycondpets",
-    name: "MyCondPets",
-    oneLine: "Gestão de pets em condomínios residenciais",
-    what: "Login Google OAuth, cadastro de tutores e pets, mural de comunicados (perdidos/achados) e painel admin com estatísticas.",
-    role: "Cuidei do middleware de role-guard (só SÍNDICO/ADMIN entra em /admin) e da modelagem do domínio Tutor/Pet/Aviso.",
-    highlights: [
-      "Middleware bloqueia /admin para qualquer role que não seja SÍNDICO ou ADMIN",
-      "Login Google OAuth: sem cadastro manual, sem senha pra gerenciar",
-    ],
-    stack: ["Next.js 15", "React 19", "NextAuth.js", "PostgreSQL", "Supabase"],
-    github: "https://github.com/fabriciojunio/MyCondPets",
-    demo: "https://mycondpets.vercel.app",
-    year: "2025",
-    snippetLang: "typescript",
-    snippet: `export async function middleware(req: NextRequest) {
-  const url = req.nextUrl;
-  if (!ADMIN_ROUTES.some((r) => url.pathname.startsWith(r))) {
-    return NextResponse.next();
-  }
-  const session = await auth();
-  if (!session)                       return NextResponse.redirect(loginUrl(url));
-  if (!ROLES_ADMIN.has(session.role)) return NextResponse.rewrite(new URL("/403", url));
-  return NextResponse.next();
-}`,
-  },
-  {
     slug: "quantbot-ml",
     name: "Quantbot ML",
     oneLine: "Renda passiva que opera sozinha (paper) e aprende com notícias e resultados",
@@ -749,68 +673,6 @@ export async function middleware(request: NextRequest) {
   res.headers.set("X-Frame-Options", "DENY");
   res.headers.set("X-Content-Type-Options", "nosniff");
   return res;
-}`,
-  },
-  {
-    slug: "mente-viva",
-    name: "Mente Viva",
-    oneLine: "Exercícios cognitivos offline para prevenção do Alzheimer",
-    what: "App mobile gratuito com 7 jogos cognitivos (caça-palavras, memória, Stroop, contas, sequência e mais), cada um em 3 níveis. Funciona 100% offline: nenhum dado sai do aparelho. Licença MIT, pensado para qualquer pessoa reusar em ONGs e grupos de idosos.",
-    role: "Escrevi o engine puro de cada jogo (sem React, totalmente testável) e a camada offline-first. O projeto tem 206 testes e o APK é gerado por GitHub Actions.",
-    highlights: [
-      "7 jogos cobrindo linguagem, memória, atenção e raciocínio numérico",
-      "100% offline: nenhum dado sai do aparelho",
-      "206 testes no engine puro; APK gerado por GitHub Actions",
-    ],
-    stack: ["React Native", "Expo SDK 50", "AsyncStorage", "GitHub Actions"],
-    github: "https://github.com/fabriciojunio/mente-viva",
-    demo: null,
-    year: "2026",
-    snippetLang: "typescript",
-    snippet: `// Mente Viva: engine puro do jogo (sem React, 100% testável)
-export function commitSelection(state: BoardState): BoardState {
-  const picked = state.selection.map((c) => c.letter).join("");
-  const idx = state.words.findIndex(
-    (w) => !w.found && (w.word === picked || w.word === reverse(picked)),
-  );
-  if (idx < 0) return { ...state, selection: [] };
-
-  const words = [...state.words];
-  words[idx] = { ...words[idx], found: true };
-  return {
-    ...state, words, selection: [],
-    score: state.score + words[idx].word.length * 10,
-  };
-}`,
-  },
-  {
-    slug: "mundo-do-lukinha",
-    name: "Mundo do Lukinha",
-    oneLine: "Jogos educativos que se adaptam à faixa etária da criança",
-    what: "Plataforma educativa para crianças de 3 a 14 anos com jogos de matemática, português, memória e ciências. A dificuldade (número de questões, tempo e limite numérico) se adapta sozinha à faixa etária. Filosofia não punitiva: sempre encoraja, nunca pune.",
-    role: "Defini o modelo de faixas etárias que ajusta dificuldade e tempo por idade, e a camada de feedback positivo. Monorepo pnpm com estado em Zustand e testes em Vitest.",
-    highlights: [
-      "Dificuldade adaptativa por faixa etária (de pintinho a mestre)",
-      "Filosofia não punitiva: o feedback sempre encoraja a criança",
-    ],
-    stack: ["Next.js 14", "TypeScript", "Zustand", "pnpm workspaces"],
-    github: "https://github.com/fabriciojunio/mundo-do-lukinha",
-    demo: "https://mundo-do-lukinha.vercel.app",
-    year: "2026",
-    snippetLang: "typescript",
-    snippet: `// Mundo do Lukinha: dificuldade adaptativa por faixa etária
-export const FAIXAS: Record<Faixa, FaixaSpec> = {
-  pintinho:    { idade: [3, 5],   segundosPorQuestao: 30, numeroDeQuestoes:  5, limite: 10   },
-  explorador:  { idade: [6, 8],   segundosPorQuestao: 20, numeroDeQuestoes: 10, limite: 50   },
-  aventureiro: { idade: [9, 11],  segundosPorQuestao: 15, numeroDeQuestoes: 15, limite: 100  },
-  mestre:      { idade: [12, 14], segundosPorQuestao: 10, numeroDeQuestoes: 20, limite: 1000 },
-};
-
-export function faixaDaIdade(idade: number): Faixa {
-  if (idade <= 5)  return "pintinho";
-  if (idade <= 8)  return "explorador";
-  if (idade <= 11) return "aventureiro";
-  return "mestre";
 }`,
   },
   {
@@ -1111,18 +973,19 @@ def carregar(mapa: MapaDeVagas) -> Detector:
   },
 ];
 
-// A vitrine é dividida por peso, não por ordem corrida.
+// A vitrine tem dois blocos abertos e um acervo fechado, nessa ordem.
 //
-// O eixo é back-end: integração, fila, segurança e banco. Vem primeiro porque é
-// o que eu faço no trabalho e é o que quero que a pessoa leia antes de tudo.
-// Depois vêm os produtos que já têm usuário, os trabalhos de faculdade e, por
-// último, o que ficou de projetos antigos.
-
-// A ordem dos blocos é a mensagem da página. O primeiro bloco é o eixo
-// declarado, e é ele que responde "que tipo de problema essa pessoa resolve".
-// O resto desce em ordem de distância desse eixo, e o acervo fica fechado:
-// lista corrida obriga quem chega a decidir sozinho o que importa, e a
-// resposta óbvia é que nada importa muito.
+// Quem abre a página decide em poucos segundos que tipo de problema eu resolvo,
+// e quem decide isso é o primeiro bloco. Por isso ele é só modelo e decisão: é
+// para onde estou indo, e é o que tem número medido para defender. O segundo é
+// o trabalho feito com alguém de fora da sala de aula, que é a prova de que o
+// código saiu do meu computador. O resto é acervo e fica fechado, porque lista
+// corrida de vinte e cinco itens obriga quem chega a decidir sozinho o que
+// importa, e a resposta óbvia é que nada importa muito.
+//
+// Projeto de repositório privado continua na lista com `github: null`: o que
+// desaparece é o link, não o trabalho. O que saiu de vez saiu por decisão de
+// posicionamento, não por falta de espaço.
 
 const EIXO = [
   "lastro",             // TCC: estrutura de dependência aprendida, não desenhada
@@ -1136,6 +999,8 @@ const EIXO = [
   "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo
   "contaflux",          // contagem por vídeo, com a medição do erro
   "quantbot-ml",        // engenharia de dados e CI que quebra o build
+  "codereview-ai",      // modelo rodando dentro de casa, com fila e SSE
+  "balcao",             // o modelo não escreve número, quem calcula é o domínio
 ];
 
 const PARCERIA = [
@@ -1144,35 +1009,24 @@ const PARCERIA = [
   "maranata-conecta",   // no ar com gente de verdade, papel define o que se vê
 ];
 
-const PRODUTO = [
+// Ordenado por peso técnico, não por data: quem abre o acervo vê primeiro o
+// que ainda sustenta uma conversa de arquitetura.
+const ACERVO = [
   "feira",              // Kafka, outbox, saga com compensação
-  "outorga",            // multi-tenant, licença como invariante de domínio
-  "balcao",             // o modelo não escreve número, quem calcula é o domínio
-  "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
+  "outorga",            // multi-inquilino, licença como invariante de domínio
+  "guarda-banco",       // gatilho que barra DELETE sem WHERE no servidor
   "apontamento-horas",  // RBAC, SLA e exportação
+  "authcore",           // JWT RS256, 2FA e RBAC
+  "paiol-tech",         // CQRS e Open Finance
   "almanaque",          // multi-inquilino, busca e o console de quem atende
-];
-
-const FACULDADE = [
-  "mycondpets",         // web em equipe de cinco
+  "koracrm",            // a prova de PHP e Laravel
+  "registraservico",    // formulário dinâmico validado por definição de campo
+  "jis",                // coleta em oito fontes reais
+  "sintonia",           // integração com a Last.fm e estado de ofensiva
+  "bravor",             // middleware de sessão no App Router
   "kaida",              // Unity, cenas geradas por código
   "bicudo",             // Unity, individual
-  "laboratorio-vr",     // VR com interacao por gaze
-];
-
-const OUTROS = [
-  "guarda-banco",
-  "authcore",
-  "paiol-tech",
-  "koracrm",
-  "registraservico",
-  "jis",
-  "goldata",
-  "goldata-pro",
-  "sintonia",
-  "bravor",
-  "mente-viva",
-  "mundo-do-lukinha",
+  "laboratorio-vr",     // VR com interação por direção do olhar
 ];
 
 const porSlug = (slug: string) =>
@@ -1180,16 +1034,12 @@ const porSlug = (slug: string) =>
 
 export const PROJETOS_EIXO: SiteProject[] = EIXO.map(porSlug);
 export const PROJETOS_PARCERIA: SiteProject[] = PARCERIA.map(porSlug);
-export const PROJETOS_PRODUTO: SiteProject[] = PRODUTO.map(porSlug);
-export const PROJETOS_FACULDADE: SiteProject[] = FACULDADE.map(porSlug);
-export const PROJETOS_OUTROS: SiteProject[] = OUTROS.map(porSlug);
+export const PROJETOS_ACERVO: SiteProject[] = ACERVO.map(porSlug);
 
 export const PROJECTS: SiteProject[] = [
   ...PROJETOS_EIXO,
   ...PROJETOS_PARCERIA,
-  ...PROJETOS_PRODUTO,
-  ...PROJETOS_FACULDADE,
-  ...PROJETOS_OUTROS,
+  ...PROJETOS_ACERVO,
 ];
 
 export const SOBRE = {

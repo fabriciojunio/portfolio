@@ -7,7 +7,7 @@ const baseCtx = () => ({
   setPalette: vi.fn(),
   setRunPanel: vi.fn(),
   setQuickOpen: vi.fn(),
-  getActivePath: () => "/projetos/goldata.py",
+  getActivePath: () => "/projetos/permaneia.ts",
 });
 
 describe("terminal command registry", () => {
@@ -34,9 +34,9 @@ describe("terminal command registry", () => {
 
   it("open invoca o callback de abrir arquivo", () => {
     const ctx = baseCtx();
-    const r = runCommand("open projetos/goldata.py", ctx);
+    const r = runCommand("open projetos/permaneia.ts", ctx);
     r.effect?.();
-    expect(ctx.open).toHaveBeenCalledWith("/projetos/goldata.py");
+    expect(ctx.open).toHaveBeenCalledWith("/projetos/permaneia.ts");
   });
 
   it("run dispara o painel quando o arquivo é runnable", () => {

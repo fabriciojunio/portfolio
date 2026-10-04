@@ -22,12 +22,18 @@ abertura de conta digital. Uma das integrações que
 escrevi, com a API do IBGE, cortou o tempo de cadastro
 em 80%.
 
-Nos projetos próprios, mantenho 22 sistemas. De **back-end
-Java com Spring Boot** (JIS, CodeReview AI) a **mercado
-financeiro** (QuantBot ML, GolData e Paiol Tech com Open
-Finance), a produtos que já estão indo para cliente
-(Balcão, Horalis e RegistraServiço), passando por
-full-stack em **React**.
+O que estou construindo agora é **aprendizado de máquina
+aplicado a risco e a decisão**. São seis projetos com o
+mesmo método: linha de base sem modelo em pé de igualdade,
+o limite declarado junto com o número, e resultado negativo
+relatado como resultado.
+
+O Lastro, meu trabalho de conclusão, aprende a estrutura de
+dependência entre instituições da B3 em vez de recortá-la de
+uma matriz de correlação. O Anteparo mostra que a hipótese de
+LGD move a provisão 1,45x, mais do que a escolha do algoritmo.
+O Prumo processa 42 milhões de linhas de cota para responder
+que o que persiste num fundo é o risco, não o retorno.
 
 Na faculdade, os de **visão computacional**: o Cardiocam
 mede batimentos cardíacos por vídeo e o Contaflux conta

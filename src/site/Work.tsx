@@ -4,9 +4,7 @@ import { fadeUp, inViewOnce, stagger } from "../motion";
 import {
   PROJETOS_EIXO,
   PROJETOS_PARCERIA,
-  PROJETOS_PRODUTO,
-  PROJETOS_FACULDADE,
-  PROJETOS_OUTROS,
+  PROJETOS_ACERVO,
   type SiteProject,
 } from "./data";
 import SnippetView from "./SnippetView";
@@ -50,16 +48,15 @@ function enderecoDaDemo(caminho: string): string {
  * A vitrine deixou de ser uma lista corrida de 24 itens.
  *
  * Lista corrida obriga quem chega a decidir sozinho o que importa, e a resposta
- * óbvia é que nada importa muito. Aqui a página já diz qual é o eixo, o que já
- * tem usuário, o que é da faculdade e o que é acervo.
+ * óbvia é que nada importa muito. Ficam abertos só dois blocos: modelo e
+ * decisão, que é o eixo declarado, e o que foi feito com alguém de fora da
+ * faculdade. O acervo existe, mas fechado.
  */
 export default function Work() {
   const t = useTextos();
   const BLOCOS = [
-    { ...t.trabalho.blocos.ia,        itens: PROJETOS_EIXO },
-    { ...t.trabalho.blocos.parceria,  itens: PROJETOS_PARCERIA },
-    { ...t.trabalho.blocos.produto,   itens: PROJETOS_PRODUTO },
-    { ...t.trabalho.blocos.faculdade, itens: PROJETOS_FACULDADE },
+    { ...t.trabalho.blocos.ia,       itens: PROJETOS_EIXO },
+    { ...t.trabalho.blocos.parceria, itens: PROJETOS_PARCERIA },
   ];
 
   return (
@@ -130,6 +127,9 @@ function Bloco({
 /**
  * O que veio antes do eixo atual. Fica fechado porque é acervo, não vitrine,
  * mas continua acessível: apagar do site não apaga que eu escrevi.
+ *
+ * A contagem vai no rótulo de propósito. Sem ela o botão é uma promessa vaga, e
+ * quem não sabe o tamanho do que vai abrir não clica.
  */
 function Acervo() {
   const t = useTextos();
@@ -143,7 +143,7 @@ function Acervo() {
         className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#767676] hover:text-[#ededed] transition-colors"
         aria-expanded={aberto}
       >
-        {aberto ? "−" : "+"} {t.trabalho.acervo} ({PROJETOS_OUTROS.length})
+        {aberto ? "−" : "+"} {t.trabalho.acervo} ({PROJETOS_ACERVO.length})
       </button>
 
       <AnimatePresence initial={false}>
@@ -155,7 +155,7 @@ function Acervo() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
           >
-            {PROJETOS_OUTROS.map((p, i) => (
+            {PROJETOS_ACERVO.map((p, i) => (
               <WorkRow key={p.slug} project={p} index={i} />
             ))}
           </m.ol>

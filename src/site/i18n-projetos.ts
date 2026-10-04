@@ -281,15 +281,6 @@ const en: Record<string, TextoDoProjeto> = {
       "Validated against synthetic scenes with known ground truth, plus five real videos checked by watching the boxes on screen",
     ],
   },
-  mycondpets: {
-    oneLine: "Pet management for residential buildings",
-    what: "Google OAuth login, registration of owners and pets, a noticeboard for lost and found, and an admin panel with statistics.",
-    role: "I handled the role-guard middleware (only building manager and admin reach /admin) and the modelling of the Owner/Pet/Notice domain.",
-    highlights: [
-      "Middleware blocks /admin for any role other than building manager or admin",
-      "Google OAuth login: no manual sign-up, no password to manage",
-    ],
-  },
   kaida: {
     oneLine: "A 2D metroidvania in Unity, with the game assembled by code",
     what: "A 2D metroidvania with six scenes, abilities that unlock paths, a single-encounter boss with one health bar, three attempts per run, three difficulty levels and autosave at rest points. The project generates its own assets: an editor menu slices the sprites and builds the animations, prefabs, tiles and scenes from code.",
@@ -333,25 +324,6 @@ const en: Record<string, TextoDoProjeto> = {
       "No database: jobs arrive live with a 30-minute cache and the funnel lives in the browser",
     ],
   },
-  goldata: {
-    oneLine: "Football analytics with machine learning",
-    what: "A football analysis platform with expected goals, expected assists, pressing metrics and passing networks. A FastAPI service with JWT, rate limiting and per-match caching.",
-    role: "I modelled expected goals in XGBoost, calibrated over roughly 80,000 shots from the Brazilian first division. I built the passing network with NetworkX, covering centrality and creation hubs.",
-    highlights: [
-      "Around 80,000 first-division shots in the training set",
-      "Expected goals calibrated with isotonic regression, Brier score under 0.18",
-    ],
-  },
-  "goldata-pro": {
-    oneLine: "Value bets with an ML ensemble and SHA-256 auditing",
-    what: "A Dixon-Coles and Elo engine, weighted 60/40, that finds value bets with an edge above 4%. It sizes stakes with fractional Kelly at one quarter and publishes picks to Telegram. A public site shows a history auditable by hash.",
-    role: "I handled the detection engine and Kelly sizing, the feedback loop that adjusts the minimum edge from accumulated return, and the public audit hash.",
-    highlights: [
-      "A 4% minimum edge filters statistical noise before anything is published",
-      "Quarter Kelly for risk management on stake size",
-      "Public auditing: every pick signed with SHA-256",
-    ],
-  },
   sintonia: {
     oneLine: "A social network where the conversation turns on whatever is playing",
     what: "A monorepo with a NestJS API, a Next.js site and an Expo app. Live now-playing status, conversations with ephemeral messages (by TTL or single view), streaks and a group pet. Integration with music services is a port with adapters.",
@@ -383,25 +355,6 @@ const en: Record<string, TextoDoProjeto> = {
       "Automatic auditing: every move between stages is recorded with its author",
       "126 tests, 90% backend coverage, and CI fails below 85%",
       "Only the interface is published: the demo runs in the browser with sample data, because the Laravel API is not deployed",
-    ],
-  },
-  "mente-viva": {
-    oneLine: "Offline cognitive exercises for Alzheimer's prevention",
-    what: "A free mobile app with seven cognitive games (word search, memory, Stroop, arithmetic, sequences and more), each at three levels. It works fully offline: no data leaves the device. MIT licensed, meant to be reused by charities and groups working with older adults.",
-    role: "I wrote the pure engine behind each game, with no React and fully testable, and the offline-first layer. The project has 206 tests and the APK is built by GitHub Actions.",
-    highlights: [
-      "Seven games covering language, memory, attention and numerical reasoning",
-      "Fully offline: no data leaves the device",
-      "206 tests on the pure engine; APK built by GitHub Actions",
-    ],
-  },
-  "mundo-do-lukinha": {
-    oneLine: "Educational games that adapt to the child's age band",
-    what: "An educational platform for children aged 3 to 14, with games in maths, language, memory and science. Difficulty (number of questions, time and numeric ceiling) adapts on its own to the age band. A non-punitive philosophy: it always encourages, never punishes.",
-    role: "I defined the age-band model that adjusts difficulty and time by age, and the positive feedback layer. A pnpm monorepo with Zustand state and Vitest tests.",
-    highlights: [
-      "Difficulty adapts by age band, from chick to master",
-      "A non-punitive philosophy: the feedback always encourages the child",
     ],
   },
   almanaque: {
@@ -702,15 +655,6 @@ const es: Record<string, TextoDoProjeto> = {
       "Validación con escenas sintéticas de referencia conocida, más cinco videos reales verificados mirando las cajas en pantalla",
     ],
   },
-  mycondpets: {
-    oneLine: "Gestión de mascotas en edificios residenciales",
-    what: "Login con Google OAuth, registro de dueños y mascotas, cartelera de avisos (perdidos y encontrados) y panel de administración con estadísticas.",
-    role: "Me encargué del middleware de control de rol (solo administración del edificio entra en /admin) y del modelado del dominio Dueño/Mascota/Aviso.",
-    highlights: [
-      "El middleware bloquea /admin para cualquier rol que no sea administrador del edificio",
-      "Login con Google OAuth: sin registro manual, sin contraseña que gestionar",
-    ],
-  },
   kaida: {
     oneLine: "Metroidvania 2D en Unity, con el juego armado por código",
     what: "Metroidvania 2D con seis escenas, habilidades que desbloquean caminos, un jefe de enfrentamiento único con una sola barra de vida, tres intentos por partida, tres niveles de dificultad y guardado automático en los puntos de descanso. El proyecto genera sus propios recursos: un menú del editor corta los sprites y arma las animaciones, prefabs, tiles y escenas desde el código.",
@@ -754,25 +698,6 @@ const es: Record<string, TextoDoProjeto> = {
       "Sin base de datos: los avisos llegan en vivo con caché de 30 minutos y el embudo vive en el navegador",
     ],
   },
-  goldata: {
-    oneLine: "Analítica de fútbol con aprendizaje automático",
-    what: "Plataforma de análisis de fútbol con goles esperados, asistencias esperadas, métricas de presión y red de pases. API en FastAPI con JWT, límite de tasa y caché por partido.",
-    role: "Modelé los goles esperados en XGBoost, calibrado sobre unos 80.000 tiros de la primera división brasileña. Construí la red de pases con NetworkX, incluyendo centralidad y focos de creación.",
-    highlights: [
-      "Unos 80.000 tiros de primera división en el conjunto de entrenamiento",
-      "Goles esperados calibrados con regresión isotónica, Brier score por debajo de 0,18",
-    ],
-  },
-  "goldata-pro": {
-    oneLine: "Value bets con ensamble de ML y auditoría SHA-256",
-    what: "Motor Dixon-Coles y Elo, ponderado 60/40, que detecta value bets con ventaja superior al 4%. Dimensiona la apuesta con Kelly fraccionado a un cuarto y publica los picks en Telegram. Un sitio público muestra un historial auditable por hash.",
-    role: "Me encargué del motor de detección y del dimensionamiento por Kelly, del ciclo de feedback que ajusta la ventaja mínima según el retorno acumulado, y del hash de auditoría pública.",
-    highlights: [
-      "Ventaja mínima del 4%: filtra ruido estadístico antes de publicar",
-      "Kelly a un cuarto para gestionar el riesgo por apuesta",
-      "Auditoría pública: cada pick firmado con SHA-256",
-    ],
-  },
   sintonia: {
     oneLine: "Red social donde la conversación gira en torno a lo que está sonando",
     what: "Monorepo con API en NestJS, sitio en Next.js y app en Expo. Estado de reproducción en vivo, conversaciones con mensajes efímeros (por TTL o de una sola lectura), rachas y una mascota grupal. La integración con servicios de música es un puerto con adaptadores.",
@@ -804,25 +729,6 @@ const es: Record<string, TextoDoProjeto> = {
       "Auditoría automática: cada movimiento entre etapas queda registrado con su autor",
       "126 pruebas, 90% de cobertura en el backend, y el CI falla por debajo del 85%",
       "Solo la interfaz está publicada: la demostración corre en el navegador con datos de ejemplo, porque la API en Laravel no está desplegada",
-    ],
-  },
-  "mente-viva": {
-    oneLine: "Ejercicios cognitivos sin conexión para prevención del Alzheimer",
-    what: "App móvil gratuita con siete juegos cognitivos (sopa de letras, memoria, Stroop, cálculo, secuencias y más), cada uno en tres niveles. Funciona totalmente sin conexión: ningún dato sale del aparato. Licencia MIT, pensada para que ONG y grupos de adultos mayores la reutilicen.",
-    role: "Escribí el motor puro de cada juego, sin React y totalmente comprobable, y la capa offline-first. El proyecto tiene 206 pruebas y el APK lo genera GitHub Actions.",
-    highlights: [
-      "Siete juegos que cubren lenguaje, memoria, atención y razonamiento numérico",
-      "Totalmente sin conexión: ningún dato sale del aparato",
-      "206 pruebas sobre el motor puro; APK generado por GitHub Actions",
-    ],
-  },
-  "mundo-do-lukinha": {
-    oneLine: "Juegos educativos que se adaptan a la franja etaria del niño",
-    what: "Plataforma educativa para niños de 3 a 14 años con juegos de matemática, lengua, memoria y ciencias. La dificultad (cantidad de preguntas, tiempo y techo numérico) se adapta sola a la franja etaria. Filosofía no punitiva: siempre alienta, nunca castiga.",
-    role: "Definí el modelo de franjas etarias que ajusta dificultad y tiempo por edad, y la capa de refuerzo positivo. Monorepo pnpm con estado en Zustand y pruebas en Vitest.",
-    highlights: [
-      "La dificultad se adapta por franja etaria, de pollito a maestro",
-      "Filosofía no punitiva: el refuerzo siempre alienta al niño",
     ],
   },
   almanaque: {
