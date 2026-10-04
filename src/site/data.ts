@@ -34,6 +34,36 @@ export interface SiteProject {
 
 const PROJECTS_SOURCE: SiteProject[] = [
   {
+    slug: "lastro",
+    name: "Lastro",
+    oneLine: "Rede de dependência entre bancos aprendida por algoritmo evolutivo",
+    what: "Trabalho de conclusão de curso. Aprende, a partir dos retornos diários da B3, a estrutura de dependência entre as instituições financeiras listadas, e mede quanto tempo essa estrutura dura. A rede não é desenhada à mão nem recortada de uma matriz de correlação: ela é aprendida como rede bayesiana gaussiana, com a busca feita por um algoritmo evolutivo multiobjetivo que devolve a fronteira inteira entre ajuste e número de arestas.",
+    role: "Escrevi o sistema todo: leitor do layout COTAHIST da B3, detecção e auditoria de evento corporativo, a verossimilhança gaussiana calculada pela matriz de covariância com cache, o NSGA-II sobre a codificação por ordenação, as três referências de comparação, o bootstrap em blocos e a análise estatística.",
+    highlights: [
+      "A fase que prova o método vem antes da que o aplica: primeiro em redes cuja estrutura é conhecida, com Friedman, Wilcoxon pareado e correção de Benjamini-Hochberg; só depois no dado real, sem reajustar nenhum parâmetro",
+      "Essa fase pegou um defeito que o dado real jamais denunciaria: a primeira versão do aprendiz perdia da escalada de colina, e a diferença crescia com o tamanho do problema. O espaço da máscara tem 435 bits em 30 vértices, e a evolução gastava o orçamento procurando o que, dada a ordem, pode ser calculado",
+      "O grafo de correlação com limiar, que é como boa parte da literatura financeira monta rede, entra como contraexemplo e é medido: metade das arestas que ele cria não existe",
+      "Comparação em CPDAG, não em DAG: dois grafos com o mesmo esqueleto e os mesmos colisores são indistinguíveis a partir de dado observacional, e cobrar a direção seria cobrar o impossível",
+      "Detector de desdobramento e grupamento com três critérios simultâneos, auditável: encontrou nove eventos em 14 anos, entre eles o 1:2 do Banco do Brasil em 2024 e o 1:4 do BTG em 2021",
+      "A curva de deriva usa só pares de janelas sem sobreposição, e a similaridade entre reamostragens da mesma janela entra como teto de ruído: sem esse número a meia-vida não tem leitura",
+      "3.471 pregões de 2012 a 2025, 22 instituições, 154 janelas e 38 testes que verificam propriedade matemática, não implementação",
+    ],
+    stack: ["Python 3.12", "NumPy", "SciPy", "NetworkX", "pandas", "scikit-learn", "Matplotlib"],
+    github: null,
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# Fixada a ordem, os nós são independentes: a aciclicidade já
+# está garantida e a pontuação é decomponível. Então a melhor
+# máscara não se procura, se calcula nó por nó.
+for pos in range(n):
+    no = ordem[pos]
+    candidatos = ordem[:pos]          # só os predecessores
+    pais, trilha = melhores_pais_do_no(
+        pontuador, no, candidatos, grau_max,
+        penalidade_por_aresta=0.5 * log(N),   # <- o termo do BIC
+    )                                  # sem ele, o guloso satura`,
+  },
+  {
     slug: "feira",
     name: "Feira do Comando",
     oneLine: "Pedidos orientados a eventos com saga e compensação",
@@ -951,39 +981,49 @@ def carregar(mapa: MapaDeVagas) -> Detector:
 // Depois vêm os produtos que já têm usuário, os trabalhos de faculdade e, por
 // último, o que ficou de projetos antigos.
 
+// A ordem dos blocos é a mensagem da página. O primeiro bloco é o eixo
+// declarado, e é ele que responde "que tipo de problema essa pessoa resolve".
+// O resto desce em ordem de distância desse eixo, e o acervo fica fechado:
+// lista corrida obriga quem chega a decidir sozinho o que importa, e a
+// resposta óbvia é que nada importa muito.
+
 const EIXO = [
-  "feira",              // Kafka, outbox, saga com compensação
-  "vitrine-bauru",      // quatro serviços por evento, no ar com cliente real
-  "outorga",            // multi-tenant, licença como invariante de domínio
-  "almanaque",          // multi-inquilino, busca e o console de quem atende
-  "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
-  "paiol-tech",         // NestJS com CQRS, Open Finance
-  "guarda-banco",       // proteção de escrita dentro do servidor de banco
-  "authcore",           // JWT RS256, 2FA, RBAC, auditoria
+  "lastro",             // TCC: estrutura de dependência aprendida, não desenhada
+  "permaneia",          // RAG com fonte citada e fuzzy de Mamdani escrito do zero
+  "baliza",             // dois detectores e um terceiro sem rede neural, medidos
+  "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo
+  "contaflux",          // contagem por vídeo, com a medição do erro
   "quantbot-ml",        // engenharia de dados e CI que quebra o build
 ];
 
-const PRODUTO = [
+const PARCERIA = [
+  "vitrine-bauru",      // extensão com a SEDECON de Bauru, no ar
+  "conectagente",       // iniciação científica, coleta em campo sem internet
   "maranata-conecta",   // no ar com gente de verdade, papel define o que se vê
+];
+
+const PRODUTO = [
+  "feira",              // Kafka, outbox, saga com compensação
+  "outorga",            // multi-tenant, licença como invariante de domínio
   "balcao",             // o modelo não escreve número, quem calcula é o domínio
+  "codereview-ai",      // Java 21 + Spring Boot, fila e SSE
   "apontamento-horas",  // RBAC, SLA e exportação
-  "koracrm",            // quatro camadas, aplicação sem Eloquent
-  "registraservico",    // multi-tenant configurável
+  "almanaque",          // multi-inquilino, busca e o console de quem atende
 ];
 
 const FACULDADE = [
-  "conectagente",       // iniciação científica, sem cliente em campo
-  "permaneia",          // RAG com fonte citada e fuzzy escrito do zero
-  "cardiocam",          // rPPG, quatro algoritmos comparados
-  "contaflux",          // visão computacional aplicada
-  "baliza",             // dois detectores, e a medição decide qual usar
   "mycondpets",         // web em equipe de cinco
   "kaida",              // Unity, cenas geradas por código
   "bicudo",             // Unity, individual
-  "laboratorio-vr",     // VR com interação por gaze
+  "laboratorio-vr",     // VR com interacao por gaze
 ];
 
 const OUTROS = [
+  "guarda-banco",
+  "authcore",
+  "paiol-tech",
+  "koracrm",
+  "registraservico",
   "jis",
   "goldata",
   "goldata-pro",
@@ -997,12 +1037,14 @@ const porSlug = (slug: string) =>
   PROJECTS_SOURCE.find((p) => p.slug === slug)!;
 
 export const PROJETOS_EIXO: SiteProject[] = EIXO.map(porSlug);
+export const PROJETOS_PARCERIA: SiteProject[] = PARCERIA.map(porSlug);
 export const PROJETOS_PRODUTO: SiteProject[] = PRODUTO.map(porSlug);
 export const PROJETOS_FACULDADE: SiteProject[] = FACULDADE.map(porSlug);
 export const PROJETOS_OUTROS: SiteProject[] = OUTROS.map(porSlug);
 
 export const PROJECTS: SiteProject[] = [
   ...PROJETOS_EIXO,
+  ...PROJETOS_PARCERIA,
   ...PROJETOS_PRODUTO,
   ...PROJETOS_FACULDADE,
   ...PROJETOS_OUTROS,
@@ -1010,13 +1052,14 @@ export const PROJECTS: SiteProject[] = [
 
 export const SOBRE = {
   nome: "Fabrício Júnio",
-  cargo: "Desenvolvedor back-end",
+  cargo: "Back-end e aprendizado de máquina",
   cidade: "Bauru, SP",
-  bio: "Back-end em Java, integração e automação de processo que já está em produção. Prefiro medir antes de mexer a corrigir no escuro.",
+  bio: "Back-end em Java e modelos que precisam ser defendidos, não só treinados. Prefiro medir antes de mexer a corrigir no escuro, e relato resultado negativo quando é o que a medição deu.",
   longBio: [
     "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
     "Não começo sistema do zero. Mexo em processo de negócio vivo, com centenas de instâncias rodando na hora em que a alteração sobe: robô e integração em Java, regra de tela em JavaScript, roteamento e SQL de diagnóstico. Por isso reproduzo a regra atual e rodo contra o histórico real antes de mudar qualquer linha. Se o modelo não acerta o passado, não serve para prever o futuro.",
-    "Nos projetos próprios o eixo é o mesmo. A Feira do Comando são três serviços Spring Boot conversando por Kafka, com outbox transacional e saga que compensa. O Outorga trata a licença de exibição como invariante: não existe caminho de código que publique sem ela. Os dois sobem PostgreSQL e Kafka de verdade nos testes, que foi como apareceram quatro defeitos que mock nenhum mostraria.",
+    "O eixo para onde estou indo é aprendizado de máquina aplicado a risco e a decisão, que é onde essa teimosia com medição vale mais. O Lastro, meu trabalho de conclusão, aprende a estrutura de dependência entre instituições financeiras da B3 em vez de recortá-la de uma matriz de correlação, e tem uma fase inteira em que o método é provado contra estruturas conhecidas antes de encostar no dado real. Foi essa fase que pegou um defeito do meu próprio algoritmo que o dado de mercado jamais denunciaria.",
+    "O que eu levo de cada projeto é a mesma regra: baseline antes do modelo sofisticado, divisão temporal honesta quando o dado é série, métrica que serve para classe rara, e o limite do que foi medido escrito junto com o número. No Baliza isso significou escrever também um detector sem rede neural e publicar quanto ele perde; na PermaneIA, deixar o modelo redigir mas nunca calcular a data da prova.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -1027,8 +1070,23 @@ export const SOBRE = {
 
 export const STACK_GROUPS = [
   {
-    // Java abre a lista e leva o teste junto, porque em vaga de back-end
-    // "escreve teste" é pedido tanto quanto a linguagem.
+    // O eixo novo abre a lista. Python com a pilha científica é o que as vagas
+    // de ciência de dados pedem; Java fica logo abaixo porque é o que eu uso
+    // todo dia e é o que coloca modelo em produção.
+    label: "dados e modelo",
+    items: ["Python", "NumPy", "SciPy", "pandas", "scikit-learn", "NetworkX"],
+  },
+  {
+    label: "metodo",
+    items: [
+      "validação temporal com purga",
+      "bootstrap em blocos",
+      "teste de hipótese com correção",
+      "calibração",
+      "explicabilidade",
+    ],
+  },
+  {
     label: "eixo",
     items: ["Java 21", "Spring Boot", "SQL", "API REST", "JUnit"],
   },
@@ -1038,21 +1096,15 @@ export const STACK_GROUPS = [
   },
   {
     label: "dados",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "SQLite (WAL + FTS)"],
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "pgvector"],
   },
   {
     label: "infra",
     items: ["AWS (SNS, SQS)", "Terraform", "Docker", "Kubernetes", "GitHub Actions"],
   },
   {
-    // Front tem grupo próprio, e não "também uso". A tela eu entrego quando
-    // precisa, e esconder isso faria eu parecer menos completo do que sou.
     label: "front",
     items: ["React 19", "TypeScript", "Next.js 15", "React Native"],
-  },
-  {
-    label: "também uso",
-    items: ["Node + TypeScript", "NestJS", "FastAPI (Python)", "scikit-learn"],
   },
 ];
 
