@@ -99,7 +99,7 @@ public boolean registrar(UUID idDoEvento, String oQue,
     language: "java",
     meta: {
       project: "Outorga TV",
-      github: "https://github.com/fabriciojunio/outorga",
+      github: "https://github.com/fabriciojunio/outorga-tv",
       demo: "https://outorga-tv.vercel.app",
       demoAcesso: "espectador@exemplo.com / demonstracao2026",
       stack: ["Java 21", "Spring Boot", "PostgreSQL", "Next.js"],
@@ -505,7 +505,7 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
     language: "python",
     meta: {
       project: "Quantbot ML",
-      github: "https://github.com/fabriciojunio/quantbot-ml",
+      // repositório privado: sem link, para não levar a um 404
       demo: null,
       stack: ["Python", "PyTorch", "FinBERT-PT-BR", "FastAPI", "GitHub Actions"],
       role: "Renda passiva (Barsi/Bazin) que opera sozinha com dinheiro simulado e aprende: carteira paper + feedback que mede picks contra o CDI, multi-fonte (Fundamentus, Banco Central, ~28 feeds), sentimento FinBERT-PT-BR e automação na nuvem (GitHub Actions + CI).",

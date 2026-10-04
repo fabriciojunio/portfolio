@@ -244,7 +244,7 @@ case PagamentoAprovado p when status == CANCELANDO ->
       "275 testes contra PostgreSQL de verdade",
     ],
     stack: ["Java 21", "Spring Boot", "PostgreSQL", "JdbcClient", "Next.js"],
-    github: "https://github.com/fabriciojunio/outorga",
+    github: "https://github.com/fabriciojunio/outorga-tv",
     demo: "https://outorga-tv.vercel.app",
     demoAcesso: "espectador@exemplo.com / demonstracao2026",
     year: "2026",
@@ -604,7 +604,7 @@ export class DebtDueHandler implements ICommandHandler<DebtDueCommand> {
       "Sentimento das notícias com FinBERT-PT-BR (PyTorch), com fallback léxico sem GPU",
     ],
     stack: ["Python", "PyTorch", "FinBERT-PT-BR", "FastAPI", "GitHub Actions"],
-    github: "https://github.com/fabriciojunio/quantbot-ml",
+    github: null, // repositório privado
     demo: null,
     year: "2026",
     snippetLang: "python",
