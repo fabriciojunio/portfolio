@@ -111,7 +111,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
         return {
           lines: [
             "run: o arquivo atual não tem demo interativa.",
-            "    tente: open projetos/goldata.py && run",
+            "    tente: open projetos/permaneia.ts && run",
           ],
         };
       }
@@ -244,7 +244,7 @@ export const SUGGESTIONS = [
   "ls projetos",
   "cat sobre.md",
   "cat perfil.json",
-  "open projetos/goldata.py",
+  "open projetos/permaneia.ts",
   "open projetos/apontamento-horas.ts",
   "open projetos/jis.ts",
   "tree",

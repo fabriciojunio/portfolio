@@ -42,20 +42,21 @@ casos, **executando** trechos para ver o que eles fazem.
 - \`Ctrl/Cmd + P\` abre arquivo rapidamente.
 - \`Ctrl/Cmd + \`\` abre/fecha o terminal.
 - Botão **Run** aparece nos arquivos com demo interativa
-  (\`goldata.py\`, \`goldata-pro.py\`, \`jis.java\`,
-  \`apontamento-horas.ts\`, \`contaflux.py\`, \`cardiocam.py\`,
-  \`kaida.cs\`).
+  (\`permaneia.ts\`, \`contaflux.py\`, \`cardiocam.py\`,
+  \`jis.ts\`, \`apontamento-horas.ts\`, \`kaida.cs\`,
+  \`bicudo.cs\`).
 
-As três últimas rodam o mesmo cálculo do projeto de verdade: a linha de
-contagem do Contaflux com veículos cruzando, o GREEN contra o POS do
-Cardiocam sob luz oscilando, e o coyote time do Kaida quadro a quadro.
+Nenhuma delas é animação que finge o resultado: rodam a mesma conta do
+projeto de verdade. O risco de evasão da PermaneIA sai da mesma inferência
+fuzzy de Mamdani, a linha de contagem do Contaflux tem veículos cruzando de
+fato, e o GREEN contra o POS do Cardiocam roda sob luz oscilando.
 
 ## Tente isto no terminal
 
 \`\`\`bash
 ls projetos
 cat sobre.md
-open projetos/goldata.py
+open projetos/permaneia.ts
 run
 whoami
 ajuda

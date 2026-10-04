@@ -54,7 +54,7 @@ export default function HelpFab() {
             <Btn
               onClick={() => {
                 setOpen(false);
-                ide.open("/projetos/goldata.py");
+                ide.open("/projetos/permaneia.ts");
                 setTimeout(() => ide.setRunPanel(true), 150);
               }}
             >
