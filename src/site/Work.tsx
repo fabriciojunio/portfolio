@@ -3,6 +3,7 @@ import { AnimatePresence, m } from "motion/react";
 import { fadeUp, inViewOnce, stagger } from "../motion";
 import {
   PROJETOS_EIXO,
+  PROJETOS_PARCERIA,
   PROJETOS_PRODUTO,
   PROJETOS_FACULDADE,
   PROJETOS_OUTROS,
@@ -55,7 +56,8 @@ function enderecoDaDemo(caminho: string): string {
 export default function Work() {
   const t = useTextos();
   const BLOCOS = [
-    { ...t.trabalho.blocos.backend,   itens: PROJETOS_EIXO },
+    { ...t.trabalho.blocos.ia,        itens: PROJETOS_EIXO },
+    { ...t.trabalho.blocos.parceria,  itens: PROJETOS_PARCERIA },
     { ...t.trabalho.blocos.produto,   itens: PROJETOS_PRODUTO },
     { ...t.trabalho.blocos.faculdade, itens: PROJETOS_FACULDADE },
   ];

@@ -129,14 +129,23 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("deve abrir pelo eixo e ter mensageria, dados e infra", () => {
+    it("deve abrir pelo eixo novo e manter o back-end logo em seguida", () => {
       const labels = STACK_GROUPS.map((g) => g.label);
       // O primeiro grupo é o posicionamento: quem lê a lista de cima para
       // baixo tem que sair sabendo o que eu faço, não o que eu já toquei.
-      expect(labels[0]).toBe("eixo");
+      // O eixo declarado passou a ser modelo e decisão, então é ele que abre.
+      expect(labels[0]).toBe("dados e modelo");
+      // "método" vem logo atrás de propósito: numa vaga de dados, saber
+      // validar vale tanto quanto saber treinar, e é o que separa quem
+      // entrega número de quem entrega número defensável.
+      expect(labels[1]).toBe("metodo");
+      // O back-end não sai da lista: ele é o que coloca modelo em produção,
+      // e escondê-lo faria o perfil parecer só acadêmico.
+      expect(labels).toContain("eixo");
       expect(labels).toContain("mensageria");
       expect(labels).toContain("dados");
       expect(labels).toContain("infra");
+      expect(labels.indexOf("eixo")).toBeLessThan(labels.indexOf("front"));
     });
 
     it("o front aparece, mas depois do eixo", () => {
