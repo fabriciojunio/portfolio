@@ -52,6 +52,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     ],
     stack: ["Python 3.12", "NumPy", "SciPy", "NetworkX", "pandas", "scikit-learn", "Matplotlib"],
     github: null,
+    demo: "/resultados/lastro",
     year: "2026",
     snippetLang: "python",
     snippet: `# Fixada a ordem, os nós são independentes: a aciclicidade já
@@ -82,6 +83,7 @@ for pos in range(n):
     ],
     stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "pytest"],
     github: "https://github.com/fabriciojunio/anteparo",
+    demo: "/resultados/anteparo",
     year: "2026",
     snippetLang: "python",
     snippet: `# O estágio não é nível de risco, é AUMENTO desde a originação.
@@ -109,6 +111,7 @@ estagio = np.where(tem_perda, 3, np.where(subiu | atraso_30, 2, 1))`,
     ],
     stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "SciPy", "Matplotlib"],
     github: "https://github.com/fabriciojunio/decurso",
+    demo: "/resultados/decurso",
     year: "2026",
     snippetLang: "python",
     snippet: `# Ordenação devolve 504 nesta API, então search_after não serve.
@@ -137,6 +140,7 @@ if n > limite_por_fatia and a < b:
     ],
     stack: ["Python 3.12", "scikit-learn", "pandas", "NumPy", "Matplotlib"],
     github: "https://github.com/fabriciojunio/verbete",
+    demo: "/resultados/verbete",
     year: "2026",
     snippetLang: "python",
     snippet: `# As keywords vêm da MESMA indexação que atribui o tema, então
@@ -165,6 +169,7 @@ if usar_keywords:                      # <- +0,140 de micro-F1
     ],
     stack: ["Python 3.12", "pandas", "NumPy", "SciPy", "Matplotlib", "PyArrow"],
     github: "https://github.com/fabriciojunio/prumo",
+    demo: "/resultados/prumo",
     year: "2026",
     snippetLang: "python",
     snippet: `# O 1.0 na frente é o valor ANTES do primeiro retorno, e ele
@@ -191,6 +196,7 @@ queda = acumulado / topo - 1.0      # <- pego por teste`,
     ],
     stack: ["Python 3.12", "scikit-learn", "pandas", "NumPy", "SciPy"],
     github: "https://github.com/fabriciojunio/trato",
+    demo: "/resultados/trato",
     year: "2026",
     snippetLang: "python",
     snippet: `# O efeito do contato, medido DENTRO do grupo que o modelo
@@ -294,12 +300,12 @@ const forca = Math.min(
   {
     slug: "conectagente",
     name: "ConectAgente",
-    oneLine: "Iniciação científica: coleta em campo sem internet para agentes do SUS",
-    what: "Projeto de iniciação científica, incubado na Saruê (UNESP Bauru). Coleta dados em campo sem internet (SQLite WAL+FTS) e sincroniza ao reconectar. Nunca foi para campo com agente de verdade: é pesquisa, não produto em uso.",
-    role: "Arquitetei o engine de sync (outbox pattern com retries e conflict resolution) e o esquema do SQLite com índices FTS pra busca offline.",
+    oneLine: "Iniciação científica na Saruê, a incubadora da UNESP: coleta em campo sem internet",
+    what: "Projeto de iniciação científica incubado na Saruê, a incubadora de empresas da UNESP em Bauru. O agente comunitário de saúde registra a visita no celular sem rede nenhuma e o aparelho sincroniza quando volta a ter sinal. Nunca foi a campo com agente de verdade: é pesquisa, não produto em uso, e está escrito assim de propósito.",
+    role: "Escrevi o motor de sincronização, com fila de saída, nova tentativa e resolução de conflito, e o esquema do SQLite com busca em texto para procurar morador sem nenhuma chamada de rede.",
     highlights: [
-      "Outbox pattern com retry e conflict resolution: sync funciona até sem sinal",
-      "SQLite WAL + FTS para busca offline sem nenhuma chamada de rede",
+      "A fila de saída guarda a alteração local e só a descarta quando o servidor confirma: perder sinal no meio da visita não perde a visita",
+      "Busca em texto dentro do SQLite, porque no bairro onde o agente trabalha a rede não é lenta, ela não existe",
     ],
     stack: ["React Native", "Expo SDK 54", "SQLite", "Supabase", "Zod"],
     github: "https://github.com/fabriciojunio/ConectAgente",
@@ -964,22 +970,24 @@ def carregar(mapa: MapaDeVagas) -> Detector:
 // desaparece é o link, não o trabalho. O que saiu de vez saiu por decisão de
 // posicionamento, não por falta de espaço.
 
-// Ordem pensada para quem lê a vaga de IA e não passa do terceiro card.
+// Ordem do mais forte para o mais fraco, e não por tema nem por data.
 //
-// Abre com o que usa modelo de linguagem em produção, porque é isso que a vaga
-// pede pelo nome. Logo atrás vem a parte quantitativa, que é o que sustenta a
-// conversa quando alguém pergunta como o número foi validado. As duas metades
-// são o mesmo trabalho: modelo que precisa ser defendido, não só chamado.
+// Ninguém passa do terceiro card. Então os três primeiros precisam cobrir, em
+// ordem: IA que está no ar com modelo de linguagem, profundidade de método, e
+// o domínio das empresas para onde estas candidaturas vão. Por isso abre com a
+// PermaneIA, o trabalho de conclusão vem logo atrás e o terceiro é risco de
+// crédito. O que vem depois está ordenado pelo mesmo critério, e não pelo
+// carinho que eu tenho por cada um.
 const EIXO = [
-  "permaneia",          // RAG com fonte citada, abstenção e barreira de injeção
-  "balcao",             // o modelo não escreve número, quem calcula é o domínio
-  "codereview-ai",      // modelo rodando dentro de casa, com fila e SSE
-  "lastro",             // TCC: estrutura de dependência aprendida, não desenhada
-  "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
+  "permaneia",          // RAG no ar, com abstenção e barreira de injeção
+  "lastro",             // TCC: estrutura aprendida, 7 algoritmos, deriva medida
   "anteparo",           // IFRS 9: a hipótese de LGD pesa mais que o algoritmo
+  "balcao",             // o modelo não escreve número, quem calcula é o domínio
+  "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
+  "codereview-ai",      // modelo rodando dentro de casa, com fila e rastro
   "decurso",            // jurimetria: a conta de planilha erra 1,23x para baixo
-  "prumo",              // fundos: o que persiste é o risco, não o retorno
   "trato",              // uplift: medir se há heterogeneidade antes de culpar o modelo
+  "prumo",              // fundos: o que persiste é o risco, não o retorno
   "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo
   "baliza",             // dois detectores e um terceiro sem rede neural, medidos
   "contaflux",          // contagem por vídeo, com a medição do erro
@@ -1028,12 +1036,12 @@ export const SOBRE = {
   nome: "Fabrício Júnio",
   cargo: "AI Engineer",
   cidade: "Bauru, SP",
-  bio: "Construo sistemas com modelo de linguagem que podem ser auditados: resposta com a fonte, recusa quando a fonte não existe e número calculado pelo domínio, nunca escrito pelo modelo. Prefiro medir antes de mexer a corrigir no escuro.",
+  bio: "IA que pode ser auditada: resposta com a fonte, recusa quando a fonte não existe, e número calculado pelo domínio em vez de escrito pelo modelo.",
   longBio: [
-    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário, e é lá que aprendi a lidar com sistema que já tem gente dentro.",
-    "O que eu construo com IA parte de uma pergunta prática: o que acontece quando o modelo erra. Na PermaneIA escrevi a camada de RAG inteira, com busca híbrida, limiar de relevância e as barreiras contra injeção de prompt, e ela responde com a fonte citada ou diz que não sabe em vez de inventar a data da prova. No Balcão o modelo escolhe a estratégia da conversa, mas preço, parcela e valor de troca saem de função determinística, e um auditor reprova qualquer algarismo sem origem. No CodeReview AI o modelo roda dentro de casa, atrás de fila com reprocessamento e cache por hash, porque análise de código de cliente não sai da rede.",
-    "A outra metade é quantitativa, e é ela que sustenta a conversa quando alguém pergunta como o número foi validado. O Lastro, meu trabalho de conclusão, aprende a estrutura de dependência entre instituições financeiras da B3 em vez de recortá-la de uma matriz de correlação, e tem uma fase inteira provando o método contra estruturas conhecidas antes de encostar no dado real. Foi essa fase que pegou um defeito do meu próprio algoritmo que o dado de mercado jamais denunciaria.",
-    "A regra é a mesma nos dois lados: baseline antes do modelo sofisticado, divisão temporal honesta quando o dado é série, métrica que serve para classe rara, e o limite do que foi medido escrito junto com o número. No Verbete isso significou medir que o campo de palavras-chave da API inflava o F1 em 0,140 e publicar o resultado sem ele; no Baliza, escrever também um detector sem rede neural e dizer quanto ele perde.",
+    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Treze clientes, de seguros a judiciário.",
+    "Construo IA pensando no que acontece quando o modelo erra. Na PermaneIA o RAG é escrito à mão e responde com a fonte ou diz que não sabe. No Balcão o modelo conversa, mas quem calcula preço é o domínio, e um auditor reprova algarismo sem origem. No CodeReview AI o modelo roda dentro de casa, atrás de fila.",
+    "A outra metade é quantitativa, e responde como o número foi validado. O Lastro, meu trabalho de conclusão, prova o método contra estrutura conhecida antes de encostar no dado real. Foi assim que achei um defeito do meu próprio algoritmo.",
+    "Modelo em caderno não resolve nada. Por isso API atrás de fila, contêiner, integração contínua que barra a entrega, deriva medida em vez de presumida, e o limite escrito junto com o número.",
   ],
   contato: {
     email: "junioad555@gmail.com",
