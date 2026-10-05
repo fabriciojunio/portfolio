@@ -219,33 +219,29 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("deve abrir pelo eixo novo e manter o back-end logo em seguida", () => {
+    it("deve abrir por risco e validação e manter a produção logo em seguida", () => {
       const labels = STACK_GROUPS.map((g) => g.label);
       // O primeiro grupo é o posicionamento: quem lê a lista de cima para
-      // baixo tem que sair sabendo o que eu faço, não o que eu já toquei.
-      // O eixo declarado é IA aplicada, então é ele que abre.
-      expect(labels[0]).toBe("ia aplicada");
-      // Avaliação vem logo atrás de propósito: numa vaga de IA, saber medir
-      // vale tanto quanto saber chamar o modelo, e é o que separa quem
-      // entrega número de quem entrega número defensável.
-      expect(labels[1]).toBe("avaliacao");
-      // O back-end não sai da lista: ele é o que coloca modelo em produção,
-      // e escondê-lo faria o perfil parecer só acadêmico. A mensageria foi
-      // absorvida por ele, porque sete grupos é o teto e um grupo só para
-      // Kafka e RabbitMQ competia com o que define o posicionamento.
-      expect(labels).toContain("dados e modelo");
-      expect(labels).toContain("eixo");
+      // baixo tem que sair sabendo o que eu faço, não o que eu já toquei. Numa
+      // vaga de banco ou de consultoria, quem decide é a área de risco, e o
+      // que ela pergunta é como o número foi validado. Então é isso que abre.
+      expect(labels[0]).toBe("risco e validacao");
+      expect(labels[1]).toBe("modelo");
+      // A produção não sai da lista: é ela que tira o modelo do caderno, e
+      // escondê-la faria o perfil parecer só acadêmico.
+      expect(labels).toContain("ia generativa");
+      expect(labels).toContain("producao");
       expect(labels).toContain("dados");
       expect(labels).toContain("infra");
-      expect(labels.indexOf("eixo")).toBeLessThan(labels.indexOf("front"));
+      expect(labels.indexOf("producao")).toBeLessThan(labels.indexOf("front"));
     });
 
-    it("o front aparece, mas depois do eixo", () => {
+    it("o front aparece, mas depois da produção", () => {
       // Dizer que entrego a tela é verdade e conta a favor. Dizer isso antes
-      // do back-end é que desfaz o posicionamento.
+      // do que sustenta o modelo é que desfaz o posicionamento.
       const labels = STACK_GROUPS.map((g) => g.label);
       expect(labels).toContain("front");
-      expect(labels.indexOf("front")).toBeGreaterThan(labels.indexOf("eixo"));
+      expect(labels.indexOf("front")).toBeGreaterThan(labels.indexOf("producao"));
     });
   });
 

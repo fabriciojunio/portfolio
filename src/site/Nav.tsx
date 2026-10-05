@@ -57,17 +57,22 @@ export default function Nav({ onNavigate }: Props) {
         scrolled ? "bg-[#0a0a0a] border-b border-white/10" : ""
       }`}
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between">
+      {/*
+        Três colunas de mesma largura em vez de `justify-between`: assim o menu
+        do meio fica centrado na página e não no espaço que sobra, que muda de
+        tamanho conforme o idioma deixa o grupo da direita mais largo.
+      */}
+      <div className="max-w-[1280px] mx-auto px-6 md:px-10 h-14 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]">
         <button
           type="button"
           onClick={() => go("topo")}
-          className="text-[#ededed] font-serif text-[15px] tracking-tight"
+          className="text-[#ededed] font-serif text-[15px] tracking-tight justify-self-start"
           aria-label={t.nav.topo}
         >
           fj.
         </button>
 
-        <nav className="hidden md:flex items-center gap-8 text-[12.5px] font-sans">
+        <nav className="hidden md:flex items-center gap-8 text-[12.5px] font-sans justify-self-center">
           {ITEMS.map((it) => (
             <button
               key={it.id}
@@ -84,11 +89,18 @@ export default function Nav({ onNavigate }: Props) {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        {/*
+          Três coisas diferentes convivem aqui: escolher idioma, sair para outra
+          página do site e sair do site. Sem o traço separando, elas viram uma
+          fileira só de texto cinza e a pessoa precisa ler tudo para achar o que
+          quer.
+        */}
+        <div className="hidden md:flex items-center gap-5 justify-self-end">
           <SeletorDeIdioma />
+          <span aria-hidden className="w-px h-3.5 bg-white/15" />
           <a
             href="/resultados"
-            className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors"
+            className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors whitespace-nowrap"
           >
             {t.nav.resultados}
           </a>
@@ -96,7 +108,7 @@ export default function Nav({ onNavigate }: Props) {
             href="https://github.com/fabriciojunio"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors"
+            className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors whitespace-nowrap"
           >
             GitHub →
           </a>
