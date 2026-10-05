@@ -129,6 +129,27 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
+    it("as cartas do topo são o trabalho de conclusão e os cinco projetos de empresa", async () => {
+      // A primeira tela é o que decide se a página continua sendo lida. Já
+      // esteve com cinco trechos de back-end e já esteve com três de modelo de
+      // linguagem; nos dois casos quem chegava por uma vaga de risco via
+      // primeiro o que menos interessa para ela. Este teste existe para que
+      // essa decisão não se desfaça numa reorganização.
+      const { CARTAS_DO_TOPO } = await import("./Cards3D");
+      expect([...CARTAS_DO_TOPO]).toEqual([
+        "lastro",
+        "anteparo",
+        "decurso",
+        "verbete",
+        "prumo",
+        "trato",
+      ]);
+      const existentes = new Set(PROJECTS.map((p) => p.slug));
+      for (const slug of CARTAS_DO_TOPO) {
+        expect(existentes.has(slug), `${slug} não existe em PROJECTS`).toBe(true);
+      }
+    });
+
     it("os seis projetos quantitativos levam à página de resultados", () => {
       // O link é o que torna o experimento visível para quem não roda Python.
       // Sem ele o projeto volta a ser um README com número solto.

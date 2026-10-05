@@ -11,14 +11,14 @@ import { PROJECTS } from "./data";
 // produto; nos dois casos quem chegava por uma vaga de risco ou de modelo via
 // primeiro aquilo que menos interessa para a vaga. O primeiro card fica no
 // centro e é o que a pessoa lê antes de decidir se rola a página.
-const PICKED = [
+export const CARTAS_DO_TOPO = [
   "lastro",     // trabalho de conclusão: risco sistêmico e deriva de estrutura
   "anteparo",   // IFRS 9: perda esperada, estágios e sensibilidade da hipótese
   "decurso",    // provisão de contingência judicial sob CPC 25
   "verbete",    // classificação de texto regulatório, com o vazamento medido
   "prumo",      // persistência de desempenho de fundo, com viés declarado
   "trato",      // efeito incremental de contato, com grupo de controle
-];
+] as const;
 
 interface CardConfig {
   x: number;     // posicao horizontal em %
@@ -138,7 +138,9 @@ export default function Cards3D() {
     };
   }, []);
 
-  const cards = PICKED.map((slug) => PROJECTS.find((p) => p.slug === slug)).filter(Boolean) as typeof PROJECTS;
+  const cards = CARTAS_DO_TOPO.map((slug) =>
+    PROJECTS.find((p) => p.slug === slug),
+  ).filter(Boolean) as typeof PROJECTS;
 
   return (
     <div
