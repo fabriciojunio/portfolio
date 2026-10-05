@@ -117,10 +117,16 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("o eixo abre pelo trabalho de conclusão e tem os seis projetos de IA", () => {
-      expect(PROJETOS_EIXO[0].slug).toBe("lastro");
-      for (const slug of ["anteparo", "decurso", "prumo", "verbete", "trato"]) {
-        expect(PROJETOS_EIXO.map((p) => p.slug)).toContain(slug);
+    it("o eixo abre por modelo de linguagem e mantém os seis projetos de IA", () => {
+      // Quem chega pela palavra "AI Engineer" no topo do perfil tem que ver
+      // trabalho com modelo de linguagem nos primeiros cards, senão o título
+      // e a página contam histórias diferentes. Os três primeiros são os que
+      // têm LLM em produção; a parte quantitativa vem logo atrás e continua
+      // obrigatória, porque é ela que sustenta a pergunta sobre validação.
+      const slugs = PROJETOS_EIXO.map((p) => p.slug);
+      expect(slugs.slice(0, 3)).toEqual(["permaneia", "balcao", "codereview-ai"]);
+      for (const slug of ["lastro", "anteparo", "decurso", "prumo", "verbete", "trato"]) {
+        expect(slugs).toContain(slug);
       }
     });
 
@@ -128,6 +134,13 @@ describe("data.ts — integridade dos dados", () => {
       const slugs = PROJETOS_PARCERIA.map((p) => p.slug);
       expect(slugs).toContain("vitrine-bauru");
       expect(slugs).toContain("conectagente");
+    });
+
+    it("o sistema da igreja não está na vitrine", () => {
+      // Saiu por decisão do dono do portfólio: é sistema de uma comunidade
+      // religiosa, não material de candidatura. Este teste existe para que
+      // uma reorganização futura não o traga de volta sem decisão nova.
+      expect(PROJECTS.map((p) => p.slug)).not.toContain("maranata-conecta");
     });
 
     it("o acervo não é maior que o resto da página inteira", () => {
@@ -201,16 +214,18 @@ describe("data.ts — integridade dos dados", () => {
       const labels = STACK_GROUPS.map((g) => g.label);
       // O primeiro grupo é o posicionamento: quem lê a lista de cima para
       // baixo tem que sair sabendo o que eu faço, não o que eu já toquei.
-      // O eixo declarado passou a ser modelo e decisão, então é ele que abre.
-      expect(labels[0]).toBe("dados e modelo");
-      // "método" vem logo atrás de propósito: numa vaga de dados, saber
-      // validar vale tanto quanto saber treinar, e é o que separa quem
+      // O eixo declarado é IA aplicada, então é ele que abre.
+      expect(labels[0]).toBe("ia aplicada");
+      // Avaliação vem logo atrás de propósito: numa vaga de IA, saber medir
+      // vale tanto quanto saber chamar o modelo, e é o que separa quem
       // entrega número de quem entrega número defensável.
-      expect(labels[1]).toBe("metodo");
+      expect(labels[1]).toBe("avaliacao");
       // O back-end não sai da lista: ele é o que coloca modelo em produção,
-      // e escondê-lo faria o perfil parecer só acadêmico.
+      // e escondê-lo faria o perfil parecer só acadêmico. A mensageria foi
+      // absorvida por ele, porque sete grupos é o teto e um grupo só para
+      // Kafka e RabbitMQ competia com o que define o posicionamento.
+      expect(labels).toContain("dados e modelo");
       expect(labels).toContain("eixo");
-      expect(labels).toContain("mensageria");
       expect(labels).toContain("dados");
       expect(labels).toContain("infra");
       expect(labels.indexOf("eixo")).toBeLessThan(labels.indexOf("front"));
