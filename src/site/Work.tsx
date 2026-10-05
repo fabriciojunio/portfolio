@@ -45,6 +45,17 @@ function enderecoDaDemo(caminho: string): string {
 }
 
 /**
+ * O link do card aponta para a página de resultados deste mesmo site?
+ *
+ * Os seis projetos quantitativos não têm demo no sentido comum: não há tela
+ * para operar, há número para conferir. Chamar aquilo de "demo ao vivo" promete
+ * outra coisa e decepciona quem clica.
+ */
+function ehPaginaDeResultado(destino: string): boolean {
+  return destino.startsWith("/resultados/");
+}
+
+/**
  * A vitrine deixou de ser uma lista corrida de 24 itens.
  *
  * Lista corrida obriga quem chega a decidir sozinho o que importa, e a resposta
@@ -189,7 +200,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
             </span>
             {project.demo && (
               <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#ededed] border border-[#ededed]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
-                demo
+                {ehPaginaDeResultado(project.demo) ? "números" : "demo"}
               </span>
             )}
             {project.labDemo && (
@@ -313,11 +324,13 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
               {project.demo && (
                 <a
                   href={project.demo}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  // A página de resultados é deste mesmo site: abrir aba nova
+                  // para ela faria o visitante acumular abas do mesmo domínio.
+                  target={ehPaginaDeResultado(project.demo) ? undefined : "_blank"}
+                  rel={ehPaginaDeResultado(project.demo) ? undefined : "noopener noreferrer"}
                   className="text-[12.5px] text-[#ededed] underline-offset-4 underline decoration-[#ffffff]/50 hover:decoration-[#ffffff]"
                 >
-                  demo ao vivo →
+                  {ehPaginaDeResultado(project.demo) ? "ver os números →" : "demo ao vivo →"}
                 </a>
               )}
             </div>

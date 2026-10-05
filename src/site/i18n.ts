@@ -31,6 +31,7 @@ export interface Textos {
     trabalho: string;
     stack: string;
     contato: string;
+    resultados: string;
     menu: string;
     fechar: string;
     topo: string;
@@ -99,6 +100,7 @@ const pt: Textos = {
     trabalho: "Trabalho",
     stack: "Stack",
     contato: "Contato",
+    resultados: "Resultados →",
     menu: "Menu",
     fechar: "Fechar",
     topo: "Topo",
@@ -120,11 +122,12 @@ const pt: Textos = {
     rotuloCargo: "Cargo",
     rotuloCidade: "Cidade",
     rotuloFormacao: "Formação",
-    bio: "Construo sistemas com modelo de linguagem que podem ser auditados: resposta com a fonte, recusa quando a fonte não existe e número calculado pelo domínio, nunca escrito pelo modelo.",
+    bio: "IA que pode ser auditada: resposta com a fonte, recusa quando a fonte não existe, e número calculado pelo domínio em vez de escrito pelo modelo.",
     longBio: [
-      "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário, e é lá que aprendi a mexer em sistema que já tem gente dentro.",
-      "O que eu construo com IA parte de uma pergunta prática: o que acontece quando o modelo erra. Na PermaneIA escrevi a camada de RAG inteira, sem framework de orquestração, com busca híbrida, limiar de relevância e as barreiras contra injeção de prompt. Ela responde com a fonte citada ou diz que não sabe, em vez de arriscar a data de uma prova. No Balcão o modelo escolhe a estratégia da conversa, mas preço, parcela e valor de troca saem de função determinística, e um auditor reprova qualquer algarismo sem origem registrada. No CodeReview AI o modelo roda dentro de casa, atrás de fila com reprocessamento e cache por hash, porque código de cliente não sai da rede.",
-      "A outra metade é quantitativa, e é ela que sustenta a conversa quando perguntam como o número foi validado. O Lastro, meu trabalho de conclusão, aprende a estrutura de dependência entre instituições financeiras da B3 em vez de recortá-la de uma matriz de correlação, e prova o método contra estruturas conhecidas antes de encostar no dado real. Foi essa fase que pegou um defeito do meu próprio algoritmo que o dado de mercado jamais denunciaria. A regra é a mesma dos dois lados: baseline antes do modelo sofisticado, divisão temporal honesta, e o limite do que foi medido escrito junto com o número.",
+      "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Treze clientes, de seguros a judiciário.",
+      "Construo IA pensando no que acontece quando o modelo erra. Na PermaneIA o RAG é escrito à mão e responde com a fonte ou diz que não sabe. No Balcão o modelo conversa, mas quem calcula preço é o domínio, e um auditor reprova algarismo sem origem. No CodeReview AI o modelo roda dentro de casa, atrás de fila.",
+      "A outra metade é quantitativa, e responde como o número foi validado. O Lastro, meu trabalho de conclusão, prova o método contra estrutura conhecida antes de encostar no dado real. Foi assim que achei um defeito do meu próprio algoritmo.",
+      "Modelo em caderno não resolve nada. Por isso API atrás de fila, contêiner, integração contínua que barra a entrega, deriva medida em vez de presumida, e o limite escrito junto com o número.",
     ],
   },
   trabalho: {
@@ -134,11 +137,11 @@ const pt: Textos = {
     blocos: {
       ia: {
         titulo: "IA em produção",
-        nota: "O eixo. Primeiro o que usa modelo de linguagem com a fonte citada, a recusa escrita e o número fora do modelo. Depois a parte quantitativa, onde o resultado precisa ser defendido e não só treinado.",
+        nota: "Do mais forte para o mais fraco. Os seis projetos quantitativos têm página própria, com a hipótese virada em controle.",
       },
       parceria: {
         titulo: "Parceria e extensão",
-        nota: "Com cliente fora da faculdade: a SEDECON, Secretaria de Desenvolvimento Econômico de Bauru, e iniciação científica com coleta em campo.",
+        nota: "Com cliente fora da faculdade: a SEDECON, Secretaria de Desenvolvimento Econômico de Bauru, e iniciação científica na Saruê, a incubadora da UNESP.",
       },
     },
     acervo: "back-end, produto e faculdade",
@@ -148,7 +151,7 @@ const pt: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["Escolho a ", "ferramenta", " pelo problema."],
-    nota: "Escrevi o RAG, o roteamento e as barreiras à mão em vez de montar sobre framework de orquestração, e é por isso que sei dizer onde cada um falha. Python quando o problema é dado, Java quando precisa aguentar o sistema do outro lado cair, TypeScript porque a tela precisa existir.",
+    nota: "Escrevi o RAG e as barreiras à mão, sem framework de orquestração, e é por isso que sei dizer onde cada um falha. Python para dado, Java para o que precisa aguentar o sistema do outro lado cair.",
     grupos: {
       "ia aplicada": "IA aplicada",
       avaliacao: "avaliação",
@@ -165,7 +168,7 @@ const pt: Textos = {
   contato: {
     secao: "04 · contato",
     titulo: ["Precisa de", "IA que não invente", "?"],
-    chamada: "RAG, agente com guarda e modelo rodando em produção, com o back-end que sustenta isso. Respondo em até 24h úteis.",
+    chamada: "RAG, agente com guarda e modelo em produção, com o back-end que sustenta isso. Respondo em até 24h úteis.",
     email: "E-mail",
   },
   rodape: {
@@ -182,6 +185,7 @@ const en: Textos = {
     trabalho: "Work",
     stack: "Stack",
     contato: "Contact",
+    resultados: "Results →",
     menu: "Menu",
     fechar: "Close",
     topo: "Top",
@@ -203,11 +207,12 @@ const en: Textos = {
     rotuloCargo: "Role",
     rotuloCidade: "Based in",
     rotuloFormacao: "Studying",
-    bio: "I build LLM systems you can audit: answers that cite the source, a refusal when the source is missing, and numbers computed by the domain, never written by the model.",
+    bio: "AI you can audit: answers that cite the source, a refusal when the source is missing, and numbers computed by the domain instead of written by the model.",
     longBio: [
-      "I am 21, studying Computer Science at UNISAGRADO, and I work on integration and process automation at Digihub, part of the Lecom group. I serve thirteen clients across insurance, healthcare, credit unions, auditing and the judiciary, which is where I learned to work on systems that already have people inside them.",
-      "What I build with AI starts from a practical question: what happens when the model is wrong. In PermaneIA I wrote the whole RAG layer by hand, with no orchestration framework: hybrid retrieval, a relevance threshold, and the guards against prompt injection. It answers with the source cited or says it does not know, instead of guessing an exam date. In Balcão the model picks the strategy of the conversation, but price, instalments and trade-in value come out of deterministic functions, and an auditor rejects any digit without a recorded origin. In CodeReview AI the model runs on our own machines, behind a queue with reprocessing and a hash-keyed cache, because client code does not leave the network.",
-      "The other half is quantitative, and it is what carries the conversation when someone asks how the number was validated. Lastro, my final-year project, learns the dependency structure between B3 financial institutions instead of cutting it out of a correlation matrix, and proves the method against known structures before touching real data. That phase caught a defect in my own algorithm that market data would never have revealed. The rule is the same on both sides: baseline before the fancy model, honest temporal splits, and the limitation written next to the number.",
+      "I am 21, studying Computer Science at UNISAGRADO, and I work on integration and process automation at Digihub, part of the Lecom group. Thirteen clients, from insurance to the judiciary.",
+      "I build AI around what happens when the model is wrong. In PermaneIA the RAG layer is written by hand and answers with the source cited or says it does not know. In Balcão the model talks, but the domain computes the price, and an auditor rejects any digit without a recorded origin. In CodeReview AI the model runs on our own machines, behind a queue.",
+      "The other half is quantitative, and it answers how the number was validated. Lastro, my final-year project, proves the method against known structures before touching real data. That is how I found a defect in my own algorithm.",
+      "A model in a notebook solves nothing. Hence APIs behind a queue, containers, CI that blocks the release, drift measured rather than assumed, and the limitation written next to the number.",
     ],
   },
   trabalho: {
@@ -217,11 +222,11 @@ const en: Textos = {
     blocos: {
       ia: {
         titulo: "AI in production",
-        nota: "The axis. First the LLM work, with the source cited, the refusal written down and the arithmetic kept outside the model. Then the quantitative half, where a result has to be defended and not just trained.",
+        nota: "Strongest first. The six quantitative projects have their own page, where the assumption behind each number becomes a control you can move.",
       },
       parceria: {
         titulo: "Partnerships and outreach",
-        nota: "Built with clients outside the university: SEDECON, Bauru's economic development agency, and undergraduate research collecting data in the field.",
+        nota: "Built with clients outside the university: SEDECON, Bauru's economic development agency, and undergraduate research at Saruê, UNESP's business incubator.",
       },
     },
     acervo: "backend, product and coursework",
@@ -231,7 +236,7 @@ const en: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["I pick the ", "tool", " for the problem."],
-    nota: "I wrote the retrieval, the routing and the guards by hand rather than stacking them on an orchestration framework, which is why I can tell you where each one breaks. Python when the problem is data, Java when it has to survive the system on the other end going down, TypeScript because the screen has to exist.",
+    nota: "I wrote the retrieval and the guards by hand, with no orchestration framework, which is why I can tell you where each one breaks. Python for data, Java for what has to survive the system on the other end going down.",
     grupos: {
       "ia aplicada": "applied AI",
       avaliacao: "evaluation",
@@ -248,7 +253,7 @@ const en: Textos = {
   contato: {
     secao: "04 · contact",
     titulo: ["Need AI that", "does not make things up", "?"],
-    chamada: "RAG, guarded agents and models running in production, with the backend that holds them up. I reply within one business day.",
+    chamada: "RAG, guarded agents and models in production, with the backend that holds them up. I reply within one business day.",
     email: "Email",
   },
   rodape: {
@@ -265,6 +270,7 @@ const es: Textos = {
     trabalho: "Proyectos",
     stack: "Stack",
     contato: "Contacto",
+    resultados: "Resultados →",
     menu: "Menú",
     fechar: "Cerrar",
     topo: "Inicio",
@@ -286,11 +292,12 @@ const es: Textos = {
     rotuloCargo: "Puesto",
     rotuloCidade: "Ubicación",
     rotuloFormacao: "Formación",
-    bio: "Construyo sistemas con modelos de lenguaje que se pueden auditar: respuesta con la fuente citada, negativa cuando la fuente no existe y números calculados por el dominio, nunca escritos por el modelo.",
+    bio: "IA que se puede auditar: respuesta con la fuente citada, negativa cuando la fuente no existe, y números calculados por el dominio en vez de escritos por el modelo.",
     longBio: [
-      "Tengo 21 años, estudio Ciencias de la Computación en UNISAGRADO y trabajo en integración y automatización de procesos en Digihub, del grupo Lecom. Atiendo a trece clientes de seguros, salud, cooperativas de crédito, auditoría y el poder judicial, y ahí aprendí a tocar sistemas que ya tienen gente adentro.",
-      "Lo que construyo con IA parte de una pregunta práctica: qué pasa cuando el modelo se equivoca. En PermaneIA escribí toda la capa de RAG a mano, sin framework de orquestación, con búsqueda híbrida, umbral de relevancia y las barreras contra inyección de prompt. Responde con la fuente citada o dice que no sabe, en lugar de arriesgar la fecha de un examen. En Balcão el modelo elige la estrategia de la conversación, pero precio, cuotas y valor de permuta salen de funciones determinísticas, y un auditor rechaza cualquier cifra sin origen registrado. En CodeReview AI el modelo corre en casa, detrás de una cola con reprocesamiento y caché por hash, porque el código del cliente no sale de la red.",
-      "La otra mitad es cuantitativa, y es la que sostiene la conversación cuando preguntan cómo se validó el número. Lastro, mi trabajo final, aprende la estructura de dependencia entre instituciones financieras de la B3 en lugar de recortarla de una matriz de correlación, y prueba el método contra estructuras conocidas antes de tocar datos reales. Esa fase encontró un defecto de mi propio algoritmo que el dato de mercado nunca habría delatado. La regla es la misma de los dos lados: baseline antes del modelo complejo, división temporal honesta y el límite escrito junto al número.",
+      "Tengo 21 años, estudio Ciencias de la Computación en UNISAGRADO y trabajo en integración y automatización de procesos en Digihub, del grupo Lecom. Trece clientes, de seguros al poder judicial.",
+      "Construyo IA pensando en qué pasa cuando el modelo se equivoca. En PermaneIA el RAG está escrito a mano y responde con la fuente o dice que no sabe. En Balcão el modelo conversa, pero el precio lo calcula el dominio, y un auditor rechaza cualquier cifra sin origen. En CodeReview AI el modelo corre en casa, detrás de una cola.",
+      "La otra mitad es cuantitativa, y responde cómo se validó el número. Lastro, mi trabajo final, prueba el método contra estructuras conocidas antes de tocar datos reales. Así encontré un defecto de mi propio algoritmo.",
+      "Un modelo en el cuaderno no resuelve nada. Por eso API detrás de cola, contenedores, integración continua que frena la entrega, deriva medida en vez de supuesta, y el límite escrito junto al número.",
     ],
   },
   trabalho: {
@@ -300,11 +307,11 @@ const es: Textos = {
     blocos: {
       ia: {
         titulo: "IA en producción",
-        nota: "El eje. Primero lo que usa modelos de lenguaje, con la fuente citada, la negativa escrita y la aritmética fuera del modelo. Después la mitad cuantitativa, donde el resultado tiene que defenderse y no solo entrenarse.",
+        nota: "Del más fuerte al más débil. Los seis proyectos cuantitativos tienen página propia, con la hipótesis convertida en control.",
       },
       parceria: {
         titulo: "Alianzas y extensión",
-        nota: "Con clientes fuera de la universidad: la SEDECON, Secretaría de Desarrollo Económico de Bauru, e iniciación científica con recolección en campo.",
+        nota: "Con clientes fuera de la universidad: la SEDECON, Secretaría de Desarrollo Económico de Bauru, e iniciación científica en Saruê, la incubadora de la UNESP.",
       },
     },
     acervo: "back-end, producto y universidad",
@@ -314,7 +321,7 @@ const es: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["Elijo la ", "herramienta", " según el problema."],
-    nota: "Escribí la recuperación, el ruteo y las barreras a mano en vez de montarlas sobre un framework de orquestación, y por eso sé decir dónde falla cada una. Python cuando el problema son los datos, Java cuando tiene que sobrevivir a que el sistema del otro lado se caiga, TypeScript porque la pantalla tiene que existir.",
+    nota: "Escribí la recuperación y las barreras a mano, sin framework de orquestación, y por eso sé decir dónde falla cada una. Python para datos, Java para lo que tiene que sobrevivir a que el sistema del otro lado se caiga.",
     grupos: {
       "ia aplicada": "IA aplicada",
       avaliacao: "evaluación",

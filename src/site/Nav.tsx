@@ -87,6 +87,12 @@ export default function Nav({ onNavigate }: Props) {
         <div className="hidden md:flex items-center gap-3">
           <SeletorDeIdioma />
           <a
+            href="/resultados"
+            className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors"
+          >
+            {t.nav.resultados}
+          </a>
+          <a
             href="https://github.com/fabriciojunio"
             target="_blank"
             rel="noopener noreferrer"
@@ -120,6 +126,9 @@ export default function Nav({ onNavigate }: Props) {
                 {it.label}
               </button>
             ))}
+            <a href="/resultados" className="text-left py-1 text-[#ffffff]">
+              {t.nav.resultados}
+            </a>
             <a
               href="https://github.com/fabriciojunio"
               target="_blank"
