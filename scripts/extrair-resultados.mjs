@@ -215,7 +215,12 @@ function anteparo() {
     dado: {
       fonte: "Yeh e Lien (2009), base de cartão de crédito da UCI",
       recorte: `${cartao.dados.n.toLocaleString("pt-BR")} clientes, divisão por cliente em treino, validação e teste`,
-      limitacao: cartao.dados.limitacao_geografica,
+      // Prosa escrita aqui, acentuada, e não copiada do artefato: os scripts
+      // gravam texto em ASCII, e "conclusao" na tela de um portfolio e um erro
+      // que ninguem reporta e todo mundo ve. O numero continua vindo do
+      // artefato; o que muda e so a redacao da frase.
+      limitacao:
+        "Clientes de Taiwan em 2005. Não permite conclusão sobre carteira brasileira: não existe base pública brasileira de contrato a contrato com inadimplência rotulada.",
     },
     manchete: {
       valor: `${(amplitudeLgd * 100).toFixed(0)}%`,
@@ -255,9 +260,10 @@ function anteparo() {
         { texto: "sexo, escolaridade e estado civil removidos", valor: "-0,0024 de Gini" },
         { texto: "pior calibração entre os grupos avaliados", valor: "4,6 em um grupo de 91 casos" },
       ],
-      nota: cartao.variaveis_sensiveis_removidas.justificativa,
+      nota: "A remoção foi medida, não presumida: custa 0,0024 de Gini, ou seja, o modelo fica marginalmente melhor sem elas. Com custo zero não há argumento técnico para manter. A idade fica, por ter relação econômica direta com renda e ciclo de vida.",
     },
-    limite: cartao.limitacoes[1] + " " + cartao.limitacoes[4],
+    limite:
+      "A base não traz recuperação, então a LGD é hipótese declarada e não estimativa, e a sensibilidade mostra que ela domina a provisão. A equidade é avaliada por sexo, escolaridade e faixa etária: o grupo de escolaridade 4 tem 91 casos no teste e calibração de 4,6, isto é, o modelo superestima o risco dele por um fator de quase cinco. Grupo pequeno com calibração ruim é o achado de equidade mais importante deste modelo.",
     repo: null,
   };
 }
@@ -363,7 +369,8 @@ function prumo() {
     dado: {
       fonte: "Informe diário de fundos da CVM",
       recorte: "42,3 milhões de linhas de cota diária, 40.961 séries de fundo, 2018 a 2025",
-      limitacao: persistencia.vies_declarado,
+      limitacao:
+        "Só entra no par o fundo presente nos dois períodos. O que fechou no meio sai, e ele é justamente o que foi mal: a medida é de persistência entre sobreviventes, e por isso superestima.",
     },
     manchete: {
       valor: "+0,34 contra −0,02",
@@ -455,7 +462,8 @@ function verbete() {
     dado: {
       fonte: "API de dados abertos da Câmara dos Deputados",
       recorte: `${(treino.divisao.treino + treino.divisao.validacao + treino.divisao.teste).toLocaleString("pt-BR")} proposições, ${temas.length} temas, divisão temporal com ${treino.divisao.ano_de_teste} como teste`,
-      limitacao: treino.divisao.motivo,
+      limitacao:
+        "Proposição sobre o mesmo assunto reaparece a cada legislatura com ementa quase igual, então a divisão é temporal e não aleatória: divisão aleatória poria a quase-cópia no treino e no teste ao mesmo tempo.",
     },
     manchete: {
       valor: `+${arredondar(ganhoDoVazamento, 3).toFixed(3).replace(".", ",")}`,
@@ -547,7 +555,8 @@ function trato() {
     dado: {
       fonte: "Experimento aleatorizado de Kevin Hillstrom (2008)",
       recorte: `${(efeito.n_tratado + efeito.n_controle).toLocaleString("pt-BR")} pessoas no conjunto de teste, com grupo de controle que não recebeu contato`,
-      limitacao: uplift.nota_de_validacao,
+      limitacao:
+        "A validação é por grupo e nunca pessoa a pessoa: ninguém é observado contatado e não contatado ao mesmo tempo, então não existe rótulo individual de efeito.",
     },
     manchete: {
       valor: `+${(efeito.efeito * 100).toFixed(2).replace(".", ",")} pp`,

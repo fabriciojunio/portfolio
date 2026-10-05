@@ -221,9 +221,9 @@ const en: Record<string, TextoDoProjeto> = {
     ],
   },
   conectagente: {
-    oneLine: "Undergraduate research: offline field data collection for community health workers",
-    what: "An undergraduate research project, incubated at Saruê (UNESP Bauru). It collects field data with no internet connection (SQLite with WAL and FTS) and syncs once back online. It never went to the field with an actual health worker: this is research, not a product in use.",
-    role: "I designed the sync engine (an outbox pattern with retries and conflict resolution) and the SQLite schema with FTS indexes for offline search.",
+    oneLine: "Undergraduate research at UNISAGRADO, incubated at UNESP's Saruê: offline field data collection",
+    what: "An undergraduate research project at UNISAGRADO that also went through Saruê, UNESP's business incubator in Bauru. A community health worker records a home visit on their phone with no network at all, and the device syncs once the signal is back. It never went to the field with an actual health worker: this is research, not a product in use, and it is written that way on purpose.",
+    role: "I wrote the sync engine, with an outbox, retries and conflict resolution, and the SQLite schema with full-text search so a resident can be looked up with no network call.",
     highlights: [
       "Outbox pattern with retry and conflict resolution: sync survives having no signal at all",
       "SQLite WAL plus FTS for offline search without a single network call",
@@ -588,9 +588,9 @@ const es: Record<string, TextoDoProjeto> = {
     ],
   },
   conectagente: {
-    oneLine: "Iniciación científica: recolección en campo sin internet para agentes de salud",
-    what: "Proyecto de iniciación científica, incubado en Saruê (UNESP Bauru). Recolecta datos en campo sin internet (SQLite con WAL y FTS) y sincroniza al reconectar. Nunca fue a campo con un agente real: es investigación, no un producto en uso.",
-    role: "Diseñé el motor de sincronización (patrón outbox con reintentos y resolución de conflictos) y el esquema SQLite con índices FTS para búsqueda sin conexión.",
+    oneLine: "Iniciación científica en UNISAGRADO, incubada en Saruê de la UNESP: recolección en campo sin internet",
+    what: "Iniciación científica en UNISAGRADO, que además pasó por Saruê, la incubadora de empresas de la UNESP en Bauru. El agente comunitario de salud registra la visita en el celular sin red alguna y el aparato sincroniza cuando vuelve la señal. Nunca fue a campo con un agente real: es investigación, no un producto en uso, y está escrito así a propósito.",
+    role: "Escribí el motor de sincronización, con cola de salida, reintentos y resolución de conflictos, y el esquema SQLite con búsqueda de texto para encontrar a un vecino sin ninguna llamada de red.",
     highlights: [
       "Patrón outbox con reintento y resolución de conflictos: la sincronización sobrevive a quedarse sin señal",
       "SQLite WAL y FTS para búsqueda sin conexión, sin una sola llamada de red",

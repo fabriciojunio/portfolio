@@ -4,18 +4,20 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
-// Os cinco que sustentam o eixo de IA, na mesma ordem da vitrine: o primeiro
-// fica no centro e é o que a pessoa lê primeiro.
+// O trabalho de conclusão e os cinco projetos feitos para o tipo de problema
+// que banco, consultoria, gestora e legaltech resolvem todo dia.
 //
-// A ordem aqui não é decoração. Antes, as cartas eram todas de back-end, e
-// quem chegasse pela palavra "IA" no título do perfil via cinco trechos de
-// Java de integração antes de qualquer coisa ligada a modelo.
+// A ordem aqui não é decoração. Antes as cartas eram de back-end, e depois de
+// produto; nos dois casos quem chegava por uma vaga de risco ou de modelo via
+// primeiro aquilo que menos interessa para a vaga. O primeiro card fica no
+// centro e é o que a pessoa lê antes de decidir se rola a página.
 const PICKED = [
-  "permaneia",      // RAG: o limiar que faz a resposta ser recusada
-  "balcao",         // o auditor que reprova algarismo sem origem
-  "codereview-ai",  // Java 21, fila com DLQ e modelo local
-  "lastro",         // o TCC: estrutura aprendida, não recortada
-  "verbete",        // o vazamento de anotação medido em F1
+  "lastro",     // trabalho de conclusão: risco sistêmico e deriva de estrutura
+  "anteparo",   // IFRS 9: perda esperada, estágios e sensibilidade da hipótese
+  "decurso",    // provisão de contingência judicial sob CPC 25
+  "verbete",    // classificação de texto regulatório, com o vazamento medido
+  "prumo",      // persistência de desempenho de fundo, com viés declarado
+  "trato",      // efeito incremental de contato, com grupo de controle
 ];
 
 interface CardConfig {
@@ -27,15 +29,19 @@ interface CardConfig {
   delay: number; // delay da animacao idle
 }
 
-// Primeiro item (JIS) e o destaque: z=0 (frente), maior escala,
-// centro do palco. Os outros distribuidos em torno em profundidades
-// variadas.
+// O primeiro item e o destaque: z=0 (frente), maior escala, centro do palco.
+// Os outros se distribuem em torno em profundidades variadas.
+//
+// Sao seis posicoes para seis projetos. A sexta entrou mais ao fundo e com a
+// menor escala: ela precisa aparecer sem disputar com a carta da frente, que e
+// a unica que alguem le inteira.
 const LAYOUT: CardConfig[] = [
-  { x: 26,  y:  2, rotZ:  -4, scale: 1.08, z:    0, delay: 0   },
-  { x:  2,  y: 18, rotZ: -14, scale: 0.94, z: -110, delay: 1.0 },
-  { x: 58,  y: 14, rotZ:  14, scale: 0.92, z:  -90, delay: 2.0 },
-  { x: 16,  y: 54, rotZ:  10, scale: 0.88, z: -140, delay: 3.0 },
-  { x: 46,  y: 58, rotZ:  -8, scale: 0.98, z:  -50, delay: 4.0 },
+  { x: 26,  y:  0, rotZ:  -4, scale: 1.06, z:    0, delay: 0   },
+  { x:  1,  y: 16, rotZ: -14, scale: 0.92, z: -110, delay: 1.0 },
+  { x: 57,  y: 12, rotZ:  13, scale: 0.90, z:  -90, delay: 2.0 },
+  { x: 14,  y: 50, rotZ:   9, scale: 0.86, z: -140, delay: 3.0 },
+  { x: 45,  y: 54, rotZ:  -7, scale: 0.96, z:  -50, delay: 4.0 },
+  { x: 62,  y: 38, rotZ:  18, scale: 0.80, z: -190, delay: 5.0 },
 ];
 
 const SYNTAX = {

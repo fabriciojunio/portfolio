@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Grafico from "./Grafico";
 import { formatar, preencherLeitura } from "./formato";
 import { RESULTADOS } from "./dados";
@@ -18,14 +18,52 @@ import type { AlavancaContinua, ProjetoResultado } from "./tipos";
 export default function Resultados() {
   const [aberto, setAberto] = useState<string>(() => doEndereco());
 
+  // O primeiro efeito leva até o projeto pedido; o segundo mantém o menu
+  // apontando para o que está na tela. Sem o segundo, quem rolava a página a
+  // dedo via o menu travado no projeto de onde saiu, e o nome de cima deixava
+  // de dizer onde a pessoa está.
+  const pediuRolagem = useRef(true);
+
   useEffect(() => {
+    if (!pediuRolagem.current) return;
+    pediuRolagem.current = false;
     const alvo = document.getElementById(`r-${aberto}`);
     if (alvo) alvo.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [aberto]);
 
+  useEffect(() => {
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        // Entre duas seções visíveis ao mesmo tempo, vale a que ocupa mais
+        // tela: escolher a primeira da lista faria o menu voltar atrás no meio
+        // da rolagem.
+        const visivel = entradas
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visivel) return;
+        const slug = visivel.target.id.replace(/^r-/, "");
+        setAberto((atual) => (atual === slug ? atual : slug));
+      },
+      // A faixa de interesse é o terço de cima da janela: é onde fica o título
+      // da seção que a pessoa está lendo.
+      { rootMargin: "-10% 0px -65% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+
+    for (const p of RESULTADOS) {
+      const el = document.getElementById(`r-${p.slug}`);
+      if (el) observador.observe(el);
+    }
+    return () => observador.disconnect();
+  }, []);
+
+  const escolher = (slug: string) => {
+    pediuRolagem.current = true;
+    setAberto(slug);
+  };
+
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-[#ededed]">
-      <Cabecalho aberto={aberto} aoEscolher={setAberto} />
+      <Cabecalho aberto={aberto} aoEscolher={escolher} />
 
       <div className="max-w-[1180px] mx-auto px-6 md:px-10 pb-32">
         {RESULTADOS.map((p) => (
@@ -58,12 +96,21 @@ function Cabecalho({
   return (
     <header className="sticky top-0 z-20 bg-[#0a0a0a]/95 backdrop-blur border-b border-white/5">
       <div className="max-w-[1180px] mx-auto px-6 md:px-10 py-4 flex flex-wrap items-center gap-x-6 gap-y-3">
+        {/*
+          O botão de voltar fica no cabeçalho e não só no rodapé: esta página é
+          longa, e quem entra por link direto de um repositório não tem para
+          onde voltar no histórico do navegador.
+        */}
         <a
           href="/"
-          className="font-serif text-[18px] text-[#ffffff] hover:opacity-70 transition-opacity shrink-0"
+          className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[1.4px] text-[#9a9a9a] hover:text-[#ffffff] transition-colors shrink-0"
         >
-          fj.
+          <span aria-hidden className="transition-transform group-hover:-translate-x-1">
+            ←
+          </span>
+          voltar
         </a>
+        <span aria-hidden className="w-px h-4 bg-white/15 shrink-0" />
         <nav className="flex flex-wrap items-center gap-x-5 gap-y-2">
           {RESULTADOS.map((p) => (
             <button

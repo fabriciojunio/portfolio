@@ -300,8 +300,8 @@ const forca = Math.min(
   {
     slug: "conectagente",
     name: "ConectAgente",
-    oneLine: "Iniciação científica na Saruê, a incubadora da UNESP: coleta em campo sem internet",
-    what: "Projeto de iniciação científica incubado na Saruê, a incubadora de empresas da UNESP em Bauru. O agente comunitário de saúde registra a visita no celular sem rede nenhuma e o aparelho sincroniza quando volta a ter sinal. Nunca foi a campo com agente de verdade: é pesquisa, não produto em uso, e está escrito assim de propósito.",
+    oneLine: "Iniciação científica no UNISAGRADO, incubada na Saruê da UNESP: coleta em campo sem internet",
+    what: "Iniciação científica no UNISAGRADO, que também passou pela Saruê, a incubadora de empresas da UNESP em Bauru. O agente comunitário de saúde registra a visita no celular sem rede nenhuma e o aparelho sincroniza quando volta a ter sinal. Nunca foi a campo com agente de verdade: é pesquisa, não produto em uso, e está escrito assim de propósito.",
     role: "Escrevi o motor de sincronização, com fila de saída, nova tentativa e resolução de conflito, e o esquema do SQLite com busca em texto para procurar morador sem nenhuma chamada de rede.",
     highlights: [
       "A fila de saída guarda a alteração local e só a descarta quando o servidor confirma: perder sinal no meio da visita não perde a visita",
@@ -1036,12 +1036,12 @@ export const SOBRE = {
   nome: "Fabrício Júnio",
   cargo: "AI Engineer",
   cidade: "Bauru, SP",
-  bio: "IA que pode ser auditada: resposta com a fonte, recusa quando a fonte não existe, e número calculado pelo domínio em vez de escrito pelo modelo.",
+  bio: "Modelo de risco e de decisão que chega em produção com o número defendido: linha de base antes do modelo, validação temporal honesta e o limite declarado junto com o resultado.",
   longBio: [
     "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Treze clientes, de seguros a judiciário.",
-    "Construo IA pensando no que acontece quando o modelo erra. Na PermaneIA o RAG é escrito à mão e responde com a fonte ou diz que não sabe. No Balcão o modelo conversa, mas quem calcula preço é o domínio, e um auditor reprova algarismo sem origem. No CodeReview AI o modelo roda dentro de casa, atrás de fila.",
-    "A outra metade é quantitativa, e responde como o número foi validado. O Lastro, meu trabalho de conclusão, prova o método contra estrutura conhecida antes de encostar no dado real. Foi assim que achei um defeito do meu próprio algoritmo.",
-    "Modelo em caderno não resolve nada. Por isso API atrás de fila, contêiner, integração contínua que barra a entrega, deriva medida em vez de presumida, e o limite escrito junto com o número.",
+    "Meus seis projetos resolvem o problema que a área de risco resolve: perda esperada de crédito sob IFRS 9, provisão de contingência judicial sob CPC 25, persistência de desempenho de fundo, classificação de texto regulatório e efeito incremental de contato medido com grupo de controle.",
+    "O trabalho de conclusão aprende a estrutura de dependência entre instituições financeiras da B3 e mede quanto tempo ela dura. Provo o método contra estrutura conhecida antes de encostar no dado real, e foi assim que achei um defeito do meu próprio algoritmo.",
+    "Em todos: linha de base sem modelo em pé de igualdade, divisão temporal, calibração antes de discriminação, correção para comparações múltiplas e resultado negativo relatado como resultado. Em IA generativa, resposta com a fonte citada, recusa medida e número calculado fora do modelo.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -1052,47 +1052,65 @@ export const SOBRE = {
 
 export const STACK_GROUPS = [
   {
-    // O que a vaga procura pelo nome abre a lista. Não há framework de
-    // orquestração aqui de propósito: o RAG, o roteamento e as barreiras foram
-    // escritos à mão, e é por isso que sei dizer onde cada um falha.
-    label: "ia aplicada",
+    // Abre pelo que a área de risco cobra numa revisão de modelo. É isso que
+    // separa quem treina de quem entrega número que passa por validação.
+    label: "risco e validacao",
+    items: [
+      "validação temporal com purga",
+      "calibração e erro esperado",
+      "estabilidade de população (PSI)",
+      "bootstrap em blocos",
+      "correção para comparações múltiplas",
+      "cartão do modelo com limitações",
+    ],
+  },
+  {
+    label: "modelo",
+    items: [
+      "Python",
+      "scikit-learn",
+      "pandas",
+      "NumPy",
+      "SciPy",
+      "análise de sobrevivência",
+      "efeito causal com controle",
+      "rede bayesiana",
+    ],
+  },
+  {
+    // Sem framework de orquestração de propósito: a recuperação, o roteamento e
+    // as barreiras foram escritos à mão, e é por isso que sei dizer onde cada
+    // um falha.
+    label: "ia generativa",
     items: [
       "RAG com busca híbrida",
+      "resposta com fonte citada",
+      "abstenção com limiar medido",
+      "barreira contra injeção de prompt",
+      "auditor de saída",
       "pgvector",
-      "Claude e Gemini",
-      "Ollama local",
-      "guardas de entrada e auditor de saída",
-      "chamada de ferramenta determinística",
     ],
-  },
-  {
-    label: "avaliacao",
-    items: [
-      "curva de abstenção",
-      "medição de vazamento de anotação",
-      "validação temporal com purga",
-      "bootstrap em blocos",
-      "calibração",
-      "explicabilidade",
-    ],
-  },
-  {
-    label: "dados e modelo",
-    items: ["Python", "NumPy", "SciPy", "pandas", "scikit-learn", "NetworkX"],
   },
   {
     // O back-end não sai: é ele que coloca modelo em produção e aguenta o
     // sistema do outro lado cair.
-    label: "eixo",
-    items: ["Java 21", "Spring Boot", "SQL", "API REST", "Kafka", "RabbitMQ"],
+    label: "producao",
+    items: [
+      "Java 21",
+      "Spring Boot",
+      "API de inferência",
+      "fila com reprocessamento",
+      "Kafka",
+      "rastro distribuído",
+    ],
   },
   {
     label: "dados",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "outbox transacional"],
+    items: ["SQL", "PostgreSQL", "MongoDB", "Redis", "Parquet", "pgvector"],
   },
   {
     label: "infra",
-    items: ["AWS (SNS, SQS)", "Terraform", "Docker", "Kubernetes", "GitHub Actions"],
+    items: ["Docker", "Kubernetes", "GitHub Actions", "Terraform", "AWS (SNS, SQS)"],
   },
   {
     label: "front",
@@ -1100,20 +1118,25 @@ export const STACK_GROUPS = [
   },
 ];
 
+// A faixa é a primeira coisa que alguém lê depois do nome, e o filtro de
+// recrutador de banco e de consultoria é por palavra. Então ela carrega o
+// vocabulário dessas vagas, e não uma lista de biblioteca: risco, validação,
+// calibração e norma vêm antes de framework.
 export const EMPRESAS = [
-  "RAG",
-  "pgvector",
-  "Ollama",
-  "LLM em produção",
+  "modelo em produção",
+  "risco de crédito",
+  "IFRS 9",
+  "validação de modelo",
+  "calibração",
+  "explicabilidade",
+  "séries temporais",
+  "RAG com fonte citada",
+  "LGPD",
   "Python",
-  "scikit-learn",
   "Java",
   "Spring Boot",
-  "PostgreSQL",
-  "Kafka",
   "Docker",
   "Digihub",
   "UNISAGRADO",
-  "Incubadora Saruê",
   "Bauru, SP",
 ];
