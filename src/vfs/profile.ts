@@ -8,9 +8,10 @@ export const profileJson: VFile = {
   "nome": "Fabrício Júnio Almeida Dias",
   "idade": 21,
   "cidade": "Bauru, SP",
+  "foco": "IA em produção: risco, crédito e decisão",
   "trabalho": {
     "modelo": "PJ (prestação de serviços)",
-    "cargo": "Desenvolvedor back-end",
+    "cargo": "Desenvolvedor: BPM, integração e robô em Java",
     "desde": "2025",
     "atuacao": ["BPM e robôs em Java", "integrações REST", "abertura de conta digital"]
   },
@@ -20,11 +21,13 @@ export const profileJson: VFile = {
   },
   "linguagens": ["Português", "Inglês (técnico)"],
   "stack_principal": {
-    "back": ["Java + Spring Boot", "Node + NestJS", "FastAPI", "Laravel"],
-    "front": ["React / Next.js", "React Native + Expo", "TypeScript"],
-    "dados": ["PostgreSQL", "Redis", "Supabase", "SQLite (WAL+FTS)"],
-    "ml":    ["scikit-learn", "XGBoost", "PyTorch", "OpenCV", "FinBERT-PT-BR", "Ollama (local)"],
-    "infra": ["Docker", "GitHub Actions", "Nginx", "Vercel"]
+    "risco":    ["validação temporal", "calibração", "PSI", "bootstrap em blocos", "cartão do modelo"],
+    "ml":       ["scikit-learn", "XGBoost", "PyTorch", "OpenCV", "FinBERT-PT-BR", "rede bayesiana"],
+    "generativa": ["RAG com fonte citada", "abstenção com limiar", "MCP", "pgvector", "Ollama (local)"],
+    "back":     ["Java + Spring Boot", "Node + NestJS", "FastAPI", "Laravel"],
+    "front":    ["React / Next.js", "React Native + Expo", "TypeScript"],
+    "dados":    ["PostgreSQL", "Redis", "Supabase", "SQLite (WAL+FTS)"],
+    "infra":    ["Docker", "GitHub Actions", "Nginx", "Vercel"]
   },
   "valores": [
     "Clean Architecture só onde faz sentido",
