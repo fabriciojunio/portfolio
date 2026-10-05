@@ -1081,6 +1081,11 @@ export const STACK_GROUPS = [
     // Sem framework de orquestração de propósito: a recuperação, o roteamento e
     // as barreiras foram escritos à mão, e é por isso que sei dizer onde cada
     // um falha.
+    //
+    // O MCP é o único item desta lista que não vem de um repositório daqui: vem
+    // do trabalho, de ligar o assistente ao servidor da plataforma de processo
+    // para consultar dado de execução em vez de abrir tela por tela. Fica
+    // escrito aqui para ninguém apagar depois pensando que é invenção.
     label: "ia generativa",
     items: [
       "RAG com busca híbrida",
@@ -1088,6 +1093,7 @@ export const STACK_GROUPS = [
       "abstenção com limiar medido",
       "barreira contra injeção de prompt",
       "auditor de saída",
+      "MCP consultando sistema interno",
       "pgvector",
     ],
   },
@@ -1131,6 +1137,7 @@ export const EMPRESAS = [
   "explicabilidade",
   "séries temporais",
   "RAG com fonte citada",
+  "MCP",
   "LGPD",
   "Python",
   "Java",

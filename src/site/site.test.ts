@@ -257,6 +257,19 @@ describe("data.ts — integridade dos dados", () => {
       expect(labels.indexOf("producao")).toBeLessThan(labels.indexOf("front"));
     });
 
+    it("o MCP continua na lista, porque é experiência de trabalho", () => {
+      // Já afirmei aqui que não havia MCP em lugar nenhum, olhando só os
+      // repositórios, e estava errado: o uso foi no trabalho, ligando o
+      // assistente ao servidor da plataforma de processo para puxar dado de
+      // execução. Quem conferir por repositório vai concluir o mesmo que eu
+      // concluí e tirar o item. Por isso o teste existe: tirar o MCP exige
+      // apagar este comentário junto.
+      const generativa = STACK_GROUPS.find((g) => g.label === "ia generativa");
+      expect(generativa).toBeDefined();
+      expect(generativa!.items.join(" ")).toContain("MCP");
+      expect(EMPRESAS).toContain("MCP");
+    });
+
     it("o front aparece, mas depois da produção", () => {
       // Dizer que entrego a tela é verdade e conta a favor. Dizer isso antes
       // do que sustenta o modelo é que desfaz o posicionamento.
