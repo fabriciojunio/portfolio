@@ -410,7 +410,7 @@ export const RESULTADOS: ProjetoResultado[] = [
     "dado": {
       "fonte": "Yeh e Lien (2009), base de cartão de crédito da UCI",
       "recorte": "30.000 clientes, divisão por cliente em treino, validação e teste",
-      "limitacao": "Clientes de Taiwan em 2005. NAO permite conclusao sobre carteira brasileira. Nao existe base publica brasileira de contrato a contrato com inadimplencia rotulada."
+      "limitacao": "Clientes de Taiwan em 2005. Não permite conclusão sobre carteira brasileira: não existe base pública brasileira de contrato a contrato com inadimplência rotulada."
     },
     "manchete": {
       "valor": "45%",
@@ -498,9 +498,9 @@ export const RESULTADOS: ProjetoResultado[] = [
           "valor": "4,6 em um grupo de 91 casos"
         }
       ],
-      "nota": "A remocao foi medida, nao presumida: custa -0,0024 de Gini, isto e, o modelo fica marginalmente melhor sem elas. Com custo zero nao ha argumento tecnico para manter. Idade fica por ter relacao economica direta com renda e ciclo de vida."
+      "nota": "A remoção foi medida, não presumida: custa 0,0024 de Gini, ou seja, o modelo fica marginalmente melhor sem elas. Com custo zero não há argumento técnico para manter. A idade fica, por ter relação econômica direta com renda e ciclo de vida."
     },
-    "limite": "A base nao tem recuperacao: a LGD e hipotese declarada, nao estimativa. A sensibilidade mostra que ela domina a provisao. A equidade e avaliada por sexo, escolaridade e faixa etaria. O grupo de escolaridade 4 tem apenas 91 casos no teste e calibracao de 4,6: o modelo superestima o risco dele por um fator de quase cinco. Grupo pequeno com calibracao ruim e o achado de equidade mais importante deste modelo.",
+    "limite": "A base não traz recuperação, então a LGD é hipótese declarada e não estimativa, e a sensibilidade mostra que ela domina a provisão. A equidade é avaliada por sexo, escolaridade e faixa etária: o grupo de escolaridade 4 tem 91 casos no teste e calibração de 4,6, isto é, o modelo superestima o risco dele por um fator de quase cinco. Grupo pequeno com calibração ruim é o achado de equidade mais importante deste modelo.",
     "repo": null
   },
   {
@@ -929,7 +929,7 @@ export const RESULTADOS: ProjetoResultado[] = [
     "dado": {
       "fonte": "Informe diário de fundos da CVM",
       "recorte": "42,3 milhões de linhas de cota diária, 40.961 séries de fundo, 2018 a 2025",
-      "limitacao": "so entra no par o fundo presente nos dois periodos; o que fechou no meio sai, e ele e justamente o que foi mal. A medida e de persistencia entre os sobreviventes, o que superestima"
+      "limitacao": "Só entra no par o fundo presente nos dois períodos. O que fechou no meio sai, e ele é justamente o que foi mal: a medida é de persistência entre sobreviventes, e por isso superestima."
     },
     "manchete": {
       "valor": "+0,34 contra −0,02",
@@ -1193,7 +1193,7 @@ export const RESULTADOS: ProjetoResultado[] = [
     "dado": {
       "fonte": "API de dados abertos da Câmara dos Deputados",
       "recorte": "4.494 proposições, 30 temas, divisão temporal com 2024 como teste",
-      "limitacao": "proposicao sobre o mesmo assunto reaparece a cada legislatura com ementa quase igual; divisao aleatoria poria a quase-copia no treino e no teste"
+      "limitacao": "Proposição sobre o mesmo assunto reaparece a cada legislatura com ementa quase igual, então a divisão é temporal e não aleatória: divisão aleatória poria a quase-cópia no treino e no teste ao mesmo tempo."
     },
     "manchete": {
       "valor": "+0,140",
@@ -1317,7 +1317,7 @@ export const RESULTADOS: ProjetoResultado[] = [
     "dado": {
       "fonte": "Experimento aleatorizado de Kevin Hillstrom (2008)",
       "recorte": "12.713 pessoas no conjunto de teste, com grupo de controle que não recebeu contato",
-      "limitacao": "a validacao e por grupo e nunca pessoa a pessoa: ninguem e observado contatado e nao contatado ao mesmo tempo, entao nao existe rotulo individual de uplift"
+      "limitacao": "A validação é por grupo e nunca pessoa a pessoa: ninguém é observado contatado e não contatado ao mesmo tempo, então não existe rótulo individual de efeito."
     },
     "manchete": {
       "valor": "+4,93 pp",
