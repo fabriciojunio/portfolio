@@ -4,6 +4,218 @@ import type { VFile } from "../types";
 // retirado/adaptado do código de produção, com a meta correspondente.
 
 export const projectFiles: VFile[] = [
+  // Os seis primeiros são o trabalho de conclusão e os cinco projetos de risco,
+  // crédito e decisão. Vêm na frente porque é por eles que o portfólio abre, e
+  // porque até agora a IDE mostrava só o back-end: quem chegava aqui por uma
+  // vaga de modelo não encontrava uma linha do que importa para ela.
+  {
+    path: "/projetos/lastro.py",
+    name: "lastro.py",
+    language: "python",
+    meta: {
+      project: "Lastro, trabalho de conclusão de curso",
+      demo: "https://portfolio-a3qn.vercel.app/resultados/lastro",
+      stack: ["Python 3.12", "NumPy", "SciPy", "pandas", "pytest"],
+      role: "Rede de dependencia entre instituicoes da B3 aprendida como rede bayesiana, com busca evolutiva multiobjetivo e deriva da estrutura medida no tempo.",
+    },
+    content: `# A codificação que torna o reparo desnecessário.
+#
+# Um indivíduo é uma permutação dos vértices mais uma máscara sobre os pares
+# de posições. Toda aresta vai de uma posição menor para uma maior, então
+# todo indivíduo nasce acíclico. Não existe rotina de conserto, que é a parte
+# cara e enviesada de quem codifica a matriz de adjacência direto.
+
+@dataclass(frozen=True)
+class Individuo:
+    ordem: np.ndarray      # permutação dos n vértices
+    mascara: np.ndarray    # n(n-1)/2 bits, um por par de posições
+
+    @cached_property
+    def chave(self) -> tuple:
+        # Identidade pela estrutura, não pela codificação: duas codificações
+        # diferentes podem dar o mesmo grafo, e para o cache o que vale é o grafo.
+        return tuple(sorted(self.estrutura.arestas))
+
+# O achado que mudou o algoritmo veio da fase de validação, não do dado real.
+# Em 30 vértices a máscara tem 435 bits, e a evolução gastava o orçamento
+# procurando o que, dada a ordem, pode ser calculado. Com a máscara calculada
+# em vez de evoluída, o aprendiz passou ao primeiro posto médio entre sete
+# algoritmos nas mesmas 840 execuções.
+#
+# O dado real nunca teria denunciado isso: sem estrutura conhecida, não há com
+# o que comparar o grafo que sai.`,
+  },
+  {
+    path: "/projetos/anteparo.py",
+    name: "anteparo.py",
+    language: "python",
+    meta: {
+      project: "Anteparo: provisão IFRS 9",
+      github: "https://github.com/fabriciojunio/anteparo",
+      demo: "https://portfolio-a3qn.vercel.app/resultados/anteparo",
+      stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "pytest"],
+      role: "Perda esperada de credito com classificacao em estagios, calibracao, PSI e analise de sensibilidade da hipotese.",
+    },
+    content: `# ECL = PD x LGD x EAD cabe numa linha. O trabalho é decidir QUAL PD entra.
+#
+# A IFRS 9 não pede o nível de risco, pede se o risco aumentou de forma
+# significativa desde a originação. Contrato que nasceu ruim e continua ruim
+# fica no estágio 1; o que nasceu bom e piorou vai para o 2, e a provisão
+# salta de 12 meses para a vida inteira.
+
+@dataclass(frozen=True)
+class CriterioDeTransferencia:
+    razao_pd: float = 2.0            # PD vitalícia atual / PD da originação
+    delta_pd_absoluto: float = 0.05  # piso, em pontos de PD
+    dias_de_atraso_estagio_2: int = 30   # presunção refutável, IFRS 9 5.5.11
+    dias_de_atraso_estagio_3: int = 90   # inadimplência
+
+# Os dois critérios juntos, não alternativos: a razão sozinha dispara a
+# carteira inteira quando a PD é baixa (0,1% para 0,2% é 2x e não é aumento
+# significativo em dinheiro), e o delta sozinho nunca dispara quando ela é alta.
+sobe_para_2 = (aumento_relativo & aumento_absoluto) | (atraso >= 30)
+
+# O resultado que a área de risco leva para a reunião não é do modelo:
+# a provisão varia 1,45x só mudando a hipótese de LGD dentro da faixa
+# declarada, mais do que a distância entre o melhor e o pior algoritmo de PD.`,
+  },
+  {
+    path: "/projetos/decurso.py",
+    name: "decurso.py",
+    language: "python",
+    meta: {
+      project: "Decurso: duração e provisão de processo judicial",
+      github: "https://github.com/fabriciojunio/decurso",
+      demo: "https://portfolio-a3qn.vercel.app/resultados/decurso",
+      stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "SciPy"],
+      role: "Duracao por Kaplan-Meier e provisao de contingencia no criterio do CPC 25, a partir da API publica do CNJ.",
+    },
+    content: `# O CPC 25 (alinhado à IAS 37) não fixa percentual, e isso é deliberado:
+# ele diz "mais provável que não". A fronteira entre possível e remota é
+# julgamento profissional. Então ela fica aqui, declarada e no cartão do
+# modelo, em vez de escondida dentro de uma consulta SQL.
+
+@dataclass(frozen=True)
+class FaixasDoCPC25:
+    limite_provavel: float = 0.50  # vem da norma
+    limite_remota: float = 0.10    # julgamento, sujeito a sensibilidade
+
+# O modelo não entrega a classificação: entrega a probabilidade calibrada.
+# A classificação sai da probabilidade, e a provisão sai da classificação
+# mais o valor em risco. Três coisas separadas, cada uma revisável sozinha.
+
+# A conta que sai de planilha, a média dos processos já encerrados, descarta
+# 20,8% da base e erra para baixo por 1,21x: 791 dias contra 955 da mediana
+# de Kaplan-Meier. O erro não é aleatório; é maior na vara mais lenta.
+#
+# E um achado morreu quando a base cresceu de 2.648 para 4.118 processos:
+# a diferença que sobrevivia à correção de Benjamini-Hochberg parou de
+# sobreviver. Está escrito no relatório, não apagado.`,
+  },
+  {
+    path: "/projetos/verbete.py",
+    name: "verbete.py",
+    language: "python",
+    meta: {
+      project: "Verbete: classificação de texto regulatório",
+      github: "https://github.com/fabriciojunio/verbete",
+      demo: "https://portfolio-a3qn.vercel.app/resultados/verbete",
+      stack: ["Python 3.12", "scikit-learn", "pandas", "NumPy"],
+      role: "Classificacao multirrotulo de proposicao legislativa por tema, com vazamento de anotacao medido e curva de abstencao.",
+    },
+    content: `# Com 32 temas e ~1,2 tema por proposição, responder "nenhum tema" acerta a
+# maioria das 32 células de cada linha. Acurácia por célula passa de 95% e o
+# modelo é inútil. Por isso micro e macro F1 aparecem sempre juntos: a
+# distância entre os dois É o resultado, porque ela mede o quanto o modelo
+# funciona só nos temas comuns.
+
+def macro(y, p) -> dict:
+    """Média por rótulo. Tema com 14 casos pesa igual a tema com 1.207."""
+    por_rotulo = []
+    for j in range(y.shape[1]):
+        # Rótulo sem nenhum caso positivo fica DE FORA da média. F1 de um
+        # rótulo que não aparece não é zero, é indefinido, e contar como zero
+        # puniria o modelo por um rótulo que ele não teve chance de acertar.
+        if not y[:, j].any():
+            continue
+        por_rotulo.append(precisao_revocacao_f1(y[:, j], p[:, j]))
+
+# O resultado principal é o tamanho do vazamento: o campo de palavras-chave
+# da API é preenchido pela mesma indexação humana que atribui o tema. Usá-lo
+# leva o micro-F1 de 0,542 para 0,682, e o modelo pareceria 26% melhor do que
+# vai ser no dia em que a proposição chegar sem indexação nenhuma.`,
+  },
+  {
+    path: "/projetos/prumo.py",
+    name: "prumo.py",
+    language: "python",
+    meta: {
+      project: "Prumo: persistência de desempenho de fundo",
+      github: "https://github.com/fabriciojunio/prumo",
+      demo: "https://portfolio-a3qn.vercel.app/resultados/prumo",
+      stack: ["Python 3.12", "pandas", "NumPy", "SciPy", "PyArrow"],
+      role: "42,3 milhoes de linhas de cota da CVM para responder se o desempenho passado de um fundo preve o futuro.",
+    },
+    content: `# Razão de chances de repetir o lado da mediana (Brown e Goetzmann, 1995).
+# Vale 1 sob independência, e o teste usa o logaritmo, cujo erro padrão tem
+# forma fechada.
+
+d["acima_em_t"] = d.groupby("periodo")["retorno"].transform(lambda s: s > s.median())
+
+# A mediana é calculada DENTRO de cada período. Comparar com uma mediana
+# global misturaria o ano com o fundo, e o número sairia maior sem que nada
+# tivesse sido medido a mais. O mesmo vale para a correlação de postos: ela
+# é calculada dentro de cada par de períodos, nunca empilhando todos.
+
+razao = (gg * pp) / (gp * pg)
+erro = np.sqrt(1 / gg + 1 / gp + 1 / pg + 1 / pp)
+
+# A resposta é "quase nada, e depende da classe": renda fixa persiste, com
+# razão de 3,82; ações não, com 0,94. E em dinheiro não vale nada: a diferença
+# entre o melhor e o pior quintil é de 0,72% no ano seguinte, contra 19,20%
+# de dispersão dentro de cada quintil.
+#
+# O viés está declarado junto: só entra fundo presente nos DOIS períodos do
+# par, e o que fechou no meio é justamente o que foi mal. Isso superestima a
+# persistência, e 37% das séries somem antes do fim do período.`,
+  },
+  {
+    path: "/projetos/trato.py",
+    name: "trato.py",
+    language: "python",
+    meta: {
+      project: "Trato: efeito incremental de contato",
+      github: "https://github.com/fabriciojunio/trato",
+      demo: "https://portfolio-a3qn.vercel.app/resultados/trato",
+      stack: ["Python 3.12", "scikit-learn", "pandas", "NumPy", "SciPy"],
+      role: "Modelagem de uplift em experimento aleatorizado com grupo de controle, com o piso do acaso medido.",
+    },
+    content: `# Modelo de resposta: "quem vai pagar?". Modelo de uplift: "quem paga POR
+# CAUSA do contato?". São perguntas diferentes, e a primeira leva à decisão
+# errada: manda mensagem para quem ia pagar de qualquer jeito.
+#
+#   persuadíveis   paga se contatado, não paga se não for   <- o valor
+#   certeza        paga de qualquer jeito                    contato é custo
+#   perdidos       não paga de jeito nenhum                  contato é custo
+#   não perturbe   pagaria, e o contato faz desistir         contato é dano
+
+def curva_qini(y, tratado, escore, pontos=100) -> dict:
+    """Em cada k%, o ganho sobre contatar ao acaso:
+
+        ganho(k) = eventos(tratados) - eventos(controle) x (n_trat / n_ctrl)
+    """
+    # O reescalonamento do controle é o que torna a curva interpretável. Sem
+    # ele, a curva mede o tamanho dos grupos e não o efeito.
+
+# Uplift NÃO tem rótulo individual: ninguém é observado contatado e não
+# contatado ao mesmo tempo. Toda validação é por grupo, e por isso as métricas
+# aqui são todas de curva. Quem apresenta "acurácia do modelo de uplift" está
+# medindo outra coisa.
+#
+# Em dinheiro: 11,6% a mais de resultado contatando 25 pontos percentuais
+# menos gente. E o piso do acaso é a média de trinta sorteios, não um: um
+# sorteio só produz Qini de -0,117 a +0,143 nesta base.`,
+  },
   {
     path: "/projetos/feira-do-comando.java",
     name: "feira-do-comando.java",
