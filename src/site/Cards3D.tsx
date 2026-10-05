@@ -4,18 +4,18 @@ import { PROJECTS } from "./data";
 // Cinco cartas com snippet de projetos reais flutuando em perspectiva
 // 3D, com parallax suave seguindo o mouse e idle float continuo.
 
-// Os cinco que sustentam o eixo de back-end, na mesma ordem da vitrine: o
-// primeiro fica no centro e é o que a pessoa lê primeiro.
+// Os cinco que sustentam o eixo de IA, na mesma ordem da vitrine: o primeiro
+// fica no centro e é o que a pessoa lê primeiro.
 //
-// A ordem aqui não é decoração. Antes, os dois projetos que abrem a vitrine
-// não apareciam nesta lista, e a primeira coisa que alguém via no topo do site
-// eram projetos que eu mesmo coloco em terceiro e quinto lugar.
+// A ordem aqui não é decoração. Antes, as cartas eram todas de back-end, e
+// quem chegasse pela palavra "IA" no título do perfil via cinco trechos de
+// Java de integração antes de qualquer coisa ligada a modelo.
 const PICKED = [
-  "feira",          // Kafka, outbox e saga com compensação
-  "outorga",        // licença de exibição como invariante de domínio
-  "codereview-ai",  // Java 21, fila com DLQ e streaming
-  "authcore",       // JWT com rotação, 2FA e RBAC
-  "guarda-banco",   // proteção contra escrita acidental no servidor
+  "permaneia",      // RAG: o limiar que faz a resposta ser recusada
+  "balcao",         // o auditor que reprova algarismo sem origem
+  "codereview-ai",  // Java 21, fila com DLQ e modelo local
+  "lastro",         // o TCC: estrutura aprendida, não recortada
+  "verbete",        // o vazamento de anotação medido em F1
 ];
 
 interface CardConfig {
