@@ -1,18 +1,20 @@
 import { Suspense, lazy, useEffect, useState } from "react";
+import { rotaDoEndereco, type Rota } from "./rota";
 
 const Site = lazy(() => import("./site/Site"));
 const Lab = lazy(() => import("./lab/Lab"));
+const Resultados = lazy(() => import("./resultados/Resultados"));
 
-function isLabRoute(): boolean {
-  if (typeof window === "undefined") return false;
-  return window.location.pathname.replace(/\/+$/, "").toLowerCase() === "/lab";
+function rotaAtual(): Rota {
+  if (typeof window === "undefined") return "site";
+  return rotaDoEndereco(window.location.pathname);
 }
 
 export default function App() {
-  const [lab, setLab] = useState<boolean>(isLabRoute);
+  const [rota, setRota] = useState<Rota>(rotaAtual);
 
   useEffect(() => {
-    const onNav = () => setLab(isLabRoute());
+    const onNav = () => setRota(rotaAtual());
     window.addEventListener("popstate", onNav);
     return () => window.removeEventListener("popstate", onNav);
   }, []);
@@ -25,7 +27,7 @@ export default function App() {
         </div>
       }
     >
-      {lab ? <Lab /> : <Site />}
+      {rota === "lab" ? <Lab /> : rota === "resultados" ? <Resultados /> : <Site />}
     </Suspense>
   );
 }

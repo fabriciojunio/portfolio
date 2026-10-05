@@ -117,16 +117,25 @@ describe("data.ts — integridade dos dados", () => {
       }
     });
 
-    it("o eixo abre por modelo de linguagem e mantém os seis projetos de IA", () => {
-      // Quem chega pela palavra "AI Engineer" no topo do perfil tem que ver
-      // trabalho com modelo de linguagem nos primeiros cards, senão o título
-      // e a página contam histórias diferentes. Os três primeiros são os que
-      // têm LLM em produção; a parte quantitativa vem logo atrás e continua
-      // obrigatória, porque é ela que sustenta a pergunta sobre validação.
+    it("o eixo abre pelos três mais fortes e mantém os seis projetos de IA", () => {
+      // Ninguém passa do terceiro card. Os três primeiros cobrem, nesta ordem:
+      // IA no ar com modelo de linguagem, profundidade de método, e o domínio
+      // das empresas para onde as candidaturas vão. Trocar essa ordem por tema
+      // ou por data desfaz o posicionamento sem nada na tela acusar.
       const slugs = PROJETOS_EIXO.map((p) => p.slug);
-      expect(slugs.slice(0, 3)).toEqual(["permaneia", "balcao", "codereview-ai"]);
-      for (const slug of ["lastro", "anteparo", "decurso", "prumo", "verbete", "trato"]) {
+      expect(slugs.slice(0, 3)).toEqual(["permaneia", "lastro", "anteparo"]);
+      for (const slug of ["balcao", "codereview-ai", "decurso", "prumo", "verbete", "trato"]) {
         expect(slugs).toContain(slug);
+      }
+    });
+
+    it("os seis projetos quantitativos levam à página de resultados", () => {
+      // O link é o que torna o experimento visível para quem não roda Python.
+      // Sem ele o projeto volta a ser um README com número solto.
+      const comPagina = ["lastro", "anteparo", "decurso", "prumo", "verbete", "trato"];
+      for (const slug of comPagina) {
+        const projeto = PROJECTS.find((p) => p.slug === slug)!;
+        expect(projeto.demo, `${slug} sem link para os resultados`).toBe(`/resultados/${slug}`);
       }
     });
 
