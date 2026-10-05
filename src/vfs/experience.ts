@@ -7,9 +7,19 @@ export const experienceYaml: VFile = {
   content: `# Histórico profissional
 # Bauru/SP
 
+- cargo: Desenvolvedor BPMS
+  modelo: PJ, empresa de tecnologia
+  periodo: ago 2026 - presente
+  stack:    [Java, Spring Boot, JavaScript, SQL, REST, BPM, RPA, MCP]
+  entreguei:
+    - alteração em processo que já roda e movimenta dinheiro de grande empresa
+    - regra simulada contra 331 processos reais antes de mudar uma linha
+    - integrações REST e robôs Java entre a plataforma e sistema externo
+    - consulta a dado de sistema interno pelo assistente, via MCP
+
 - cargo: Analista de Sistemas
   modelo: PJ, consultoria de tecnologia
-  periodo: 2026 - presente
+  periodo: jan 2026 - ago 2026
   stack:    [Java, JavaScript, MySQL, REST, Git, BPM]
   entreguei:
     - integração com a API do IBGE no BPM (cadastro -80% tempo)
@@ -19,7 +29,7 @@ export const experienceYaml: VFile = {
 
 - cargo: Estagiário de Desenvolvimento
   modelo: consultoria de tecnologia
-  periodo: 2025 - 2026
+  periodo: jun 2025 - jan 2026
   stack:    [Java, JavaScript, MySQL, Git, BPM]
   entreguei:
     - modelagem de processos e automações em BPM

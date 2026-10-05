@@ -6,7 +6,7 @@ export const aboutMd: VFile = {
   language: "markdown",
   content: `# Fabrício Júnio
 
-> Desenvolvedor back-end. Java, Spring Boot e integracao. Bauru, SP.
+> IA em produção: risco, crédito e decisão. Back-end em Java. Bauru, SP.
 
 Tenho 21 anos, curso Ciência da Computação na UNISAGRADO
 e participo da Incubadora Saruê (UNESP Bauru).
@@ -21,6 +21,9 @@ integrações via API REST, em projetos bancários de
 abertura de conta digital. Uma das integrações que
 escrevi, com a API do IBGE, cortou o tempo de cadastro
 em 80%.
+
+Uso **MCP** para consultar dado de sistema interno a
+partir do assistente, em vez de abrir tela por tela.
 
 O que estou construindo agora é **aprendizado de máquina
 aplicado a risco e a decisão**. São seis projetos com o
