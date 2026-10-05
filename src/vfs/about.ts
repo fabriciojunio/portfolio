@@ -22,8 +22,9 @@ abertura de conta digital. Uma das integrações que
 escrevi, com a API do IBGE, cortou o tempo de cadastro
 em 80%.
 
-Uso **MCP** para consultar dado de sistema interno a
-partir do assistente, em vez de abrir tela por tela.
+Nesse caminho também liguei o assistente a sistema
+interno por **MCP**, para consultar dado sem abrir tela
+por tela.
 
 O que estou construindo agora é **aprendizado de máquina
 aplicado a risco e a decisão**. São seis projetos com o
