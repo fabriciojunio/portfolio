@@ -112,19 +112,19 @@ const pt: Textos = {
   },
   sobre: {
     secao: "01 · sobre",
-    titulo: ["Código que ", "funciona", " em produção."],
-    cargo: "Desenvolvedor back-end",
+    titulo: ["IA que ", "funciona", " em produção."],
+    cargo: "AI Engineer",
     cidade: "Bauru, SP",
     formacao: "Ciência da Computação, UNISAGRADO",
     formacaoValor: "Ciência da Computação, UNISAGRADO",
     rotuloCargo: "Cargo",
     rotuloCidade: "Cidade",
     rotuloFormacao: "Formação",
-    bio: "Back-end em Java, integração e automação de processo que já está em produção. Prefiro medir antes de mexer a corrigir no escuro.",
+    bio: "Construo sistemas com modelo de linguagem que podem ser auditados: resposta com a fonte, recusa quando a fonte não existe e número calculado pelo domínio, nunca escrito pelo modelo.",
     longBio: [
-      "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
-      "Não começo sistema do zero. Mexo em processo de negócio vivo, com centenas de instâncias rodando na hora em que a alteração sobe: robô e integração em Java, regra de tela em JavaScript, roteamento e SQL de diagnóstico. Por isso reproduzo a regra atual e rodo contra o histórico real antes de mudar qualquer linha. Se o modelo não acerta o passado, não serve para prever o futuro.",
-      "Nos projetos próprios o eixo é o mesmo. A Feira do Comando são três serviços Spring Boot conversando por Kafka, com outbox transacional e saga que compensa. O Outorga trata a licença de exibição como invariante: não existe caminho de código que publique sem ela. Um modelo de leitura em MongoDB responde numa consulta o que antes exigia juntar três serviços. Os dois sobem banco e Kafka de verdade nos testes, que foi como apareceram quatro defeitos que mock nenhum mostraria.",
+      "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário, e é lá que aprendi a mexer em sistema que já tem gente dentro.",
+      "O que eu construo com IA parte de uma pergunta prática: o que acontece quando o modelo erra. Na PermaneIA escrevi a camada de RAG inteira, sem framework de orquestração, com busca híbrida, limiar de relevância e as barreiras contra injeção de prompt. Ela responde com a fonte citada ou diz que não sabe, em vez de arriscar a data de uma prova. No Balcão o modelo escolhe a estratégia da conversa, mas preço, parcela e valor de troca saem de função determinística, e um auditor reprova qualquer algarismo sem origem registrada. No CodeReview AI o modelo roda dentro de casa, atrás de fila com reprocessamento e cache por hash, porque código de cliente não sai da rede.",
+      "A outra metade é quantitativa, e é ela que sustenta a conversa quando perguntam como o número foi validado. O Lastro, meu trabalho de conclusão, aprende a estrutura de dependência entre instituições financeiras da B3 em vez de recortá-la de uma matriz de correlação, e prova o método contra estruturas conhecidas antes de encostar no dado real. Foi essa fase que pegou um defeito do meu próprio algoritmo que o dado de mercado jamais denunciaria. A regra é a mesma dos dois lados: baseline antes do modelo sofisticado, divisão temporal honesta, e o limite do que foi medido escrito junto com o número.",
     ],
   },
   trabalho: {
@@ -133,12 +133,12 @@ const pt: Textos = {
     chamada: "Clique em qualquer um: o problema, a decisão que tomei e um trecho de código.",
     blocos: {
       ia: {
-        titulo: "Modelo e decisão",
-        nota: "O eixo. Onde o resultado precisa ser defendido, e não só treinado: baseline antes do modelo, divisão temporal honesta e o limite escrito junto com o número.",
+        titulo: "IA em produção",
+        nota: "O eixo. Primeiro o que usa modelo de linguagem com a fonte citada, a recusa escrita e o número fora do modelo. Depois a parte quantitativa, onde o resultado precisa ser defendido e não só treinado.",
       },
       parceria: {
         titulo: "Parceria e extensão",
-        nota: "Com cliente fora da faculdade: a Secretaria de Defesa do Consumidor de Bauru, iniciação científica em campo e uma comunidade usando todo domingo.",
+        nota: "Com cliente fora da faculdade: a SEDECON, Secretaria de Desenvolvimento Econômico de Bauru, e iniciação científica com coleta em campo.",
       },
     },
     acervo: "back-end, produto e faculdade",
@@ -148,8 +148,10 @@ const pt: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["Escolho a ", "ferramenta", " pelo problema."],
-    nota: "Não escolho linguagem por gosto. Java é onde passo o dia: processo de negócio vivo e integração que precisa aguentar o sistema do outro lado cair. Python quando o problema é dado. TypeScript porque a tela precisa existir.",
+    nota: "Escrevi o RAG, o roteamento e as barreiras à mão em vez de montar sobre framework de orquestração, e é por isso que sei dizer onde cada um falha. Python quando o problema é dado, Java quando precisa aguentar o sistema do outro lado cair, TypeScript porque a tela precisa existir.",
     grupos: {
+      "ia aplicada": "IA aplicada",
+      avaliacao: "avaliação",
       "dados e modelo": "dados e modelo",
       metodo: "método",
       eixo: "eixo",
@@ -162,8 +164,8 @@ const pt: Textos = {
   },
   contato: {
     secao: "04 · contato",
-    titulo: ["Precisa de", "um back-end", "?"],
-    chamada: "Java, Spring Boot e integração. Respondo em até 24h úteis.",
+    titulo: ["Precisa de", "IA que não invente", "?"],
+    chamada: "RAG, agente com guarda e modelo rodando em produção, com o back-end que sustenta isso. Respondo em até 24h úteis.",
     email: "E-mail",
   },
   rodape: {
@@ -193,19 +195,19 @@ const en: Textos = {
   },
   sobre: {
     secao: "01 · about",
-    titulo: ["Code that ", "holds up", " in production."],
-    cargo: "Backend developer",
+    titulo: ["AI that ", "holds up", " in production."],
+    cargo: "AI Engineer",
     cidade: "Bauru, Brazil",
     formacao: "Computer Science, UNISAGRADO",
     formacaoValor: "Computer Science, UNISAGRADO",
     rotuloCargo: "Role",
     rotuloCidade: "Based in",
     rotuloFormacao: "Studying",
-    bio: "Java backend, integration and process automation already running in production. I would rather measure first than fix in the dark.",
+    bio: "I build LLM systems you can audit: answers that cite the source, a refusal when the source is missing, and numbers computed by the domain, never written by the model.",
     longBio: [
-      "I am 21, studying Computer Science at UNISAGRADO, and I work on integration and process automation at Digihub, part of the Lecom group. I serve thirteen clients across insurance, healthcare, credit unions, auditing and the judiciary.",
-      "I do not start systems from scratch. I change live business processes, with hundreds of instances running at the moment the change ships: Java integrations and robots, screen rules in JavaScript, process routing and diagnostic SQL. So I reproduce the current rule and run it against real history before changing a single line. If the model does not get the past right, it is no good at predicting the future.",
-      "My own projects follow the same axis. Feira do Comando is three Spring Boot services talking over Kafka, with a transactional outbox and a saga that compensates. Outorga treats the broadcast licence as an invariant: no code path can publish without one. A MongoDB read model answers in one query what used to require joining three services. Both start a real database and a real Kafka in their tests, which is how four defects turned up that no mock would have shown.",
+      "I am 21, studying Computer Science at UNISAGRADO, and I work on integration and process automation at Digihub, part of the Lecom group. I serve thirteen clients across insurance, healthcare, credit unions, auditing and the judiciary, which is where I learned to work on systems that already have people inside them.",
+      "What I build with AI starts from a practical question: what happens when the model is wrong. In PermaneIA I wrote the whole RAG layer by hand, with no orchestration framework: hybrid retrieval, a relevance threshold, and the guards against prompt injection. It answers with the source cited or says it does not know, instead of guessing an exam date. In Balcão the model picks the strategy of the conversation, but price, instalments and trade-in value come out of deterministic functions, and an auditor rejects any digit without a recorded origin. In CodeReview AI the model runs on our own machines, behind a queue with reprocessing and a hash-keyed cache, because client code does not leave the network.",
+      "The other half is quantitative, and it is what carries the conversation when someone asks how the number was validated. Lastro, my final-year project, learns the dependency structure between B3 financial institutions instead of cutting it out of a correlation matrix, and proves the method against known structures before touching real data. That phase caught a defect in my own algorithm that market data would never have revealed. The rule is the same on both sides: baseline before the fancy model, honest temporal splits, and the limitation written next to the number.",
     ],
   },
   trabalho: {
@@ -214,12 +216,12 @@ const en: Textos = {
     chamada: "Open any of them: the problem, the decision I made, and a piece of the code.",
     blocos: {
       ia: {
-        titulo: "Models and decisions",
-        nota: "The axis. Where a result has to be defended, not just trained: baseline before the fancy model, honest temporal splits, and the limitation written next to the number.",
+        titulo: "AI in production",
+        nota: "The axis. First the LLM work, with the source cited, the refusal written down and the arithmetic kept outside the model. Then the quantitative half, where a result has to be defended and not just trained.",
       },
       parceria: {
         titulo: "Partnerships and outreach",
-        nota: "Built with clients outside the university: Bauru's consumer protection agency, undergraduate research in the field, and a congregation using it every Sunday.",
+        nota: "Built with clients outside the university: SEDECON, Bauru's economic development agency, and undergraduate research collecting data in the field.",
       },
     },
     acervo: "backend, product and coursework",
@@ -229,8 +231,10 @@ const en: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["I pick the ", "tool", " for the problem."],
-    nota: "I do not pick a language by taste. Java is where I spend the day: live business processes, and integrations that have to survive the system on the other end going down. Python when the problem is data. TypeScript because the screen has to exist.",
+    nota: "I wrote the retrieval, the routing and the guards by hand rather than stacking them on an orchestration framework, which is why I can tell you where each one breaks. Python when the problem is data, Java when it has to survive the system on the other end going down, TypeScript because the screen has to exist.",
     grupos: {
+      "ia aplicada": "applied AI",
+      avaliacao: "evaluation",
       "dados e modelo": "data and models",
       metodo: "method",
       eixo: "core",
@@ -243,8 +247,8 @@ const en: Textos = {
   },
   contato: {
     secao: "04 · contact",
-    titulo: ["Need a", "backend engineer", "?"],
-    chamada: "Java, Spring Boot and integration. I reply within one business day.",
+    titulo: ["Need AI that", "does not make things up", "?"],
+    chamada: "RAG, guarded agents and models running in production, with the backend that holds them up. I reply within one business day.",
     email: "Email",
   },
   rodape: {
@@ -274,19 +278,19 @@ const es: Textos = {
   },
   sobre: {
     secao: "01 · sobre mí",
-    titulo: ["Código que ", "funciona", " en producción."],
-    cargo: "Desarrollador back-end",
+    titulo: ["IA que ", "funciona", " en producción."],
+    cargo: "AI Engineer",
     cidade: "Bauru, Brasil",
     formacao: "Ciencias de la Computación, UNISAGRADO",
     formacaoValor: "Ciencias de la Computación, UNISAGRADO",
     rotuloCargo: "Puesto",
     rotuloCidade: "Ubicación",
     rotuloFormacao: "Formación",
-    bio: "Back-end en Java, integración y automatización de procesos ya en producción. Prefiero medir antes de tocar que corregir a ciegas.",
+    bio: "Construyo sistemas con modelos de lenguaje que se pueden auditar: respuesta con la fuente citada, negativa cuando la fuente no existe y números calculados por el dominio, nunca escritos por el modelo.",
     longBio: [
-      "Tengo 21 años, estudio Ciencias de la Computación en UNISAGRADO y trabajo en integración y automatización de procesos en Digihub, del grupo Lecom. Atiendo a trece clientes de seguros, salud, cooperativas de crédito, auditoría y el poder judicial.",
-      "No empiezo sistemas desde cero. Modifico procesos de negocio vivos, con cientos de instancias corriendo en el momento en que el cambio sale: integraciones y robots en Java, reglas de pantalla en JavaScript, ruteo de procesos y SQL de diagnóstico. Por eso reproduzco la regla actual y la corro contra el historial real antes de cambiar una sola línea. Si el modelo no acierta el pasado, no sirve para predecir el futuro.",
-      "Mis proyectos propios siguen el mismo eje. Feira do Comando son tres servicios Spring Boot conversando por Kafka, con outbox transaccional y una saga que compensa. Outorga trata la licencia de exhibición como invariante: no existe camino de código capaz de publicar sin ella. Un modelo de lectura en MongoDB responde en una consulta lo que antes exigía unir tres servicios. Los dos levantan una base y un Kafka reales en las pruebas, que fue como aparecieron cuatro defectos que ningún mock habría mostrado.",
+      "Tengo 21 años, estudio Ciencias de la Computación en UNISAGRADO y trabajo en integración y automatización de procesos en Digihub, del grupo Lecom. Atiendo a trece clientes de seguros, salud, cooperativas de crédito, auditoría y el poder judicial, y ahí aprendí a tocar sistemas que ya tienen gente adentro.",
+      "Lo que construyo con IA parte de una pregunta práctica: qué pasa cuando el modelo se equivoca. En PermaneIA escribí toda la capa de RAG a mano, sin framework de orquestación, con búsqueda híbrida, umbral de relevancia y las barreras contra inyección de prompt. Responde con la fuente citada o dice que no sabe, en lugar de arriesgar la fecha de un examen. En Balcão el modelo elige la estrategia de la conversación, pero precio, cuotas y valor de permuta salen de funciones determinísticas, y un auditor rechaza cualquier cifra sin origen registrado. En CodeReview AI el modelo corre en casa, detrás de una cola con reprocesamiento y caché por hash, porque el código del cliente no sale de la red.",
+      "La otra mitad es cuantitativa, y es la que sostiene la conversación cuando preguntan cómo se validó el número. Lastro, mi trabajo final, aprende la estructura de dependencia entre instituciones financieras de la B3 en lugar de recortarla de una matriz de correlación, y prueba el método contra estructuras conocidas antes de tocar datos reales. Esa fase encontró un defecto de mi propio algoritmo que el dato de mercado nunca habría delatado. La regla es la misma de los dos lados: baseline antes del modelo complejo, división temporal honesta y el límite escrito junto al número.",
     ],
   },
   trabalho: {
@@ -295,12 +299,12 @@ const es: Textos = {
     chamada: "Abrí cualquiera: el problema, la decisión que tomé y un fragmento de código.",
     blocos: {
       ia: {
-        titulo: "Modelo y decisión",
-        nota: "El eje. Donde el resultado tiene que defenderse, no solo entrenarse: baseline antes del modelo complejo, división temporal honesta y el límite escrito junto al número.",
+        titulo: "IA en producción",
+        nota: "El eje. Primero lo que usa modelos de lenguaje, con la fuente citada, la negativa escrita y la aritmética fuera del modelo. Después la mitad cuantitativa, donde el resultado tiene que defenderse y no solo entrenarse.",
       },
       parceria: {
         titulo: "Alianzas y extensión",
-        nota: "Con clientes fuera de la universidad: la agencia de defensa del consumidor de Bauru, iniciación científica en campo y una comunidad que lo usa cada domingo.",
+        nota: "Con clientes fuera de la universidad: la SEDECON, Secretaría de Desarrollo Económico de Bauru, e iniciación científica con recolección en campo.",
       },
     },
     acervo: "back-end, producto y universidad",
@@ -310,8 +314,10 @@ const es: Textos = {
   stack: {
     secao: "03 · stack",
     titulo: ["Elijo la ", "herramienta", " según el problema."],
-    nota: "No elijo lenguaje por gusto. Java es donde paso el día: procesos de negocio vivos e integraciones que tienen que sobrevivir a que el sistema del otro lado se caiga. Python cuando el problema son los datos. TypeScript porque la pantalla tiene que existir.",
+    nota: "Escribí la recuperación, el ruteo y las barreras a mano en vez de montarlas sobre un framework de orquestación, y por eso sé decir dónde falla cada una. Python cuando el problema son los datos, Java cuando tiene que sobrevivir a que el sistema del otro lado se caiga, TypeScript porque la pantalla tiene que existir.",
     grupos: {
+      "ia aplicada": "IA aplicada",
+      avaliacao: "evaluación",
       "dados e modelo": "datos y modelos",
       metodo: "método",
       eixo: "eje",
@@ -324,8 +330,8 @@ const es: Textos = {
   },
   contato: {
     secao: "04 · contacto",
-    titulo: ["¿Necesitás un", "back-end", "?"],
-    chamada: "Java, Spring Boot e integración. Respondo en menos de 24 h hábiles.",
+    titulo: ["¿Necesitás IA que", "no invente", "?"],
+    chamada: "RAG, agentes con guardas y modelos en producción, con el back-end que los sostiene. Respondo en menos de 24 h hábiles.",
     email: "Correo",
   },
   rodape: {

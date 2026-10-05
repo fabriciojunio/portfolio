@@ -1321,47 +1321,6 @@ final class CobrarCiclo
 `,
   },
   {
-    path: "/projetos/maranata-conecta.java",
-    name: "maranata-conecta.java",
-    language: "java",
-    meta: {
-      project: "Maranata Conecta",
-      demo: "https://maranata-conecta.vercel.app",
-      stack: ["Java 21", "Spring Boot 3.5", "PostgreSQL", "Vercel Functions"],
-      role: "Sistema de igreja em producao: membros, grupos, agenda, escalas e louvores, com nove papeis de permissao explicita.",
-    },
-    content: `// Permissão aqui não é hierarquia, é lista.
-//
-// O erro que isso evita: o dirigente do grupo de louvor marcou um
-// "Culto especial" para a igreja inteira. Ele podia marcar encontro,
-// e marcar encontro parecia uma coisa só. Não é.
-
-enum Permissao {
-    CRIAR_ENCONTRO_DO_GRUPO,
-    CRIAR_ENCONTRO_DA_IGREJA,   // secretaria, cooperador e pastor
-    DEFINIR_PAPEL,
-    VER_CONTATO_DO_MEMBRO,
-}
-
-// Marcar no grupo não é marcar na igreja.
-boolean alcancaOGrupo(Pessoa quem, Long grupoId) {
-    if (grupoId == null) {
-        return quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
-    }
-    return quem.dirige(grupoId) || quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
-}
-
-// E ninguém promove alguém acima do próprio alcance. Sem esta
-// linha, um administrador se tornava pastor sozinho.
-boolean podeConceder(Pessoa quem, Papel novo) {
-    if (novo.ehDeGoverno()) {
-        return quem.ehPastor() || naoExistePastorAinda();
-    }
-    return quem.alcance() > novo.alcance();
-}
-`,
-  },
-  {
     path: "/projetos/baliza.py",
     name: "baliza.py",
     language: "python",

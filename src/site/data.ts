@@ -704,7 +704,7 @@ def lado(self, ponto: tuple[float, float]) -> float:
   {
     slug: "vitrine-bauru",
     name: "Vitrine Bauru",
-    oneLine: "Vitrine dos pequenos negócios de Bauru, em quatro serviços por evento",
+    oneLine: "Vitrine dos pequenos negócios de Bauru com a SEDECON, em quatro serviços por evento",
     what: "Projeto de extensão com a SEDECON, a secretaria de desenvolvimento econômico da prefeitura de Bauru. O empreendedor cadastra o negócio, a secretaria confere e aprova, e a loja entra numa vitrine pública onde o consumidor fala direto no WhatsApp de quem produz. São quatro serviços Spring Boot com banco próprio cada um, conversando por evento, mais um gateway na borda e um front em React. Está no ar, com banco, API e site publicados, e não só rodando na minha máquina.",
     role: "Escrevi o sistema inteiro e coloquei no ar: os contratos de evento selados, o outbox e o inbox compartilhados, a máquina de estados do cadastro, a saga de exclusão da LGPD, a projeção que alimenta a busca pública, a tela toda e a implantação. Também a decisão de transporte que deixa o mesmo código rodar com Kafka, com Amazon SNS e sem corretor nenhum.",
     highlights: [
@@ -923,35 +923,6 @@ public function cobrar(Assinatura \\$assinatura, Competencia \\$ciclo): Cobranca
 }`,
   },
   {
-    slug: "maranata-conecta",
-    name: "Maranata Conecta",
-    oneLine: "Sistema de igreja em produção, onde o silêncio é funcionalidade",
-    what: "Membros, grupos, agenda de cultos, escalas, banco de louvores e projeção para a Igreja Cristã Maranata de Bauru. Está no ar com gente de verdade usando, em celular antigo e notebook antigo, que é o que a igreja tem.",
-    role: "Projetei e escrevi o sistema inteiro, incluindo a migração de uma aplicação em servidor para funções sem servidor, que tirou a hibernação e o custo de máquina ligada. O papel de cada pessoa define o que ela vê, e a agenda dela é montada a partir dos grupos de que participa.",
-    highlights: [
-      "O aviso não pode ser chato: o que se repete toda semana vira um resumo no sábado, e só o que muda é avisado na hora. Ensinar a pessoa a ignorar a notificação da igreja é o pior resultado possível",
-      "Nove papéis com permissão explícita, sem hierarquia implícita: marcar ensaio do grupo de louvor não dá direito a marcar culto da igreja",
-      "Quem concede cargo de governo precisa ser pastor, e ninguém promove alguém acima do próprio alcance",
-      "Senha com scrypt e comparação em tempo constante, sessão assinada por HMAC, e cinco erros travam a conta por quinze minutos",
-      "A agenda pública é cacheada na borda, e a agenda de quem entrou nunca: o cache é por cookie, senão a escala de um aparece para outro",
-      "Dá para entrar sem conta e ver a semana, porque visitante também precisa saber o horário do culto",
-    ],
-    stack: ["Java 21", "Spring Boot 3.5", "JavaScript", "PostgreSQL", "Vercel Functions", "Docker", "Kubernetes"],
-    github: null,
-    demo: "https://maranata-conecta.vercel.app",
-    year: "2026",
-    snippetLang: "java",
-    snippet: `// Marcar no grupo não é marcar na igreja.
-// O dirigente do louvor marca o ensaio dele; culto da igreja
-// inteira é da secretaria, do cooperador ou do pastor.
-boolean alcancaOGrupo(Pessoa quem, Long grupoId) {
-    if (grupoId == null) {
-        return quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
-    }
-    return quem.dirige(grupoId) || quem.pode(CRIAR_ENCONTRO_DA_IGREJA);
-}`,
-  },
-  {
     slug: "baliza",
     name: "Baliza",
     oneLine: "Vagas livres de estacionamento pela câmera que já está no poste",
@@ -993,26 +964,31 @@ def carregar(mapa: MapaDeVagas) -> Detector:
 // desaparece é o link, não o trabalho. O que saiu de vez saiu por decisão de
 // posicionamento, não por falta de espaço.
 
+// Ordem pensada para quem lê a vaga de IA e não passa do terceiro card.
+//
+// Abre com o que usa modelo de linguagem em produção, porque é isso que a vaga
+// pede pelo nome. Logo atrás vem a parte quantitativa, que é o que sustenta a
+// conversa quando alguém pergunta como o número foi validado. As duas metades
+// são o mesmo trabalho: modelo que precisa ser defendido, não só chamado.
 const EIXO = [
+  "permaneia",          // RAG com fonte citada, abstenção e barreira de injeção
+  "balcao",             // o modelo não escreve número, quem calcula é o domínio
+  "codereview-ai",      // modelo rodando dentro de casa, com fila e SSE
   "lastro",             // TCC: estrutura de dependência aprendida, não desenhada
+  "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
   "anteparo",           // IFRS 9: a hipótese de LGD pesa mais que o algoritmo
   "decurso",            // jurimetria: a conta de planilha erra 1,23x para baixo
   "prumo",              // fundos: o que persiste é o risco, não o retorno
-  "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
   "trato",              // uplift: medir se há heterogeneidade antes de culpar o modelo
-  "permaneia",          // RAG com fonte citada e fuzzy de Mamdani escrito do zero
-  "baliza",             // dois detectores e um terceiro sem rede neural, medidos
   "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo
+  "baliza",             // dois detectores e um terceiro sem rede neural, medidos
   "contaflux",          // contagem por vídeo, com a medição do erro
   "quantbot-ml",        // engenharia de dados e CI que quebra o build
-  "codereview-ai",      // modelo rodando dentro de casa, com fila e SSE
-  "balcao",             // o modelo não escreve número, quem calcula é o domínio
 ];
 
 const PARCERIA = [
   "vitrine-bauru",      // extensão com a SEDECON de Bauru, no ar
   "conectagente",       // iniciação científica, coleta em campo sem internet
-  "maranata-conecta",   // no ar com gente de verdade, papel define o que se vê
 ];
 
 // Ordenado por peso técnico, não por data: quem abre o acervo vê primeiro o
@@ -1050,14 +1026,14 @@ export const PROJECTS: SiteProject[] = [
 
 export const SOBRE = {
   nome: "Fabrício Júnio",
-  cargo: "Back-end e aprendizado de máquina",
+  cargo: "AI Engineer",
   cidade: "Bauru, SP",
-  bio: "Back-end em Java e modelos que precisam ser defendidos, não só treinados. Prefiro medir antes de mexer a corrigir no escuro, e relato resultado negativo quando é o que a medição deu.",
+  bio: "Construo sistemas com modelo de linguagem que podem ser auditados: resposta com a fonte, recusa quando a fonte não existe e número calculado pelo domínio, nunca escrito pelo modelo. Prefiro medir antes de mexer a corrigir no escuro.",
   longBio: [
-    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário.",
-    "Não começo sistema do zero. Mexo em processo de negócio vivo, com centenas de instâncias rodando na hora em que a alteração sobe: robô e integração em Java, regra de tela em JavaScript, roteamento e SQL de diagnóstico. Por isso reproduzo a regra atual e rodo contra o histórico real antes de mudar qualquer linha. Se o modelo não acerta o passado, não serve para prever o futuro.",
-    "O eixo para onde estou indo é aprendizado de máquina aplicado a risco e a decisão, que é onde essa teimosia com medição vale mais. O Lastro, meu trabalho de conclusão, aprende a estrutura de dependência entre instituições financeiras da B3 em vez de recortá-la de uma matriz de correlação, e tem uma fase inteira em que o método é provado contra estruturas conhecidas antes de encostar no dado real. Foi essa fase que pegou um defeito do meu próprio algoritmo que o dado de mercado jamais denunciaria.",
-    "O que eu levo de cada projeto é a mesma regra: baseline antes do modelo sofisticado, divisão temporal honesta quando o dado é série, métrica que serve para classe rara, e o limite do que foi medido escrito junto com o número. No Baliza isso significou escrever também um detector sem rede neural e publicar quanto ele perde; na PermaneIA, deixar o modelo redigir mas nunca calcular a data da prova.",
+    "Tenho 21 anos, curso Ciência da Computação na UNISAGRADO e trabalho com integração e automação de processo na Digihub, do grupo Lecom. Atendo treze clientes de seguros, saúde, cooperativismo de crédito, auditoria e judiciário, e é lá que aprendi a lidar com sistema que já tem gente dentro.",
+    "O que eu construo com IA parte de uma pergunta prática: o que acontece quando o modelo erra. Na PermaneIA escrevi a camada de RAG inteira, com busca híbrida, limiar de relevância e as barreiras contra injeção de prompt, e ela responde com a fonte citada ou diz que não sabe em vez de inventar a data da prova. No Balcão o modelo escolhe a estratégia da conversa, mas preço, parcela e valor de troca saem de função determinística, e um auditor reprova qualquer algarismo sem origem. No CodeReview AI o modelo roda dentro de casa, atrás de fila com reprocessamento e cache por hash, porque análise de código de cliente não sai da rede.",
+    "A outra metade é quantitativa, e é ela que sustenta a conversa quando alguém pergunta como o número foi validado. O Lastro, meu trabalho de conclusão, aprende a estrutura de dependência entre instituições financeiras da B3 em vez de recortá-la de uma matriz de correlação, e tem uma fase inteira provando o método contra estruturas conhecidas antes de encostar no dado real. Foi essa fase que pegou um defeito do meu próprio algoritmo que o dado de mercado jamais denunciaria.",
+    "A regra é a mesma nos dois lados: baseline antes do modelo sofisticado, divisão temporal honesta quando o dado é série, métrica que serve para classe rara, e o limite do que foi medido escrito junto com o número. No Verbete isso significou medir que o campo de palavras-chave da API inflava o F1 em 0,140 e publicar o resultado sem ele; no Baliza, escrever também um detector sem rede neural e dizer quanto ele perde.",
   ],
   contato: {
     email: "junioad555@gmail.com",
@@ -1068,33 +1044,43 @@ export const SOBRE = {
 
 export const STACK_GROUPS = [
   {
-    // O eixo novo abre a lista. Python com a pilha científica é o que as vagas
-    // de ciência de dados pedem; Java fica logo abaixo porque é o que eu uso
-    // todo dia e é o que coloca modelo em produção.
-    label: "dados e modelo",
-    items: ["Python", "NumPy", "SciPy", "pandas", "scikit-learn", "NetworkX"],
+    // O que a vaga procura pelo nome abre a lista. Não há framework de
+    // orquestração aqui de propósito: o RAG, o roteamento e as barreiras foram
+    // escritos à mão, e é por isso que sei dizer onde cada um falha.
+    label: "ia aplicada",
+    items: [
+      "RAG com busca híbrida",
+      "pgvector",
+      "Claude e Gemini",
+      "Ollama local",
+      "guardas de entrada e auditor de saída",
+      "chamada de ferramenta determinística",
+    ],
   },
   {
-    label: "metodo",
+    label: "avaliacao",
     items: [
+      "curva de abstenção",
+      "medição de vazamento de anotação",
       "validação temporal com purga",
       "bootstrap em blocos",
-      "teste de hipótese com correção",
       "calibração",
       "explicabilidade",
     ],
   },
   {
-    label: "eixo",
-    items: ["Java 21", "Spring Boot", "SQL", "API REST", "JUnit"],
+    label: "dados e modelo",
+    items: ["Python", "NumPy", "SciPy", "pandas", "scikit-learn", "NetworkX"],
   },
   {
-    label: "mensageria",
-    items: ["Kafka", "Amazon SNS e SQS", "RabbitMQ", "outbox transacional", "saga"],
+    // O back-end não sai: é ele que coloca modelo em produção e aguenta o
+    // sistema do outro lado cair.
+    label: "eixo",
+    items: ["Java 21", "Spring Boot", "SQL", "API REST", "Kafka", "RabbitMQ"],
   },
   {
     label: "dados",
-    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "pgvector"],
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "outbox transacional"],
   },
   {
     label: "infra",
@@ -1107,15 +1093,17 @@ export const STACK_GROUPS = [
 ];
 
 export const EMPRESAS = [
+  "RAG",
+  "pgvector",
+  "Ollama",
+  "LLM em produção",
+  "Python",
+  "scikit-learn",
   "Java",
   "Spring Boot",
-  "SQL",
-  "API REST",
   "PostgreSQL",
-  "Docker",
   "Kafka",
-  "RabbitMQ",
-  "BPM",
+  "Docker",
   "Digihub",
   "UNISAGRADO",
   "Incubadora Saruê",

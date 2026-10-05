@@ -243,7 +243,7 @@ const en: Record<string, TextoDoProjeto> = {
     ],
   },
   "vitrine-bauru": {
-    oneLine: "A shop window for Bauru's small businesses, in four Spring services",
+    oneLine: "A shop window for Bauru's small businesses with SEDECON, in four Spring services",
     what: "A university extension project with SEDECON, the city's economic development department. The owner registers the business, the department checks and approves it, and the shop goes into a public window where the customer talks straight to whoever makes the product, on WhatsApp. Four Spring Boot services, each with its own database, talking over events, plus an edge gateway and a React front end.",
     role: "I wrote the whole system: the sealed event contracts, the shared outbox and inbox, the registration state machine, the LGPD deletion saga, the projection that feeds the public search and the entire interface. Also the transport decision that lets the same code run with Kafka, with Amazon SNS and with no broker at all.",
     highlights: [
@@ -374,19 +374,6 @@ const en: Record<string, TextoDoProjeto> = {
       "Three retries before cancelling an overdue subscription, instead of cutting access on the first declined card",
       "A ticket closed without saying what it was is exactly what stops you from finding out, three months later, that the same defect came back",
       "PHPStan level 8, end-to-end Playwright, and Kubernetes manifests in the repository",
-    ],
-  },
-  "maranata-conecta": {
-    oneLine: "A church system in production, where silence is a feature",
-    what: "Members, groups, service schedule, duty rosters, a hymn library and projection for a church in Bauru. It is live with real people using it, on old phones and old laptops, which is what the church actually has.",
-    role: "I designed and wrote the whole system, including the move from a server application to serverless functions, which removed cold starts and the cost of a machine left running. A person's roles decide what they see, and their calendar is assembled from the groups they belong to.",
-    highlights: [
-      "Notifications must not be annoying: what repeats every week becomes one digest on Saturday, and only what changes is announced as it happens. Teaching people to ignore the church's notification is the worst possible outcome",
-      "Nine roles with explicit permissions and no implicit hierarchy: being allowed to schedule your worship group's rehearsal does not let you schedule a church-wide service",
-      "Granting a governing role requires being a pastor, and nobody can promote anyone above their own reach",
-      "Passwords with scrypt and constant-time comparison, an HMAC-signed session, and five failures lock the account for fifteen minutes",
-      "The public calendar is cached at the edge and the signed-in one never is: the cache varies by cookie, otherwise one person's roster shows up for another",
-      "You can browse the week without an account, because a visitor also needs to know when the service starts",
     ],
   },
   baliza: {
@@ -623,7 +610,7 @@ const es: Record<string, TextoDoProjeto> = {
     ],
   },
   "vitrine-bauru": {
-    oneLine: "Escaparate de los pequeños negocios de Bauru, en cuatro servicios Spring",
+    oneLine: "Escaparate de los pequeños negocios de Bauru con la SEDECON, en cuatro servicios Spring",
     what: "Proyecto de extensión con la SEDECON, la secretaría de desarrollo económico del municipio. El emprendedor registra su negocio, la secretaría lo verifica y lo aprueba, y la tienda entra en un escaparate público donde el consumidor habla directo por WhatsApp con quien produce. Son cuatro servicios Spring Boot, cada uno con su propia base de datos, comunicándose por eventos, más una pasarela en el borde y un front en React.",
     role: "Escribí el sistema entero: los contratos de evento sellados, el outbox y el inbox compartidos, la máquina de estados del registro, la saga de eliminación de la LGPD, la proyección que alimenta la búsqueda pública y toda la interfaz. También la decisión de transporte que permite que el mismo código funcione con Kafka, con Amazon SNS y sin corredor alguno.",
     highlights: [
@@ -754,19 +741,6 @@ const es: Record<string, TextoDoProjeto> = {
       "Tres intentos antes de cancelar una suscripción morosa, en vez de cortar en el primer rechazo de tarjeta",
       "Un ticket cerrado sin decir qué era es justo lo que impide descubrir, tres meses después, que el mismo defecto volvió",
       "PHPStan nivel 8, Playwright de punta a punta y manifiestos de Kubernetes en el repositorio",
-    ],
-  },
-  "maranata-conecta": {
-    oneLine: "Sistema de iglesia en producción, donde el silencio es una función",
-    what: "Miembros, grupos, agenda de cultos, turnos de servicio, banco de alabanzas y proyección para una iglesia de Bauru. Está en el aire con gente real usándolo, en celulares viejos y portátiles viejos, que es lo que la iglesia tiene.",
-    role: "Diseñé y escribí el sistema entero, incluida la migración de una aplicación en servidor a funciones sin servidor, que eliminó el arranque en frío y el costo de una máquina encendida. El papel de cada persona define lo que ve, y su agenda se arma a partir de los grupos a los que pertenece.",
-    highlights: [
-      "El aviso no puede ser molesto: lo que se repite cada semana se vuelve un resumen el sábado, y solo lo que cambia se avisa en el momento. Enseñarle a la persona a ignorar la notificación de la iglesia es el peor resultado posible",
-      "Nueve papeles con permisos explícitos y sin jerarquía implícita: poder agendar el ensayo de tu grupo de alabanza no te deja agendar un culto de toda la iglesia",
-      "Conceder un cargo de gobierno exige ser pastor, y nadie promueve a alguien por encima de su propio alcance",
-      "Contraseña con scrypt y comparación en tiempo constante, sesión firmada con HMAC, y cinco errores bloquean la cuenta por quince minutos",
-      "La agenda pública se cachea en el borde y la de quien entró nunca: el caché varía por cookie, si no el turno de uno aparece para otro",
-      "Se puede ver la semana sin cuenta, porque el visitante también necesita saber a qué hora empieza el culto",
     ],
   },
   baliza: {
