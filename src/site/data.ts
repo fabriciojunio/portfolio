@@ -101,13 +101,13 @@ estagio = np.where(tem_perda, 3, np.where(subiu | atraso_30, 2, 1))`,
     what: "Estima duração e desfecho de processo a partir da API pública do CNJ, e transforma as duas coisas em provisão pelo critério do CPC 25. O DataJud tem o insumo e não tem nenhuma das respostas prontas: não traz desfecho rotulado, não traz valor da causa e não traz duração, e as três precisam ser derivadas da lista de movimentos.",
     role: "Escrevi o coletor tolerante a falha, a derivação de desfecho com as três defesas contra vazamento, a análise de sobrevivência com Kaplan-Meier e log-rank, o modelo com linha de base e o cálculo de provisão. 126 testes, nenhum deles tocando a API.",
     highlights: [
-      "A conta que sai de planilha, a média dos processos já encerrados, descarta 21,3% da base e erra para baixo por 1,23x: 794 dias contra 974 da mediana de Kaplan-Meier. O erro não é aleatório, e é maior justamente na vara mais lenta",
-      "Comparando a duração entre assuntos, 12 dos 55 pares pareceriam diferentes a 5% e só 6 sobrevivem à correção de Benjamini-Hochberg",
-      "O modelo de desfecho dá resultado negativo e está relatado como tal: o ritmo de andamento nos primeiros 180 dias não prevê nada. A taxa histórica do órgão carrega sinal pequeno, AUC de 0,572",
-      "A classificação do CPC 25 sai degenerada por motivo estrutural: modelo calibrado numa taxa base de 0,32 concentra as previsões perto da média e nunca cruza o corte de 'mais provável que não'. Inflar a probabilidade para cruzar quebraria a calibração",
-      "A hipótese de valor em risco move a provisão 4,00x contra 1,06x da escolha do modelo",
+      "A conta que sai de planilha, a média dos processos já encerrados, descarta 20,8% da base e erra para baixo por 1,21x: 791 dias contra 955 da mediana de Kaplan-Meier. O erro não é aleatório, e é maior justamente na vara mais lenta",
+      "Comparando a duração entre assuntos, 73 dos 210 pares pareceriam diferentes a 5% e 44 sobrevivem à correção de Benjamini-Hochberg",
+      "O modelo de desfecho dá resultado negativo e está relatado como tal: AUC de 0,521, sem diferença significativa nem contra a taxa global nem contra a taxa do órgão",
+      "Um achado morreu quando a amostra cresceu, e isso ficou escrito: com 2.648 processos a taxa do órgão batia a taxa global com a diferença sobrevivendo à correção; com 4.118 ela não bate mais. É o que acontece com efeito pequeno em amostra pequena",
+      "A hipótese de valor em risco move a provisão 4,00x contra 1,09x da escolha do modelo",
       "O comportamento da API foi medido, não presumido: ordenação devolve 504 em qualquer forma, o que inviabiliza search_after, e a contagem sem track_total_hits para em 10.000, fazendo uma consulta de 300 mil parecer de 10 mil",
-      "A coleta divide o período até cada fatia caber e grava o que faltou, fatia por fatia: a desta base veio incompleta, 2.648 de 9.852, e isso está declarado em vez de invisível",
+      "A coleta divide o período até cada fatia caber e grava o que faltou, fatia por fatia: a desta base veio incompleta, 4.118 de 9.852, e isso está declarado em vez de invisível",
     ],
     stack: ["Python 3.12", "NumPy", "pandas", "scikit-learn", "SciPy", "Matplotlib"],
     github: "https://github.com/fabriciojunio/decurso",
@@ -985,7 +985,7 @@ const EIXO = [
   "balcao",             // o modelo não escreve número, quem calcula é o domínio
   "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
   "codereview-ai",      // modelo rodando dentro de casa, com fila e rastro
-  "decurso",            // jurimetria: a conta de planilha erra 1,23x para baixo
+  "decurso",            // jurimetria: a conta de planilha erra 1,21x para baixo
   "trato",              // uplift: medir se há heterogeneidade antes de culpar o modelo
   "prumo",              // fundos: o que persiste é o risco, não o retorno
   "cardiocam",          // rPPG, quatro algoritmos comparados no mesmo vídeo

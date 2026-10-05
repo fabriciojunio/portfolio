@@ -509,13 +509,13 @@ export const RESULTADOS: ProjetoResultado[] = [
     "pergunta": "Quanto dura um processo judicial, se os que ainda correm não podem ser descartados?",
     "dado": {
       "fonte": "DataJud do CNJ, Procedimento Comum Cível do TJSP",
-      "recorte": "2.648 processos ajuizados em janeiro de 2019, observados até 04/10/2026",
+      "recorte": "4.118 processos ajuizados em janeiro de 2019, observados até 04/10/2026",
       "limitacao": "O DataJud não traz valor da causa nem município preenchido. Qualquer valor em dinheiro aqui é hipótese paramétrica declarada, não medida."
     },
     "manchete": {
-      "valor": "1,23x",
+      "valor": "1,21x",
       "rotulo": "o quanto a conta de planilha erra para baixo",
-      "leitura": "A conta que só olha processo encerrado dá mediana de 794 dias. Kaplan-Meier, que usa também os 563 que ainda correm, dá 974. O erro não é aleatório: processo que ainda corre é justamente o demorado, e descartá-lo tira a cauda inteira."
+      "leitura": "A conta que só olha processo encerrado dá mediana de 791 dias. Kaplan-Meier, que usa também os 856 que ainda correm, dá 955. O erro não é aleatório: processo que ainda corre é justamente o demorado, e descartá-lo tira a cauda inteira."
     },
     "alavanca": {
       "tipo": "continua",
@@ -531,324 +531,324 @@ export const RESULTADOS: ProjetoResultado[] = [
       },
       "serie": [
         [
-          46,
-          0.9996
+          1,
+          0.9998
         ],
         [
-          134,
-          0.9943
+          110,
+          0.9956
         ],
         [
-          189,
-          0.9879
+          152,
+          0.9905
         ],
         [
-          228,
-          0.9819
+          207,
+          0.9852
         ],
         [
-          260,
-          0.9747
+          239,
+          0.9786
         ],
         [
-          300,
-          0.9671
+          267,
+          0.9723
         ],
         [
-          327,
-          0.9596
+          295,
+          0.9667
         ],
         [
-          360,
-          0.9509
+          320,
+          0.9594
         ],
         [
-          375,
-          0.9373
+          350,
+          0.9534
         ],
         [
-          390,
-          0.9218
+          370,
+          0.9427
+        ],
+        [
+          388,
+          0.925
         ],
         [
           405,
-          0.9082
+          0.9087
         ],
         [
-          427,
-          0.8943
+          424,
+          0.8939
         ],
         [
           442,
-          0.8799
+          0.8793
         ],
         [
-          457,
-          0.8716
+          459,
+          0.8694
         ],
         [
-          473,
-          0.8557
+          478,
+          0.8524
         ],
         [
-          490,
-          0.8444
+          497,
+          0.8324
         ],
         [
-          504,
-          0.8233
+          515,
+          0.8125
         ],
         [
-          519,
-          0.8097
+          532,
+          0.7972
         ],
         [
-          536,
-          0.7961
+          549,
+          0.7797
         ],
         [
-          551,
-          0.7798
+          567,
+          0.7613
         ],
         [
-          565,
-          0.7659
+          584,
+          0.7455
         ],
         [
-          580,
-          0.7523
+          602,
+          0.7273
         ],
         [
-          597,
-          0.7375
+          619,
+          0.7125
         ],
         [
-          613,
-          0.7224
+          636,
+          0.6996
         ],
         [
-          628,
-          0.7111
+          654,
+          0.685
         ],
         [
-          643,
-          0.6986
-        ],
-        [
-          659,
-          0.6862
-        ],
-        [
-          674,
-          0.6748
+          672,
+          0.6719
         ],
         [
           691,
-          0.6658
+          0.6603
         ],
         [
-          727,
-          0.6571
+          717,
+          0.652
         ],
         [
-          743,
-          0.6446
+          737,
+          0.6438
         ],
         [
-          761,
-          0.6329
+          756,
+          0.6297
         ],
         [
-          777,
-          0.6186
+          773,
+          0.6166
         ],
         [
-          793,
-          0.6069
+          792,
+          0.6015
         ],
         [
-          811,
-          0.5955
+          812,
+          0.5864
         ],
         [
-          827,
-          0.5831
+          829,
+          0.575
         ],
         [
-          843,
-          0.574
+          849,
+          0.5619
         ],
         [
-          865,
-          0.5597
+          868,
+          0.5449
         ],
         [
-          886,
-          0.5476
+          889,
+          0.5352
         ],
         [
-          902,
-          0.5393
+          908,
+          0.5255
         ],
         [
-          923,
-          0.5291
+          926,
+          0.5158
         ],
         [
-          937,
-          0.5196
+          944,
+          0.5056
         ],
         [
-          955,
-          0.5098
+          965,
+          0.4956
         ],
         [
-          972,
-          0.5008
+          985,
+          0.4842
         ],
         [
-          994,
-          0.4894
+          1011,
+          0.4743
         ],
         [
-          1018,
-          0.4819
+          1031,
+          0.467
         ],
         [
-          1035,
-          0.4736
+          1053,
+          0.457
         ],
         [
-          1055,
-          0.4641
+          1089,
+          0.4488
         ],
         [
-          1094,
-          0.4558
+          1106,
+          0.441
         ],
         [
-          1115,
-          0.4468
+          1127,
+          0.4322
         ],
         [
-          1132,
-          0.4392
+          1150,
+          0.4252
         ],
         [
-          1156,
-          0.4305
+          1172,
+          0.415
         ],
         [
-          1177,
-          0.4203
+          1191,
+          0.4075
         ],
         [
-          1196,
-          0.4124
+          1213,
+          0.3992
         ],
         [
-          1221,
-          0.4037
+          1232,
+          0.39
         ],
         [
-          1242,
-          0.395
+          1255,
+          0.3805
         ],
         [
-          1265,
-          0.3863
+          1284,
+          0.3703
         ],
         [
-          1295,
-          0.3769
+          1308,
+          0.3609
         ],
         [
-          1322,
-          0.369
+          1340,
+          0.3531
         ],
         [
-          1349,
-          0.3591
+          1362,
+          0.3439
         ],
         [
-          1374,
-          0.352
+          1387,
+          0.3361
         ],
         [
-          1399,
-          0.3421
+          1410,
+          0.3283
         ],
         [
-          1423,
-          0.3308
+          1442,
+          0.3198
         ],
         [
-          1460,
-          0.3233
+          1469,
+          0.3128
         ],
         [
-          1481,
-          0.315
+          1494,
+          0.306
         ],
         [
-          1511,
-          0.3089
+          1520,
+          0.2987
         ],
         [
-          1530,
-          0.301
+          1543,
+          0.2904
         ],
         [
-          1550,
-          0.2915
+          1570,
+          0.2819
         ],
         [
-          1584,
-          0.2844
+          1601,
+          0.2754
         ],
         [
-          1622,
-          0.2772
+          1636,
+          0.2686
         ],
         [
-          1669,
-          0.2711
+          1690,
+          0.2635
         ],
         [
-          1725,
-          0.2655
+          1732,
+          0.2581
         ],
         [
           1811,
-          0.2583
+          0.2525
         ],
         [
           1857,
-          0.2519
+          0.2472
         ],
         [
-          1907,
-          0.2443
+          1910,
+          0.2407
         ],
         [
-          1943,
-          0.2383
+          1948,
+          0.2356
         ],
         [
-          2001,
-          0.2323
+          1995,
+          0.2305
         ],
         [
-          2068,
-          0.2262
+          2055,
+          0.2246
         ],
         [
-          2118,
+          2101,
           0.2198
         ],
         [
-          2191,
-          0.2126
+          2148,
+          0.213
+        ],
+        [
+          2202,
+          0.2079
         ]
       ],
       "marcas": [
@@ -857,7 +857,7 @@ export const RESULTADOS: ProjetoResultado[] = [
           "rotulo": "mediana"
         },
         {
-          "x": 794,
+          "x": 791,
           "rotulo": "o que a planilha diz"
         }
       ],
@@ -865,7 +865,7 @@ export const RESULTADOS: ProjetoResultado[] = [
     },
     "contraste": {
       "titulo": "Mediana por assunto, entre os grupos com pelo menos 50 processos",
-      "nota": "11 assuntos passaram do mínimo. Por órgão julgador não dá: são 595 grupos com média de 4,5 processos cada, e nenhum chega ao mínimo.",
+      "nota": "21 assuntos passaram do mínimo. Por órgão julgador não dá: são 662 grupos com média de 6,2 processos cada, e nenhum chega ao mínimo.",
       "colunas": [
         "assunto",
         "processos",
@@ -873,34 +873,34 @@ export const RESULTADOS: ProjetoResultado[] = [
       ],
       "linhas": [
         [
+          "Rural (Art. 48/51)",
+          "60",
+          "1359"
+        ],
+        [
           "Perdas e Danos",
-          "58",
-          "1186"
+          "90",
+          "1155"
+        ],
+        [
+          "Condomínio",
+          "57",
+          "1139"
+        ],
+        [
+          "Defeito, nulidade ou anulação",
+          "53",
+          "1045"
         ],
         [
           "Aposentadoria por Incapacidade Permanente",
-          "94",
-          "1037"
+          "154",
+          "978"
         ],
         [
-          "Seguro",
-          "104",
-          "988"
-        ],
-        [
-          "Planos de Saúde",
-          "92",
-          "976"
-        ],
-        [
-          "Auxílio por Incapacidade Temporária",
-          "122",
-          "954"
-        ],
-        [
-          "Prestação de Serviços",
-          "88",
-          "933"
+          "Contratos Bancários",
+          "70",
+          "968"
         ]
       ],
       "destaque": -1
@@ -919,7 +919,7 @@ export const RESULTADOS: ProjetoResultado[] = [
       ],
       "nota": "Comparar 55 pares sem correção produz diferença significativa por sorteio. Metade do que parecia achado era o número de testes."
     },
-    "limite": "21,3% da base ainda corria no fim da observação. Essa fração é o tamanho do viés da conta ingênua, e cresce quanto mais recente for o recorte.",
+    "limite": "20,8% da base ainda corria no fim da observação. Essa fração é o tamanho do viés da conta ingênua, e cresce quanto mais recente for o recorte.",
     "repo": null
   },
   {
