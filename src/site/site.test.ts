@@ -124,7 +124,19 @@ describe("data.ts — integridade dos dados", () => {
       // ou por data desfaz o posicionamento sem nada na tela acusar.
       const slugs = PROJETOS_EIXO.map((p) => p.slug);
       expect(slugs.slice(0, 3)).toEqual(["permaneia", "lastro", "anteparo"]);
-      for (const slug of ["balcao", "codereview-ai", "decurso", "prumo", "verbete", "trato"]) {
+      // O Cautela entrou em quarto, e não em segundo, de propósito: ele traz as
+      // palavras que o mercado de IA procura, mas quem decide a contratação nas
+      // vagas-alvo é a área de risco, e ela lê o trabalho de conclusão e o IFRS 9
+      // primeiro. Agente vem logo depois, não na frente deles.
+      for (const slug of [
+        "cautela",
+        "balcao",
+        "codereview-ai",
+        "decurso",
+        "prumo",
+        "verbete",
+        "trato",
+      ]) {
         expect(slugs).toContain(slug);
       }
     });

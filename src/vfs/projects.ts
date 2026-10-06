@@ -9,6 +9,48 @@ export const projectFiles: VFile[] = [
   // porque até agora a IDE mostrava só o back-end: quem chegava aqui por uma
   // vaga de modelo não encontrava uma linha do que importa para ela.
   {
+    path: "/projetos/cautela.py",
+    name: "cautela.py",
+    language: "python",
+    meta: {
+      project: "Cautela: agente de investimentos que não recomenda",
+      github: "https://github.com/fabriciojunio/cautela",
+      stack: ["Python 3.12", "LangGraph", "Langfuse", "Datadog", "pytest"],
+      role: "Agente que responde com numero medido, fonte e limitacao, e recusa quando nao tem numero. O auditor le a saida do modelo e a substitui.",
+    },
+    content: `# O auditor não confia no modelo: lê a saída e a recusa.
+#
+# Instrução em prompt é pedido, não garantia. O que garante é isto.
+
+def auditar(texto: str, fatos: list[Fato]) -> Veredicto:
+    # Recomendação barra ANTES de qualquer conferência de número: uma
+    # resposta que recomenda com número certo continua sendo uma
+    # recomendação, e recomendar investimento exige analista certificado.
+    if contem_recomendacao(texto):
+        return Veredicto(False, "recomendacao", RECUSA_RECOMENDACAO)
+
+    if not fatos:
+        return Veredicto(False, "sem fato no acervo", RECUSA_SEM_FATO)
+
+    # Número que está na resposta e não foi entregue ao modelo não veio
+    # do dado, veio do modelo.
+    inventados = numeros_sem_lastro(texto, fatos)
+    if inventados:
+        return Veredicto(False, f"numero fora do acervo: {inventados}",
+                         RECUSA_SEM_FATO)
+
+    return Veredicto(True)
+
+# A comparação é por forma escrita, e não por valor: 94% não passa quando
+# o acervo diz 0,94. Converter unidade é derivar, e derivar é exatamente
+# onde um modelo erra sem parecer errado.
+#
+# Na primeira execução contra os artefatos reais, este auditor recusou a
+# própria transcrição: o fato traz "IC 95%" e ele tratou o 95% como
+# invenção. A definição foi corrigida, a regra não foi afrouxada, e o
+# caso virou teste.`,
+  },
+  {
     path: "/projetos/lastro.py",
     name: "lastro.py",
     language: "python",
