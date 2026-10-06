@@ -275,7 +275,8 @@ public Result<Titulo> publicar(Licenca licenca, Instant agora) {
       "Perguntas de calendário não são feitas pelo modelo: \"qual é a próxima aula\" é resolvida em código, sobre as datas do próprio material, e o modelo só redige",
       "Quando o material não responde, ele responde mesmo assim sobre a faculdade e sobre o conteúdo, e o aviso de que aquilo não tem fonte é escrito pelo código, não pelo modelo",
       "Funciona sem chave de API: no modo degradado ele transcreve o documento em vez de redigir, o que é ainda mais estrito quanto a não inventar",
-      "2.093 testes e nove defeitos documentados, um deles existindo só no artefato publicado e não no código-fonte",
+      "Cada consulta grava modelo, tokens e custo, e vai para o Langfuse com uma etapa por fase. Medido em produção: 96% dos tokens são de entrada, ou seja, a conta é do material que acompanha a pergunta e não da resposta",
+      "2.055 testes e onze defeitos documentados, um deles existindo só no artefato publicado e não no código-fonte, e outro em que uma chave gravada com marca de ordem de byte derrubou a aplicação inteira e não só a telemetria",
     ],
     stack: ["Next.js 15", "TypeScript", "PostgreSQL", "pgvector", "Prisma", "Gemini API"],
     github: "https://github.com/fabriciojunio/permaneia",
@@ -296,6 +297,46 @@ const forca = Math.min(
   graus.notas[regra.se.notas],
   graus.engajamento[regra.se.engajamento],
 );`,
+  },
+  {
+    slug: "cautela",
+    name: "Cautela",
+    oneLine: "Agente de investimentos que não recomenda",
+    what: "Um assistente que fala de dinheiro tem um risco que os outros não têm: número inventado com tom de autoridade. Este responde com número medido, cita a fonte e termina declarando a limitação. Quando não tem número, diz que não sabe. Os fatos saem dos artefatos dos outros projetos, então o agente não guarda texto, guarda resultado de experimento.",
+    role: "Escrevi o grafo em LangGraph, o auditor de saída com as três regras, o acervo que lê os artefatos JSON dos experimentos e a camada de observabilidade com Langfuse e Datadog.",
+    highlights: [
+      "Não recomenda, e isso é regra de código e não de estilo: recomendação de investimento é atividade regulada pela CVM e exige analista certificado",
+      "Número que não veio do acervo é barrado, inclusive por conversão de unidade: 94% não passa quando o acervo diz 0,94, porque converter é derivar, e derivar é onde o modelo erra sem parecer errado",
+      "O caminho da recusa é um caminho do grafo, com saída própria, e não um if escondido no meio da redação. Quem audita consegue responder como o agente recusa sem ler o código inteiro",
+      "Os 17 fatos vêm dos artefatos dos experimentos: se um deles for refeito e o número mudar, o agente passa a responder o novo sem ninguém editar texto",
+      "Na primeira execução contra os artefatos reais, o agente recusou a própria transcrição: o fato traz IC 95% e o auditor tratou aquilo como número inventado. A definição foi corrigida em vez de a regra ser afrouxada",
+      "A pergunta também é lida, não só a resposta: quando ela pede conselho, o aviso de que aquilo não é recomendação vem antes do número, e não depois",
+      "Sem chave de API o agente transcreve o fato como ele foi medido, e sem artefato ele recusa: ausência de dado não é permissão para opinar",
+    ],
+    stack: ["Python 3.12", "LangGraph", "Langfuse", "Datadog", "pytest"],
+    github: "https://github.com/fabriciojunio/cautela",
+    demo: null,
+    year: "2026",
+    snippetLang: "python",
+    snippet: `# O auditor nao confia no modelo: le a saida e a recusa.
+def auditar(texto: str, fatos: list[Fato]) -> Veredicto:
+    # Recomendacao barra antes de qualquer conferencia de numero:
+    # resposta que recomenda com numero certo continua sendo
+    # recomendacao, e recomendar exige analista certificado.
+    if contem_recomendacao(texto):
+        return Veredicto(False, "recomendacao", RECUSA_RECOMENDACAO)
+
+    if not fatos:
+        return Veredicto(False, "sem fato no acervo", RECUSA_SEM_FATO)
+
+    # Numero que esta na resposta e nao foi entregue ao modelo nao
+    # veio do dado, veio do modelo.
+    inventados = numeros_sem_lastro(texto, fatos)
+    if inventados:
+        return Veredicto(False, f"numero fora do acervo: {inventados}",
+                         RECUSA_SEM_FATO)
+
+    return Veredicto(True)`,
   },
   {
     slug: "conectagente",
@@ -982,6 +1023,7 @@ const EIXO = [
   "permaneia",          // RAG no ar, com abstenção e barreira de injeção
   "lastro",             // TCC: estrutura aprendida, 7 algoritmos, deriva medida
   "anteparo",           // IFRS 9: a hipótese de LGD pesa mais que o algoritmo
+  "cautela",            // agente que não recomenda: número do acervo ou recusa
   "balcao",             // o modelo não escreve número, quem calcula é o domínio
   "verbete",            // PLN: o vazamento de anotação vale +0,140 de F1
   "codereview-ai",      // modelo rodando dentro de casa, com fila e rastro
