@@ -239,8 +239,8 @@ const en: Record<string, TextoDoProjeto> = {
       "Calendar questions are not answered by the model: \"when is the next class\" is resolved in code, over the dates in the material itself, and the model only writes it up",
       "When the material has no answer, it still answers about the university and the subject, and the warning that this has no source is written by the code, not by the model",
       "Works with no API key: in degraded mode it transcribes the document rather than composing, which is stricter still about not inventing",
-      "Every query records model, tokens and cost, and also goes to Langfuse with one step per phase. Measured in production: 96% of the tokens are input, so the bill comes from the material shipped with the question, not from the answer",
-      "2,055 tests and eleven documented defects, one of which existed only in the published artefact and not in the source, and another in which a key stored with a byte order mark brought down the whole application rather than just the telemetry",
+      "Every query records model, tokens and cost, and also goes to Langfuse with one step per phase. Measured in production, over 30 real calls: 95.7% of the tokens are input, a ratio of 22.4 to 1. The bill comes from the material shipped with the question, not from the answer, and that changes where you pull to make it cheaper",
+      "2,055 tests and twelve documented defects, one of which existed only in the published artefact and not in the source, and another in which a key stored with a byte order mark brought down the whole application rather than just the telemetry",
     ],
   },
   cautela: {
@@ -621,8 +621,8 @@ const es: Record<string, TextoDoProjeto> = {
       "Las preguntas de calendario no las responde el modelo: \"cuál es la próxima clase\" se resuelve en código, sobre las fechas del propio material, y el modelo solo redacta",
       "Cuando el material no responde, igual responde sobre la universidad y el contenido, y el aviso de que eso no tiene fuente lo escribe el código, no el modelo",
       "Funciona sin clave de API: en modo degradado transcribe el documento en vez de redactar, lo que es aún más estricto en cuanto a no inventar",
-      "Cada consulta registra modelo, tokens y costo, y va también a Langfuse con una etapa por fase. Medido en producción: 96% de los tokens son de entrada, o sea, la cuenta viene del material que acompaña la pregunta y no de la respuesta",
-      "2.055 pruebas y once defectos documentados, uno de ellos existiendo solo en el artefacto publicado y no en el código fuente, y otro en que una clave guardada con marca de orden de bytes tumbó la aplicación entera y no solo la telemetría",
+      "Cada consulta registra modelo, tokens y costo, y va también a Langfuse con una etapa por fase. Medido en producción, en 30 llamadas reales: 95,7% de los tokens son de entrada, una razón de 22,4 a 1. La cuenta viene del material que acompaña la pregunta y no de la respuesta, y eso cambia dónde se ajusta para abaratar",
+      "2.055 pruebas y doce defectos documentados, uno de ellos existiendo solo en el artefacto publicado y no en el código fuente, y otro en que una clave guardada con marca de orden de bytes tumbó la aplicación entera y no solo la telemetría",
     ],
   },
   cautela: {
