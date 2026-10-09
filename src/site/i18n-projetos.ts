@@ -25,11 +25,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "vitrine-bauru": {
-      "oneLine": "Entrepreneur listings with moderation and direct contact",
-      "what": "UNISAGRADO outreach project for entrepreneurs served by SEDECON in Bauru: listings, search, moderation and WhatsApp contact.",
+      "oneLine": "Social outreach for SEDECON in Bauru: a small business directory",
+      "what": "UNISAGRADO social outreach project for SEDECON, Bauru's Municipal Secretariat for Economic Development, Tourism and Innovation. The department supports entrepreneurship and local economic development. The platform promotes small businesses through a catalog, search, moderation and WhatsApp contact.",
       "role": "I developed Java services, event integrations and the browsing and management interface.",
       "highlights": [
-        "Spring Boot and event integration",
+        "Spring Boot microservices with Kafka and separate data stores",
         "Registration moderation and contact indicators",
         "Integration tests and data deletion workflow"
       ],
@@ -42,7 +42,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     },
     "feira": {
       "oneLine": "Java orders with events and compensating actions",
-      "what": "Four Spring Boot services coordinate orders, inventory, payments and queries through Kafka events.",
+      "what": "Four Spring Boot microservices coordinate orders, inventory, payments and queries through Kafka events.",
       "role": "I implemented the order saga, transactional outbox and idempotent consumers.",
       "highlights": [
         "Outbox and inbox handle repeated delivery",
@@ -105,13 +105,13 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "conectagente": {
-      "oneLine": "Offline home visits with data synchronization",
-      "what": "Undergraduate research for Community Health Agents. React Native and Expo, local SQLite, Supabase/PostgreSQL and a Next.js dashboard. Selected by the Saruê incubator at UNESP Bauru.",
+      "oneLine": "Home visits · selected for Saruê (UNESP Bauru)",
+      "what": "Undergraduate public health research for Community Health Agents, selected for Saruê, the UNESP Bauru incubator. Field app with React Native and Expo, offline SQLite records, Supabase/PostgreSQL synchronization and a Next.js management dashboard.",
       "role": "I develop registration, visits, synchronization, access roles and audit records.",
       "highlights": [
         "Local SQLite for field registration",
         "Synchronization and role-based access",
-        "Management dashboard and audit trail"
+        "Selected for Saruê, the UNESP Bauru incubator"
       ],
       "demoNote": "Under development. The web dashboard requires authorized access. Use fictional health data.",
       "flow": [
@@ -138,18 +138,33 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     },
     "cardiocam": {
       "oneLine": "Experimental cardiac signal research from video",
-      "what": "Experimental cardiac signal research from video. Academic project. Source and setup instructions are available on GitHub.",
-      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "what": "Academic image and signal processing project to study remote photoplethysmography (rPPG), signal quality and method comparison.",
+      "role": "I develop processing, evaluation and automated tests for the experimental tool.",
       "highlights": [
-        "Implementation: Python, OpenCV, NumPy",
-        "Automated checks and documented workflow",
-        "Scope and limitations stated in the repository"
+        "Classical methods and signal quality evaluation",
+        "Research tools and video processing",
+        "Automated tests on Linux and Windows"
       ],
       "demoNote": "Synthetic signal simulation, without camera processing or clinically validated measurements.",
       "flow": [
         "Explore the project and its documented workflow.",
         "Review the source in the IDE or on GitHub.",
         "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "lastro": {
+      "oneLine": "Preparatory thesis research on financial institutions and the stability of their dependencies",
+      "what": "Preparatory Computer Science thesis project at UNISAGRADO. It investigates learning dependency structures among Brazilian financial institutions using Bayesian networks and multiobjective evolutionary optimization, and how stable those structures remain over time.",
+      "role": "I develop the method, experiments, evaluation and research documentation.",
+      "highlights": [
+        "Bayesian networks and multiobjective evolutionary optimization",
+        "Comparison with reference methods and known structures",
+        "Temporal stability evaluation using public B3 data"
+      ],
+      "demoNote": "Preparatory thesis research in progress. This is a public topic overview; code and research artifacts remain private until the thesis defense.",
+      "flow": [
+        "Read the overview of the topic, method and evaluation criteria.",
+        "Get in touch to discuss the research; the repository remains private."
       ]
     },
     "baliza": {
@@ -295,15 +310,15 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       "flow": [
         "Busque una empresa en el directorio.",
         "Entre con la cuenta de soporte de demostración y explore los tickets.",
-        "Siga el roteiro del repositorio para probar búsqueda y cobros localmente."
+        "Siga la guía del repositorio para probar búsqueda y cobros localmente."
       ]
     },
     "vitrine-bauru": {
-      "oneLine": "Vitrina de emprendedores con moderación y contacto directo",
-      "what": "Proyecto de extensión de UNISAGRADO para emprendedores atendidos por SEDECON en Bauru: catálogo, búsqueda, moderación y WhatsApp.",
+      "oneLine": "Acción social para SEDECON en Bauru: vitrina de pequeños emprendedores",
+      "what": "Acción social de extensión de UNISAGRADO para SEDECON, la Secretaría Municipal de Desarrollo Económico, Turismo e Innovación de Bauru. La secretaría apoya el emprendimiento y el desarrollo económico local. La plataforma difunde pequeños negocios con catálogo, búsqueda, moderación y contacto por WhatsApp.",
       "role": "Desarrollé los servicios Java, las integraciones por eventos y la interfaz de consulta y gestión.",
       "highlights": [
-        "Spring Boot e integración por eventos",
+        "Microservicios Spring Boot con Kafka y datos separados",
         "Moderación e indicadores de contactos",
         "Pruebas de integración y exclusión de datos"
       ],
@@ -316,7 +331,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     },
     "feira": {
       "oneLine": "Pedidos Java con eventos y compensaciones",
-      "what": "Cuatro servicios Spring Boot coordinan pedidos, inventario, pagos y consultas mediante Kafka.",
+      "what": "Cuatro microservicios Spring Boot coordinan pedidos, inventario, pagos y consultas mediante Kafka.",
       "role": "Implementé la saga de pedidos, el outbox transaccional y los consumidores idempotentes.",
       "highlights": [
         "Outbox e inbox para entregas repetidas",
@@ -326,7 +341,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       "demoNote": "Simulación en el navegador; Java y Kafka se ejecutan localmente.",
       "flow": [
         "Realice un pedido y siga sus transiciones.",
-        "Pida aceite de soja para observar la recusa y la compensación.",
+        "Pida aceite de soja para observar el rechazo y la compensación.",
         "Ejecute Docker Compose para evaluar los servicios distribuidos."
       ]
     },
@@ -379,13 +394,13 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "conectagente": {
-      "oneLine": "Visitas domiciliarias offline con sincronización",
-      "what": "Investigación para Agentes Comunitarios de Salud: React Native y Expo, SQLite local, Supabase/PostgreSQL y panel Next.js. Seleccionado por Saruê, incubadora de UNESP Bauru.",
+      "oneLine": "Visitas domiciliarias · seleccionado para Saruê (UNESP Bauru)",
+      "what": "Investigación universitaria en salud pública para Agentes Comunitarios de Salud, seleccionada para Saruê, incubadora de UNESP Bauru. App de campo con React Native y Expo, registros offline en SQLite, sincronización con Supabase/PostgreSQL y panel de gestión Next.js.",
       "role": "Desarrollo registros, visitas, sincronización, perfiles y auditoría.",
       "highlights": [
         "SQLite local para registros en campo",
         "Sincronización y acceso por perfil",
-        "Panel de gestión y auditoría"
+        "Seleccionado para Saruê, incubadora de UNESP Bauru"
       ],
       "demoNote": "En desarrollo. El panel requiere acceso autorizado. Utilice datos de salud ficticios.",
       "flow": [
@@ -412,18 +427,33 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     },
     "cardiocam": {
       "oneLine": "Investigación experimental de señales cardíacas por vídeo",
-      "what": "Investigación experimental de señales cardíacas por vídeo. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
-      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "what": "Proyecto académico de procesamiento de imágenes y señales para estudiar rPPG, calidad de señal y comparación de métodos.",
+      "role": "Desarrollo el procesamiento, la evaluación y las pruebas de la herramienta experimental.",
       "highlights": [
-        "Implementación: Python, OpenCV, NumPy",
-        "Verificaciones y flujo documentado",
-        "Alcance y limitaciones documentados"
+        "Métodos clásicos y evaluación de calidad",
+        "Herramientas de investigación y procesamiento de vídeo",
+        "Pruebas automatizadas en Linux y Windows"
       ],
       "demoNote": "Simulación con señales sintéticas, sin cámara ni mediciones clínicamente validadas.",
       "flow": [
         "Explore el proyecto y su flujo documentado.",
         "Revise el código en la IDE o en GitHub.",
         "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "lastro": {
+      "oneLine": "Investigación preparatoria de tesis sobre dependencias financieras y su estabilidad temporal",
+      "what": "Proyecto preparatorio de tesis de Ciencias de la Computación en UNISAGRADO. Investiga estructuras de dependencia entre instituciones financieras brasileñas mediante redes bayesianas y optimización evolutiva multiobjetivo, y su estabilidad a lo largo del tiempo.",
+      "role": "Desarrollo el método, los experimentos, la evaluación y la documentación de la investigación.",
+      "highlights": [
+        "Redes bayesianas y optimización evolutiva multiobjetivo",
+        "Comparación con métodos de referencia y estructuras conocidas",
+        "Evaluación de estabilidad temporal con datos públicos de B3"
+      ],
+      "demoNote": "Investigación preparatoria de tesis en desarrollo. Esta es una presentación pública del tema; el código y los artefactos permanecen privados hasta la defensa.",
+      "flow": [
+        "Lea la presentación del tema, método y criterios de evaluación.",
+        "Entre en contacto para conversar sobre la investigación; el repositorio permanece privado."
       ]
     },
     "baliza": {

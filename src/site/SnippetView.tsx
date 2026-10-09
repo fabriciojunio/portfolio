@@ -2,11 +2,12 @@ import { useMemo } from "react";
 
 interface Props {
   code: string;
-  language: "python" | "typescript" | "java" | "php" | "csharp" | "sql";
+  language: "python" | "typescript" | "java" | "php" | "csharp" | "sql" | "markdown";
   filename: string;
 }
 
 const KEYWORDS: Record<Props["language"], string[]> = {
+  markdown: [],
   python: ["def", "return", "if", "for", "in", "lambda", "from", "import", "True", "False", "None", "elif", "else", "self", "is", "not", "and", "or", "class", "with", "as", "try", "except", "raise"],
   typescript: ["const", "let", "var", "function", "return", "if", "for", "in", "of", "async", "await", "import", "from", "export", "default", "type", "interface", "class", "new", "throw", "as", "extends", "implements", "public", "private", "true", "false", "null", "undefined", "this", "while", "switch", "case", "break"],
   java: ["public", "private", "protected", "static", "final", "class", "interface", "extends", "implements", "return", "if", "for", "while", "new", "throw", "true", "false", "null", "void", "int", "double", "float", "List", "String", "Map", "this", "super", "try", "catch"],
@@ -24,6 +25,7 @@ function commentTokenOf(lang: Props["language"]): string {
 }
 
 function tokenizeLine(line: string, lang: Props["language"]): Token[] {
+  if (lang === "markdown") return [{ text: line, cls: "" }];
   const kws = new Set(KEYWORDS[lang]);
   const commentStart = commentTokenOf(lang);
   const ci = line.indexOf(commentStart);

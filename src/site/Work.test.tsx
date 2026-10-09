@@ -23,10 +23,10 @@ describe("visualização dos projetos", () => {
     toggle.focus();
     await user.keyboard("{Enter}");
     expect(toggle).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("button", { name: /Cardiocam/ })).toBeVisible();
+    expect(screen.getByRole("button", { name: /PermaneIA/ })).toBeVisible();
     await user.keyboard(" ");
     expect(toggle).toHaveAttribute("aria-expanded", "false");
-    expect(screen.queryByRole("button", { name: /Cardiocam/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /PermaneIA/ })).toBeNull();
   });
   it("o Almanaque mostra roteiro, acesso e o arquivo certo, sem execução fictícia", async () => {
     const user = userEvent.setup();
@@ -46,7 +46,6 @@ describe("visualização dos projetos", () => {
   it("a simulação do Cardiocam abre o algoritmo e declara seus limites", async () => {
     const user = userEvent.setup();
     render(<Work />);
-    await user.click(screen.getByRole("button", { name: /Outros projetos/ }));
     await user.click(screen.getByRole("button", { name: /Cardiocam/ }));
     const card = within(document.getElementById("work-cardiocam")!);
     expect(card.getByText(/não fornece diagnóstico/)).toBeVisible();

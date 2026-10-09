@@ -31,6 +31,7 @@ const LAYOUT: CardConfig[] = [
 ];
 
 const SYNTAX = {
+  markdown: { keywords: [] as string[] },
   python: {
     keywords: ["def", "return", "if", "for", "in", "lambda", "from", "import", "True", "False", "None", "elif", "else", "self", "is", "not"],
   },
