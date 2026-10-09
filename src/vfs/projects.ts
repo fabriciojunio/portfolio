@@ -18,6 +18,7 @@ export const projectFiles: VFile[] = PROJECTS.map(p => ({
   runnable: SIMULACOES[p.slug],
   meta: {
     project: p.name,
+    presentationOnly: p.presentationOnly,
     source: p.sourcePath && p.github ? `${p.github}/blob/main/${p.sourcePath}` : undefined,
     github: p.github ?? undefined,
     demo: p.demo,

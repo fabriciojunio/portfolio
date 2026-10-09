@@ -42,7 +42,7 @@ export default function ProjectMeta({ file }: Props) {
       )}
 
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11.5px]">
-        <span>{m.source ? "Trecho do repositório" : "Exemplo simplificado do projeto"}</span>
+        <span>{m.presentationOnly ? "Apresentação pública do projeto" : m.source ? "Trecho do repositório" : "Exemplo simplificado do projeto"}</span>
         {m.source && <a href={m.source} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">arquivo de origem ↗</a>}
         {m.github ? (
           <a

@@ -21,6 +21,7 @@ export interface VFile {
   meta?: {
     project?: string;
     source?: string;
+    presentationOnly?: boolean;
     github?: string;
     demo?: string | null;
     demoAcesso?: string;
