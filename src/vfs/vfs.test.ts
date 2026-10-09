@@ -14,14 +14,11 @@ describe("virtual file system", () => {
     expect(names).toContain("contato.ts");
   });
 
-  it("os seis projetos de risco e decisão têm arquivo aqui", () => {
-    // A IDE ficou meses só com o back-end enquanto a primeira tela do site já
-    // abria pelos seis. Quem entrava aqui vindo de uma vaga de modelo não
-    // encontrava uma linha do que interessa para ela, e nada acusava isso.
+  it("os destaques de desenvolvimento têm arquivo aqui", () => {
     const caminhos = ALL_FILES.map((f) => f.path);
-    for (const slug of ["lastro", "anteparo", "decurso", "verbete", "prumo", "trato"]) {
-      expect(caminhos, slug).toContain(`/projetos/${slug}.py`);
-    }
+    expect(caminhos).toContain("/projetos/almanaque.php");
+    expect(caminhos).toContain("/projetos/vitrine-bauru.java");
+    expect(caminhos).toContain("/projetos/feira.java");
   });
 
   it("todo file que tem 'meta' aponta para projeto e stack (github só se público)", () => {

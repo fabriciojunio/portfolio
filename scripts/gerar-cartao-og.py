@@ -65,16 +65,16 @@ def gerar(caminho: Path) -> None:
             d.ellipse([x, y, x + 3, y + 3], fill=(44, 44, 44))
 
     d.text((esq, 150), "Fabrício Júnio", font=serif, fill=BRANCO)
-    escrever_espacado(d, (esq + 4, 252), "AI ENGINEER · IA EM PRODUÇÃO", mono, FRACO, 5)
+    escrever_espacado(d, (esq + 4, 252), "ANALISTA DE SISTEMAS", mono, FRACO, 5)
 
     d.line([(esq, 310), (LARGURA - 90, 310)], fill=LINHA, width=1)
 
     # Tres linhas e nao oito: o cartao aparece pequeno na linha do tempo, e
     # quem le passa menos de um segundo nele.
     linhas = [
-        "risco de crédito, IFRS 9 e provisão sob CPC 25",
-        "validação de modelo, calibração e explicabilidade",
-        "Python e Java em produção",
+        "desenvolvimento, integrações e sustentação",
+        "Java · PHP · JavaScript · SQL",
+        "projetos com código, testes e documentação",
     ]
     y = 352
     for texto in linhas:
@@ -82,10 +82,10 @@ def gerar(caminho: Path) -> None:
         y += 36
 
     escrever_espacado(
-        d, (esq, 520), "seis estudos com os números abertos", mono_peq, FRACO, 1
+        d, (esq, 520), "software, processos e automação", mono_peq, FRACO, 1
     )
     escrever_espacado(
-        d, (esq, 556), "fabriciojunio.vercel.app/resultados", mono_peq, APAGADO, 1
+        d, (esq, 556), "portfolio-a3qn.vercel.app", mono_peq, APAGADO, 1
     )
 
     caminho.parent.mkdir(parents=True, exist_ok=True)

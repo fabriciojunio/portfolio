@@ -23,13 +23,13 @@ export default function StatusBar() {
   return (
     <footer
       role="status"
-      className="h-6 bg-[#151515] border-t border-[#1c1c1c] text-[#9a9a9a] font-mono text-[11px] flex items-stretch select-none"
+      className="h-6 shrink-0 whitespace-nowrap bg-[#151515] border-t border-[#1c1c1c] text-[#9a9a9a] font-mono text-[11px] flex items-stretch select-none"
     >
       <span className="flex items-center gap-1.5 px-3 text-[#ffffff]">
         <GitBranchIcon size={11} />
         main
       </span>
-      <span className="flex items-center px-3 border-l border-[#1c1c1c]">
+      <span className="hidden md:flex items-center px-3 border-l border-[#1c1c1c]">
         {PROJECT_COUNT} projetos · {TOTAL_FILES} arquivos
       </span>
       <button
@@ -52,13 +52,13 @@ export default function StatusBar() {
 
       {file && (
         <>
-          <span className="flex items-center px-3 border-l border-[#1c1c1c]">
+          <span className="hidden lg:flex items-center px-3 border-l border-[#1c1c1c]">
             {lines} linhas · {chars} chars
           </span>
-          <span className="flex items-center px-3 border-l border-[#1c1c1c]">
+          <span className="hidden md:flex items-center px-3 border-l border-[#1c1c1c]">
             UTF-8
           </span>
-          <span className="flex items-center px-3 border-l border-[#1c1c1c]">
+          <span className="hidden md:flex items-center px-3 border-l border-[#1c1c1c]">
             LF
           </span>
           <span className="flex items-center px-3 border-l border-[#1c1c1c] text-[#ffffff]">
@@ -66,7 +66,7 @@ export default function StatusBar() {
           </span>
         </>
       )}
-      <span className="flex items-center px-3 border-l border-[#1c1c1c]">
+      <span className="hidden lg:flex items-center px-3 border-l border-[#1c1c1c]">
         {now}
       </span>
     </footer>
@@ -81,4 +81,3 @@ function fmtClock(): string {
     second: "2-digit",
   });
 }
-

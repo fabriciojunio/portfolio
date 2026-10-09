@@ -1,23 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { PROJECTS } from "./data";
 
-// Cinco cartas com snippet de projetos reais flutuando em perspectiva
-// 3D, com parallax suave seguindo o mouse e idle float continuo.
-
-// O trabalho de conclusão e os cinco projetos feitos para o tipo de problema
-// que banco, consultoria, gestora e legaltech resolvem todo dia.
-//
-// A ordem aqui não é decoração. Antes as cartas eram de back-end, e depois de
-// produto; nos dois casos quem chegava por uma vaga de risco ou de modelo via
-// primeiro aquilo que menos interessa para a vaga. O primeiro card fica no
-// centro e é o que a pessoa lê antes de decidir se rola a página.
+// Os destaques seguem a mesma ordem da lista principal.
 export const CARTAS_DO_TOPO = [
-  "lastro",     // trabalho de conclusão: risco sistêmico e deriva de estrutura
-  "anteparo",   // IFRS 9: perda esperada, estágios e sensibilidade da hipótese
-  "decurso",    // provisão de contingência judicial sob CPC 25
-  "verbete",    // classificação de texto regulatório, com o vazamento medido
-  "prumo",      // persistência de desempenho de fundo, com viés declarado
-  "trato",      // efeito incremental de contato, com grupo de controle
+  "almanaque", "vitrine-bauru", "feira", "koracrm", "authcore", "codereview-ai",
 ] as const;
 
 interface CardConfig {
@@ -147,7 +133,6 @@ export default function Cards3D() {
       ref={ref}
       className="absolute inset-0 pointer-events-none"
       style={{ perspective: "1400px", perspectiveOrigin: "50% 40%" }}
-      aria-hidden
     >
       <div
         className="absolute inset-0 transition-transform duration-700 ease-out"
@@ -176,11 +161,15 @@ export default function Cards3D() {
                 }}
               >
                 <a
-                  href="#trabalho"
+                  href={`#work-${p.slug}`}
+                  aria-label={`Ver ${p.name}`}
                   onClick={(e) => {
                     e.preventDefault();
                     const el = document.getElementById(`work-${p.slug}`);
                     if (el) {
+                      const button = el.querySelector("button");
+                      if (button?.getAttribute("aria-expanded") === "false") button.click();
+                      button?.focus({ preventScroll: true });
                       const top = el.getBoundingClientRect().top + window.scrollY - 60;
                       window.scrollTo({ top, behavior: "smooth" });
                     }

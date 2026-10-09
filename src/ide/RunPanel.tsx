@@ -31,12 +31,11 @@ export default function RunPanel() {
       return;
     }
     if (!activeFile?.runnable) return;
-    const kind = activeFile.runnable;
     const seq = [
-      `▶ rodando ${kind} (arquivo: ${activeFile.name})`,
-      `  carregando dependências...`,
-      `  inicializando demo interativa...`,
-      `  pronto em 247ms`,
+      `▶ simulação: ${activeFile.name}`,
+      `  exemplo interativo com dados de demonstração`,
+      `  backend e serviços externos não são executados neste painel`,
+      `  simulação disponível`,
     ];
     const ts: ReturnType<typeof setTimeout>[] = [];
     seq.forEach((line, i) => {
@@ -89,7 +88,7 @@ export default function RunPanel() {
       <div className="flex-1 overflow-y-auto px-4 py-4">
         {!kind && (
           <p className="text-[12px] text-[#6b6b6b] font-mono">
-            abra um arquivo runnable e clique em <strong>Run</strong>.
+            Abra um arquivo com simulação e clique em <strong>Run</strong>.
           </p>
         )}
         <Suspense

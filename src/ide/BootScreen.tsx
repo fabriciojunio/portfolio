@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { m } from "motion/react";
+import { PROJECTS } from "../site/data";
 
 const STEPS = [
   { delay: 0,    text: "fabricio-shell v1.0  copyright (c) 2026 Fabrício Júnio",        tone: "dim" },
   { delay: 220,  text: "▸ verificando ambiente...",                                       tone: "muted" },
-  { delay: 360,  text: "  node v25.5.0  pnpm 11.8.0  typescript 5.6.3",                   tone: "good" },
+  { delay: 360,  text: "  interface React · TypeScript · Monaco",                   tone: "good" },
   { delay: 520,  text: "▸ inicializando workspace fabricio-junio/portfolio",              tone: "muted" },
-  { delay: 700,  text: "  carregando 13 projetos (3.1 MB)",                               tone: "dim" },
-  { delay: 860,  text: "  registrando 50+ comandos no shell",                             tone: "dim" },
+  { delay: 700,  text: `  ${PROJECTS.length} projetos selecionados`,                               tone: "dim" },
+  { delay: 860,  text: "  terminal virtual · digite ajuda",                             tone: "dim" },
   { delay: 1020, text: "  montando virtual file system",                                  tone: "dim" },
   { delay: 1180, text: "▸ subindo Monaco Editor",                                         tone: "muted" },
   { delay: 1340, text: "  tema 'fabricio-mono' aplicado",                                 tone: "dim" },
-  { delay: 1500, text: "▸ headers de segurança: CSP, HSTS, X-Frame-Options DENY",         tone: "good" },
-  { delay: 1700, text: "▸ pronto em 247ms · bem-vindo",                                    tone: "accent" },
+  { delay: 1500, text: "▸ exemplos selecionados e simulações no navegador",         tone: "good" },
+  { delay: 1700, text: "▸ portfólio pronto · bem-vindo",                                    tone: "accent" },
 ];
 
 const TONE = {

@@ -1,5 +1,6 @@
 import { ALL_FILES, filesByPath, TREE } from "../vfs";
 import type { TreeNode } from "../types";
+import { SOBRE, STACK_GROUPS } from "../site/data";
 
 export interface CommandContext {
   open: (path: string) => void;
@@ -25,7 +26,7 @@ const HELP = [
   "  pwd                   mostra caminho atual",
   "  tree                  árvore completa do workspace",
   "  whoami                quem é você (perfil resumido)",
-  "  projetos              lista os 19 projetos",
+  "  projetos              lista os projetos disponíveis",
   "  stack                 stack que eu uso",
   "  contato               como me chamar",
   "  ajuda | help          mostra esta lista",
@@ -61,8 +62,8 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
     case "whoami":
       return {
         lines: [
-          "Fabrício Júnio Almeida Dias, 21 anos, Bauru/SP",
-          "Desenvolvedor back-end: Java, Spring Boot e integracao",
+          `${SOBRE.nome}, ${SOBRE.cidade}`,
+          `${SOBRE.cargo}: desenvolvimento, integrações e sustentação`,
           "Ciência da Computação na UNISAGRADO",
           "  github:   github.com/fabriciojunio",
           "  linkedin: linkedin.com/in/fabríciojúnio",
@@ -132,13 +133,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
 
     case "stack":
       return {
-        lines: [
-          "  back:    Java + Spring Boot, Node + NestJS, FastAPI, Laravel",
-          "  front:   React / Next.js, React Native + Expo, TypeScript",
-          "  dados:   PostgreSQL, Redis, Supabase, SQLite (WAL+FTS)",
-          "  ml:      scikit-learn, XGBoost, PyTorch, FinBERT-PT-BR, Ollama",
-          "  infra:   Docker, GitHub Actions, Nginx, Vercel",
-        ],
+        lines: STACK_GROUPS.map(g => `  ${g.label}: ${g.items.join(", ")}`),
       };
 
     case "contato":
@@ -183,21 +178,16 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
       if (arg.startsWith("install")) {
         return {
           lines: [
-            `${cmd} install`,
-            "  ▸ resolvendo dependências...",
-            "  ▸ tudo aqui já está instalado :)",
-            "",
-            `done in 247ms`,
+            "Terminal virtual: nenhuma instalação é executada no navegador.",
+            "Para desenvolver localmente, siga as instruções do repositório.",
           ],
         };
       }
       if (arg === "run dev" || arg === "dev") {
         return {
           lines: [
-            "VITE v6.0.1  ready in 247 ms",
-            "",
-            "  ➜  Local:   http://localhost:5173/",
-            "  ➜  Network: use --host to expose",
+            "Terminal virtual: o servidor de desenvolvimento roda no ambiente local.",
+            "Repositório: https://github.com/fabriciojunio/portfolio",
           ],
         };
       }
@@ -208,21 +198,17 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
       if (arg === "status") {
         return {
           lines: [
-            "On branch main",
-            "Your branch is up to date with 'origin/main'.",
-            "",
-            "nothing to commit, working tree clean",
+            "Workspace virtual, somente leitura.",
+            "On branch main (referência do portfólio).",
+            "Consulte o GitHub para o estado real do repositório.",
           ],
         };
       }
       if (arg.startsWith("log")) {
         return {
           lines: [
-            "* a3f4c1d (HEAD -> main) reescreve portfolio como IDE no browser",
-            "* 7c91e8b ajusta CSP para Monaco",
-            "* d12b09a adiciona demos interativas (xG, Zod, Vagas)",
-            "* 4b58a02 boot sequence + paleta de comandos",
-            "* 1ea9377 esqueleto inicial",
+            "Histórico real do portfólio:",
+            "https://github.com/fabriciojunio/portfolio/commits/main/",
           ],
         };
       }
@@ -245,7 +231,7 @@ export const SUGGESTIONS = [
   "cat sobre.md",
   "cat perfil.json",
   "open projetos/permaneia.ts",
-  "open projetos/apontamento-horas.ts",
+  "open projetos/almanaque.php",
   "open projetos/jis.ts",
   "tree",
   "whoami",

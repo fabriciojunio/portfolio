@@ -99,7 +99,7 @@ export default function Nav({ onNavigate }: Props) {
           <SeletorDeIdioma />
           <span aria-hidden className="w-px h-3.5 bg-white/15" />
           <a
-            href="/resultados"
+            href="/lab"
             className="text-[12.5px] text-[#9a9a9a] hover:text-[#ededed] transition-colors whitespace-nowrap"
           >
             {t.nav.resultados}
@@ -138,7 +138,7 @@ export default function Nav({ onNavigate }: Props) {
                 {it.label}
               </button>
             ))}
-            <a href="/resultados" className="text-left py-1 text-[#ffffff]">
+            <a href="/lab" className="text-left py-1 text-[#ffffff]">
               {t.nav.resultados}
             </a>
             <a

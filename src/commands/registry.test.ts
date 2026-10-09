@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { runCommand } from "./registry";
+import { runCommand, SUGGESTIONS } from "./registry";
+import { filesByPath } from "../vfs";
 
 const baseCtx = () => ({
   open: vi.fn(),
@@ -59,5 +60,15 @@ describe("terminal command registry", () => {
   it("git status devolve mensagem realista", () => {
     const r = runCommand("git status", baseCtx());
     expect(r.lines.join("\n")).toContain("On branch main");
+  });
+  it("as sugestões de abertura apontam para arquivos disponíveis", () => {
+    for (const command of SUGGESTIONS.filter(s => s.startsWith("open "))) {
+      expect(filesByPath.has("/" + command.slice(5)), command).toBe(true);
+    }
+  });
+  it("run não abre um painel em arquivos sem simulação", () => {
+    const ctx = { ...baseCtx(), getActivePath: () => "/projetos/almanaque.php" };
+    runCommand("run", ctx).effect?.();
+    expect(ctx.setRunPanel).not.toHaveBeenCalled();
   });
 });

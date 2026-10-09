@@ -1,480 +1,98 @@
-import { describe, it, expect } from "vitest";
-import {
-  PROJECTS,
-  PROJETOS_EIXO,
-  PROJETOS_PARCERIA,
-  PROJETOS_ACERVO,
-  SOBRE,
-  STACK_GROUPS,
-  EMPRESAS,
-} from "./data";
-import { TRADUCOES } from "./i18n-projetos";
+import { describe, expect, it } from "vitest";
+import { PROJECTS, PROJETOS_EIXO, PROJETOS_PARCERIA, PROJETOS_ACERVO, SOBRE, STACK_GROUPS } from "./data";
 import { DICIONARIO, IDIOMAS } from "./i18n";
+import { TRADUCOES } from "./i18n-projetos";
+import { ALL_FILES, filesByPath } from "../vfs";
+import { CARTAS_DO_TOPO } from "./Cards3D";
+import { aberturaPedida } from "../lab/aberturaPelaUrl";
 
-describe("data.ts — integridade dos dados", () => {
-  describe("PROJECTS", () => {
-    it("deve ter pelo menos 10 projetos", () => {
-      expect(PROJECTS.length).toBeGreaterThanOrEqual(10);
-    });
-
-    it("todos os projetos devem ter slug único", () => {
-      const slugs = PROJECTS.map((p) => p.slug);
-      const uniques = new Set(slugs);
-      expect(uniques.size).toBe(slugs.length);
-    });
-
-    it("todos os projetos devem ter name, oneLine e year", () => {
-      for (const p of PROJECTS) {
-        expect(p.name.length).toBeGreaterThan(0);
-        expect(p.oneLine.length).toBeGreaterThan(0);
-        expect(p.year).toMatch(/^\d{4}$/);
-      }
-    });
-
-    it("todos os projetos devem ter github válido ou ser privados (null)", () => {
-      for (const p of PROJECTS) {
-        if (p.github === null) continue; // repositório privado, sem link público
-        expect(p.github).toMatch(/^https:\/\/github\.com\//);
-      }
-    });
-
-    it("todos os projetos devem ter stack não vazia", () => {
-      for (const p of PROJECTS) {
-        expect(p.stack.length).toBeGreaterThan(0);
-      }
-    });
-
-    it("todos os projetos devem ter snippet não vazio", () => {
-      for (const p of PROJECTS) {
-        expect(p.snippet.trim().length).toBeGreaterThan(0);
-      }
-    });
-
-    it("snippetLang deve ser um dos valores permitidos", () => {
-      const langs = new Set(["typescript", "python", "java", "php", "csharp", "sql"]);
-      for (const p of PROJECTS) {
-        expect(langs.has(p.snippetLang)).toBe(true);
-      }
-    });
-
-    it("todo labDemo aponta para um arquivo que existe e roda", async () => {
-      // Um caminho com erro de digitação levaria o botão "Rodar a demo
-      // interativa" para uma IDE que abre no arquivo padrão, sem erro nenhum
-      // na tela. É a falha silenciosa que este teste existe para pegar.
-      const { filesByPath } = await import("../vfs");
-
-      for (const p of PROJECTS) {
-        if (!p.labDemo) continue;
-        const arquivo = filesByPath.get(p.labDemo);
-        expect(arquivo, `labDemo de ${p.slug}: ${p.labDemo}`).toBeDefined();
-        expect(arquivo!.runnable, `${p.labDemo} precisa ser runnable`).toBeTruthy();
-      }
-    });
-
-    it("todo arquivo runnable da IDE está ligado a algum projeto do site", () => {
-      const comDemo = new Set(
-        PROJECTS.map((p) => p.labDemo).filter(Boolean) as string[],
-      );
-      return import("../vfs").then(({ ALL_FILES }) => {
-        for (const f of ALL_FILES) {
-          if (!f.runnable) continue;
-          expect(comDemo.has(f.path), `${f.path} roda mas nenhum card leva a ele`).toBe(
-            true,
-          );
-        }
-      });
-    });
-
-    it("nenhum projeto deve ter travessão no nome ou oneLine", () => {
-      for (const p of PROJECTS) {
-        expect(p.name).not.toContain("—");
-        expect(p.oneLine).not.toContain("—");
-      }
-    });
+describe("curadoria e coerência do portfólio", () => {
+  it("prioriza os projetos de desenvolvimento solicitados", () => {
+    expect(PROJETOS_EIXO.slice(0, 3).map(p => p.slug)).toEqual(["almanaque", "vitrine-bauru", "feira"]);
+    expect([...CARTAS_DO_TOPO]).toEqual(PROJETOS_EIXO.map(p => p.slug));
+    expect(PROJETOS_PARCERIA.map(p => p.slug)).toContain("conectagente");
   });
-
-  describe("os três blocos da vitrine", () => {
-    // A página tem dois blocos abertos e um acervo fechado. Se um projeto
-    // ficar de fora dos três, ele desaparece do site sem ninguém notar: o
-    // card não é renderizado e nenhum outro teste repara na ausência.
-    it("os três blocos cobrem PROJECTS sem sobra e sem repetição", () => {
-      const nosBlocos = [
-        ...PROJETOS_EIXO,
-        ...PROJETOS_PARCERIA,
-        ...PROJETOS_ACERVO,
-      ].map((p) => p.slug);
-
-      expect(new Set(nosBlocos).size).toBe(nosBlocos.length);
-      expect([...nosBlocos].sort()).toEqual([...PROJECTS.map((p) => p.slug)].sort());
-    });
-
-    it("nenhum slug do agrupamento aponta para projeto que não existe", () => {
-      // `porSlug` usa `!` e devolve undefined silenciosamente num slug
-      // errado de digitação. O card viria vazio em vez de dar erro.
-      for (const p of [...PROJETOS_EIXO, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO]) {
-        expect(p).toBeDefined();
-        expect(p.slug).toBeTruthy();
-      }
-    });
-
-    it("o eixo abre pelos três mais fortes e mantém os seis projetos de IA", () => {
-      // Ninguém passa do terceiro card. Os três primeiros cobrem, nesta ordem:
-      // IA no ar com modelo de linguagem, profundidade de método, e o domínio
-      // das empresas para onde as candidaturas vão. Trocar essa ordem por tema
-      // ou por data desfaz o posicionamento sem nada na tela acusar.
-      const slugs = PROJETOS_EIXO.map((p) => p.slug);
-      expect(slugs.slice(0, 3)).toEqual(["permaneia", "lastro", "anteparo"]);
-      // O Cautela entrou em quarto, e não em segundo, de propósito: ele traz as
-      // palavras que o mercado de IA procura, mas quem decide a contratação nas
-      // vagas-alvo é a área de risco, e ela lê o trabalho de conclusão e o IFRS 9
-      // primeiro. Agente vem logo depois, não na frente deles.
-      for (const slug of [
-        "cautela",
-        "balcao",
-        "codereview-ai",
-        "decurso",
-        "prumo",
-        "verbete",
-        "trato",
-      ]) {
-        expect(slugs).toContain(slug);
-      }
-    });
-
-    it("as cartas do topo são o trabalho de conclusão e os cinco projetos de empresa", async () => {
-      // A primeira tela é o que decide se a página continua sendo lida. Já
-      // esteve com cinco trechos de back-end e já esteve com três de modelo de
-      // linguagem; nos dois casos quem chegava por uma vaga de risco via
-      // primeiro o que menos interessa para ela. Este teste existe para que
-      // essa decisão não se desfaça numa reorganização.
-      const { CARTAS_DO_TOPO } = await import("./Cards3D");
-      expect([...CARTAS_DO_TOPO]).toEqual([
-        "lastro",
-        "anteparo",
-        "decurso",
-        "verbete",
-        "prumo",
-        "trato",
-      ]);
-      const existentes = new Set(PROJECTS.map((p) => p.slug));
-      for (const slug of CARTAS_DO_TOPO) {
-        expect(existentes.has(slug), `${slug} não existe em PROJECTS`).toBe(true);
-      }
-    });
-
-    it("os seis projetos quantitativos levam à página de resultados", () => {
-      // O link é o que torna o experimento visível para quem não roda Python.
-      // Sem ele o projeto volta a ser um README com número solto.
-      const comPagina = ["lastro", "anteparo", "decurso", "prumo", "verbete", "trato"];
-      for (const slug of comPagina) {
-        const projeto = PROJECTS.find((p) => p.slug === slug)!;
-        expect(projeto.demo, `${slug} sem link para os resultados`).toBe(`/resultados/${slug}`);
-      }
-    });
-
-    it("a parceria tem a extensão com a SEDECON e a iniciação científica", () => {
-      const slugs = PROJETOS_PARCERIA.map((p) => p.slug);
-      expect(slugs).toContain("vitrine-bauru");
-      expect(slugs).toContain("conectagente");
-    });
-
-    it("o sistema da igreja não está na vitrine", () => {
-      // Saiu por decisão do dono do portfólio: é sistema de uma comunidade
-      // religiosa, não material de candidatura. Este teste existe para que
-      // uma reorganização futura não o traga de volta sem decisão nova.
-      expect(PROJECTS.map((p) => p.slug)).not.toContain("maranata-conecta");
-    });
-
-    it("o acervo não é maior que o resto da página inteira", () => {
-      // O acervo é o fundo de gaveta. Se ele passar a ser a maior parte do
-      // site, a página voltou a ser a lista corrida que o redesenho tirou.
-      const abertos = PROJETOS_EIXO.length + PROJETOS_PARCERIA.length;
-      expect(PROJETOS_ACERVO.length).toBeLessThanOrEqual(abertos);
-    });
-
-    it("o motor de apostas não voltou para a vitrine", () => {
-      // Saiu por decisão de posicionamento, não por acidente: as vagas que
-      // esse portfólio persegue são de banco e de consultoria. Este teste
-      // existe para que uma reorganização futura não o traga de volta sem
-      // que a decisão seja tomada de novo.
-      const proibidos = ["goldata", "goldata-pro"];
-      for (const slug of proibidos) {
-        expect(PROJECTS.map((p) => p.slug)).not.toContain(slug);
-      }
-      for (const p of PROJECTS) {
-        expect(p.oneLine.toLowerCase()).not.toContain("value bet");
-        expect(p.oneLine.toLowerCase()).not.toContain("aposta");
-      }
-    });
+  it("cada projeto pertence a um único grupo", () => {
+    const slugs = [...PROJETOS_EIXO, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    expect(slugs).toEqual(PROJECTS.map(p => p.slug));
   });
-
-  describe("SOBRE", () => {
-    it("deve ter email correto", () => {
-      expect(SOBRE.contato.email).toBe("junioad555@gmail.com");
-    });
-
-    it("deve ter github e linkedin válidos", () => {
-      expect(SOBRE.contato.github).toMatch(/^https:\/\/github\.com\//);
-      expect(SOBRE.contato.linkedin).toMatch(/^https:\/\/www\.linkedin\.com\//);
-    });
-
-    it("bio não deve ter travessão", () => {
-      expect(SOBRE.bio).not.toContain("—");
-      for (const par of SOBRE.longBio) {
-        expect(par).not.toContain("—");
-      }
-    });
-
-    // Contagem exata travava o texto: qualquer parágrafo novo quebrava o
-    // build sem nada de errado ter acontecido. O que interessa proteger é o
-    // limite de cima, porque bio que passa de cinco parágrafos ninguém lê.
-    it("deve ter uma longBio entre 3 e 5 parágrafos", () => {
-      expect(SOBRE.longBio.length).toBeGreaterThanOrEqual(3);
-      expect(SOBRE.longBio.length).toBeLessThanOrEqual(5);
-    });
-
-    it("deve ter cargo e cidade preenchidos", () => {
-      expect(SOBRE.cargo.length).toBeGreaterThan(0);
-      expect(SOBRE.cidade.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe("STACK_GROUPS", () => {
-    it("deve ter entre 4 e 7 grupos", () => {
-      expect(STACK_GROUPS.length).toBeGreaterThanOrEqual(4);
-      expect(STACK_GROUPS.length).toBeLessThanOrEqual(7);
-    });
-
-    it("cada grupo deve ter label e items não vazios", () => {
-      for (const g of STACK_GROUPS) {
-        expect(g.label.length).toBeGreaterThan(0);
-        expect(g.items.length).toBeGreaterThan(0);
-      }
-    });
-
-    it("deve abrir por risco e validação e manter a produção logo em seguida", () => {
-      const labels = STACK_GROUPS.map((g) => g.label);
-      // O primeiro grupo é o posicionamento: quem lê a lista de cima para
-      // baixo tem que sair sabendo o que eu faço, não o que eu já toquei. Numa
-      // vaga de banco ou de consultoria, quem decide é a área de risco, e o
-      // que ela pergunta é como o número foi validado. Então é isso que abre.
-      expect(labels[0]).toBe("risco e validacao");
-      expect(labels[1]).toBe("modelo");
-      // A produção não sai da lista: é ela que tira o modelo do caderno, e
-      // escondê-la faria o perfil parecer só acadêmico.
-      expect(labels).toContain("ia generativa");
-      expect(labels).toContain("producao");
-      expect(labels).toContain("dados");
-      expect(labels).toContain("infra");
-      expect(labels.indexOf("producao")).toBeLessThan(labels.indexOf("front"));
-    });
-
-    it("o MCP continua na lista, porque é experiência de trabalho", () => {
-      // Já afirmei aqui que não havia MCP em lugar nenhum, olhando só os
-      // repositórios, e estava errado: o uso foi no trabalho, ligando o
-      // assistente ao servidor da plataforma de processo para puxar dado de
-      // execução. Quem conferir por repositório vai concluir o mesmo que eu
-      // concluí e tirar o item. Por isso o teste existe: tirar o MCP exige
-      // apagar este comentário junto.
-      const generativa = STACK_GROUPS.find((g) => g.label === "ia generativa");
-      expect(generativa).toBeDefined();
-      expect(generativa!.items.join(" ")).toContain("MCP");
-      expect(EMPRESAS).toContain("MCP");
-    });
-
-    it("o front aparece, mas depois da produção", () => {
-      // Dizer que entrego a tela é verdade e conta a favor. Dizer isso antes
-      // do que sustenta o modelo é que desfaz o posicionamento.
-      const labels = STACK_GROUPS.map((g) => g.label);
-      expect(labels).toContain("front");
-      expect(labels.indexOf("front")).toBeGreaterThan(labels.indexOf("producao"));
-    });
-  });
-
-  describe("EMPRESAS", () => {
-    it("deve ter pelo menos 4 empresas para o marquee", () => {
-      expect(EMPRESAS.length).toBeGreaterThanOrEqual(4);
-    });
-
-    it("não deve conter nome de cliente nem de empregador", () => {
-      const texto = EMPRESAS.join(" ");
-      expect(texto).not.toContain("Credimogiana");
-      expect(texto).not.toContain("Nexum");
-    });
-  });
-});
-
-describe("SnippetView — tokenizador", () => {
-  const tokenize = (line: string, lang: "python" | "typescript" | "java" | "php") => {
-    const KEYWORDS: Record<string, string[]> = {
-      python: ["def", "return", "if", "for", "in", "lambda", "from", "import", "True", "False", "None", "elif", "else", "self", "is", "not", "and", "or", "class", "with", "as", "try", "except", "raise"],
-      typescript: ["const", "let", "var", "function", "return", "if", "for", "in", "of", "async", "await", "import", "from", "export", "default", "type", "interface", "class", "new", "throw", "as", "extends", "implements", "public", "private", "true", "false", "null", "undefined", "this", "while", "switch", "case", "break"],
-      java: ["public", "private", "protected", "static", "final", "class", "interface", "extends", "implements", "return", "if", "for", "while", "new", "throw", "true", "false", "null", "void", "int", "double", "float", "List", "String", "Map", "this", "super", "try", "catch"],
-      php: ["public", "private", "function", "return", "if", "use", "namespace", "new", "static", "fn", "match", "true", "false", "null", "class", "abstract", "extends", "implements"],
-    };
-
-    const kws = new Set(KEYWORDS[lang]);
-    const commentStart = lang === "python" ? "#" : "//";
-    const ci = line.indexOf(commentStart);
-    const codePart = ci >= 0 ? line.slice(0, ci) : line;
-    const commentPart = ci >= 0 ? line.slice(ci) : "";
-
-    const tokens: { text: string; cls: string }[] = [];
-    const re = /("[^"]*"|'[^']*'|`[^`]*`|[a-zA-Z_$][a-zA-Z0-9_$]*|\d+(?:\.\d+)?|\s+|.)/g;
-    let m;
-    while ((m = re.exec(codePart)) !== null) {
-      const t = m[0];
-      if (/^\s+$/.test(t)) tokens.push({ text: t, cls: "" });
-      else if (/^["'`]/.test(t)) tokens.push({ text: t, cls: "s" });
-      else if (/^\d/.test(t)) tokens.push({ text: t, cls: "n" });
-      else if (kws.has(t)) tokens.push({ text: t, cls: "k" });
-      else if (/^[A-Z]/.test(t) && /^[A-Z][a-zA-Z0-9_]*$/.test(t)) tokens.push({ text: t, cls: "t" });
-      else tokens.push({ text: t, cls: "" });
+  it("preserva os trabalhos acadêmicos para consulta", () => {
+    for (const slug of ["permaneia", "cardiocam", "baliza", "contaflux", "kaida", "bicudo", "laboratorio-vr"]) {
+      expect(PROJETOS_ACERVO.map(p => p.slug)).toContain(slug);
     }
-    if (commentPart) tokens.push({ text: commentPart, cls: "c" });
-    return tokens;
-  };
-
-  it("identifica keyword em Python", () => {
-    const tokens = tokenize("def xg(x, y):", "python");
-    const def_ = tokens.find((t) => t.text === "def");
-    expect(def_?.cls).toBe("k");
   });
-
-  it("identifica string com aspas duplas", () => {
-    const tokens = tokenize('const s = "hello";', "typescript");
-    const str = tokens.find((t) => t.text === '"hello"');
-    expect(str?.cls).toBe("s");
+  it("não republica código dos projetos privados retirados", () => {
+    for (const slug of ["lastro", "anteparo", "cautela", "decurso", "prumo", "trato", "verbete", "quantbot-ml", "balcao", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
+      expect(PROJECTS.map(p => p.slug)).not.toContain(slug);
+      expect(ALL_FILES.some(f => f.path.includes(`/${slug}.`))).toBe(false);
+    }
   });
-
-  it("identifica número", () => {
-    const tokens = tokenize("z = 0.45;", "python");
-    const num = tokens.find((t) => t.text === "0.45");
-    expect(num?.cls).toBe("n");
-  });
-
-  it("identifica comentário em TypeScript (//)", () => {
-    const tokens = tokenize("const x = 1; // meu comentário", "typescript");
-    const comment = tokens.find((t) => t.cls === "c");
-    expect(comment?.text).toContain("//");
-  });
-
-  it("identifica comentário em Python (#)", () => {
-    const tokens = tokenize("x = 1 # nota", "python");
-    const comment = tokens.find((t) => t.cls === "c");
-    expect(comment?.text).toContain("#");
-  });
-
-  it("identifica class name (começa com maiúscula) como tipo", () => {
-    const tokens = tokenize("new MyClass()", "typescript");
-    const cls = tokens.find((t) => t.text === "MyClass");
-    expect(cls?.cls).toBe("t");
-  });
-
-  it("keyword 'return' reconhecido em Java", () => {
-    const tokens = tokenize("  return deal;", "java");
-    const kw = tokens.find((t) => t.text === "return");
-    expect(kw?.cls).toBe("k");
-  });
-
-  it("keyword 'public' reconhecido em PHP", () => {
-    const tokens = tokenize("public function moveDeal() {", "php");
-    const kw = tokens.find((t) => t.text === "public");
-    expect(kw?.cls).toBe("k");
-  });
-});
-
-describe("Work — extensão de arquivo", () => {
-  const ext = (lang: string): string => {
-    if (lang === "python") return "py";
-    if (lang === "java") return "java";
-    if (lang === "php") return "php";
-    if (lang === "csharp") return "cs";
-    return "ts";
-  };
-
-  it("python → py", () => expect(ext("python")).toBe("py"));
-  it("java → java", () => expect(ext("java")).toBe("java"));
-  it("php → php", () => expect(ext("php")).toBe("php"));
-  it("csharp → cs", () => expect(ext("csharp")).toBe("cs"));
-  it("typescript → ts", () => expect(ext("typescript")).toBe("ts"));
-  it("desconhecido → ts", () => expect(ext("cobol")).toBe("ts"));
-});
-
-/**
- * O site é publicado em três idiomas e o texto é escrito em português. Sem
- * estes testes, um projeto novo entra e o card fica em branco para quem lê em
- * inglês, sem nada quebrar e sem ninguém perceber.
- */
-describe("tradução", () => {
-  it("todo projeto tem texto em inglês e espanhol", () => {
+  it("cada card possui conteúdo, roteiro e links válidos", () => {
     for (const p of PROJECTS) {
-      for (const idioma of ["en", "es"] as const) {
-        const texto = TRADUCOES[idioma][p.slug];
-        expect(texto, `${p.slug} em ${idioma}`).toBeDefined();
-        expect(texto.oneLine.length, `${p.slug} em ${idioma}`).toBeGreaterThan(0);
-        expect(texto.what.length, `${p.slug} em ${idioma}`).toBeGreaterThan(0);
-        expect(texto.role.length, `${p.slug} em ${idioma}`).toBeGreaterThan(0);
-      }
+      expect(p.name.trim()).not.toBe("");
+      expect(p.oneLine.length).toBeLessThan(100);
+      expect(p.year).toMatch(/^\d{4}$/);
+      expect(p.github).toMatch(/^https:\/\/github\.com\/fabriciojunio\//);
+      if (p.demo) expect(p.demo).toMatch(/^https:\/\//);
+      expect(p.flow.length).toBeGreaterThanOrEqual(2);
+      expect(p.demoNote.trim()).not.toBe("");
+      expect(p.snippet.trim()).not.toBe("");
     }
   });
-
-  /**
-   * Contagem diferente não parece defeito na tela: parece que o projeto tem
-   * menos a dizer em inglês.
-   */
-  it("os destaques batem em quantidade entre os três idiomas", () => {
+  it("card e IDE compartilham o mesmo código e metadados", () => {
     for (const p of PROJECTS) {
-      const esperado = (p.highlights ?? []).length;
-      for (const idioma of ["en", "es"] as const) {
-        expect(TRADUCOES[idioma][p.slug].highlights, `${p.slug} em ${idioma}`)
-          .toHaveLength(esperado);
-      }
+      const f = filesByPath.get(p.idePath)!;
+      expect(f, p.slug).toBeDefined();
+      expect(f.content).toBe(p.snippet);
+      expect(f.meta).toMatchObject({ project: p.name, github: p.github, stack: p.stack, role: p.role, demo: p.demo, demoNote: p.demoNote });
+      expect(aberturaPedida(`?arquivo=${encodeURIComponent(p.idePath)}`)).toEqual({ caminho: p.idePath, rodar: false });
     }
   });
-
-  it("não sobra tradução de projeto que já saiu do site", () => {
-    const slugs = new Set(PROJECTS.map((p) => p.slug));
-    for (const idioma of ["en", "es"] as const) {
-      for (const slug of Object.keys(TRADUCOES[idioma])) {
-        expect(slugs.has(slug), `${slug} em ${idioma} não existe mais`).toBe(true);
-      }
+  it("todos os links de simulação abrem um arquivo compatível", () => {
+    for (const p of PROJECTS.filter(p => p.labDemo)) {
+      expect(aberturaPedida(`?arquivo=${encodeURIComponent(p.labDemo!)}&run=1`)).toEqual({ caminho: p.labDemo, rodar: true });
     }
+    const linked = new Set(PROJECTS.map(p => p.labDemo));
+    for (const f of ALL_FILES.filter(f => f.runnable)) expect(linked.has(f.path)).toBe(true);
+    expect(aberturaPedida("?arquivo=/projetos/almanaque.php&run=1")?.rodar).toBe(false);
   });
+  it("descreve a atuação e separa pesquisa do trabalho", () => {
+    expect(SOBRE.cargo).toBe("Analista de Sistemas");
+    expect(SOBRE.bio).toContain("sustentação");
+    expect(STACK_GROUPS.find(g => g.label === "trabalho")?.items).toContain("Lecom BPM");
+    expect(STACK_GROUPS.find(g => g.label === "integracoes")?.items).toContain("MCP");
+    expect(SOBRE.contato.email).toBe("junioad555@gmail.com");
+  });
+  it("corrige o algoritmo do AuthCore e o escopo das demonstrações", () => {
+    const auth = PROJECTS.find(p => p.slug === "authcore")!;
+    expect(auth.highlights?.join(" ")).toContain("HS256");
+    expect(auth.snippet).not.toContain("RS256");
+    expect(PROJECTS.find(p => p.slug === "koracrm")?.demoNote).toContain("API Laravel não está publicada");
+    expect(PROJECTS.find(p => p.slug === "feira")?.demoNote).toContain("Simulação");
+    expect(PROJECTS.find(p => p.slug === "cardiocam")?.demoNote).toContain("sintéticos");
+  });
+});
 
-  it("os três idiomas têm o dicionário do site completo", () => {
+describe("idiomas", () => {
+  it("o posicionamento e os rótulos estão atualizados em todos os idiomas", () => {
     for (const { codigo } of IDIOMAS) {
       const t = DICIONARIO[codigo];
-      expect(t, codigo).toBeDefined();
-      expect(t.htmlLang.length).toBeGreaterThan(0);
-      expect(t.sobre.titulo).toHaveLength(3);
-      expect(t.contato.titulo).toHaveLength(3);
-      expect(t.stack.titulo).toHaveLength(3);
-      expect(t.trabalho.titulo).toHaveLength(3);
+      expect(t.sobre.cargo).not.toBe("AI Engineer");
+      expect(t.sobre.longBio).toHaveLength(SOBRE.longBio.length);
+      for (const g of STACK_GROUPS) expect(t.stack.grupos[g.label]).toBeTruthy();
+      expect(Object.values(t.trabalho.card).every(Boolean)).toBe(true);
     }
   });
-
-  /**
-   * O texto de apresentação tem que dizer a mesma coisa nos três idiomas. Um
-   * parágrafo a mais em português é conteúdo que só metade das pessoas lê.
-   */
-  it("a bio tem o mesmo número de parágrafos nos três idiomas", () => {
-    const esperado = DICIONARIO.pt.sobre.longBio.length;
-    for (const { codigo } of IDIOMAS) {
-      expect(DICIONARIO[codigo].sobre.longBio, codigo).toHaveLength(esperado);
-    }
-  });
-
-  it("o rótulo de cada grupo da stack existe nos três idiomas", () => {
-    for (const g of STACK_GROUPS) {
-      for (const { codigo } of IDIOMAS) {
-        expect(DICIONARIO[codigo].stack.grupos[g.label], `${g.label} em ${codigo}`)
-          .toBeDefined();
+  it("todas as traduções cobrem a seleção atual, com roteiro e escopo", () => {
+    for (const lang of ["en", "es"] as const) {
+      expect(Object.keys(TRADUCOES[lang]).sort()).toEqual(PROJECTS.map(p => p.slug).sort());
+      for (const p of PROJECTS) {
+        const t = TRADUCOES[lang][p.slug];
+        expect(t.highlights).toHaveLength(p.highlights!.length);
+        expect(t.flow.length).toBeGreaterThanOrEqual(2);
+        expect(t.demoNote.trim()).not.toBe("");
       }
     }
-  });
-
-  it("o português continua sendo o principal", () => {
-    expect(IDIOMAS[0].codigo).toBe("pt");
   });
 });

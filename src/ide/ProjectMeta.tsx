@@ -1,27 +1,33 @@
 import type { VFile } from "../types";
+import { useState } from "react";
 
 interface Props {
   file: VFile;
 }
 
 export default function ProjectMeta({ file }: Props) {
+  const [expanded, setExpanded] = useState(false);
   const m = file.meta;
   if (!m) return null;
 
   return (
-    <div className="bg-[#151515] border-b border-[#1c1c1c] px-5 py-3 font-mono text-[12px] text-[#9a9a9a]">
+    <div className="bg-[#151515] border-b border-[#1c1c1c] px-3 md:px-5 py-3 font-mono text-[12px] text-[#9a9a9a]">
       <div className="flex items-center flex-wrap gap-x-3 gap-y-1">
         <span className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b]">
           projeto
         </span>
         <span className="text-[#ededed] text-[13px]">{m.project}</span>
         {m.role && (
-          <span className="text-[#9a9a9a] text-[12px] leading-snug">
+          <span className="hidden md:inline text-[#9a9a9a] text-[12px] leading-snug">
             · {m.role}
           </span>
         )}
       </div>
 
+      <button type="button" className="md:hidden mt-2 underline underline-offset-4 text-[11px]" aria-expanded={expanded} onClick={() => setExpanded(v => !v)}>
+        {expanded ? "Recolher detalhes" : "Detalhes do projeto"}
+      </button>
+      <div className={`${expanded ? "block" : "hidden"} md:block`}>
       {m.stack && (
         <div className="mt-2 flex flex-wrap gap-1.5">
           {m.stack.map((s) => (
@@ -36,6 +42,8 @@ export default function ProjectMeta({ file }: Props) {
       )}
 
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11.5px]">
+        <span>{m.source ? "Trecho do repositório" : "Exemplo simplificado do projeto"}</span>
+        {m.source && <a href={m.source} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">arquivo de origem ↗</a>}
         {m.github ? (
           <a
             href={m.github}
@@ -55,7 +63,7 @@ export default function ProjectMeta({ file }: Props) {
             rel="noopener noreferrer"
             className="text-[#9a9a9a] hover:text-[#ffffff] transition-colors"
           >
-            ↗ demo ao vivo
+            ↗ abrir demonstração
           </a>
         )}
         {m.demoAcesso && (
@@ -66,6 +74,8 @@ export default function ProjectMeta({ file }: Props) {
             ▸ tem demo interativa: clique em <strong>Run</strong> no canto.
           </span>
         )}
+      </div>
+      {m.demoNote && <p className="mt-3 text-[11.5px] leading-relaxed text-[#9a9a9a]">{m.demoNote}</p>}
       </div>
     </div>
   );

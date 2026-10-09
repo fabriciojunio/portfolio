@@ -1,5 +1,6 @@
 import { useIDE } from "../state/useIDE";
 import { TREE } from "../vfs";
+import { PROJETOS_ACERVO } from "../site/data";
 import type { TreeNode } from "../types";
 import { ChevronIcon, FileIcon, FolderIcon, FolderOpenIcon } from "./icons";
 
@@ -62,7 +63,9 @@ function Tree({ nodes, depth }: TreeProps) {
                 <span className="truncate">{node.name}</span>
               </button>
               {isOpen && (
-                <Tree nodes={node.children} depth={depth + 1} />
+                node.path === "/projetos"
+                  ? <ProjectTree nodes={node.children} depth={depth + 1} />
+                  : <Tree nodes={node.children} depth={depth + 1} />
               )}
             </li>
           );
@@ -74,6 +77,7 @@ function Tree({ nodes, depth }: TreeProps) {
             <button
               type="button"
               onClick={() => open(node.path)}
+              data-file-path={node.path}
               className={`w-full flex items-center gap-1.5 px-2 py-[3px] text-left hover:bg-[#151515] ${active ? "bg-[#191919] text-[#ededed]" : "text-[#9a9a9a]"}`}
               style={{ paddingLeft: 8 + depth * 12 + 12 }}
             >
@@ -85,4 +89,18 @@ function Tree({ nodes, depth }: TreeProps) {
       })}
     </ul>
   );
+}
+
+const COMPLEMENTARES = new Set(PROJETOS_ACERVO.map(p => p.idePath));
+
+function ProjectTree({ nodes, depth }: TreeProps) {
+  const { activePath } = useIDE();
+  const extras = nodes.filter(n => COMPLEMENTARES.has(n.path));
+  return <>
+    <Tree nodes={nodes.filter(n => !COMPLEMENTARES.has(n.path))} depth={depth} />
+    <details open={COMPLEMENTARES.has(activePath)} className="mt-2">
+      <summary className="cursor-pointer px-3 py-2 text-[10.5px] text-[#b8b8b8] hover:text-white">Outros projetos ({extras.length})</summary>
+      <Tree nodes={extras} depth={depth} />
+    </details>
+  </>;
 }

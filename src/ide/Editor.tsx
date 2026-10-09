@@ -63,11 +63,12 @@ export default function Editor() {
             options={{
               readOnly: true,
               fontFamily: '"JetBrains Mono", ui-monospace, monospace',
-              fontSize: 13,
+              fontSize: window.innerWidth < 768 ? 12 : 13,
+              lineNumbersMinChars: 3,
               lineHeight: 21,
               fontLigatures: true,
               minimap: {
-                enabled: true,
+                enabled: window.innerWidth >= 768,
                 renderCharacters: false,
                 side: "right",
                 scale: 1,

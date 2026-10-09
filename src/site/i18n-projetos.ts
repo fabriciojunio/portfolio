@@ -1,789 +1,558 @@
-/**
- * Tradução do texto dos projetos.
- *
- * Fica separado do data.ts de propósito. O data.ts é o conteúdo em português,
- * que é onde eu penso e escrevo; aqui é a versão para quem não lê português.
- * Misturar os três idiomas no mesmo objeto tornaria impossível revisar o texto
- * original sem tropeçar em duas traduções a cada campo.
- *
- * O que não entra aqui, de propósito: nome de projeto, nome de tecnologia e os
- * trechos de código. Nome próprio traduzido vira outro projeto, e comentário de
- * código traduzido deixa de bater com o repositório que a pessoa vai abrir.
- *
- * O teste em site.test.ts cobra que todo projeto tenha os dois idiomas, com o
- * mesmo número de destaques do português. Sem isso, um projeto novo entra e o
- * site em inglês simplesmente não mostra nada onde deveria.
- */
-
 export interface TextoDoProjeto {
   oneLine: string;
   what: string;
   role: string;
   highlights: string[];
+  demoNote: string;
+  flow: string[];
 }
-
-const en: Record<string, TextoDoProjeto> = {
-  lastro: {
-    oneLine: "A dependency network between banks, learned by an evolutionary algorithm",
-    what: "My final-year thesis. From daily returns on the Brazilian exchange it learns the dependency structure among listed financial institutions, and measures how long that structure lasts. The network is neither drawn by hand nor carved out of a correlation matrix: it is learned as a Gaussian Bayesian network, with the search done by a multi-objective evolutionary algorithm that returns the whole frontier between fit and number of edges.",
-    role: "I wrote the entire system: the reader for the exchange's fixed-width historical format, corporate-event detection and auditing, the Gaussian likelihood computed from the covariance matrix with caching, NSGA-II over the ordering encoding, the three baselines, the block bootstrap and the statistical analysis.",
-    highlights: [
-      "The phase that proves the method comes before the phase that applies it: first on networks whose structure is known, with Friedman, paired Wilcoxon and Benjamini-Hochberg correction; only then on real data, without retuning a single parameter",
-      "That phase caught a flaw the real data would never have revealed: the first version of the learner lost to hill climbing, and the gap grew with problem size. The mask space has 435 bits at 30 vertices, and evolution was spending its whole budget searching for something that, given the ordering, can simply be computed",
-      "With the mask computed instead of evolved, the learner took first place in mean rank among seven algorithms over the same 840 runs. It beats tabu search and hill climbing with a large effect size, and ties with PC, which is reported as a tie rather than as a win",
-      "The ceiling of the encoding is measured separately: fed the true topological ordering, structural error drops to 7.07, against 40.38 for a random ordering. The ordering is the hard part, and it is not guessable, since ordering by marginal variance lands at 12.25",
-      "The correlation-threshold graph, which is how much of the financial-network literature builds its graphs, is included as a counterexample and measured: two thirds of the edges it creates do not exist",
-      "Comparison on CPDAGs, not DAGs: two graphs with the same skeleton and the same colliders are indistinguishable from observational data, and charging for direction would be charging for the impossible",
-      "Split and reverse-split detector with three simultaneous criteria, fully auditable: it found nine events across 14 years, among them Banco do Brasil's 1:2 in 2024 and BTG's 1:4 in 2021",
-      "The drift curve uses only non-overlapping window pairs, and the similarity between resamples of the same window enters as a noise ceiling: without that number the half-life has no reading",
-      "3,471 trading days from 2012 to 2025, 22 institutions, 154 windows and 55 tests that check mathematical properties rather than implementation",
-    ],
+export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
+  "en": {
+    "almanaque": {
+      "oneLine": "Business directories and support console",
+      "what": "PHP and Symfony platform with separate customer portals, search, subscriptions and a support console.",
+      "role": "I developed the domain, integrations, support console and automated tests.",
+      "highlights": [
+        "Tenant isolation and idempotent billing",
+        "Elasticsearch with database fallback",
+        "Triage, known issues and release records"
+      ],
+      "demoNote": "Sample data. The hosted search uses the database; Elasticsearch and billing commands run locally.",
+      "flow": [
+        "Search the directory for a business.",
+        "Sign in with the demo support account to inspect tickets and triage.",
+        "Follow the repository guide to test search and billing locally."
+      ]
+    },
+    "vitrine-bauru": {
+      "oneLine": "Entrepreneur listings with moderation and direct contact",
+      "what": "UNISAGRADO outreach project for entrepreneurs served by SEDECON in Bauru: listings, search, moderation and WhatsApp contact.",
+      "role": "I developed Java services, event integrations and the browsing and management interface.",
+      "highlights": [
+        "Spring Boot and event integration",
+        "Registration moderation and contact indicators",
+        "Integration tests and data deletion workflow"
+      ],
+      "demoNote": "Demo data and deployed API. The first request may take time while the service starts.",
+      "flow": [
+        "Search by category or district and open a business.",
+        "Use the demo profile buttons on the login screen.",
+        "Explore moderation and contact indicators."
+      ]
+    },
+    "feira": {
+      "oneLine": "Java orders with events and compensating actions",
+      "what": "Four Spring Boot services coordinate orders, inventory, payments and queries through Kafka events.",
+      "role": "I implemented the order saga, transactional outbox and idempotent consumers.",
+      "highlights": [
+        "Outbox and inbox handle repeated delivery",
+        "Inventory compensation and payment refunds",
+        "Integration tests for failures and out-of-order events"
+      ],
+      "demoNote": "Browser simulation; Java services and Kafka run locally.",
+      "flow": [
+        "Place an order and follow its transitions.",
+        "Order soybean oil to observe rejection and inventory compensation.",
+        "Run Docker Compose to inspect the real distributed services."
+      ]
+    },
+    "koracrm": {
+      "oneLine": "Laravel CRM with pipeline, tasks and auditing",
+      "what": "CRM for leads, sales pipeline, tasks and user audit records.",
+      "role": "I developed the layered API, domain rules and React interface.",
+      "highlights": [
+        "Use cases separated from Eloquent",
+        "Roles and change audit records",
+        "Domain, integration and browser tests"
+      ],
+      "demoNote": "Browser demo with sample data. The Laravel API is not deployed.",
+      "flow": [
+        "Choose the demo sign-in option.",
+        "Open a lead, move through the pipeline and inspect tasks.",
+        "Run the API and tests using the repository instructions."
+      ]
+    },
+    "authcore": {
+      "oneLine": "Node.js authentication with JWT, 2FA and roles",
+      "what": "Authentication API with token rotation, role-based access, Redis and a React interface.",
+      "role": "I implemented authentication, authorization and session renewal flows.",
+      "highlights": [
+        "JWT HS256 and TOTP authentication",
+        "Refresh rotation and reuse detection",
+        "Input validation and authentication tests"
+      ],
+      "demoNote": "Published interface. Complete authentication flows depend on the API; run the full environment locally.",
+      "flow": [
+        "Explore access and recovery screens.",
+        "Inspect renewal, 2FA and authorization flows in the source.",
+        "Run the full environment locally to test the backend."
+      ]
+    },
+    "codereview-ai": {
+      "oneLine": "Asynchronous code analysis",
+      "what": "Code analysis using a local model, RabbitMQ queue and Redis cache.",
+      "role": "I developed asynchronous orchestration, analysis tracking and content-based caching.",
+      "highlights": [
+        "Spring Boot and processing queue",
+        "Content-hash caching",
+        "Request tracing and automated tests"
+      ],
+      "demoNote": "No public web demo. Run the application locally.",
+      "flow": [
+        "Follow the local setup instructions.",
+        "Submit code and track its analysis identifier.",
+        "Inspect the selected example in the IDE."
+      ]
+    },
+    "conectagente": {
+      "oneLine": "Offline home visits with data synchronization",
+      "what": "Undergraduate research for Community Health Agents. React Native and Expo, local SQLite, Supabase/PostgreSQL and a Next.js dashboard. Selected by the Saruê incubator at UNESP Bauru.",
+      "role": "I develop registration, visits, synchronization, access roles and audit records.",
+      "highlights": [
+        "Local SQLite for field registration",
+        "Synchronization and role-based access",
+        "Management dashboard and audit trail"
+      ],
+      "demoNote": "Under development. The web dashboard requires authorized access. Use fictional health data.",
+      "flow": [
+        "Review the mobile and web architecture.",
+        "The dashboard requires an authorized account.",
+        "Test offline registration and synchronization locally with fictional data."
+      ]
+    },
+    "permaneia": {
+      "oneLine": "Study assistant and fuzzy dropout analysis",
+      "what": "Study assistant and fuzzy dropout analysis. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Next.js 15, TypeScript, PostgreSQL",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "The IDE simulation illustrates one algorithm; see the repository for the complete application.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "cardiocam": {
+      "oneLine": "Experimental cardiac signal research from video",
+      "what": "Experimental cardiac signal research from video. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Python, OpenCV, NumPy",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "Synthetic signal simulation, without camera processing or clinically validated measurements.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "baliza": {
+      "oneLine": "Parking occupancy through image processing",
+      "what": "Parking occupancy through image processing. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "I contributed to processing, evaluation and documentation as part of the project team.",
+      "highlights": [
+        "Implementation: Python, YOLO11, OpenCV",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "See the repository for the local setup and demonstration scope.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "contaflux": {
+      "oneLine": "Vehicle counting from fixed-camera video",
+      "what": "Vehicle counting from fixed-camera video. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "I contributed to processing, evaluation and documentation as part of the project team.",
+      "highlights": [
+        "Implementation: Python, OpenCV, NumPy",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "The IDE simulation illustrates one algorithm; see the repository for the complete application.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "kaida": {
+      "oneLine": "Academic 2D Unity game",
+      "what": "Academic 2D Unity game. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Unity 2022.3, C#, Unity Test Framework",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "The IDE simulation illustrates one algorithm; see the repository for the complete application.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "bicudo": {
+      "oneLine": "Academic one-button Unity game",
+      "what": "Academic one-button Unity game. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Unity 2022.3, C#, Unity Test Framework",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "The IDE simulation illustrates one algorithm; see the repository for the complete application.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "laboratorio-vr": {
+      "oneLine": "Virtual reality chemistry lab",
+      "what": "Virtual reality chemistry lab. Academic project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Unity, C#, Google Cardboard",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "See the repository for the local setup and demonstration scope.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "jis": {
+      "oneLine": "Job aggregator with filters and matching scores",
+      "what": "Job aggregator with filters and matching scores. Personal project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Next.js 15, React 19, TypeScript",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "Matching score is a heuristic, not a hiring probability.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "outorga": {
+      "oneLine": "Streaming catalog and license management",
+      "what": "Streaming catalog and license management. Personal project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Java 21, Spring Boot, PostgreSQL",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "See the repository for the local setup and demonstration scope.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    },
+    "paiol-tech": {
+      "oneLine": "Rural debt management in TypeScript",
+      "what": "Rural debt management in TypeScript. Personal project. Source and setup instructions are available on GitHub.",
+      "role": "Development, integration and automated testing. Team contributions are identified in the repository.",
+      "highlights": [
+        "Implementation: Next.js 15, NestJS, CQRS",
+        "Automated checks and documented workflow",
+        "Scope and limitations stated in the repository"
+      ],
+      "demoNote": "See the repository for the local setup and demonstration scope.",
+      "flow": [
+        "Explore the project and its documented workflow.",
+        "Review the source in the IDE or on GitHub.",
+        "Follow the repository instructions to run the complete environment."
+      ]
+    }
   },
-  anteparo: {
-    oneLine: "Expected credit loss provisioning under IFRS 9",
-    what: "Computes the provision the way the standard requires: PD, LGD and EAD, with staging, forward-looking overlay and monitoring. The arithmetic is ECL = PD × LGD × EAD; the work is deciding which PD goes into it, and measuring how much the model beats having no model.",
-    role: "I wrote the whole domain: the stage-transfer rule, the discrimination and calibration metrics, PSI with bins taken from the reference set, the three fairness measures and the sensitivity table. The domain operates on numpy and its own types, knowing nothing about files or modelling libraries.",
-    highlights: [
-      "The result that matters is not about the model: the provision moves by 1.45x just from changing the LGD assumption inside the declared range, considerably more than the gap between the best and the worst PD algorithm",
-      "The selection criterion is not the highest Gini, it is the highest Gini among candidates whose calibration error is within twice the best. Provisioning uses the probability as a number, not as a ranking",
-      "The rule with no machine learning competes on equal terms, and the gain over it is 1.51x in Gini. Without that number there is no way to claim the complexity pays for itself",
-      "Staging requires two conditions at once, a relative rise in PD and an absolute one: the ratio alone would move the whole book whenever PD is low",
-      "The fairness finding the aggregate metric hides: in a group of 91 cases the model overstates risk by a factor of nearly five, with an AUC worse than chance",
-      "Dropping sex, education and marital status costs −0.0024 Gini, meaning the model is marginally better without them. At zero cost, there is no technical argument for keeping them",
-      "A Taiwanese dataset, declared as such: there is no public Brazilian contract-level dataset with labelled default, and using real foreign data beats inventing Brazilian data",
-    ],
-  },
-  verbete: {
-    oneLine: "Bills classified by subject, with the annotation leak measured",
-    what: "Classifies legislative bills into the 32 official subject categories of Brazil's Chamber of Deputies, from the abstract. It is the engine of a regulatory-monitoring product: knowing, on the day a bill is filed, which clients it affects. 4,500 bills from 2022 to 2024, with the taxonomy taken from the API itself.",
-    role: "I wrote the API reader with pagination and failure logging, the multi-label metrics, the three candidates, the abstention curve and the explanation extraction. 41 tests, none of which call the API.",
-    highlights: [
-      "The headline result is the size of the annotation leak: the API's keyword field is filled by the same human indexing that assigns the subject, and using it moves micro-F1 from 0.542 to 0.682. A model that used it would look 26% better than it will be once a bill arrives with no indexing at all",
-      "The split is temporal, not random: bills on the same topic reappear each legislature with nearly identical abstracts, and a random split would put the near-duplicate on both sides",
-      "The gap between micro and macro F1 is the result, not a detail: it measures how much the model only works on the common subjects, and the rarest has 14 cases against 1,207 for the most common",
-      "The product answer is negative and written down: a 0.70 micro-F1 target is not reached at any coverage, and the best point on the curve is 0.694 while answering a tenth of the cases",
-      "The dictionary rule is the baseline and it is no straw man: on its own it already hits one of the subjects in two thirds of cases, and the model beats it by 1.84x",
-      "One threshold per subject, tuned on validation: a single cut for 32 subjects of very different frequencies is false simplicity",
-      "The classifier is linear on purpose: in a regulated sector, an explanation that does not come from the model that decided is a second opinion",
-    ],
-  },
-  prumo: {
-    oneLine: "Does a fund's past performance predict its future?",
-    what: "Answers, across 42.3 million rows of daily fund quotes from the Brazilian securities regulator, the question a fund-selection desk answers every day. 40,961 fund series from 2018 to 2025, processed year by year to fit in memory, carrying the last quote of one year into the next.",
-    role: "I wrote the reader for the regulator's three files with coverage measurement on every join, the return and risk calculations, the three persistence measures and the fee analysis. 58 tests, run against two synthetic worlds with known answers.",
-    highlights: [
-      "The answer is 'almost nothing, and it depends on the asset class': fixed income really does persist, with an odds ratio of 3.82, and equity does not, at 0.94 with the interval touching 1 from above",
-      "In money it is worth nothing: the gap between the best and worst quintile is 0.72% in the following year, and the spread within each quintile is 19.20%. Twenty-six times larger",
-      "The finding that was not in the script: the transition matrix is U-shaped. From the worst quintile, 30.0% stay and 29.6% jump straight to the best. The funds at the extremes are the volatile ones, and what persists is risk, not return",
-      "Survivorship bias is measured: only 19% of the series exist from start to finish, and 37% disappear before the end",
-      "The fee section is about the data, not the market: fees only exist in the legacy registry, which became historical after the 2022 regulatory overhaul and matches 24.3% of funds, and those with a known fee return 4.2 percentage points less than the rest",
-      "The data's behaviour was measured and none of it is documented: the tax ID comes as punctuated text in one file and as an integer in another, which makes the obvious join match zero rows with no error at all",
-      "With 120,000 pairs, 37 of 42 tests are significant with and without correction: the p-value stops informing and effect size is what is left",
-    ],
-  },
-  trato: {
-    oneLine: "Who to contact, not who will pay",
-    what: "Uplift modelling on a genuine randomised experiment, with 64,000 people and 21,000 in the control arm. A response model predicts who pays; an uplift model predicts who pays because of the contact. Using the first to choose who to contact sends messages to people who were going to pay anyway.",
-    role: "I wrote the randomisation check, the uplift measures, the four candidates and the translation into money with cost and value as declared parameters. 34 tests, in synthetic worlds with a known effect.",
-    highlights: [
-      "Before concluding the model is weak, the project measures whether there is heterogeneity to find at all: the effect within 19 subgroups known in advance, with no model and with multiplicity correction",
-      "In one arm of the experiment no slice differs from the overall effect, and the models confirm it by failing to separate top from bottom any better than chance. The negative result is correct, and that can only be stated because heterogeneity was measured separately",
-      "In the other arm it exists and is interpretable, with a 3.4x difference between buyers of each product line. There the model does find it: a 3x separation between the top and bottom 30%, with non-overlapping intervals",
-      "In money: 11.6% more result while contacting 25 percentage points fewer people",
-      "Qini is misleading and the project shows how: the curve's gain is a count of events, so a model that ranks by responders accumulates gain early even without separating any effect",
-      "The random floor is the mean of thirty draws, not one: a single draw produces Qini anywhere from −0.117 to +0.143 on this data",
-      "Uplift has no individual label: nobody is observed both contacted and not contacted. All validation is by group, and that absence of an individual metric is deliberate",
-    ],
-  },
-  decurso: {
-    oneLine: "How long a court case takes, and how much of that becomes a provision",
-    what: "Estimates duration and outcome of court cases from Brazil's public judicial API, and turns both into a provision under the local equivalent of IAS 37. The API has the raw material and none of the answers: no labelled outcome, no claim value and no duration, so all three have to be derived from the list of procedural movements.",
-    role: "I wrote the failure-tolerant collector, outcome derivation with three defences against leakage, the survival analysis with Kaplan-Meier and log-rank, the model with its baseline, and the provisioning calculation. 126 tests, none of which touch the API.",
-    highlights: [
-      "The spreadsheet answer, the mean duration of already-closed cases, throws away 20.8% of the data and underestimates by 1.21x: 791 days against 955 from the Kaplan-Meier median. The error is not random, and it is largest exactly in the slowest courts",
-      "Comparing duration across subject matters, 73 of 210 pairs would look different at 5% and 44 survive Benjamini-Hochberg correction",
-      "The outcome model is a negative result and is reported as one: AUC of 0.521, with no significant difference against either the global rate or the court's historical rate",
-      "One finding died when the sample grew, and that is written down: with 2,648 cases the court's historical rate beat the global rate and the difference survived correction; with 4,118 it no longer does. That is what happens to a small effect in a small sample",
-      "The claim-value assumption moves the provision 4.00x against 1.09x for the choice of model",
-      "The API's behaviour was measured, not assumed: any sort returns a gateway timeout, which rules out search_after, and counting without track_total_hits stops at 10,000, making a 300,000-case query look like a 10,000-case one",
-      "The collector splits the period until each slice fits and records what was missed, slice by slice: this base came back incomplete, 4,118 of 9,852, and that is declared rather than invisible",
-    ],
-  },
-  feira: {
-    oneLine: "Event-driven orders with a saga that compensates",
-    what: "Four Spring Boot services talking over Kafka. Each owns its database and none reads another's tables. The saga has to survive messages that arrive twice, out of order, or late, and a MongoDB read model answers in one query what previously required joining three services in the browser.",
-    role: "I wrote all of it: the sealed event contracts, the shared transactional outbox, the idempotent consumer, the order saga and the projection that feeds the read model. The hardest case was the race where a payment is approved while the order is being cancelled, which ends in a refund.",
-    highlights: [
-      "Distributed tracing survives the outbox: the context is stored in a column and propagated in a Kafka header, otherwise it dies at commit and the dashboard shows loose traces instead of one whole saga",
-      "Outbox using SELECT FOR UPDATE SKIP LOCKED, so several instances can run at once",
-      "Concurrency proven with ten real threads against a real PostgreSQL",
-      "A MongoDB read model whose document is derived from the events, so it can be thrown away and rebuilt from the topic",
-      "CI spins up a real Kubernetes cluster and applies the manifests, on top of validating the Terraform",
-      "A migration that drops or renames a column fails the build: the rollout is gradual and the old version's dispatcher keeps reading the outbox during the swap",
-      "187 tests, none of which need Docker installed",
-    ],
-  },
-  outorga: {
-    oneLine: "White-label streaming: no licence, no air time",
-    what: "A multi-tenant streaming platform. One rule organises the whole system: nothing goes on air without a current licence covering the territory and the exhibition window.",
-    role: "I modelled the entire domain. Publishing is the only door to the air, and it takes the licence in the method signature, so no code path can publish without one. An hourly sweep pulls down whatever expired and restores whatever was renewed.",
-    highlights: [
-      "Domain without a single line of Spring, enforced by an architecture test",
-      "Every repository takes the tenant in its signature, never from a context variable",
-      "Data-protection export and anonymisation implemented, not promised",
-      "A migration that drops or renames a column fails the build: during a deploy both versions run together, and a column that disappears here denies content to someone who paid for it",
-      "275 tests against a real PostgreSQL",
-    ],
-  },
-  "codereview-ai": {
-    oneLine: "Automated code review with a local LLM",
-    what: "A platform that reviews Java, Python and JavaScript using Ollama. It flags bugs, code smells and SOLID violations. Work runs through RabbitMQ with a 24-hour Redis cache.",
-    role: "I built the asynchronous orchestrator (RabbitMQ queue plus a ticket ID) and the cache keyed by a hash of the submitted code.",
-    highlights: [
-      "Asynchronous processing through a RabbitMQ queue, one ticket ID per review",
-      "24-hour Redis cache keyed by the SHA-256 of the code, so nothing is analysed twice",
-      "The request's trace rides in the message header: without it the queue wait, the largest slice of the user's wait, falls into the gap between two unrelated traces",
-      "One trace span per database query, by wrapping the DataSource, which is what makes an N+1 visible",
-      "A migration that drops or renames a column fails the build: during the swap the consumer is halfway through work it already accepted",
-    ],
-  },
-  "paiol-tech": {
-    oneLine: "SaaS for managing farm debt",
-    what: "A SaaS for farmers. Passwordless login by magic link, WhatsApp alerts and Open Finance. A Turborepo monorepo with NestJS (Clean Architecture plus CQRS) and a Next.js PWA.",
-    role: "I modelled the Debt aggregate with its domain events, and the CQRS handler that fires the WhatsApp notification when a debt comes due.",
-    highlights: [
-      "Magic link: no password, just one click from the email",
-      "A domain event fires the WhatsApp notification automatically on the due date",
-    ],
-  },
-  "guarda-banco": {
-    oneLine: "A latch inside the server against accidental DELETE and UPDATE",
-    what: "Protection installed in the database itself: every DELETE or UPDATE has a cap on rows affected per statement, and going over it aborts the transaction. Because the rule lives in the server, it holds the same in DBeaver, Workbench, SSMS or psql. Scripts for PostgreSQL, MySQL and SQL Server.",
-    role: "I set the core idea: cap by rows affected rather than hunting for DELETE without WHERE. Also the nesting-level control, which makes a cascade count against the statement that started it, and the local panel for granting an exception.",
-    highlights: [
-      "A row cap also covers a WHERE that is too broad, an OR where AND was meant, and an unexpected cascade",
-      "Aborts in BEFORE ROW: it fails on the row past the cap, without materialising everything first",
-      "ON DELETE CASCADE counts against the originating statement rather than resetting the counter",
-      "Lifting the protection requires a written reason and lasts only inside that transaction",
-    ],
-  },
-  authcore: {
-    oneLine: "RS256 JWT, refresh rotation with a blacklist and TOTP 2FA in Node.js",
-    what: "A Node.js backend on Clean Architecture with RS256 JWT, TOTP two-factor through speakeasy, RBAC across three roles and a Redis blacklist. React 18 and Vite on the front.",
-    role: "I built the refresh-token rotation backed by a Redis blacklist: every refresh issues a new pair and invalidates the previous one.",
-    highlights: [
-      "Asymmetric RS256 JWT plus TOTP 2FA: the private key never leaves the server",
-      "Refresh rotation: each issue invalidates the last one, closing the replay window",
-    ],
-  },
-  "quantbot-ml": {
-    oneLine: "Passive income that trades on its own (on paper) and learns from news and outcomes",
-    what: "A dividend-investing system in the Barsi/Bazin tradition that trades with simulated money and learns from its own hits and misses. It combines real fundamentals (Fundamentus, the whole Brazilian exchange), central-bank macro data and around 28 news sources, reads sentiment with FinBERT-PT-BR, and runs daily in the cloud through GitHub Actions, producing reports and an auditable track record.",
-    role: "I built the autonomous loop end to end: the paper portfolio that follows the screener, the feedback module that learns which kinds of pick beat the benchmark rate, the multi-source data and news layer, and the cloud automation. I reused the existing anti-overfitting validation base.",
-    highlights: [
-      "Runs itself in the cloud through GitHub Actions: decides, records and learns every day, with no server",
-      "Feedback loop: measures every pick against the benchmark rate and adjusts the score as it hits or misses",
-      "Free multi-source data: Fundamentus for dividend yield across the exchange, the central bank for macro, and around 28 news feeds",
-      "News sentiment with FinBERT-PT-BR on PyTorch, with a lexicon fallback that needs no GPU",
-    ],
-  },
-  balcao: {
-    oneLine: "A WhatsApp sales assistant where the model never writes a number",
-    what: "Support, negotiation and trade-in appraisal over WhatsApp for phone shops. The model understands the customer and picks the strategy for the conversation, but the cash price, the instalment plan, the maximum discount and the trade-in value all come from deterministic functions. The final message still passes an auditor before it is sent.",
-    role: "I designed the output auditor, the pricing and trade-in engines, and the guards that run before the model at all: exit requests, requests for a human, and scope.",
-    highlights: [
-      "The model returns text with placeholders; the domain is what computes the value",
-      "The auditor rejects any digit that cannot be traced to a recorded lookup",
-      "Two rejections in the same conversation escalate to a human",
-      "A trade-in figure only leaves with the pre-appraisal disclaimer consumer law requires",
-    ],
-  },
-  "apontamento-horas": {
-    oneLine: "Multi-user time tracking with RBAC, SLA and dashboards",
-    what: "A platform for logging hours per client, with multiple users and roles (admin, project manager, analyst, viewer), automatic SLA tracking, control dashboards, an audit trail and Excel reports for finance.",
-    role: "I built the multi-user authentication with bcrypt and JWT, the role-based access control, the automatic SLA and the audit layer.",
-    highlights: [
-      "Multi-user with RBAC: admin, project manager, analyst and viewer",
-      "Each person sees only their own entries; managers and admins get the consolidated team view",
-      "Automatic SLA: pending (0-2 days), warning (2-5 days), overdue (5 days and up)",
-      "Monthly Excel export for finance, plus an audit log of every action",
-    ],
-  },
-  registraservico: {
-    oneLine: "Service logging with configurable types and fields",
-    what: "A multi-tenant system for recording services delivered, built for public bodies and field teams. Service types and the fields on each form are configured by the organisation rather than written into the code. Audit trail, BI export, and a PWA that installs without an app store.",
-    role: "I modelled the configurable schema (service type, custom fields, and the record itself as validated JSON) and wrote the dynamic validator that checks incoming data against the field definitions stored in the database.",
-    highlights: [
-      "The form is not in the code, it is in the database: the same engine serves another organisation with no rewrite",
-      "JWT checked in edge middleware, with immediate session revocation",
-      "Four-role RBAC: admin, manager, operator and viewer",
-      "Two taps to file a record in the field, with CSV export for Power BI",
-    ],
-  },
-  conectagente: {
-    oneLine: "Undergraduate research at UNISAGRADO, incubated at UNESP's Saruê: offline field data collection",
-    what: "An undergraduate research project at UNISAGRADO that also went through Saruê, UNESP's business incubator in Bauru. A community health worker records a home visit on their phone with no network at all, and the device syncs once the signal is back. It never went to the field with an actual health worker: this is research, not a product in use, and it is written that way on purpose.",
-    role: "I wrote the sync engine, with an outbox, retries and conflict resolution, and the SQLite schema with full-text search so a resident can be looked up with no network call.",
-    highlights: [
-      "Outbox pattern with retry and conflict resolution: sync survives having no signal at all",
-      "SQLite WAL plus FTS for offline search without a single network call",
-    ],
-  },
-  permaneia: {
-    oneLine: "A study assistant with RAG and an early warning for dropout risk",
-    what: "Two fronts against university dropout. An assistant that answers student questions from the official course documents, citing the source, and that says when the answer is not in the material instead of guessing an exam date. And a dashboard that ranks the class by dropout risk computed with fuzzy logic.",
-    role: "I wrote the Mamdani fuzzy inference engine from scratch, with no library, and the entire RAG layer: chunking by unit of information, hybrid retrieval with rank fusion, a relevance threshold, the schedule computed in code, and the defences against prompt injection.",
-    highlights: [
-      "A student averaging 8.6 with 34% attendance is flagged high risk; the grade-only criterion that registrars actually use would call them fine",
-      "The question log exposed a defect the panel had missed: \"When is exam P1?\" answered while \"when is the exam\" refused, at the same similarity. Retrieval gained a second arm, by term matching",
-      "Calendar questions are not answered by the model: \"when is the next class\" is resolved in code, over the dates in the material itself, and the model only writes it up",
-      "When the material has no answer, it still answers about the university and the subject, and the warning that this has no source is written by the code, not by the model",
-      "Works with no API key: in degraded mode it transcribes the document rather than composing, which is stricter still about not inventing",
-      "Every query records model, tokens and cost, and also goes to Langfuse with one step per phase. Measured in production, over 30 real calls: 95.7% of the tokens are input, a ratio of 22.4 to 1. The bill comes from the material shipped with the question, not from the answer, and that changes where you pull to make it cheaper",
-      "2,055 tests and twelve documented defects, one of which existed only in the published artefact and not in the source, and another in which a key stored with a byte order mark brought down the whole application rather than just the telemetry",
-    ],
-  },
-  cautela: {
-    oneLine: "An investment agent that does not recommend",
-    what: "An assistant that talks about money carries a risk the others do not: an invented number delivered with authority. This one answers with a measured number, cites the source and closes by stating the limitation. When it has no number, it says so. The facts come from the artefacts of the other projects, so the agent stores results of experiments rather than text.",
-    role: "I wrote the LangGraph graph, the output auditor with its three rules, the knowledge base that reads the experiments' JSON artefacts, and the observability layer with Langfuse and Datadog.",
-    highlights: [
-      "It does not recommend, and that is a rule in code rather than in style: investment advice in Brazil is regulated by the securities commission and requires a certified analyst",
-      "A number that did not come from the knowledge base is blocked, unit conversion included: 94% does not pass when the base says 0.94, because converting is deriving, and deriving is where the model errs without looking wrong",
-      "The refusal path is a path in the graph, with its own exit, rather than an if buried inside the drafting. An auditor can answer how the agent refuses without reading all of the code",
-      "The 17 facts come from the experiments' artefacts: if one is re-run and the number changes, the agent starts answering the new one without anyone editing text",
-      "On its first run against the real artefacts, the agent refused its own transcription: the fact carries a 95% confidence interval and the auditor treated it as an invented number. The definition was fixed instead of the rule being loosened",
-      "The question is read too, not only the answer: when it asks for advice, the notice that this is not a recommendation comes before the number, not after",
-      "With no API key the agent transcribes the fact as it was measured, and with no artefact it refuses: absence of data is not permission to opine",
-    ],
-  },
-  "vitrine-bauru": {
-    oneLine: "A shop window for Bauru's small businesses with SEDECON, in four Spring services",
-    what: "A university extension project with SEDECON, the city's economic development department. The owner registers the business, the department checks and approves it, and the shop goes into a public window where the customer talks straight to whoever makes the product, on WhatsApp. Four Spring Boot services, each with its own database, talking over events, plus an edge gateway and a React front end.",
-    role: "I wrote the whole system: the sealed event contracts, the shared outbox and inbox, the registration state machine, the LGPD deletion saga, the projection that feeds the public search and the entire interface. Also the transport decision that lets the same code run with Kafka, with Amazon SNS and with no broker at all.",
-    highlights: [
-      "Event transport is one interface with three adapters: Kafka where a broker exists, Amazon SNS on the managed deployment, and an in-process call when there is no broker at all",
-      "Distributed tracing survives the outbox: the context goes into a column and then into a Kafka header or an SNS attribute, because the event is published by another thread and the context would die at commit",
-      "The third adapter came out of a mistake of mine: I had written in the decision record that no managed messaging had a permanent free tier, because I searched for managed Kafka instead of searching for the problem. SNS and SQS are permanently free on AWS, and the adapter went in without touching the outbox, the inbox or any consumer",
-      "Deleting personal data under LGPD is a saga with a deadline and retries: three services have to confirm the erasure before the request can close",
-      "The failed-password counter and the session revocation write in their own transaction, because the exception that triggered them rolled both back; an integration test is what caught it",
-      "The document field accepts the alphanumeric CNPJ that came into force in July 2026, with the check digit computed from the ASCII value minus 48",
-      "1,042 green tests with no Docker required: embedded PostgreSQL and embedded Kafka start inside the test itself",
-      "Thirteen architecture rules enforced by ArchUnit, one of them being that no controller returns a JPA entity",
-      "Deployed end to end on free tiers: database on Neon, containerised API on Render and the site on Vercel, behind a three-stage CI",
-      "The Kubernetes manifests had an autoscaler pointing at a Deployment that did not exist; I wrote a coherence check that runs in CI with no cluster and fails on exactly that case",
-    ],
-  },
-  cardiocam: {
-    oneLine: "Measures heart rate from video, without touching the person",
-    what: "It estimates heart rate from the colour shift in skin caused by blood flow, captured on an ordinary webcam. The technique is remote photoplethysmography (rPPG). It implements and compares four algorithms written from the original papers: GREEN, CHROM, POS and ICA. It started as coursework and became the basis for a research proposal on the two open gaps in the field, which are robustness to motion and to skin tone.",
-    role: "I built the whole path, from cropping the face to the number on screen, the comparison between the four algorithms, the background correction and the simulator that makes the error measurable. Also the web version, which runs entirely in the browser with no server.",
-    highlights: [
-      "The most useful result is distrust of my own number: the synthetic scenario gives 0.02 bpm of error, and the literature reports 3.67 bpm for the same algorithm on real data. Two orders of magnitude apart is the signature of an easy scenario, not of good performance",
-      "Four algorithms in the same pipeline. Under lighting that oscillates inside the cardiac band, GREEN and ICA are off by 42 bpm, exactly the distance between the pulse and the interference, while CHROM and POS are off by 0.01: looking only at brightness cannot tell blood arriving from light arriving",
-      "The wall behind the person has no pulse: what oscillates there is ambient light, and that is a direct measure of the interference. With white balance oscillating, accuracy went from 1 in 16 without the correction to 16 in 16 with it",
-      "Locating the face by skin colour passed every synthetic scenario and failed on the first real photo: the beige wall of the room falls inside the skin chrominance range and is larger than the face. The box went to the wall, and no threshold tweak fixes a wrong premise",
-      "The answer was porting the Haar cascade to the browser, in plain JavaScript. 107 KB against the 9.3 MB of the neural model I had evaluated, and the tests compare the output against OpenCV over the same frames, byte for byte",
-      "The displayed number comes from the averaged spectrum of successive windows, not from smoothing estimates. The forgetting weight came from measurement against three alternatives, and it is the only one that beats exponential smoothing on both axes: steadier and faster to follow a real change",
-      "The illumination correction is chosen by measurement, not assumed: both versions of the signal are computed and the one with better signal-to-noise wins. It exists because applying it blindly once made dispersion worse, from 0.10 to 10.12 bpm, when the reference contained clothing that moves with the person",
-      "Capture is capped at 20 frames per second on purpose: a camera cannot expose a frame for longer than the interval between frames, and the literature puts the exposure optimum at 1/16 of a second. Fewer frames means more light, and the cardiac band does not use the temporal resolution 60 buys",
-      "Skin segmentation thresholds chrominance and never luminance, deliberately: that is what makes the system measure any skin tone with the same competence, and the tests enforce it across eight tones",
-      "2,005 tests in Python and 426 in the browser, none with a stub standing in for real code. Three exist only to prove the system can say it does not know",
-    ],
-  },
-  contaflux: {
-    oneLine: "Counts vehicles in fixed-camera video by line crossing",
-    what: "It counts cars passing along a road from fixed-camera footage. Each vehicle is tracked frame by frame and counted exactly once, at the moment it crosses a line in the scene. It splits by direction, reports the vehicle type and estimates speed. Two detectors: background subtraction, which runs with nothing installed, and YOLO recognition.",
-    role: "I wrote the detection, the tracking and the counting rule, plus the automatic inference of where the line should sit based on the traffic itself. Also the integration of recognition as an alternative to background subtraction.",
-    highlights: [
-      "The counting line is inferred from traffic: the program watches for a few seconds and places it perpendicular to the flow, with nobody clicking",
-      "Two detectors asking different questions: motion asks whether something moved, recognition asks whether that is a car",
-      "A dark car on dark asphalt was classified as shadow by MOG2 and vanished from the count; solved with two masks",
-      "Validated against synthetic scenes with known ground truth, plus five real videos checked by watching the boxes on screen",
-    ],
-  },
-  kaida: {
-    oneLine: "A 2D metroidvania in Unity, with the game assembled by code",
-    what: "A 2D metroidvania with six scenes, abilities that unlock paths, a single-encounter boss with one health bar, three attempts per run, three difficulty levels and autosave at rest points. The project generates its own assets: an editor menu slices the sprites and builds the animations, prefabs, tiles and scenes from code.",
-    role: "I handled the player controller (a state machine, one file per state), the boss, and the editor generators that assemble the whole game from code.",
-    highlights: [
-      "The game is assembled by editor scripts: the repository holds the recipe, not the binary scene file nobody can review",
-      "Coyote time and jump buffering: the jump still counts for a moment after leaving the ledge, and a command given mid-air waits for the ground",
-      "A state machine with one file per player state, instead of a chain of conditions inside Update",
-      "The difficulty chosen in the menu lands on a copy of the stats, never on the original asset, which would write the change to disk",
-      "A Windows build published in releases, so it can be played without the engine",
-    ],
-  },
-  bicudo: {
-    oneLine: "A one-button game in Unity, with a scene that measures itself against the screen",
-    what: "A one-button game in the Flappy Bird lineage: the bird falls on its own, rises when the player says so, and the run ends on the first contact. A single scene for all three states, art sliced by script, four sound effects generated by synthesis and no audio file in the repository.",
-    role: "A solo project: I did all of it, from slicing the sprites and assembling the scene in code through to the tests and the executable.",
-    highlights: [
-      "The impulse replaces vertical velocity rather than adding to it: two taps in a row rise as much as one, and the game becomes about rhythm",
-      "No Rigidbody2D. Collision is a circle query every frame, because anything moved by transform passes through the pipe between two frames without firing an event",
-      "The scene measures the visible width at runtime and redoes the maths if the screen changes: with bounds fixed in the scene, the floor slid off the edge and pipes appeared out of nowhere in front of the bird on an ultrawide monitor",
-      "The four sound effects are synthesised at startup, which avoids a third-party licence in a game where four beeps do the job",
-      "46 tests, three of which open the scene that ships in the executable: the score once sat at zero for an entire run while the tests called the scoring method directly and passed green",
-    ],
-  },
-  "laboratorio-vr": {
-    oneLine: "A VR chemistry lab with gaze-based interaction",
-    what: "A chemistry lab in VR built in Unity, with gaze interaction and support for Google Cardboard and the phone's gyroscope. Looking at an object shows information; looking at a teleport point fills it green and moves you. Android build.",
-    role: "I implemented the gaze control (a raycast from the camera), the teleport points with a dwell timer, and the camera control by gyroscope or touch.",
-    highlights: [
-      "Gaze interaction: a raycast from the camera detects objects in the field of view",
-      "Dwell teleport: the point fills green as you keep looking at it",
-    ],
-  },
-  jis: {
-    oneLine: "A job aggregator that estimates the real odds of each posting",
-    what: "It collects jobs from eight public sources without needing an API key, discards what has no chance (stale postings, seniority above reach, regions that will not hire from Brazil) and builds a résumé prompt tailored to whatever survives.",
-    role: "I set the cut-off criteria from recruiting research rather than guesswork: minimum stack overlap, the window before a posting becomes a ghost, and the region filter. Anything failing one of those is not scored, it is discarded.",
-    highlights: [
-      "Eight real sources, among them LinkedIn, Remotive, RemoteOK and WeWorkRemotely",
-      "Postings older than 30 days are discarded: ghost jobs run between 20% and 35% of everything published",
-      "No database: jobs arrive live with a 30-minute cache and the funnel lives in the browser",
-    ],
-  },
-  sintonia: {
-    oneLine: "A social network where the conversation turns on whatever is playing",
-    what: "A monorepo with a NestJS API, a Next.js site and an Expo app. Live now-playing status, conversations with ephemeral messages (by TTL or single view), streaks and a group pet. Integration with music services is a port with adapters.",
-    role: "I built the foundation: Clean Architecture in the API, the music-provider port with its adapters, the pure domain for ephemerality and streaks, and the data-protection layer (export, deletion with anonymisation, and media purging).",
-    highlights: [
-      "A music port with adapters: Last.fm as the primary, because Spotify caps new apps at 25 users",
-      "Ephemeral messages expire by TTL or on read, and the purge job actually deletes",
-      "Gamification domain kept pure, with no framework, tested outside NestJS",
-      "Real light and dark themes, with tokens shared between web and mobile",
-    ],
-  },
-  bravor: {
-    oneLine: "A strength and running coach with adaptive training, nutrition and recovery",
-    what: "A mobile-first web app (PWA) and a native Android app that adapt training, diet and recovery to the user's actual routine, on a scientific basis. A monorepo with its own domain engine holding the training and nutrition formulas, isolated in a tested package.",
-    role: "I built the isolated domain engine, the JWT session in an httpOnly cookie renewed automatically in middleware, the origin-based CSRF protection, and the mitigation for the Next.js middleware bypass disclosed in 2025.",
-    highlights: [
-      "Domain engine isolated and tested: 142 tests, around 94% coverage",
-      "JWT session (jose) in an httpOnly cookie, renewed in middleware without a fresh login",
-      "Safety screening (PAR-Q and a pain check) before any training is released",
-    ],
-  },
-  koracrm: {
-    oneLine: "A Laravel CRM whose application layer never touches Eloquent",
-    what: "Leads, a five-stage sales pipeline, tasks with deadlines, a dashboard with value per stage, a team with access profiles, and an audit trail recording every change with its author. It serves data-subject requests under Brazilian privacy law without losing history.",
-    role: "I wrote the whole backend in four layers, and the rule that holds it together is that services take a DTO and talk to a repository interface, never to Eloquent. Swapping the ORM should not force a rewrite of business rules.",
-    highlights: [
-      "Two domain rules tested from both sides: a lead is always born in the first stage, and a lead marked won or lost never returns to the pipeline",
-      "The application layer does not know Eloquent, which is what keeps the rules testable without a database",
-      "Automatic auditing: every move between stages is recorded with its author",
-      "126 tests, 90% backend coverage, and CI fails below 85%",
-      "Only the interface is published: the demo runs in the browser with sample data, because the Laravel API is not deployed",
-    ],
-  },
-  almanaque: {
-    oneLine: "Multi-tenant business directory and classifieds, with the support console inside",
-    what: "A platform for publishing business directories and classifieds: every client gets their own portal, with their own categories, advertisers and subscription. Shipped with it is the support console, which is the unusual part: a ticket queue ordered by impact, triage into four buckets, and a known-issues base linked to the release that fixed each one.",
-    role: "I wrote all of it, from the domain to the console. The decision that shaped the system most was treating support as part of the product rather than a spreadsheet beside it: a ticket cannot be closed without a classification, and nothing is classified as a product defect without being reproduced on a clean environment.",
-    highlights: [
-      "Multi-tenancy with a test behind it: one portal cannot see another's data, and that is enforced by the suite rather than trusted to whoever writes the next query",
-      "Elasticsearch search with relevance and accent handling, falling back to the database when the index is down, because a failing search must not take the directory with it",
-      "The billing job can run twice without charging twice: the billing period is the idempotency key",
-      "Three retries before cancelling an overdue subscription, instead of cutting access on the first declined card",
-      "A ticket closed without saying what it was is exactly what stops you from finding out, three months later, that the same defect came back",
-      "PHPStan level 8, end-to-end Playwright, and Kubernetes manifests in the repository",
-    ],
-  },
-  baliza: {
-    oneLine: "Free parking spaces read from the camera already on the pole",
-    what: "Tells which spaces in a parking lot are free from the video of a fixed camera. No sensors in the ground, no new cabling, no construction: the camera already there for security frames dozens of spaces at once.",
-    role: "A computer vision assignment in a group of four. I built both detectors, the training run on PKLot, and the measurement that decides which one to use per camera.",
-    highlights: [
-      "There are two detectors and the difference is stated honestly: the general COCO model finds cars in any lot with no training, and the trained one finds the space itself, which is what saves a large lot where a car is twenty pixels wide",
-      "Preference does not choose: each parking map stores the detector that measured better on that camera, and the program prints which one it loaded",
-      "If the trained weights are not on disk, it falls back to the general detector instead of failing",
-      "The trained model memorises the lot and does not generalise to an unseen camera, and the experiment was built precisely to measure that cost rather than hide it",
-    ],
-  },
+  "es": {
+    "almanaque": {
+      "oneLine": "Guías comerciales y consola de soporte",
+      "what": "Plataforma PHP y Symfony con portales separados por cliente, búsqueda, suscripciones y soporte.",
+      "role": "Desarrollé el dominio, las integraciones, la consola de soporte y las pruebas.",
+      "highlights": [
+        "Aislamiento entre clientes y cobros idempotentes",
+        "Elasticsearch con alternativa en la base de datos",
+        "Triaje, problemas conocidos y versiones"
+      ],
+      "demoNote": "Datos de ejemplo. La búsqueda publicada usa la base de datos; Elasticsearch y cobros se evalúan localmente.",
+      "flow": [
+        "Busque una empresa en el directorio.",
+        "Entre con la cuenta de soporte de demostración y explore los tickets.",
+        "Siga el roteiro del repositorio para probar búsqueda y cobros localmente."
+      ]
+    },
+    "vitrine-bauru": {
+      "oneLine": "Vitrina de emprendedores con moderación y contacto directo",
+      "what": "Proyecto de extensión de UNISAGRADO para emprendedores atendidos por SEDECON en Bauru: catálogo, búsqueda, moderación y WhatsApp.",
+      "role": "Desarrollé los servicios Java, las integraciones por eventos y la interfaz de consulta y gestión.",
+      "highlights": [
+        "Spring Boot e integración por eventos",
+        "Moderación e indicadores de contactos",
+        "Pruebas de integración y exclusión de datos"
+      ],
+      "demoNote": "Datos de ejemplo y API publicada. La primera respuesta puede tardar mientras inicia el servicio.",
+      "flow": [
+        "Busque por categoría o barrio y abra un negocio.",
+        "Utilice los botones de perfil de demostración en el login.",
+        "Explore la moderación y los indicadores de contactos."
+      ]
+    },
+    "feira": {
+      "oneLine": "Pedidos Java con eventos y compensaciones",
+      "what": "Cuatro servicios Spring Boot coordinan pedidos, inventario, pagos y consultas mediante Kafka.",
+      "role": "Implementé la saga de pedidos, el outbox transaccional y los consumidores idempotentes.",
+      "highlights": [
+        "Outbox e inbox para entregas repetidas",
+        "Compensación de inventario y reembolsos",
+        "Pruebas de fallos y eventos fuera de orden"
+      ],
+      "demoNote": "Simulación en el navegador; Java y Kafka se ejecutan localmente.",
+      "flow": [
+        "Realice un pedido y siga sus transiciones.",
+        "Pida aceite de soja para observar la recusa y la compensación.",
+        "Ejecute Docker Compose para evaluar los servicios distribuidos."
+      ]
+    },
+    "koracrm": {
+      "oneLine": "CRM Laravel con embudo, tareas y auditoría",
+      "what": "CRM para leads, embudo de ventas, tareas y auditoría por usuario.",
+      "role": "Desarrollé la API en capas, las reglas de dominio y la interfaz React.",
+      "highlights": [
+        "Casos de uso separados de Eloquent",
+        "Perfiles y auditoría de cambios",
+        "Pruebas de dominio, integración y navegador"
+      ],
+      "demoNote": "Interfaz con datos de ejemplo. La API Laravel no está publicada.",
+      "flow": [
+        "Elija la opción de acceso de demostración.",
+        "Abra un lead, recorra el embudo y consulte tareas.",
+        "Ejecute la API y las pruebas con las instrucciones del repositorio."
+      ]
+    },
+    "authcore": {
+      "oneLine": "Autenticación Node.js con JWT, 2FA y perfiles",
+      "what": "API de autenticación con rotación de tokens, acceso por perfil, Redis e interfaz React.",
+      "role": "Implementé los flujos de autenticación, autorización y renovación de sesión.",
+      "highlights": [
+        "JWT HS256 y autenticación TOTP",
+        "Rotación de tokens y detección de reutilización",
+        "Validación y pruebas de autenticación"
+      ],
+      "demoNote": "Interfaz publicada. Los flujos dependen de la API; ejecute el entorno completo localmente.",
+      "flow": [
+        "Explore las pantallas de acceso y recuperación.",
+        "Revise renovación, 2FA y autorización en el código.",
+        "Ejecute el entorno completo localmente para probar el backend."
+      ]
+    },
+    "codereview-ai": {
+      "oneLine": "Análisis de código asíncrono",
+      "what": "Análisis de código con modelo local, cola RabbitMQ y caché Redis.",
+      "role": "Desarrollé la orquestación asíncrona, el seguimiento de análisis y el caché por contenido.",
+      "highlights": [
+        "Spring Boot y cola de procesamiento",
+        "Caché por hash del contenido",
+        "Trazabilidad y pruebas automatizadas"
+      ],
+      "demoNote": "Sin demostración web pública. Ejecute la aplicación localmente.",
+      "flow": [
+        "Siga las instrucciones de ejecución local.",
+        "Envíe código y siga el identificador del análisis.",
+        "Revise el ejemplo seleccionado en la IDE."
+      ]
+    },
+    "conectagente": {
+      "oneLine": "Visitas domiciliarias offline con sincronización",
+      "what": "Investigación para Agentes Comunitarios de Salud: React Native y Expo, SQLite local, Supabase/PostgreSQL y panel Next.js. Seleccionado por Saruê, incubadora de UNESP Bauru.",
+      "role": "Desarrollo registros, visitas, sincronización, perfiles y auditoría.",
+      "highlights": [
+        "SQLite local para registros en campo",
+        "Sincronización y acceso por perfil",
+        "Panel de gestión y auditoría"
+      ],
+      "demoNote": "En desarrollo. El panel requiere acceso autorizado. Utilice datos de salud ficticios.",
+      "flow": [
+        "Revise la arquitectura móvil y web.",
+        "El panel requiere una cuenta autorizada.",
+        "Pruebe los registros offline y la sincronización con datos ficticios."
+      ]
+    },
+    "permaneia": {
+      "oneLine": "Asistente académico y análisis de abandono con lógica fuzzy",
+      "what": "Asistente académico y análisis de abandono con lógica fuzzy. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Next.js 15, TypeScript, PostgreSQL",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "La simulación ilustra un algoritmo; consulte el repositorio para ejecutar la aplicación completa.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "cardiocam": {
+      "oneLine": "Investigación experimental de señales cardíacas por vídeo",
+      "what": "Investigación experimental de señales cardíacas por vídeo. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Python, OpenCV, NumPy",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "Simulación con señales sintéticas, sin cámara ni mediciones clínicamente validadas.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "baliza": {
+      "oneLine": "Ocupación de estacionamiento mediante imágenes",
+      "what": "Ocupación de estacionamiento mediante imágenes. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Participé en el procesamiento, la evaluación y la documentación como integrante del equipo.",
+      "highlights": [
+        "Implementación: Python, YOLO11, OpenCV",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "Consulte el repositorio para la ejecución local y el alcance de la demostración.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "contaflux": {
+      "oneLine": "Conteo de vehículos en vídeo de cámara fija",
+      "what": "Conteo de vehículos en vídeo de cámara fija. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Participé en el procesamiento, la evaluación y la documentación como integrante del equipo.",
+      "highlights": [
+        "Implementación: Python, OpenCV, NumPy",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "La simulación ilustra un algoritmo; consulte el repositorio para ejecutar la aplicación completa.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "kaida": {
+      "oneLine": "Juego académico 2D en Unity",
+      "what": "Juego académico 2D en Unity. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Unity 2022.3, C#, Unity Test Framework",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "La simulación ilustra un algoritmo; consulte el repositorio para ejecutar la aplicación completa.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "bicudo": {
+      "oneLine": "Juego académico de un botón en Unity",
+      "what": "Juego académico de un botón en Unity. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Unity 2022.3, C#, Unity Test Framework",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "La simulación ilustra un algoritmo; consulte el repositorio para ejecutar la aplicación completa.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "laboratorio-vr": {
+      "oneLine": "Laboratorio de química en realidad virtual",
+      "what": "Laboratorio de química en realidad virtual. Proyecto académico. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Unity, C#, Google Cardboard",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "Consulte el repositorio para la ejecución local y el alcance de la demostración.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "jis": {
+      "oneLine": "Agregador de empleo con filtros y puntuación",
+      "what": "Agregador de empleo con filtros y puntuación. Proyecto propio. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Next.js 15, React 19, TypeScript",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "La puntuación es una heurística, no una probabilidad de contratación.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "outorga": {
+      "oneLine": "Catálogo de streaming y gestión de licencias",
+      "what": "Catálogo de streaming y gestión de licencias. Proyecto propio. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Java 21, Spring Boot, PostgreSQL",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "Consulte el repositorio para la ejecución local y el alcance de la demostración.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "paiol-tech": {
+      "oneLine": "Gestión de deudas rurales en TypeScript",
+      "what": "Gestión de deudas rurales en TypeScript. Proyecto propio. El código y las instrucciones están disponibles en GitHub.",
+      "role": "Desarrollo, integraciones y pruebas. Las contribuciones del equipo se indican en el repositorio.",
+      "highlights": [
+        "Implementación: Next.js 15, NestJS, CQRS",
+        "Verificaciones y flujo documentado",
+        "Alcance y limitaciones documentados"
+      ],
+      "demoNote": "Consulte el repositorio para la ejecución local y el alcance de la demostración.",
+      "flow": [
+        "Explore el proyecto y su flujo documentado.",
+        "Revise el código en la IDE o en GitHub.",
+        "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    }
+  }
 };
-
-const es: Record<string, TextoDoProjeto> = {
-  lastro: {
-    oneLine: "Red de dependencia entre bancos aprendida por un algoritmo evolutivo",
-    what: "Mi trabajo final de carrera. A partir de los retornos diarios de la bolsa brasileña aprende la estructura de dependencia entre las instituciones financieras listadas, y mide cuánto dura esa estructura. La red no se dibuja a mano ni se recorta de una matriz de correlación: se aprende como red bayesiana gaussiana, con la búsqueda a cargo de un algoritmo evolutivo multiobjetivo que devuelve la frontera completa entre ajuste y número de aristas.",
-    role: "Escribí el sistema entero: el lector del formato histórico de la bolsa, la detección y auditoría de eventos corporativos, la verosimilitud gaussiana calculada desde la matriz de covarianza con caché, NSGA-II sobre la codificación por orden, las tres referencias de comparación, el bootstrap por bloques y el análisis estadístico.",
-    highlights: [
-      "La fase que prueba el método va antes que la que lo aplica: primero en redes cuya estructura se conoce, con Friedman, Wilcoxon pareado y corrección de Benjamini-Hochberg; recién después sobre datos reales, sin reajustar ningún parámetro",
-      "Esa fase detectó una falla que los datos reales nunca habrían delatado: la primera versión del algoritmo perdía contra ascenso de colina, y la diferencia crecía con el tamaño del problema. El espacio de la máscara tiene 435 bits con 30 vértices, y la evolución gastaba todo el presupuesto buscando algo que, dado el orden, se puede calcular",
-      "Con la máscara calculada en vez de evolucionada, el algoritmo pasó al primer puesto medio entre siete algoritmos en las mismas 840 ejecuciones. Le gana a la búsqueda tabú y al ascenso de colina con un tamaño de efecto alto, y empata con PC, lo que se informa como empate y no como victoria",
-      "El techo de la codificación se mide aparte: alimentado con el orden topológico verdadero, el error estructural baja a 7,07 contra 40,38 de un orden sorteado. El orden es la parte difícil, y no se adivina, porque ordenar por varianza marginal queda en 12,25",
-      "El grafo de correlación con umbral, que es como buena parte de la literatura financiera arma sus redes, entra como contraejemplo y se mide: dos tercios de las aristas que crea no existen",
-      "Comparación en CPDAG y no en DAG: dos grafos con el mismo esqueleto y los mismos colisionadores son indistinguibles a partir de datos observacionales, y exigir la dirección sería exigir lo imposible",
-      "Detector de splits y contrasplits con tres criterios simultáneos y auditable: encontró nueve eventos en 14 años, entre ellos el 1:2 de Banco do Brasil en 2024 y el 1:4 de BTG en 2021",
-      "La curva de deriva usa solo pares de ventanas sin solapamiento, y la similitud entre remuestreos de la misma ventana entra como techo de ruido: sin ese número la vida media no se puede leer",
-      "3.471 ruedas de 2012 a 2025, 22 instituciones, 154 ventanas y 55 pruebas que verifican propiedades matemáticas, no implementación",
-    ],
-  },
-  anteparo: {
-    oneLine: "Provisión por pérdida esperada de crédito bajo IFRS 9",
-    what: "Calcula la provisión como la norma exige: PD, LGD y EAD, con clasificación en etapas, superposición prospectiva y monitoreo. La cuenta es ECL = PD × LGD × EAD; el trabajo está en decidir qué PD entra en ella, y en medir cuánto gana el modelo frente a no tener modelo.",
-    role: "Escribí todo el dominio: la regla de transferencia entre etapas, las métricas de discriminación y calibración, el PSI con tramos tomados del conjunto de referencia, las tres medidas de equidad y la tabla de sensibilidad. El dominio opera sobre numpy y tipos propios, sin conocer archivos ni bibliotecas de modelado.",
-    highlights: [
-      "El resultado que importa no es del modelo: la provisión varía 1,45x solo cambiando la hipótesis de LGD dentro del rango declarado, bastante más que la distancia entre el mejor y el peor algoritmo de PD",
-      "El criterio de elección no es el mayor Gini, es el mayor Gini entre los candidatos con error de calibración dentro del doble del mejor. La provisión usa la probabilidad como número, no como orden",
-      "La regla sin aprendizaje automático compite en igualdad de condiciones, y la ganancia sobre ella es de 1,51x en Gini. Sin ese número no se puede afirmar que la complejidad se paga",
-      "La etapa exige dos condiciones a la vez, aumento relativo de la PD y aumento absoluto: solo la razón movería la cartera entera cuando la PD es baja",
-      "El hallazgo de equidad que la métrica agregada esconde: en un grupo de 91 casos el modelo sobreestima el riesgo por un factor de casi cinco, con AUC peor que el azar",
-      "Quitar sexo, escolaridad y estado civil cuesta −0,0024 de Gini, es decir, el modelo queda marginalmente mejor sin ellas. Con costo cero, no hay argumento técnico para mantenerlas",
-      "Base de Taiwán, declarada como tal: no existe base pública brasileña contrato a contrato con incumplimiento etiquetado, y usar datos reales extranjeros es mejor que inventar datos brasileños",
-    ],
-  },
-  verbete: {
-    oneLine: "Proyectos de ley clasificados por tema, con la fuga de anotación medida",
-    what: "Clasifica proyectos de ley en los 32 temas oficiales de la Cámara de Diputados de Brasil, a partir del resumen. Es el motor de un producto de monitoreo regulatorio: saber, el día en que se presenta el proyecto, a qué clientes afecta. 4.500 proyectos de 2022 a 2024, con la taxonomía tomada de la propia API.",
-    role: "Escribí el lector de la API con paginación y registro de fallas, las métricas multietiqueta, los tres candidatos, la curva de abstención y la extracción de explicación. 41 pruebas, ninguna llama a la API.",
-    highlights: [
-      "El resultado principal es el tamaño de la fuga de anotación: el campo de palabras clave de la API lo completa la misma indexación humana que asigna el tema, y usarlo lleva el micro-F1 de 0,542 a 0,682. Un modelo que lo usara parecería 26% mejor de lo que será cuando el proyecto llegue sin indexación",
-      "La división es temporal y no aleatoria: los proyectos sobre el mismo asunto reaparecen cada legislatura con resúmenes casi idénticos, y una división aleatoria pondría la casi copia en ambos lados",
-      "La distancia entre micro y macro F1 es el resultado, no un detalle: mide cuánto el modelo funciona solo en los temas comunes, y el más raro tiene 14 casos contra 1.207 del más común",
-      "La respuesta de producto es negativa y está escrita: el objetivo de 0,70 de micro-F1 no se alcanza con ninguna cobertura, y el mejor punto de la curva es 0,694 respondiendo un décimo de los casos",
-      "La regla de diccionario entra como línea base y no es un espantapájaros: por sí sola ya acierta uno de los temas en dos tercios de los casos, y el modelo le gana 1,84x",
-      "Un umbral por tema, ajustado en validación: un corte único para 32 temas de frecuencias muy distintas es simplicidad falsa",
-      "El clasificador es lineal a propósito: en un sector regulado, una explicación que no viene del modelo que decidió es una segunda opinión",
-    ],
-  },
-  prumo: {
-    oneLine: "¿El desempeño pasado de un fondo predice el futuro?",
-    what: "Responde, sobre 42,3 millones de filas de cuota diaria del regulador brasileño, la pregunta que una mesa de selección de fondos responde todos los días. 40.961 series de fondos, de 2018 a 2025, procesadas año a año para caber en memoria, llevando la última cuota de un año al siguiente.",
-    role: "Escribí el lector de los tres archivos del regulador con medición de cobertura en cada cruce, el cálculo de retorno y riesgo, las tres medidas de persistencia y el análisis de comisión. 58 pruebas, contra dos mundos sintéticos de respuesta conocida.",
-    highlights: [
-      "La respuesta es 'casi nada, y depende de la clase': renta fija sí persiste, con razón de probabilidades de 3,82, y acciones no persiste, con 0,94 y el intervalo tocando 1 por arriba",
-      "En dinero no vale nada: la diferencia entre el mejor y el peor quintil es de 0,72% al año siguiente, y la dispersión dentro de cada quintil es de 19,20%. Veintiséis veces mayor",
-      "El hallazgo que no estaba en el guion: la matriz de transición tiene forma de U. Del peor quintil, 30,0% se quedan y 29,6% saltan directo al mejor. Quienes están en los extremos son los fondos volátiles, y lo que persiste es el riesgo, no el retorno",
-      "El sesgo de supervivencia está medido: solo 19% de las series existen de principio a fin, y 37% desaparecen antes del final",
-      "La sección de la comisión es sobre el dato y no sobre el mercado: solo existe en el registro antiguo, que quedó histórico tras la reforma regulatoria de 2022 y cruza con 24,3% de los fondos, y quienes tienen comisión conocida rinden 4,2 puntos porcentuales menos",
-      "El comportamiento del dato fue medido y nada de eso está documentado: el identificador fiscal viene como texto con puntuación en un archivo y como entero en otro, lo que hace que el cruce obvio no empate ninguna fila sin dar error",
-      "Con 120 mil pares, 37 de 42 pruebas son significativas con y sin corrección: el valor-p deja de informar y el tamaño del efecto es lo que queda",
-    ],
-  },
-  trato: {
-    oneLine: "A quién contactar, y no quién va a pagar",
-    what: "Modelado de uplift sobre un experimento aleatorizado real, con 64 mil personas y 21 mil en el grupo de control. Un modelo de respuesta predice quién paga; uno de uplift predice quién paga a causa del contacto. Usar el primero para elegir a quién contactar envía mensajes a quien ya iba a pagar solo.",
-    role: "Escribí la verificación de la aleatorización, las medidas de uplift, los cuatro candidatos y la traducción a dinero con costo y valor como parámetros declarados. 34 pruebas, en mundos sintéticos de efecto conocido.",
-    highlights: [
-      "Antes de concluir que el modelo es débil, el proyecto mide si hay heterogeneidad para encontrar: el efecto dentro de 19 subgrupos conocidos de antemano, sin modelo y con corrección de multiplicidad",
-      "En un brazo del experimento ninguna franja difiere del efecto general, y los modelos lo confirman al no separar el tope del fondo mejor que el azar. El resultado negativo es correcto, y solo se puede afirmar porque la heterogeneidad se midió aparte",
-      "En el otro brazo existe y es interpretable, con 3,4x de diferencia entre compradores de cada línea. Ahí el modelo sí la encuentra: separación de 3x entre el 30% superior y el inferior, con intervalos que no se solapan",
-      "En dinero: 11,6% más de resultado contactando 25 puntos porcentuales menos gente",
-      "El Qini engaña y el proyecto muestra cómo: la ganancia de la curva es un conteo de eventos, así que quien ordena por respondedores acumula ganancia temprano aun sin separar efecto alguno",
-      "El piso del azar es el promedio de treinta sorteos, no uno: un solo sorteo produce Qini entre −0,117 y +0,143 en esta base",
-      "El uplift no tiene etiqueta individual: nadie es observado contactado y no contactado a la vez. Toda la validación es por grupo, y esa ausencia de métrica individual es deliberada",
-    ],
-  },
-  decurso: {
-    oneLine: "Cuánto dura un proceso judicial, y cuánto de eso se vuelve provisión",
-    what: "Estima duración y resultado de procesos judiciales desde la API pública del poder judicial brasileño, y convierte ambas cosas en provisión bajo el equivalente local de la IAS 37. La API tiene el insumo y ninguna de las respuestas: no trae resultado etiquetado, ni valor de la causa, ni duración, así que las tres se derivan de la lista de movimientos procesales.",
-    role: "Escribí el recolector tolerante a fallas, la derivación del resultado con tres defensas contra fuga de información, el análisis de supervivencia con Kaplan-Meier y log-rank, el modelo con su línea de base y el cálculo de la provisión. 126 pruebas, ninguna de ellas toca la API.",
-    highlights: [
-      "La cuenta de planilla, el promedio de los procesos ya cerrados, descarta el 20,8% de la base y subestima por 1,21x: 791 días contra 955 de la mediana de Kaplan-Meier. El error no es aleatorio, y es mayor justamente en los juzgados más lentos",
-      "Comparando la duración entre materias, 73 de 210 pares parecerían diferentes al 5% y 44 sobreviven a la corrección de Benjamini-Hochberg",
-      "El modelo de resultado es un resultado negativo y se informa como tal: AUC de 0,521, sin diferencia significativa ni contra la tasa global ni contra la tasa del juzgado",
-      "Un hallazgo murió cuando la muestra creció, y eso quedó escrito: con 2.648 procesos la tasa del juzgado le ganaba a la tasa global y la diferencia sobrevivía a la corrección; con 4.118 ya no. Es lo que le pasa a un efecto pequeño en una muestra pequeña",
-      "La hipótesis de valor en riesgo mueve la provisión 4,00x contra 1,09x de la elección del modelo",
-      "El comportamiento de la API se midió, no se supuso: cualquier ordenamiento devuelve error de gateway, lo que descarta search_after, y contar sin track_total_hits se detiene en 10.000, haciendo que una consulta de 300 mil parezca de 10 mil",
-      "El recolector divide el período hasta que cada tramo entra y registra lo que faltó, tramo por tramo: esta base vino incompleta, 4.118 de 9.852, y eso queda declarado en vez de invisible",
-    ],
-  },
-  feira: {
-    oneLine: "Pedidos orientados a eventos con saga y compensación",
-    what: "Cuatro servicios Spring Boot conversando por Kafka. Cada uno con su propia base de datos, ninguno leyendo tablas del otro. La saga tiene que sobrevivir a mensajes repetidos, desordenados y atrasados, y un modelo de lectura en MongoDB responde en una consulta lo que antes exigía unir tres servicios en el navegador.",
-    role: "Lo escribí todo: los contratos de evento sellados, el outbox transaccional compartido, el consumidor idempotente, la saga del pedido y la proyección que alimenta el modelo de lectura. El caso más difícil fue la carrera en que el pago se aprueba mientras el pedido se está cancelando, que termina en reembolso.",
-    highlights: [
-      "El rastreo distribuido atraviesa el outbox: el contexto se guarda en una columna y se propaga en cabecera de Kafka, si no muere en el commit y el panel muestra rastros sueltos en vez de una saga entera",
-      "Outbox con SELECT FOR UPDATE SKIP LOCKED, para correr en varias instancias",
-      "Concurrencia probada con diez hilos reales contra un PostgreSQL real",
-      "Modelo de lectura en MongoDB: el documento se deriva de los eventos, así que puede tirarse y reconstruirse desde el tópico",
-      "El CI levanta un clúster Kubernetes real y aplica los manifiestos, además de validar el Terraform",
-      "Una migración que borra o renombra columna reprueba en el build: la actualización es gradual y el despachador de la versión anterior sigue leyendo el outbox durante el cambio",
-      "187 pruebas, ninguna de ellas requiere tener Docker instalado",
-    ],
-  },
-  outorga: {
-    oneLine: "Streaming white-label: sin licencia, no sale al aire",
-    what: "Plataforma de streaming multi-tenant. Una sola regla ordena todo el sistema: nada sale al aire sin licencia vigente para el territorio y la ventana de exhibición.",
-    role: "Modelé el dominio completo. Publicar es la única puerta al aire, y exige la licencia en la firma del método, así que no existe camino de código que publique sin ella. Un barrido cada hora baja lo que venció y repone lo que se renovó.",
-    highlights: [
-      "Dominio sin una línea de Spring, verificado por prueba de arquitectura",
-      "Todo repositorio recibe el tenant en la firma, nunca de una variable de contexto",
-      "Exportación y anonimización de datos personales implementadas, no prometidas",
-      "Una migración que borra o renombra columna reprueba en el build: durante un despliegue ambas versiones corren juntas, y una columna que desaparece aquí niega contenido a quien pagó",
-      "275 pruebas contra un PostgreSQL real",
-    ],
-  },
-  "codereview-ai": {
-    oneLine: "Revisión de código automatizada con un LLM local",
-    what: "Plataforma que analiza Java, Python y JavaScript usando Ollama. Detecta errores, code smells y violaciones de SOLID. El trabajo pasa por RabbitMQ con caché Redis de 24 horas.",
-    role: "Construí el orquestador asíncrono (cola RabbitMQ más un ticket) y el caché por hash del código enviado.",
-    highlights: [
-      "Procesamiento asíncrono por cola RabbitMQ, un ticket por análisis",
-      "Caché Redis de 24 h por SHA-256 del código: nada se analiza dos veces",
-      "El rastro de la petición viaja en la cabecera del mensaje: sin eso la espera en la cola, la mayor parte de la espera del usuario, cae en el hueco entre dos rastros sueltos",
-      "Un tramo de rastro por consulta a la base, envolviendo el DataSource, que es lo que hace visible el N+1",
-      "Una migración que borra o renombra columna reprueba en el build: durante el cambio el consumidor está a mitad de un trabajo ya aceptado",
-    ],
-  },
-  "paiol-tech": {
-    oneLine: "SaaS de gestión de deudas rurales",
-    what: "SaaS para el productor rural. Login sin contraseña por magic link, alertas por WhatsApp y Open Finance. Monorepo Turborepo con NestJS (Clean Architecture y CQRS) y PWA en Next.js.",
-    role: "Modelé el agregado de Deuda con sus eventos de dominio, y el handler CQRS que dispara la notificación de WhatsApp al vencimiento.",
-    highlights: [
-      "Magic link: sin contraseña, un solo clic desde el correo",
-      "Un evento de dominio dispara la notificación de WhatsApp automáticamente al vencer",
-    ],
-  },
-  "guarda-banco": {
-    oneLine: "Un cerrojo dentro del servidor contra DELETE y UPDATE accidentales",
-    what: "Protección instalada en la propia base de datos: todo DELETE o UPDATE tiene un tope de filas afectadas por sentencia, y pasarse aborta la transacción. Como la regla vive en el servidor, vale igual en DBeaver, Workbench, SSMS o psql. Scripts para PostgreSQL, MySQL y SQL Server.",
-    role: "Definí el núcleo: topar por filas afectadas en vez de cazar DELETE sin WHERE. También el control de nivel de anidamiento, que hace que la cascada sume a la sentencia que la originó, y el panel local de excepciones.",
-    highlights: [
-      "El tope de filas cubre también un WHERE demasiado amplio, un OR donde iba AND y una cascada inesperada",
-      "Aborta en BEFORE ROW: falla en la fila siguiente al tope, sin materializar todo antes",
-      "ON DELETE CASCADE cuenta contra la sentencia de origen, no reinicia el contador",
-      "Levantar la protección exige un motivo escrito y vale solo dentro de esa transacción",
-    ],
-  },
-  authcore: {
-    oneLine: "JWT RS256, rotación de refresh con blacklist y 2FA TOTP en Node.js",
-    what: "Backend Node.js con Clean Architecture, JWT RS256 y segundo factor TOTP vía speakeasy, RBAC de tres roles y blacklist en Redis. React 18 y Vite en el front.",
-    role: "Implementé la rotación de refresh-token con blacklist en Redis: cada refresh emite un par nuevo e invalida el anterior.",
-    highlights: [
-      "JWT RS256 asimétrico y 2FA TOTP: la clave privada nunca sale del servidor",
-      "Rotación de refresh: cada emisión invalida la anterior y cierra la ventana de replay",
-    ],
-  },
-  "quantbot-ml": {
-    oneLine: "Renta pasiva que opera sola (en papel) y aprende de noticias y resultados",
-    what: "Sistema de renta pasiva por dividendos (método Barsi/Bazin) que opera solo con dinero simulado y aprende de sus propios aciertos y errores. Combina fundamentos reales (Fundamentus, toda la bolsa brasileña), macro del banco central y unas 28 fuentes de noticias, lee el sentimiento con FinBERT-PT-BR y corre a diario en la nube por GitHub Actions, generando informes y un historial auditable.",
-    role: "Construí el ciclo autónomo de punta a punta: la cartera en papel que sigue al screener, el módulo de feedback que aprende qué perfiles de pick superan la tasa de referencia, la capa multi-fuente de datos y noticias, y la automatización en la nube. Reutilicé la base de validación contra sobreajuste.",
-    highlights: [
-      "Corre solo en la nube por GitHub Actions: decide, registra y aprende todos los días, sin servidor",
-      "Ciclo de feedback: mide cada pick contra la tasa de referencia y ajusta el score según acierte o falle",
-      "Multi-fuente gratuita: Fundamentus para el dividendo de toda la bolsa, banco central para macro y unas 28 fuentes de noticias",
-      "Sentimiento de noticias con FinBERT-PT-BR sobre PyTorch, con respaldo léxico que no necesita GPU",
-    ],
-  },
-  balcao: {
-    oneLine: "IA de ventas en WhatsApp donde el modelo nunca escribe un número",
-    what: "Atención, negociación y tasación de equipos usados por WhatsApp para tiendas de celulares. El modelo entiende al cliente y elige la estrategia de la conversación, pero el precio de contado, las cuotas, el descuento máximo y el valor de canje salen de funciones deterministas. El mensaje final aún pasa por un auditor antes de enviarse.",
-    role: "Diseñé el auditor de salida, el motor de precios y de tasación de usados, y las guardas que corren antes del modelo: pedido de salida, pedido de un humano y alcance.",
-    highlights: [
-      "El modelo devuelve texto con marcadores; quien calcula el valor es el dominio",
-      "El auditor rechaza cualquier cifra que no se pueda rastrear a una consulta registrada",
-      "Dos rechazos en la misma conversación escalan a atención humana",
-      "El valor de canje solo sale acompañado de la advertencia de tasación previa que exige la ley del consumidor",
-    ],
-  },
-  "apontamento-horas": {
-    oneLine: "Gestión de horas multiusuario con RBAC, SLA y tableros",
-    what: "Plataforma de carga de horas por cliente, con múltiples usuarios y roles (admin, líder de proyecto, analista, visualizador), SLA automático, tableros de control, auditoría e informes en Excel para finanzas.",
-    role: "Construí la autenticación multiusuario con bcrypt y JWT, el control de acceso por rol, el SLA automático y la capa de auditoría.",
-    highlights: [
-      "Multiusuario con RBAC: admin, líder de proyecto, analista y visualizador",
-      "Cada persona ve solo sus propias cargas; líderes y admin tienen la vista consolidada del equipo",
-      "SLA automático: pendiente (0-2 días), alerta (2-5 días) y atraso (5 días o más)",
-      "Exportación mensual a Excel para finanzas y registro de auditoría de cada acción",
-    ],
-  },
-  registraservico: {
-    oneLine: "Registro de servicios con tipos y campos configurables",
-    what: "Sistema multi-tenant de registro de prestación de servicios, pensado para organismos públicos y equipos de campo. Los tipos de servicio y los campos de cada formulario los configura la organización, no están escritos en el código. Traza de auditoría, exportación a BI y PWA que se instala sin tienda de aplicaciones.",
-    role: "Modelé el esquema configurable (tipo de servicio, campos personalizados y el registro como JSON validado) y escribí el validador dinámico que contrasta los datos contra la definición de campos guardada en la base.",
-    highlights: [
-      "El formulario no está en el código, está en la base: el mismo motor atiende a otra organización sin reescritura",
-      "JWT verificado en middleware edge con revocación inmediata de sesión",
-      "RBAC de cuatro roles: admin, gestor, operador y visualizador",
-      "Registro en campo en dos toques, con exportación CSV para Power BI",
-    ],
-  },
-  conectagente: {
-    oneLine: "Iniciación científica en UNISAGRADO, incubada en Saruê de la UNESP: recolección en campo sin internet",
-    what: "Iniciación científica en UNISAGRADO, que además pasó por Saruê, la incubadora de empresas de la UNESP en Bauru. El agente comunitario de salud registra la visita en el celular sin red alguna y el aparato sincroniza cuando vuelve la señal. Nunca fue a campo con un agente real: es investigación, no un producto en uso, y está escrito así a propósito.",
-    role: "Escribí el motor de sincronización, con cola de salida, reintentos y resolución de conflictos, y el esquema SQLite con búsqueda de texto para encontrar a un vecino sin ninguna llamada de red.",
-    highlights: [
-      "Patrón outbox con reintento y resolución de conflictos: la sincronización sobrevive a quedarse sin señal",
-      "SQLite WAL y FTS para búsqueda sin conexión, sin una sola llamada de red",
-    ],
-  },
-  permaneia: {
-    oneLine: "Asistente de estudio con RAG y alerta de riesgo de deserción",
-    what: "Dos frentes contra la deserción universitaria. Un asistente que responde dudas del estudiante a partir de los documentos oficiales de la materia, citando la fuente, y que avisa cuando la respuesta no está en el material en vez de arriesgar una fecha de examen. Y un tablero que ordena al curso por riesgo de deserción calculado con lógica difusa.",
-    role: "Escribí el motor de inferencia difusa de Mamdani desde cero, sin biblioteca, y toda la capa de RAG: fragmentación por unidad de información, búsqueda híbrida con fusión de rankings, umbral de relevancia, la agenda calculada en código y las defensas contra inyección de prompt.",
-    highlights: [
-      "Un estudiante con promedio 8,6 y 34% de asistencia recibe riesgo alto; el criterio solo por nota, que es el que usan las secretarías, diría que está tranquilo",
-      "El registro de preguntas expuso el defecto que el tribunal no había visto: \"¿Cuándo es el examen P1?\" respondía y \"cuándo es el examen\" se negaba, con la misma similitud. La búsqueda ganó un segundo brazo, por coincidencia de términos",
-      "Las preguntas de calendario no las responde el modelo: \"cuál es la próxima clase\" se resuelve en código, sobre las fechas del propio material, y el modelo solo redacta",
-      "Cuando el material no responde, igual responde sobre la universidad y el contenido, y el aviso de que eso no tiene fuente lo escribe el código, no el modelo",
-      "Funciona sin clave de API: en modo degradado transcribe el documento en vez de redactar, lo que es aún más estricto en cuanto a no inventar",
-      "Cada consulta registra modelo, tokens y costo, y va también a Langfuse con una etapa por fase. Medido en producción, en 30 llamadas reales: 95,7% de los tokens son de entrada, una razón de 22,4 a 1. La cuenta viene del material que acompaña la pregunta y no de la respuesta, y eso cambia dónde se ajusta para abaratar",
-      "2.055 pruebas y doce defectos documentados, uno de ellos existiendo solo en el artefacto publicado y no en el código fuente, y otro en que una clave guardada con marca de orden de bytes tumbó la aplicación entera y no solo la telemetría",
-    ],
-  },
-  cautela: {
-    oneLine: "Un agente de inversiones que no recomienda",
-    what: "Un asistente que habla de dinero tiene un riesgo que los demás no tienen: un número inventado con tono de autoridad. Este responde con número medido, cita la fuente y termina declarando la limitación. Cuando no tiene número, dice que no sabe. Los hechos salen de los artefactos de los otros proyectos, así que el agente guarda resultados de experimentos y no texto.",
-    role: "Escribí el grafo en LangGraph, el auditor de salida con sus tres reglas, el acervo que lee los artefactos JSON de los experimentos y la capa de observabilidad con Langfuse y Datadog.",
-    highlights: [
-      "No recomienda, y eso es regla de código y no de estilo: la recomendación de inversión en Brasil está regulada por la comisión de valores y exige analista certificado",
-      "Un número que no vino del acervo queda bloqueado, incluso por conversión de unidad: 94% no pasa cuando el acervo dice 0,94, porque convertir es derivar, y derivar es donde el modelo se equivoca sin parecer equivocado",
-      "El camino del rechazo es un camino del grafo, con salida propia, y no un if escondido en medio de la redacción. Quien audita puede responder cómo rechaza el agente sin leer todo el código",
-      "Los 17 hechos vienen de los artefactos de los experimentos: si uno se rehace y el número cambia, el agente pasa a responder el nuevo sin que nadie edite texto",
-      "En la primera ejecución contra los artefactos reales, el agente rechazó su propia transcripción: el hecho trae un intervalo de confianza del 95% y el auditor lo trató como número inventado. Se corrigió la definición en vez de aflojar la regla",
-      "También se lee la pregunta, no solo la respuesta: cuando pide consejo, el aviso de que eso no es recomendación viene antes del número, no después",
-      "Sin clave de API el agente transcribe el hecho tal como fue medido, y sin artefacto rechaza: la ausencia de dato no es permiso para opinar",
-    ],
-  },
-  "vitrine-bauru": {
-    oneLine: "Escaparate de los pequeños negocios de Bauru con la SEDECON, en cuatro servicios Spring",
-    what: "Proyecto de extensión con la SEDECON, la secretaría de desarrollo económico del municipio. El emprendedor registra su negocio, la secretaría lo verifica y lo aprueba, y la tienda entra en un escaparate público donde el consumidor habla directo por WhatsApp con quien produce. Son cuatro servicios Spring Boot, cada uno con su propia base de datos, comunicándose por eventos, más una pasarela en el borde y un front en React.",
-    role: "Escribí el sistema entero: los contratos de evento sellados, el outbox y el inbox compartidos, la máquina de estados del registro, la saga de eliminación de la LGPD, la proyección que alimenta la búsqueda pública y toda la interfaz. También la decisión de transporte que permite que el mismo código funcione con Kafka, con Amazon SNS y sin corredor alguno.",
-    highlights: [
-      "El transporte de eventos es una interfaz con tres adaptadores: Kafka donde hay corredor, Amazon SNS en el despliegue gestionado y llamada en proceso cuando no hay corredor alguno",
-      "El rastreo distribuido atraviesa el outbox: el contexto va en una columna y después en cabecera de Kafka o atributo de SNS, porque el evento lo publica otro hilo y el contexto moriría en el commit",
-      "El tercer adaptador nació de un error mío: había escrito en el documento de decisión que no existía mensajería gestionada gratuita, porque busqué Kafka gestionado en lugar de buscar el problema. SNS y SQS están en la capa permanentemente gratuita de AWS, y el adaptador entró sin tocar el outbox, el inbox ni ningún consumidor",
-      "Eliminar datos por la LGPD es una saga con plazo y reenvío: tres servicios deben confirmar el borrado antes de que la solicitud se cierre",
-      "El contador de contraseña incorrecta y la revocación de sesión escriben en transacción propia, porque la excepción que los disparaba deshacía ambos; lo encontró una prueba de integración",
-      "El documento acepta el CNPJ alfanumérico vigente desde julio de 2026, con el dígito calculado a partir del valor ASCII menos 48",
-      "1.042 pruebas en verde sin necesidad de Docker: PostgreSQL y Kafka embebidos arrancan dentro de la propia prueba",
-      "Trece reglas de arquitectura verificadas con ArchUnit, entre ellas que ningún controlador devuelva una entidad JPA",
-      "Publicado de punta a punta en capas gratuitas: base de datos en Neon, API en contenedor en Render y el sitio en Vercel, con un CI de tres etapas",
-      "Los manifiestos de Kubernetes tenían un autoescalador apuntando a un Deployment inexistente; escribí una verificación de coherencia que corre en CI sin clúster y rechaza ese caso",
-    ],
-  },
-  cardiocam: {
-    oneLine: "Mide la frecuencia cardíaca por video, sin tocar a la persona",
-    what: "Estima la frecuencia cardíaca a partir del cambio de color de la piel causado por el flujo sanguíneo, captado con una webcam común. La técnica es fotopletismografía remota (rPPG). Implementa y compara cuatro algoritmos escritos a partir de los artículos originales: GREEN, CHROM, POS e ICA. Empezó como trabajo de cursada y se volvió la base de una propuesta de investigación sobre las dos lagunas abiertas del área: robustez al movimiento y al tono de piel.",
-    role: "Armé todo el camino, desde el recorte del rostro hasta el número en pantalla, la comparación entre los cuatro algoritmos, la corrección por el fondo del cuadro y el simulador que hace el error medible. También la versión web, que corre entera en el navegador sin servidor.",
-    highlights: [
-      "El resultado más útil es la desconfianza del propio número: el escenario sintético da 0,02 bpm de error, y la literatura reporta 3,67 bpm para el mismo algoritmo en datos reales. Dos órdenes de magnitud de diferencia es la firma de un escenario fácil, no de buen desempeño",
-      "Cuatro algoritmos en el mismo pipeline. Con iluminación oscilando dentro de la banda cardíaca, GREEN e ICA se equivocan por 42 bpm, exactamente la distancia entre el pulso y la interferencia, mientras CHROM y POS se equivocan por 0,01: mirar solo el brillo no distingue sangre llegando de luz llegando",
-      "La pared detrás de la persona no tiene pulso: lo que oscila ahí es luz ambiente, y sirve como medida directa de la interferencia. Con el balance de blancos oscilando, el acierto pasó de 1 de 16 sin la corrección a 16 de 16 con ella",
-      "Localizar el rostro por el color de la piel pasó todos los escenarios sintéticos y falló en la primera foto real: la pared beige del cuarto cae dentro del rango de crominancia de la piel y es más grande que el rostro. La caja se iba a la pared, y ningún ajuste de umbral arregla una premisa equivocada",
-      "La salida fue portar la cascada de Haar al navegador, en JavaScript puro. 107 KB contra los 9,3 MB del modelo neuronal que había evaluado, y las pruebas comparan la salida con la de OpenCV sobre los mismos cuadros, byte a byte",
-      "El número mostrado sale del espectro promediado de ventanas sucesivas, no de suavizar estimaciones. El peso de olvido salió de medición contra tres alternativas, y es el único que le gana al suavizado exponencial en los dos ejes: más estable y más rápido para seguir un cambio real",
-      "La corrección por iluminación se elige por medición, no se asume: se calculan las dos versiones de la señal y gana la de mejor relación señal-ruido. Existe porque aplicarla a ciegas llegó a empeorar la dispersión de 0,10 a 10,12 bpm cuando la referencia contenía ropa que se mueve con la persona",
-      "La captura está limitada a 20 cuadros por segundo a propósito: la cámara no puede exponer un cuadro por más tiempo que el intervalo entre cuadros, y la literatura pone el óptimo de exposición en 1/16 de segundo. Menos cuadros es más luz, y la banda cardíaca no usa la resolución temporal que 60 compran",
-      "La segmentación de piel umbraliza crominancia y nunca luminancia, a propósito: es lo que hace que el sistema mida cualquier tono de piel con la misma competencia, y las pruebas lo exigen en ocho tonos",
-      "2.005 pruebas en Python y 426 en el navegador, ninguna con un doble en lugar del código real. Tres existen solo para probar que el sistema sabe decir que no sabe",
-    ],
-  },
-  contaflux: {
-    oneLine: "Cuenta vehículos en video de cámara fija, por cruce de línea",
-    what: "Cuenta los autos que pasan por una vía a partir de un video de cámara fija. Cada vehículo se sigue cuadro a cuadro y se cuenta una sola vez, al cruzar una línea en la escena. Separa por sentido, informa el tipo de vehículo y estima velocidad. Dos detectores: sustracción de fondo, que corre sin instalar nada, y reconocimiento por YOLO.",
-    role: "Escribí la detección, el seguimiento y la regla de conteo, más la deducción automática de dónde debe ir la línea a partir del propio tráfico. También la integración del reconocimiento como alternativa a la sustracción de fondo.",
-    highlights: [
-      "La línea de conteo se deduce del tráfico: el programa observa unos segundos y la coloca perpendicular al sentido de los autos, sin que nadie haga clic",
-      "Dos detectores con preguntas distintas: el movimiento pregunta si algo se movió, el reconocimiento pregunta si eso es un auto",
-      "Un auto oscuro sobre asfalto oscuro era clasificado como sombra por MOG2 y desaparecía de la cuenta; resuelto con dos máscaras",
-      "Validación con escenas sintéticas de referencia conocida, más cinco videos reales verificados mirando las cajas en pantalla",
-    ],
-  },
-  kaida: {
-    oneLine: "Metroidvania 2D en Unity, con el juego armado por código",
-    what: "Metroidvania 2D con seis escenas, habilidades que desbloquean caminos, un jefe de enfrentamiento único con una sola barra de vida, tres intentos por partida, tres niveles de dificultad y guardado automático en los puntos de descanso. El proyecto genera sus propios recursos: un menú del editor corta los sprites y arma las animaciones, prefabs, tiles y escenas desde el código.",
-    role: "Me encargué del controlador del jugador (una máquina de estados, un archivo por estado), del jefe y de los generadores de editor que arman el juego entero desde el código.",
-    highlights: [
-      "El juego se arma con scripts de editor: el repositorio guarda la receta, no el archivo binario de escena que nadie puede revisar",
-      "Coyote time y buffer de salto: el salto sigue valiendo un instante después de dejar el borde, y el comando dado en el aire espera al suelo",
-      "Máquina de estados con un archivo por estado del jugador, en vez de una cadena de condiciones dentro del Update",
-      "La dificultad elegida en el menú llega a una copia de las estadísticas, nunca al recurso original, que grabaría el cambio en disco",
-      "Build de Windows publicada en releases, para jugar sin instalar el motor",
-    ],
-  },
-  bicudo: {
-    oneLine: "Juego de un botón en Unity, con el escenario que se mide contra la pantalla",
-    what: "Juego de un botón en la línea de Flappy Bird: el pájaro cae solo, sube cuando el jugador lo manda, y la partida termina en el primer contacto. Escena única para los tres estados, arte recortado por script, cuatro efectos de sonido generados por síntesis y ningún archivo de audio en el repositorio.",
-    role: "Proyecto individual: hice todo, desde el recorte de los sprites y el armado de la escena por código hasta las pruebas y el ejecutable.",
-    highlights: [
-      "El impulso reemplaza la velocidad vertical en vez de sumarse a ella: dos toques seguidos suben lo mismo que uno, y el juego pasa a ser sobre ritmo",
-      "Sin Rigidbody2D. La colisión es una consulta de círculo por cuadro, porque lo que se mueve por transform atraviesa el caño entre dos cuadros sin disparar ningún evento",
-      "El escenario mide el ancho visible al ejecutar y rehace la cuenta si cambia la pantalla: con los límites fijos en la escena, el piso se salía por el borde y los caños aparecían de la nada frente al pájaro en un monitor ultrawide",
-      "Los cuatro efectos de sonido se sintetizan al inicio, lo que evita una licencia de terceros en un juego donde cuatro pitidos alcanzan",
-      "46 pruebas, y tres de ellas abren la escena que va en el ejecutable: el marcador estuvo una partida entera en cero mientras las pruebas llamaban al método de puntuar directamente y pasaban en verde",
-    ],
-  },
-  "laboratorio-vr": {
-    oneLine: "Laboratorio de química en realidad virtual con interacción por mirada",
-    what: "Laboratorio de química en VR hecho en Unity, con interacción por mirada y soporte para Google Cardboard y el giroscopio del celular. Mirar un objeto muestra información; mirar un punto de teletransporte lo llena de verde y mueve al usuario. Build para Android.",
-    role: "Implementé el control por mirada (raycast desde la cámara), los puntos de teletransporte con temporizador de permanencia, y el control de cámara por giroscopio o toque.",
-    highlights: [
-      "Interacción por mirada: un raycast desde la cámara detecta objetos en el campo visual",
-      "Teletransporte por permanencia: el punto se llena de verde según el tiempo de mirada",
-    ],
-  },
-  jis: {
-    oneLine: "Agregador de empleos que estima la chance real de cada aviso",
-    what: "Recolecta empleos de ocho fuentes públicas sin exigir clave de API, descarta lo que no tiene chance (aviso viejo, seniority por encima, regiones que no contratan desde Brasil) y arma el prompt del currículum a medida del aviso que sobrevive.",
-    role: "Definí el criterio de corte a partir de investigación de reclutamiento en vez de suposiciones: coincidencia mínima de stack, plazo antes de que el aviso se vuelva fantasma, y filtro de región. Lo que falla en cualquiera de ellos no recibe puntaje, se descarta.",
-    highlights: [
-      "Ocho fuentes reales, entre ellas LinkedIn, Remotive, RemoteOK y WeWorkRemotely",
-      "Aviso con más de 30 días se descarta: los avisos fantasma van del 20% al 35% de todo lo publicado",
-      "Sin base de datos: los avisos llegan en vivo con caché de 30 minutos y el embudo vive en el navegador",
-    ],
-  },
-  sintonia: {
-    oneLine: "Red social donde la conversación gira en torno a lo que está sonando",
-    what: "Monorepo con API en NestJS, sitio en Next.js y app en Expo. Estado de reproducción en vivo, conversaciones con mensajes efímeros (por TTL o de una sola lectura), rachas y una mascota grupal. La integración con servicios de música es un puerto con adaptadores.",
-    role: "Armé la base: Clean Architecture en la API, el puerto de proveedor de música con sus adaptadores, el dominio puro de efimeridad y rachas, y la capa de protección de datos (exportación, borrado con anonimización y purga de medios).",
-    highlights: [
-      "Puerto de música con adaptadores: Last.fm como principal, porque Spotify limita las apps nuevas a 25 usuarios",
-      "El mensaje efímero expira por TTL o al leerse, y el trabajo de purga borra de verdad",
-      "Dominio de gamificación puro, sin framework, probado fuera de NestJS",
-      "Temas claro y oscuro reales, con tokens compartidos entre web y móvil",
-    ],
-  },
-  bravor: {
-    oneLine: "Entrenador de musculación y running con entrenamiento, nutrición y recuperación adaptativos",
-    what: "App web mobile-first (PWA) y app nativa Android que adapta entrenamiento, dieta y recuperación a la rutina real del usuario, con base científica. Monorepo con un motor de dominio propio que guarda las fórmulas de entrenamiento y nutrición, aislado en un paquete con pruebas.",
-    role: "Construí el motor de dominio aislado, la sesión JWT en cookie httpOnly renovada automáticamente en el middleware, la protección CSRF por origen y la mitigación del bypass de middleware de Next.js divulgado en 2025.",
-    highlights: [
-      "Motor de dominio aislado y probado: 142 pruebas, cobertura cercana al 94%",
-      "Sesión JWT (jose) en cookie httpOnly, renovada en el middleware sin nuevo login",
-      "Triaje de seguridad (PAR-Q y chequeo de dolor) antes de habilitar cualquier entrenamiento",
-    ],
-  },
-  koracrm: {
-    oneLine: "CRM en Laravel donde la capa de aplicación no conoce Eloquent",
-    what: "Leads, embudo de ventas en cinco etapas, tareas con plazo, panel con valor por etapa, equipo con perfiles de acceso y auditoría de cada cambio con su autor. Atiende solicitudes del titular de los datos sin perder el historial.",
-    role: "Escribí todo el backend en cuatro capas, y la regla que lo sostiene es que el servicio recibe un DTO y habla con una interfaz de repositorio, nunca con Eloquent. Cambiar el ORM no debería obligar a reescribir reglas de negocio.",
-    highlights: [
-      "Dos reglas de dominio probadas por ambos lados: el lead nace siempre en la primera etapa, y un lead ganado o perdido no vuelve al embudo",
-      "La capa de aplicación no conoce Eloquent, y eso es lo que mantiene la regla comprobable sin base de datos",
-      "Auditoría automática: cada movimiento entre etapas queda registrado con su autor",
-      "126 pruebas, 90% de cobertura en el backend, y el CI falla por debajo del 85%",
-      "Solo la interfaz está publicada: la demostración corre en el navegador con datos de ejemplo, porque la API en Laravel no está desplegada",
-    ],
-  },
-  almanaque: {
-    oneLine: "Guía de empresas y clasificados multi-inquilino, con la consola de quien atiende",
-    what: "Plataforma para publicar guías de empresas y clasificados: cada cliente tiene su propio portal, con sus categorías, sus anunciantes y su suscripción. Junto con el producto viene la consola de soporte, que es la parte poco común: cola de tickets por impacto, triaje en cuatro cajas y base de problemas conocidos ligada a la versión que corrigió cada uno.",
-    role: "Lo escribí todo, del dominio a la consola. La decisión que más moldeó el sistema fue tratar la atención como parte del producto y no como una planilla al lado: un ticket no se cierra sin clasificación, y nada se clasifica como defecto sin haber sido reproducido en un entorno limpio.",
-    highlights: [
-      "Multi-inquilino con prueba detrás: un portal no ve el dato del otro, y eso lo exige la batería en vez de confiarlo al cuidado de quien escribe la próxima consulta",
-      "Búsqueda en Elasticsearch con relevancia y acentos, con respaldo en la base cuando el índice cae, porque una búsqueda caída no puede llevarse la guía con ella",
-      "La rutina de cobro puede correr dos veces sin cobrar dos veces: el ciclo de facturación es la clave de idempotencia",
-      "Tres intentos antes de cancelar una suscripción morosa, en vez de cortar en el primer rechazo de tarjeta",
-      "Un ticket cerrado sin decir qué era es justo lo que impide descubrir, tres meses después, que el mismo defecto volvió",
-      "PHPStan nivel 8, Playwright de punta a punta y manifiestos de Kubernetes en el repositorio",
-    ],
-  },
-  baliza: {
-    oneLine: "Plazas libres de estacionamiento leídas por la cámara que ya está en el poste",
-    what: "Dice qué plazas de un patio están libres a partir del video de una cámara fija. Sin sensores en el piso, sin cable nuevo, sin obra: la cámara que ya está ahí por seguridad encuadra decenas de plazas a la vez.",
-    role: "Trabajo de Visión Computacional en grupo de cuatro. Armé los dos detectores, el entrenamiento sobre PKLot y la medición que decide cuál usar en cada cámara.",
-    highlights: [
-      "Son dos detectores y la diferencia se dice con honestidad: el general de COCO encuentra autos en cualquier patio sin entrenamiento, y el entrenado encuentra la plaza en sí, que es lo que salva un patio grande donde el auto mide veinte píxeles",
-      "No elige el gusto: cada mapa de plazas guarda el detector que midió mejor en esa cámara, y el programa imprime cuál cargó",
-      "Si los pesos entrenados no están en disco, cae al detector general en vez de fallar",
-      "El modelo entrenado memoriza el patio y no generaliza a una cámara nunca vista, y el experimento se armó justamente para medir ese costo en lugar de esconderlo",
-    ],
-  },
-};
-
-export const TRADUCOES = { en, es } as const;

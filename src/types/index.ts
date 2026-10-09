@@ -20,9 +20,11 @@ export interface VFile {
   runnable?: RunKind;
   meta?: {
     project?: string;
+    source?: string;
     github?: string;
     demo?: string | null;
     demoAcesso?: string;
+    demoNote?: string;
     stack?: string[];
     role?: string;
   };

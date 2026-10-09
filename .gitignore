@@ -17,3 +17,7 @@ dist-types
 .env*.local
 
 .github/java-upgrade/
+playwright-report/
+test-results/
+
+.vercel
