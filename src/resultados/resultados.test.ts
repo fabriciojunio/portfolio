@@ -1,7 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { rotaDoEndereco } from "../rota";
-import { PROJECTS } from "../site/data";
-import { RESULTADOS } from "./dados";
 import { caminho, formatar, limites, paraTela, preencherLeitura } from "./formato";
 
 describe("formatação de número", () => {
@@ -86,83 +84,5 @@ describe("roteamento", () => {
   it("mantém o /lab e a raiz", () => {
     expect(rotaDoEndereco("/lab")).toBe("lab");
     expect(rotaDoEndereco("/")).toBe("site");
-  });
-});
-
-describe("os dados gerados dos seis experimentos", () => {
-  it("tem os seis projetos quantitativos", () => {
-    expect(RESULTADOS.map((p) => p.slug).sort()).toEqual(
-      ["anteparo", "decurso", "lastro", "prumo", "trato", "verbete"].sort(),
-    );
-  });
-
-  it("todo projeto daqui também é um card do portfólio", () => {
-    // Senão existe uma página no ar sobre um projeto que saiu do site, e o
-    // link do README leva para uma seção órfã.
-    const noSite = new Set(PROJECTS.map((p) => p.slug));
-    for (const p of RESULTADOS) {
-      expect(noSite.has(p.slug), `${p.slug} não está em PROJECTS`).toBe(true);
-    }
-  });
-
-  it("toda alavanca tem curva com pelo menos dois pontos", () => {
-    for (const p of RESULTADOS) {
-      const series =
-        p.alavanca.tipo === "continua" ? [p.alavanca.serie] : p.alavanca.series.map((s) => s.pontos);
-      expect(series.length, `${p.slug} sem série`).toBeGreaterThan(0);
-      for (const s of series) {
-        expect(s.length, `${p.slug} com série de um ponto`).toBeGreaterThanOrEqual(2);
-        for (const ponto of s) {
-          expect(Number.isFinite(ponto[0]), `${p.slug} com x não numérico`).toBe(true);
-          expect(Number.isFinite(ponto[1]), `${p.slug} com y não numérico`).toBe(true);
-        }
-      }
-    }
-  });
-
-  it("toda leitura de alavanca usa os dois marcadores", () => {
-    // Uma leitura sem {y} mostra a frase com o buraco no lugar do número, e
-    // isso passa despercebido porque o resto da página continua certo.
-    for (const p of RESULTADOS) {
-      expect(p.alavanca.leitura, `${p.slug}`).toContain("{x}");
-      expect(p.alavanca.leitura, `${p.slug}`).toContain("{y}");
-    }
-  });
-
-  it("toda tabela de contraste tem o mesmo número de colunas em toda linha", () => {
-    for (const p of RESULTADOS) {
-      const n = p.contraste.colunas.length;
-      expect(n).toBeGreaterThan(1);
-      for (const linha of p.contraste.linhas) {
-        expect(linha.length, `${p.slug}: linha com ${linha.length} células para ${n} colunas`).toBe(
-          n,
-        );
-      }
-      expect(p.contraste.destaque).toBeLessThan(p.contraste.linhas.length);
-      expect(p.contraste.destaque).toBeGreaterThanOrEqual(-1);
-    }
-  });
-
-  it("todo projeto declara o limite do número e o que o dado não tem", () => {
-    // Esta página existe para mostrar que o número depende de uma escolha.
-    // Publicar um número sem o limite ao lado desfaz exatamente isso.
-    for (const p of RESULTADOS) {
-      expect(p.limite.length, `${p.slug} sem limite`).toBeGreaterThan(40);
-      expect(p.dado.limitacao.length, `${p.slug} sem limitação do dado`).toBeGreaterThan(20);
-      expect(p.manchete.valor.length).toBeGreaterThan(0);
-    }
-  });
-
-  it("nenhum texto usa travessão", () => {
-    const tudo = JSON.stringify(RESULTADOS);
-    expect(tudo).not.toContain("—");
-  });
-
-  it("nenhum NaN sobreviveu à leitura dos artefatos", () => {
-    // O json.dump do Python escreve NaN sem aspas, e o extrator troca por
-    // null. Se um "null" virasse número na curva o gráfico sumiria sem erro.
-    const tudo = JSON.stringify(RESULTADOS);
-    expect(tudo).not.toContain("NaN");
-    expect(tudo).not.toContain("Infinity");
   });
 });

@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { useIDE } from "../state/useIDE";
 
-const SEEN_KEY = "fj.portfolio.welcome.v1";
+const SEEN_KEY = "fj.portfolio.welcome.v2";
 
 export default function Welcome() {
   const ide = useIDE();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || new URLSearchParams(window.location.search).has("arquivo")) return;
     try {
       const seen = window.localStorage.getItem(SEEN_KEY);
       if (!seen) setOpen(true);
@@ -29,7 +29,7 @@ export default function Welcome() {
 
   const openDemo = () => {
     close();
-    ide.open("/projetos/codereview-ai.java");
+    ide.open("/projetos/permaneia.ts");
     setTimeout(() => ide.setRunPanel(true), 200);
   };
 
@@ -63,17 +63,16 @@ export default function Welcome() {
             Esse portfólio é, ele mesmo, um projeto.
           </h1>
           <p className="mt-2 text-[13px] text-[#9a9a9a] leading-relaxed">
-            Em vez de um site rolável com cards, montei um IDE de verdade no
-            browser. Você navega pelos meus projetos como navegaria pelo meu
-            workspace: abrindo arquivos, lendo o código e, em alguns,
-            executando trechos para ver o resultado.
+            Explore trechos selecionados dos projetos, minha experiência e
+            simulações interativas. Os sistemas completos e seus testes estão
+            nos repositórios. A IDE não executa o backend dos projetos.
           </p>
         </div>
 
         <div className="px-6 pb-2 grid grid-cols-1 sm:grid-cols-3 gap-2">
           <Tip k="① arquivos" v="clique na sidebar à esquerda" />
           <Tip k="② terminal" v="aceita comandos: ls, cat, open, run" />
-          <Tip k="③ Run" v="botão verde nos projetos com demo" />
+          <Tip k="③ Run" v="abre a simulação nos arquivos compatíveis" />
         </div>
 
         <div className="px-6 py-4 flex flex-col sm:flex-row gap-2 border-t border-[#1c1c1c] mt-2">
@@ -82,7 +81,7 @@ export default function Welcome() {
             onClick={openDemo}
             className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#ffffff] text-[#0c0c0c] font-medium hover:brightness-110"
           >
-            ▸ ver uma demo interativa (Java)
+            ▸ simular a lógica fuzzy da PermaneIA
           </button>
           <button
             type="button"

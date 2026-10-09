@@ -64,6 +64,10 @@ function sortTree(nodes: TreeNode[]): TreeNode[] {
   dirs.forEach((d) => (d.children = sortTree(d.children)));
   return [
     ...dirs.sort((a, b) => a.name.localeCompare(b.name)),
-    ...files.sort((a, b) => a.name.localeCompare(b.name)),
+    ...files.sort((a, b) => {
+      const ai = ALL_FILES.findIndex(f => f.path === a.path && f.meta);
+      const bi = ALL_FILES.findIndex(f => f.path === b.path && f.meta);
+      return ai >= 0 && bi >= 0 ? ai - bi : a.name.localeCompare(b.name);
+    }),
   ];
 }

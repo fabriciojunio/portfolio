@@ -1,365 +1,115 @@
 import { useState } from "react";
-import { AnimatePresence, m } from "motion/react";
-import { fadeUp, inViewOnce, stagger } from "../motion";
-import {
-  PROJETOS_EIXO,
-  PROJETOS_PARCERIA,
-  PROJETOS_ACERVO,
-  type SiteProject,
-} from "./data";
+import { PROJETOS_EIXO, PROJETOS_PARCERIA, PROJETOS_ACERVO, type SiteProject } from "./data";
 import SnippetView from "./SnippetView";
 import { useIdioma, useTextos } from "./i18n";
 import { TRADUCOES, type TextoDoProjeto } from "./i18n-projetos";
 
-/**
- * O texto do projeto no idioma corrente.
- *
- * O português mora no próprio projeto, porque é onde o texto é escrito e
- * revisado; as traduções ficam à parte. Se faltar tradução, cai no português
- * em vez de mostrar espaço em branco: um card sem texto parece projeto vazio,
- * e o teste em site.test.ts já cobra que nenhuma falte.
- */
 function useTextoDoProjeto(p: SiteProject): TextoDoProjeto {
   const { idioma } = useIdioma();
-  if (idioma === "pt") {
-    return { oneLine: p.oneLine, what: p.what, role: p.role, highlights: p.highlights ?? [] };
-  }
-  return (
-    TRADUCOES[idioma][p.slug] ?? {
-      oneLine: p.oneLine,
-      what: p.what,
-      role: p.role,
-      highlights: p.highlights ?? [],
-    }
-  );
+  if (idioma !== "pt") return TRADUCOES[idioma][p.slug];
+  return { oneLine: p.oneLine, what: p.what, role: p.role, highlights: p.highlights ?? [], demoNote: p.demoNote, flow: p.flow };
 }
 
-/**
- * Endereço da IDE já com o arquivo aberto e o painel de execução ligado.
- *
- * Sem isto, chegar na demo exigia abrir /lab, achar o arquivo na árvore e
- * reparar no botão Run, que é pedir demais de quem só clicou num projeto.
- */
-function enderecoDaDemo(caminho: string): string {
-  return `/lab?arquivo=${encodeURIComponent(caminho)}&run=1`;
-}
-
-/**
- * O link do card aponta para a página de resultados deste mesmo site?
- *
- * Os seis projetos quantitativos não têm demo no sentido comum: não há tela
- * para operar, há número para conferir. Chamar aquilo de "demo ao vivo" promete
- * outra coisa e decepciona quem clica.
- */
-function ehPaginaDeResultado(destino: string): boolean {
-  return destino.startsWith("/resultados/");
-}
-
-/**
- * A vitrine deixou de ser uma lista corrida de 24 itens.
- *
- * Lista corrida obriga quem chega a decidir sozinho o que importa, e a resposta
- * óbvia é que nada importa muito. Ficam abertos só dois blocos: modelo e
- * decisão, que é o eixo declarado, e o que foi feito com alguém de fora da
- * faculdade. O acervo existe, mas fechado.
- */
 export default function Work() {
   const t = useTextos();
-  const BLOCOS = [
-    { ...t.trabalho.blocos.ia,       itens: PROJETOS_EIXO },
-    { ...t.trabalho.blocos.parceria, itens: PROJETOS_PARCERIA },
-  ];
-
   return (
-    <section
-      id="trabalho"
-      className="relative py-28 md:py-40 px-6 md:px-10 max-w-[1280px] mx-auto"
-    >
-      <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-20">
+    <section id="trabalho" className="py-28 md:py-40 px-6 md:px-10 max-w-[1280px] mx-auto">
+      <div className="grid lg:grid-cols-[1fr_2fr] gap-12 lg:gap-20 mb-16">
         <div>
-          <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">
-            {t.trabalho.secao}
-          </p>
+          <p className="font-mono text-[10.5px] uppercase tracking-[2px] text-[#9a9a9a]">{t.trabalho.secao}</p>
           <h2 className="mt-5 font-serif text-[42px] md:text-[58px] leading-[1.08] text-[#ededed]">
-            {t.trabalho.titulo[0]}<em className="text-[#ffffff] not-italic">{t.trabalho.titulo[1]}</em>{t.trabalho.titulo[2]}
+            {t.trabalho.titulo[0]}{t.trabalho.titulo[1]}{t.trabalho.titulo[2]}
           </h2>
         </div>
-        <div className="self-end space-y-4">
-          <p className="font-sans text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">
-            {t.trabalho.chamada}
-          </p>
-        </div>
+        <p className="self-end text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">{t.trabalho.chamada}</p>
       </div>
-
-      <div className="space-y-20 md:space-y-24">
-        {BLOCOS.map((bloco) => (
-          <Bloco key={bloco.titulo} {...bloco} />
-        ))}
+      <div className="space-y-16">
+        <Bloco {...t.trabalho.blocos.ia} itens={PROJETOS_EIXO} />
+        <Bloco {...t.trabalho.blocos.parceria} itens={PROJETOS_PARCERIA} />
         <Acervo />
       </div>
     </section>
   );
 }
 
-function Bloco({
-  titulo,
-  nota,
-  itens,
-}: {
-  titulo: string;
-  nota: string;
-  itens: SiteProject[];
-}) {
-  return (
-    <div>
-      <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1 mb-6">
-        <h3 className="font-serif text-[26px] md:text-[32px] text-[#ededed] leading-tight">
-          {titulo}
-        </h3>
-        <p className="font-mono text-[11px] text-[#767676] max-w-[560px] leading-relaxed">
-          {nota}
-        </p>
-      </div>
-
-      <m.ol
-        className="divide-y divide-white/5 border-y border-white/5"
-        variants={stagger(0.05)}
-        {...inViewOnce}
-        viewport={{ once: true, amount: 0.05 }}
-      >
-        {itens.map((p, i) => (
-          <WorkRow key={p.slug} project={p} index={i} />
-        ))}
-      </m.ol>
-    </div>
-  );
+function Bloco({ titulo, nota, itens }: { titulo: string; nota: string; itens: SiteProject[] }) {
+  return <div>
+    <h3 className="font-serif text-[28px] md:text-[32px] text-[#ededed]">{titulo}</h3>
+    <p className="mt-2 mb-6 text-[13px] text-[#9a9a9a] max-w-[700px] leading-relaxed">{nota}</p>
+    <ol className="divide-y divide-white/10 border-y border-white/10">
+      {itens.map((p, i) => <WorkRow key={p.slug} project={p} index={i} />)}
+    </ol>
+  </div>;
 }
 
-/**
- * O que veio antes do eixo atual. Fica fechado porque é acervo, não vitrine,
- * mas continua acessível: apagar do site não apaga que eu escrevi.
- *
- * A contagem vai no rótulo de propósito. Sem ela o botão é uma promessa vaga, e
- * quem não sabe o tamanho do que vai abrir não clica.
- */
 function Acervo() {
   const t = useTextos();
   const [aberto, setAberto] = useState(false);
-
-  return (
-    <div>
-      <button
-        type="button"
-        onClick={() => setAberto((s) => !s)}
-        className="font-mono text-[11px] uppercase tracking-[1.6px] text-[#767676] hover:text-[#ededed] transition-colors"
-        aria-expanded={aberto}
-      >
-        {aberto ? "−" : "+"} {t.trabalho.acervo} ({PROJETOS_ACERVO.length})
-      </button>
-
-      <AnimatePresence initial={false}>
-        {aberto && (
-          <m.ol
-            className="mt-6 divide-y divide-white/5 border-y border-white/5 overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {PROJETOS_ACERVO.map((p, i) => (
-              <WorkRow key={p.slug} project={p} index={i} />
-            ))}
-          </m.ol>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+  return <div className="border border-white/15 px-5 md:px-8">
+    <button type="button" onClick={() => setAberto(s => !s)} aria-expanded={aberto} aria-controls="projetos-complementares"
+      className="w-full py-6 text-left flex items-center justify-between gap-4 text-[#d4d4d4] hover:text-white">
+      <span className="font-mono text-[11px] uppercase tracking-[1.2px] leading-relaxed">{t.trabalho.acervo} ({PROJETOS_ACERVO.length})</span>
+      <span aria-hidden>{aberto ? "−" : "+"}</span>
+    </button>
+    <ol id="projetos-complementares" hidden={!aberto} className="divide-y divide-white/10 border-t border-white/10">
+      {PROJETOS_ACERVO.map((p, i) => <WorkRow key={p.slug} project={p} index={i} />)}
+    </ol>
+  </div>;
 }
 
 function WorkRow({ project, index }: { project: SiteProject; index: number }) {
   const t = useTextos();
   const texto = useTextoDoProjeto(project);
+  const c = t.trabalho.card;
   const [open, setOpen] = useState(false);
-
-  return (
-    <m.li id={`work-${project.slug}`} className="group" variants={fadeUp}>
-      <button
-        type="button"
-        onClick={() => setOpen((s) => !s)}
-        className="w-full text-left py-8 md:py-9 flex items-center gap-5 md:gap-10"
-        aria-expanded={open}
-      >
-        <span className="font-mono text-[11px] text-[#767676] w-8 shrink-0 tabular-nums">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-3 flex-wrap">
-            <span className="font-serif text-[24px] md:text-[30px] text-[#ededed] leading-[1.15]">
-              {project.name}
-            </span>
-            {project.demo && (
-              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#ededed] border border-[#ededed]/25 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
-                {ehPaginaDeResultado(project.demo) ? "números" : "demo"}
-              </span>
-            )}
-            {project.labDemo && (
-              <span className="font-mono text-[9px] uppercase tracking-[1.2px] text-[#ffffff] border border-[#ffffff]/30 px-1.5 py-0.5 rounded-sm shrink-0 self-center">
-                interativa
-              </span>
-            )}
-          </div>
-          <p className="mt-2 text-[14px] md:text-[15px] text-[#9a9a9a] font-sans leading-relaxed">
-            {texto.oneLine}
-          </p>
+  return <li id={`work-${project.slug}`}>
+    <button type="button" onClick={() => setOpen(s => !s)} aria-expanded={open} aria-controls={`detalhes-${project.slug}`}
+      className="group w-full text-left py-7 md:py-8 flex items-center gap-4 md:gap-8">
+      <span className="font-mono text-[11px] text-[#767676] w-6 shrink-0">{String(index + 1).padStart(2, "0")}</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="font-serif text-[25px] md:text-[30px] text-[#ededed] leading-tight">{project.name}</span>
+          {project.demo && <span className="font-mono text-[9px] border border-white/25 px-2 py-1 text-[#b8b8b8]">{c.demoBadge}</span>}
+          {project.labDemo && <span className="font-mono text-[9px] border border-white/25 px-2 py-1 text-[#b8b8b8]">{c.simulationBadge}</span>}
         </div>
-
-        <span className="hidden md:block font-mono text-[11px] text-[#767676] tabular-nums shrink-0">
-          {project.year}
-        </span>
-
-        <span
-          className={`shrink-0 w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-[#9a9a9a] group-hover:border-[#ffffff]/60 group-hover:text-[#ffffff] transition-all ${open ? "rotate-45 border-[#ffffff]/60 text-[#ffffff]" : ""}`}
-          aria-hidden
-        >
-          +
-        </span>
-      </button>
-
-      <AnimatePresence initial={false}>
-      {open && (
-        <m.div
-          className="overflow-hidden"
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -6 }}
-          transition={{ duration: 0.22, ease: [0.22, 0.61, 0.36, 1] }}
-        >
-        <div className="pb-10 md:pb-14 pl-[52px] md:pl-[72px] pr-2 md:pr-12 grid md:grid-cols-[1fr_1.4fr] gap-8 md:gap-12">
-          <div className="space-y-7">
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
-                o que é
-              </div>
-              <p className="mt-3 text-[14.5px] text-[#d4d4d4] leading-[1.85]">
-                {texto.what}
-              </p>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
-                meu papel
-              </div>
-              <p className="mt-3 text-[14.5px] text-[#d4d4d4] leading-[1.85]">
-                {texto.role}
-              </p>
-            </div>
-            <div>
-              <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
-                stack
-              </div>
-              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
-                {project.stack.map((s) => (
-                  <span key={s} className="font-mono text-[12px] text-[#d4d4d4]">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {texto.highlights.length > 0 && (
-              <div>
-                <div className="font-mono text-[10px] uppercase tracking-[1.6px] text-[#767676]">
-                  destaques
-                </div>
-                <ul className="mt-3 space-y-2">
-                  {texto.highlights.map((h, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="mt-0.5 font-mono text-[11px] text-[#b8b8b8]/50 shrink-0">
-                        ↳
-                      </span>
-                      <span className="font-mono text-[12px] text-[#b8b8b8] leading-relaxed">
-                        {h}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {project.labDemo && (
-              <a
-                href={enderecoDaDemo(project.labDemo)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/demo inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#ffffff] text-[#0a0a0a] text-[12px] font-mono uppercase tracking-[1.4px] hover:bg-[#ffffff] transition-colors"
-              >
-                <span aria-hidden className="text-[11px]">
-                  ▸
-                </span>
-                {t.trabalho.verDemo}
-                <span
-                  aria-hidden
-                  className="transition-transform group-hover/demo:translate-x-1"
-                >
-                  →
-                </span>
-              </a>
-            )}
-
-            <div className="pt-3 flex flex-wrap items-center gap-4">
-              {project.github ? (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[12.5px] text-[#ededed] underline-offset-4 underline decoration-[#ffffff]/50 hover:decoration-[#ffffff]"
-                >
-                  código no GitHub →
-                </a>
-              ) : (
-                <span className="font-mono text-[11px] text-[#767676]">
-                  código privado
-                </span>
-              )}
-              {project.demo && (
-                <a
-                  href={project.demo}
-                  // A página de resultados é deste mesmo site: abrir aba nova
-                  // para ela faria o visitante acumular abas do mesmo domínio.
-                  target={ehPaginaDeResultado(project.demo) ? undefined : "_blank"}
-                  rel={ehPaginaDeResultado(project.demo) ? undefined : "noopener noreferrer"}
-                  className="text-[12.5px] text-[#ededed] underline-offset-4 underline decoration-[#ffffff]/50 hover:decoration-[#ffffff]"
-                >
-                  {ehPaginaDeResultado(project.demo) ? "ver os números →" : "demo ao vivo →"}
-                </a>
-              )}
-            </div>
-
-            {project.demoAcesso && (
-              <p className="pt-1.5 font-mono text-[11px] text-[#767676]">
-                entrar com {project.demoAcesso}
-              </p>
-            )}
-          </div>
-
-          <SnippetView
-            code={project.snippet}
-            language={project.snippetLang}
-            filename={`${project.slug}.${ext(project.snippetLang)}`}
-          />
+        <p className="mt-2 text-[14px] text-[#9a9a9a] leading-relaxed">{texto.oneLine}</p>
+      </div>
+      <span className="hidden md:block font-mono text-[11px] text-[#767676]">{project.year}</span>
+      <span aria-hidden className="shrink-0 w-8 h-8 border border-white/20 rounded-full flex items-center justify-center text-[#b8b8b8] group-hover:border-white">{open ? "−" : "+"}</span>
+    </button>
+    <div id={`detalhes-${project.slug}`} hidden={!open} style={!open ? { display: "none" } : undefined} className="pb-9 md:pl-14 grid lg:grid-cols-[1fr_1fr] gap-8">
+      <div className="space-y-6">
+        <Texto label={c.what}>{texto.what}</Texto>
+        <Texto label={c.role}>{texto.role}</Texto>
+        <div><Rotulo>{c.highlights}</Rotulo><ul className="mt-3 list-disc pl-4 space-y-2 text-[13px] text-[#b8b8b8] leading-relaxed">{texto.highlights.map(h => <li key={h}>{h}</li>)}</ul></div>
+        <div className="flex flex-wrap gap-2">{project.stack.map(s => <span key={s} className="font-mono text-[10px] text-[#b8b8b8] border border-white/15 px-2 py-1">{s}</span>)}</div>
+        <div className="border-l border-white/30 pl-4">
+          <Rotulo>{c.flow}</Rotulo>
+          <ol className="mt-3 list-decimal pl-4 space-y-2 text-[13px] text-[#d4d4d4] leading-relaxed">{texto.flow.map(step => <li key={step}>{step}</li>)}</ol>
+          <p className="mt-4 text-[12px] text-[#9a9a9a] leading-relaxed">{texto.demoNote}</p>
         </div>
-        </m.div>
-      )}
-      </AnimatePresence>
-    </m.li>
-  );
+        <div className="flex flex-wrap gap-4 text-[12px]">
+          {project.demo && <Link href={project.demo}>{c.demo} ↗</Link>}
+          {project.github && <Link href={project.github}>{c.github} ↗</Link>}
+          <Link href={`/lab?arquivo=${encodeURIComponent(project.idePath)}`}>{c.ide} ↗</Link>
+          {project.labDemo && <Link href={`/lab?arquivo=${encodeURIComponent(project.labDemo)}&run=1`}>{t.trabalho.verDemo} ↗</Link>}
+        </div>
+        {project.demoAcesso && <p className="font-mono text-[11px] text-[#9a9a9a] break-words">{c.access}: {project.demoAcesso}</p>}
+      </div>
+      <div className="min-w-0">
+        <p className="mb-3 font-mono text-[10px] text-[#9a9a9a]">{project.sourcePath ? project.sourcePath : "Exemplo simplificado do projeto"}</p>
+        <SnippetView code={project.snippet} language={project.snippetLang} filename={project.idePath.split("/").at(-1)!} />
+      </div>
+    </div>
+  </li>;
 }
 
-function ext(lang: string): string {
-  if (lang === "python") return "py";
-  if (lang === "java") return "java";
-  if (lang === "php") return "php";
-  if (lang === "csharp") return "cs";
-  if (lang === "sql") return "sql";
-  return "ts";
+function Rotulo({ children }: { children: React.ReactNode }) {
+  return <p className="font-mono text-[10px] uppercase tracking-[1.3px] text-[#9a9a9a]">{children}</p>;
+}
+function Texto({ label, children }: { label: string; children: React.ReactNode }) {
+  return <div><Rotulo>{label}</Rotulo><p className="mt-3 text-[14px] text-[#d4d4d4] leading-[1.8]">{children}</p></div>;
+}
+function Link({ href, children }: { href: string; children: React.ReactNode }) {
+  return <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#ededed] underline underline-offset-4 decoration-white/40 hover:decoration-white">{children}</a>;
 }

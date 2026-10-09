@@ -58,7 +58,7 @@ export default function HelpFab() {
                 setTimeout(() => ide.setRunPanel(true), 150);
               }}
             >
-              ver demo xG
+              simular lógica fuzzy
             </Btn>
             <Btn
               onClick={() => {

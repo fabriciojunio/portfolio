@@ -1,47 +1,8 @@
 import type { VFile } from "../types";
 
 export const profileJson: VFile = {
-  path: "/perfil.json",
-  name: "perfil.json",
-  language: "json",
-  content: `{
-  "nome": "Fabrício Júnio Almeida Dias",
-  "idade": 21,
-  "cidade": "Bauru, SP",
-  "foco": "IA em produção: risco, crédito e decisão",
-  "trabalho": {
-    "modelo": "PJ (prestação de serviços)",
-    "cargo": "Desenvolvedor: BPM, integração e robô em Java",
-    "desde": "2025",
-    "atuacao": ["BPM e robôs em Java", "integrações REST", "abertura de conta digital"]
-  },
-  "formacao": {
-    "graduacao": "Ciência da Computação, UNISAGRADO",
-    "incubadora": "Saruê, UNESP Bauru"
-  },
-  "linguagens": ["Português", "Inglês (técnico)"],
-  "stack_principal": {
-    "risco":    ["validação temporal", "calibração", "PSI", "bootstrap em blocos", "cartão do modelo"],
-    "ml":       ["scikit-learn", "XGBoost", "PyTorch", "OpenCV", "FinBERT-PT-BR", "rede bayesiana"],
-    "generativa": ["RAG com fonte citada", "abstenção com limiar", "MCP", "pgvector", "Ollama (local)"],
-    "back":     ["Java + Spring Boot", "Node + NestJS", "FastAPI", "Laravel"],
-    "front":    ["React / Next.js", "React Native + Expo", "TypeScript"],
-    "dados":    ["PostgreSQL", "Redis", "Supabase", "SQLite (WAL+FTS)"],
-    "infra":    ["Docker", "GitHub Actions", "Nginx", "Vercel"]
-  },
-  "valores": [
-    "Clean Architecture só onde faz sentido",
-    "Testes onde dão retorno (não 100% cosmético)",
-    "Segurança como default, não como camada extra",
-    "Português no produto, inglês no código"
-  ],
-  "trabalho_remoto": true,
-  "aberto_a": ["CLT", "PJ", "freelancer técnico"],
-  "contato": {
-    "email": "junioad555@gmail.com",
-    "github": "https://github.com/fabriciojunio",
-    "linkedin": "https://linkedin.com/in/fabríciojúnio"
-  }
-}
-`,
+  "path": "/perfil.json",
+  "name": "perfil.json",
+  "language": "json",
+  "content": "{\n  \"nome\": \"Fabrício Júnio\",\n  \"cargo\": \"Analista de Sistemas\",\n  \"cidade\": \"Bauru, SP\",\n  \"empresa\": \"DIGIHUB Tecnologia\",\n  \"foco\": \"Desenvolvimento, integrações e sustentação de software\",\n  \"formacao\": \"Ciência da Computação, UNISAGRADO\",\n  \"trabalho\": [\n    \"Java\",\n    \"JavaScript\",\n    \"SQL\",\n    \"MySQL\",\n    \"Lecom BPM\",\n    \"Roberty Studio\",\n    \"RPA\",\n    \"Jira\",\n    \"Git\",\n    \"GitLab\",\n    \"API REST\",\n    \"MCP\"\n  ],\n  \"projetos\": [\n    \"PHP\",\n    \"Symfony\",\n    \"Laravel\",\n    \"Spring Boot\",\n    \"Node.js\",\n    \"React\",\n    \"Next.js\"\n  ],\n  \"pesquisa\": \"ConectAgente: iniciação científica em saúde pública, selecionada pela Saruê (UNESP Bauru)\",\n  \"idiomas\": [\n    \"Português nativo\",\n    \"Inglês intermediário\"\n  ],\n  \"contato\": {\n    \"email\": \"junioad555@gmail.com\",\n    \"github\": \"https://github.com/fabriciojunio\",\n    \"linkedin\": \"https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/\"\n  }\n}\n"
 };

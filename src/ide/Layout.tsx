@@ -66,7 +66,10 @@ export default function Layout() {
 
         {/* Sidebar — drawer em mobile, fixo em desktop */}
         <aside
-          className={`shrink-0 min-h-0 transition-[width] duration-200 ${sidebarOpen ? "w-[230px] md:w-[240px]" : "w-0"} overflow-hidden`}
+          className={`fixed top-8 bottom-6 left-10 z-30 md:static md:z-auto shrink-0 min-h-0 transition-[width] duration-200 ${sidebarOpen ? "w-[230px] md:w-[240px]" : "w-0"} overflow-hidden`}
+          onClick={event => {
+            if (window.innerWidth < 768 && (event.target as HTMLElement).closest("[data-file-path]")) setSidebarOpen(false);
+          }}
         >
           <Sidebar />
         </aside>

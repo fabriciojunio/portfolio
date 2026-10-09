@@ -25,9 +25,9 @@ jobs:
         with:
           node-version: "20"
           cache: "npm"
-      - name: Instalar dependencias
+      - name: Instalar dependências
         run: npm ci
-      - name: Auditoria de dependencias de producao
+      - name: Auditoria de dependências de produção
         run: npm audit --omit=dev --audit-level=high
       - name: Lint
         run: npm run lint
@@ -35,3 +35,7 @@ jobs:
         run: npm run test
       - name: Build (inclui typecheck)
         run: npm run build
+      - name: Instalar navegador para os testes
+        run: npx playwright install --with-deps chromium
+      - name: Testar fluxos no desktop e no celular
+        run: npm run test:e2e
