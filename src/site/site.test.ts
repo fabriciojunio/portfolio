@@ -10,7 +10,7 @@ describe("curadoria e coerência do portfólio", () => {
   it("prioriza os projetos de desenvolvimento solicitados", () => {
     expect(PROJETOS_EIXO.slice(0, 3).map(p => p.slug)).toEqual(["almanaque", "vitrine-bauru", "feira"]);
     expect([...CARTAS_DO_TOPO]).toEqual(PROJETOS_EIXO.map(p => p.slug));
-    expect(PROJETOS_PARCERIA.map(p => p.slug)).toContain("conectagente");
+    expect(PROJETOS_PARCERIA.map(p => p.slug)).toEqual(["conectagente", "cardiocam", "lastro"]);
   });
   it("cada projeto pertence a um único grupo", () => {
     const slugs = [...PROJETOS_EIXO, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug);
@@ -19,11 +19,18 @@ describe("curadoria e coerência do portfólio", () => {
   });
   it("preserva os trabalhos acadêmicos para consulta", () => {
     for (const slug of ["permaneia", "cardiocam", "baliza", "contaflux", "kaida", "bicudo", "laboratorio-vr"]) {
-      expect(PROJETOS_ACERVO.map(p => p.slug)).toContain(slug);
+      expect([...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug)).toContain(slug);
     }
   });
   it("não republica código dos projetos privados retirados", () => {
-    for (const slug of ["lastro", "anteparo", "cautela", "decurso", "prumo", "trato", "verbete", "quantbot-ml", "balcao", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
+    const lastro = filesByPath.get("/projetos/lastro.md")!;
+    expect(lastro.language).toBe("markdown");
+    expect(lastro.meta?.presentationOnly).toBe(true);
+    expect(lastro.meta?.source).toBeUndefined();
+    expect(lastro.meta?.github).toBeUndefined();
+    expect(lastro.runnable).toBeUndefined();
+    expect(lastro.content).toContain("Código e artefatos privados até a defesa");
+    for (const slug of ["anteparo", "cautela", "decurso", "prumo", "trato", "verbete", "quantbot-ml", "balcao", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
       expect(PROJECTS.map(p => p.slug)).not.toContain(slug);
       expect(ALL_FILES.some(f => f.path.includes(`/${slug}.`))).toBe(false);
     }
@@ -33,7 +40,8 @@ describe("curadoria e coerência do portfólio", () => {
       expect(p.name.trim()).not.toBe("");
       expect(p.oneLine.length).toBeLessThan(100);
       expect(p.year).toMatch(/^\d{4}$/);
-      expect(p.github).toMatch(/^https:\/\/github\.com\/fabriciojunio\//);
+      if (p.github) expect(p.github).toMatch(/^https:\/\/github\.com\/fabriciojunio\//);
+      else expect(p.presentationOnly).toBe(true);
       if (p.demo) expect(p.demo).toMatch(/^https:\/\//);
       expect(p.flow.length).toBeGreaterThanOrEqual(2);
       expect(p.demoNote.trim()).not.toBe("");
@@ -45,7 +53,7 @@ describe("curadoria e coerência do portfólio", () => {
       const f = filesByPath.get(p.idePath)!;
       expect(f, p.slug).toBeDefined();
       expect(f.content).toBe(p.snippet);
-      expect(f.meta).toMatchObject({ project: p.name, github: p.github, stack: p.stack, role: p.role, demo: p.demo, demoNote: p.demoNote });
+      expect(f.meta).toMatchObject({ project: p.name, github: p.github ?? undefined, stack: p.stack, role: p.role, demo: p.demo, demoNote: p.demoNote });
       expect(aberturaPedida(`?arquivo=${encodeURIComponent(p.idePath)}`)).toEqual({ caminho: p.idePath, rodar: false });
     }
   });

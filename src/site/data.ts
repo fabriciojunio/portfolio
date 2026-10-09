@@ -13,10 +13,11 @@ export interface SiteProject {
   flow: string[];
   idePath: string;
   sourcePath?: string;
+  presentationOnly?: boolean;
   labDemo?: string;
   year: string;
   snippet: string;
-  snippetLang: "typescript" | "python" | "java" | "php" | "csharp" | "sql";
+  snippetLang: "typescript" | "python" | "java" | "php" | "csharp" | "sql" | "markdown";
 }
 
 const PROJECTS_SOURCE: SiteProject[] = [
@@ -61,11 +62,11 @@ const PROJECTS_SOURCE: SiteProject[] = [
   {
     "slug": "vitrine-bauru",
     "name": "Vitrine Bauru",
-    "oneLine": "Vitrine de empreendedores com moderação e contato direto",
-    "what": "Projeto de extensão da UNISAGRADO voltado aos empreendedores atendidos pela SEDECON de Bauru. Reúne catálogo, busca, moderação e contato pelo WhatsApp.",
+    "oneLine": "Ação social para a SEDECON de Bauru: vitrine de pequenos empreendedores",
+    "what": "Ação social desenvolvida como projeto de extensão da UNISAGRADO para a SEDECON — Secretaria Municipal de Desenvolvimento Econômico, Turismo e Inovação, da Prefeitura de Bauru. A secretaria apoia o empreendedorismo e o desenvolvimento econômico local. A plataforma divulga pequenos empreendedores com catálogo, busca, moderação e contato pelo WhatsApp.",
     "role": "Desenvolvi os serviços Java, as integrações por eventos e a interface de consulta e gestão.",
     "highlights": [
-      "Spring Boot, eventos e isolamento entre serviços",
+      "Microsserviços Spring Boot com Kafka e isolamento de dados",
       "Moderação de cadastros e indicadores de contatos",
       "Testes de integração e fluxo de exclusão de dados"
     ],
@@ -102,7 +103,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "slug": "feira",
     "name": "Feira do Comando",
     "oneLine": "Pedidos em Java com eventos, idempotência e compensação",
-    "what": "Quatro serviços Spring Boot coordenam pedidos, estoque, pagamentos e consultas por eventos Kafka.",
+    "what": "Quatro microsserviços Spring Boot coordenam pedidos, estoque, pagamentos e consultas por eventos Kafka.",
     "role": "Implementei a saga de pedidos, o outbox transacional e os consumidores idempotentes.",
     "highlights": [
       "Outbox e inbox para entrega repetida de eventos",
@@ -239,13 +240,13 @@ const PROJECTS_SOURCE: SiteProject[] = [
   {
     "slug": "conectagente",
     "name": "ConectAgente",
-    "oneLine": "Visitas domiciliares com registro offline e sincronização",
-    "what": "Projeto de iniciação científica para Agentes Comunitários de Saúde. App de campo em React Native e Expo, com SQLite local, Supabase/PostgreSQL e painel Next.js. Selecionado pela incubadora Saruê, da UNESP Bauru.",
+    "oneLine": "Visitas domiciliares · selecionado para a Saruê (UNESP Bauru)",
+    "what": "Projeto de iniciação científica em saúde pública para Agentes Comunitários de Saúde, selecionado para a Saruê, incubadora da UNESP Bauru. App de campo em React Native e Expo, com registro offline em SQLite, sincronização com Supabase/PostgreSQL e painel de gestão em Next.js.",
     "role": "Desenvolvo o cadastro, as visitas, a sincronização e os perfis de acesso, com registros de auditoria.",
     "highlights": [
       "SQLite para registro em campo sem conexão",
       "Sincronização e acesso por perfil",
-      "Painel de gestão e trilha de auditoria"
+      "Selecionado para a Saruê, incubadora da UNESP Bauru"
     ],
     "stack": [
       "React Native",
@@ -334,6 +335,31 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "Consulte o repositório e a documentação para executar a ferramenta de pesquisa."
     ],
     "idePath": "/projetos/cardiocam.py"
+  },
+  {
+    "slug": "lastro",
+    "name": "Lastro — projeto pré-TCC",
+    "oneLine": "Pesquisa sobre dependências entre instituições financeiras e sua estabilidade no tempo",
+    "what": "Projeto preparatório de TCC em Ciência da Computação na UNISAGRADO. Investiga o aprendizado da estrutura de dependência entre instituições financeiras brasileiras por redes bayesianas e otimização evolutiva multiobjetivo, além da estabilidade dessa estrutura ao longo do tempo.",
+    "role": "Desenvolvo o método, os experimentos, a avaliação e a documentação da pesquisa.",
+    "highlights": [
+      "Redes bayesianas e otimização evolutiva multiobjetivo",
+      "Comparação com métodos de referência e estruturas conhecidas",
+      "Avaliação de estabilidade temporal com dados públicos da B3"
+    ],
+    "stack": ["Python", "NumPy", "Redes bayesianas", "Algoritmos evolutivos", "Análise de redes", "Séries temporais"],
+    "github": null,
+    "demo": null,
+    "demoNote": "Projeto pré-TCC em desenvolvimento. Esta é uma apresentação pública do tema; o código e os artefatos de pesquisa permanecem privados até a defesa.",
+    "flow": [
+      "Leia a apresentação do tema, do método e dos critérios de avaliação.",
+      "Entre em contato para conversar sobre a pesquisa; o repositório permanece privado."
+    ],
+    "year": "2026",
+    "idePath": "/projetos/lastro.md",
+    "presentationOnly": true,
+    "snippetLang": "markdown",
+    "snippet": "# Lastro — projeto pré-TCC\n\nTema: dependências entre instituições financeiras brasileiras\ne estabilidade dessas relações ao longo do tempo.\n\nMétodo: redes bayesianas e otimização evolutiva multiobjetivo.\nAvaliação: estruturas conhecidas, métodos de referência\ne estabilidade temporal em dados públicos da B3.\n\nStatus: pesquisa em desenvolvimento.\nCódigo e artefatos privados até a defesa.\n"
   },
   {
     "slug": "baliza",
@@ -593,11 +619,12 @@ export const PROJETOS_EIXO = PROJECTS_SOURCE.filter(p => [
   "codereview-ai"
 ].includes(p.slug));
 export const PROJETOS_PARCERIA = PROJECTS_SOURCE.filter(p => [
-  "conectagente"
+  "conectagente",
+  "cardiocam",
+  "lastro"
 ].includes(p.slug));
 export const PROJETOS_ACERVO = PROJECTS_SOURCE.filter(p => [
   "permaneia",
-  "cardiocam",
   "baliza",
   "contaflux",
   "kaida",
@@ -616,8 +643,8 @@ export const SOBRE = {
   "longBio": [
     "Sou Analista de Sistemas na DIGIHUB Tecnologia. Trabalho com robôs Java, integrações REST, regras JavaScript, SQL e processos na Lecom BPM, com automação RPA no Roberty Studio.",
     "Analiso chamados, investigo código e banco de dados, implemento correções e acompanho a homologação e a publicação. Utilizo Jira, Git e GitLab no acompanhamento das entregas.",
-    "Na Nexum Tecnologia, atuei em processos do setor financeiro, integrações com APIs externas e MCP. Em projetos próprios, desenvolvo também com PHP, Symfony e Laravel, com testes e integração contínua.",
-    "Curso Ciência da Computação na UNISAGRADO. Participo de iniciação científica em saúde pública com o ConectAgente, selecionado pela incubadora Saruê da UNESP Bauru. IA e processamento de imagens fazem parte dos meus estudos e projetos acadêmicos."
+    "Na Nexum Tecnologia, atuei em processos do setor financeiro, integrações com APIs externas e MCP. Em projetos próprios, uso PHP, Symfony, Laravel e Spring Boot, incluindo microsserviços com Kafka, testes e integração contínua.",
+    "Curso Ciência da Computação na UNISAGRADO. Participo de iniciação científica em saúde pública com o ConectAgente, selecionado para a Saruê, incubadora da UNESP Bauru. No Cardiocam, desenvolvo uma ferramenta experimental para pesquisar sinais cardíacos por vídeo."
   ],
   "contato": {
     "email": "junioad555@gmail.com",
@@ -660,6 +687,17 @@ export const STACK_GROUPS = [
     ]
   },
   {
+    "label": "arquitetura",
+    "items": [
+      "Microsserviços",
+      "Apache Kafka",
+      "RabbitMQ",
+      "Arquitetura orientada a eventos",
+      "Outbox transacional",
+      "Idempotência"
+    ]
+  },
+  {
     "label": "interface",
     "items": [
       "Twig",
@@ -687,7 +725,10 @@ export const STACK_GROUPS = [
       "Playwright",
       "PHPStan",
       "Docker",
+      "Docker Compose",
+      "Kubernetes",
       "Nginx",
+      "OpenTelemetry",
       "GitHub Actions"
     ]
   },
@@ -707,6 +748,8 @@ export const EMPRESAS = [
   "PHP",
   "JavaScript",
   "SQL",
+  "Kafka",
+  "Microsserviços",
   "Integrações",
   "Automação",
   "Sustentação"

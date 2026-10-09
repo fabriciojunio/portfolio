@@ -91,13 +91,13 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         <div className="flex flex-wrap gap-4 text-[12px]">
           {project.demo && <Link href={project.demo}>{c.demo} ↗</Link>}
           {project.github && <Link href={project.github}>{c.github} ↗</Link>}
-          <Link href={`/lab?arquivo=${encodeURIComponent(project.idePath)}`}>{c.ide} ↗</Link>
+          <Link href={`/lab?arquivo=${encodeURIComponent(project.idePath)}`}>{project.presentationOnly ? c.presentation : c.ide} ↗</Link>
           {project.labDemo && <Link href={`/lab?arquivo=${encodeURIComponent(project.labDemo)}&run=1`}>{t.trabalho.verDemo} ↗</Link>}
         </div>
         {project.demoAcesso && <p className="font-mono text-[11px] text-[#9a9a9a] break-words">{c.access}: {project.demoAcesso}</p>}
       </div>
       <div className="min-w-0">
-        <p className="mb-3 font-mono text-[10px] text-[#9a9a9a]">{project.sourcePath ? project.sourcePath : "Exemplo simplificado do projeto"}</p>
+        <p className="mb-3 font-mono text-[10px] text-[#9a9a9a]">{project.presentationOnly ? c.presentation : project.sourcePath ? project.sourcePath : "Exemplo simplificado do projeto"}</p>
         <SnippetView code={project.snippet} language={project.snippetLang} filename={project.idePath.split("/").at(-1)!} />
       </div>
     </div>

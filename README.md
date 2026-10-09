@@ -6,7 +6,7 @@
 
 ## Conteúdo
 
-Almanaque, Vitrine Bauru e Feira do Comando aparecem primeiro, seguidos de KoraCRM, AuthCore e CodeReview AI. O ConectAgente apresenta a pesquisa aplicada em saúde pública. Os demais trabalhos acadêmicos e projetos complementares ficam em uma seção expansível.
+Almanaque, Vitrine Bauru e Feira do Comando aparecem primeiro, seguidos de KoraCRM, AuthCore e CodeReview AI. Pesquisa aplicada reúne ConectAgente, Cardiocam e Lastro, projeto pré-TCC com apresentação pública e código privado até a defesa. Os demais trabalhos acadêmicos e projetos complementares ficam em uma seção expansível.
 
 Cada card informa o problema, a participação no desenvolvimento, tecnologias, roteiro de visualização e escopo da demonstração. Os dados dos cards e os arquivos da IDE compartilham a mesma fonte em `src/site/data.ts`.
 

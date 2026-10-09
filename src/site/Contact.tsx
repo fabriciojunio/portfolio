@@ -8,7 +8,7 @@ export default function Contact() {
   const LINKS = [
     { label: t.contato.email, value: SOBRE.contato.email,        href: `mailto:${SOBRE.contato.email}` },
     { label: "GitHub",        value: "github.com/fabriciojunio", href: SOBRE.contato.github },
-    { label: "LinkedIn",      value: "in/fabriciojunio",         href: SOBRE.contato.linkedin },
+    { label: "LinkedIn",      value: decodeURIComponent(new URL(SOBRE.contato.linkedin).pathname).replace(/^\/|\/$/g, ""), href: SOBRE.contato.linkedin },
   ];
 
   return (

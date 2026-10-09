@@ -70,7 +70,7 @@ export interface Textos {
     acervo: string;
     verDemo: string;
     fechar: string;
-    card: Record<"what" | "role" | "highlights" | "flow" | "demo" | "github" | "ide" | "demoBadge" | "simulationBadge" | "access", string>;
+    card: Record<"what" | "role" | "highlights" | "flow" | "demo" | "github" | "ide" | "presentation" | "demoBadge" | "simulationBadge" | "access", string>;
   };
 
   stack: {
@@ -109,7 +109,7 @@ const pt: Textos = {
     "trocarIdioma": "Trocar idioma"
   },
   "hero": {
-    "disponivel": "DIGIHUB Tecnologia",
+    "disponivel": "Disponível para oportunidades",
     "verTrabalho": "Ver trabalho",
     "conversar": "Conversar"
   },
@@ -131,8 +131,8 @@ const pt: Textos = {
     "longBio": [
       "Sou Analista de Sistemas na DIGIHUB Tecnologia. Trabalho com robôs Java, integrações REST, regras JavaScript, SQL e processos na Lecom BPM, com automação RPA no Roberty Studio.",
       "Analiso chamados, investigo código e banco de dados, implemento correções e acompanho a homologação e a publicação. Utilizo Jira, Git e GitLab no acompanhamento das entregas.",
-      "Na Nexum Tecnologia, atuei em processos do setor financeiro, integrações com APIs externas e MCP. Em projetos próprios, desenvolvo também com PHP, Symfony e Laravel, com testes e integração contínua.",
-      "Curso Ciência da Computação na UNISAGRADO. Participo de iniciação científica em saúde pública com o ConectAgente, selecionado pela incubadora Saruê da UNESP Bauru. IA e processamento de imagens fazem parte dos meus estudos e projetos acadêmicos."
+      "Na Nexum Tecnologia, atuei em processos do setor financeiro, integrações com APIs externas e MCP. Em projetos próprios, uso PHP, Symfony, Laravel e Spring Boot, incluindo microsserviços com Kafka, testes e integração contínua.",
+      "Curso Ciência da Computação na UNISAGRADO. Participo de iniciação científica em saúde pública com o ConectAgente, selecionado para a Saruê, incubadora da UNESP Bauru. No Cardiocam, desenvolvo uma ferramenta experimental para pesquisar sinais cardíacos por vídeo."
     ]
   },
   "trabalho": {
@@ -150,7 +150,7 @@ const pt: Textos = {
       },
       "parceria": {
         "titulo": "Pesquisa aplicada",
-        "nota": "Iniciação científica em saúde pública, com desenvolvimento mobile e web."
+        "nota": "Saúde pública, processamento de imagens e sinais e pesquisa preparatória de TCC."
       }
     },
     "acervo": "Outros projetos e trabalhos acadêmicos",
@@ -164,6 +164,7 @@ const pt: Textos = {
       "demo": "abrir demonstração",
       "github": "código no GitHub",
       "ide": "explorar código na IDE",
+      "presentation": "ler apresentação na IDE",
       "demoBadge": "demonstração",
       "simulationBadge": "simulação",
       "access": "acesso de demonstração"
@@ -181,6 +182,7 @@ const pt: Textos = {
       "trabalho": "atuação profissional",
       "integracoes": "integrações e ferramentas",
       "backend": "back-end em projetos",
+      "arquitetura": "arquitetura em projetos",
       "interface": "interfaces em projetos",
       "dados": "dados em projetos",
       "qualidade": "qualidade e infraestrutura",
@@ -219,7 +221,7 @@ const en: Textos = {
     "trocarIdioma": "Change language"
   },
   "hero": {
-    "disponivel": "DIGIHUB Tecnologia",
+    "disponivel": "Open to opportunities",
     "verTrabalho": "See the work",
     "conversar": "Get in touch"
   },
@@ -241,8 +243,8 @@ const en: Textos = {
     "longBio": [
       "I am a Systems Analyst at DIGIHUB Tecnologia, working with Java automation, REST integrations, JavaScript rules, SQL and Lecom BPM processes, with RPA in Roberty Studio.",
       "I investigate support requests, code and databases, implement fixes and follow testing and releases. I use Jira, Git and GitLab to track delivery.",
-      "At Nexum Tecnologia, I worked on financial workflows, external API integrations and MCP. My personal projects also use PHP, Symfony and Laravel, with automated tests and continuous integration.",
-      "I study Computer Science at UNISAGRADO. My undergraduate public health research project, ConectAgente, was selected by Saruê, the UNESP Bauru incubator. AI and image processing are part of my studies and academic projects."
+      "At Nexum Tecnologia, I worked on financial workflows, external API integrations and MCP. My personal projects use PHP, Symfony, Laravel and Spring Boot, including Kafka microservices, automated tests and continuous integration.",
+      "I study Computer Science at UNISAGRADO. ConectAgente, my undergraduate public health research project, was selected for Saruê, the UNESP Bauru incubator. In Cardiocam, I develop an experimental tool to research cardiac signals from video."
     ]
   },
   "trabalho": {
@@ -260,7 +262,7 @@ const en: Textos = {
       },
       "parceria": {
         "titulo": "Applied research",
-        "nota": "Undergraduate public health research with mobile and web development."
+        "nota": "Public health, image and signal processing, and preparatory thesis research."
       }
     },
     "acervo": "More projects and coursework",
@@ -274,6 +276,7 @@ const en: Textos = {
       "demo": "open demo",
       "github": "source on GitHub",
       "ide": "explore code in the IDE",
+      "presentation": "read presentation in the IDE",
       "demoBadge": "demo",
       "simulationBadge": "simulation",
       "access": "demo access"
@@ -291,6 +294,7 @@ const en: Textos = {
       "trabalho": "professional work",
       "integracoes": "integrations and tools",
       "backend": "project backends",
+      "arquitetura": "project architecture",
       "interface": "project interfaces",
       "dados": "project data",
       "qualidade": "quality and infrastructure",
@@ -329,7 +333,7 @@ const es: Textos = {
     "trocarIdioma": "Cambiar idioma"
   },
   "hero": {
-    "disponivel": "DIGIHUB Tecnologia",
+    "disponivel": "Disponible para oportunidades",
     "verTrabalho": "Ver proyectos",
     "conversar": "Hablemos"
   },
@@ -351,8 +355,8 @@ const es: Textos = {
     "longBio": [
       "Soy Analista de Sistemas en DIGIHUB Tecnologia. Trabajo con automatización Java, integraciones REST, reglas JavaScript, SQL y procesos Lecom BPM, con RPA en Roberty Studio.",
       "Investigo solicitudes de soporte, código y bases de datos, implemento correcciones y acompaño las pruebas y publicaciones. Utilizo Jira, Git y GitLab para seguir las entregas.",
-      "En Nexum Tecnologia trabajé con procesos financieros, integraciones de API y MCP. En proyectos propios también desarrollo con PHP, Symfony y Laravel, con pruebas e integración continua.",
-      "Estudio Ciencias de la Computación en UNISAGRADO. ConectAgente, mi proyecto de investigación en salud pública, fue seleccionado por la incubadora Saruê de UNESP Bauru. IA y procesamiento de imágenes forman parte de mis estudios y proyectos académicos."
+      "En Nexum Tecnologia trabajé con procesos financieros, integraciones de API y MCP. En proyectos propios utilizo PHP, Symfony, Laravel y Spring Boot, incluidos microservicios con Kafka, pruebas e integración continua.",
+      "Estudio Ciencias de la Computación en UNISAGRADO. ConectAgente, mi proyecto de investigación en salud pública, fue seleccionado para Saruê, incubadora de UNESP Bauru. En Cardiocam desarrollo una herramienta experimental para investigar señales cardíacas mediante vídeo."
     ]
   },
   "trabalho": {
@@ -370,7 +374,7 @@ const es: Textos = {
       },
       "parceria": {
         "titulo": "Investigación aplicada",
-        "nota": "Investigación universitaria en salud pública con desarrollo móvil y web."
+        "nota": "Salud pública, procesamiento de imágenes y señales e investigación preparatoria de tesis."
       }
     },
     "acervo": "Otros proyectos y trabajos académicos",
@@ -384,6 +388,7 @@ const es: Textos = {
       "demo": "abrir demostración",
       "github": "código en GitHub",
       "ide": "explorar código en la IDE",
+      "presentation": "leer presentación en la IDE",
       "demoBadge": "demostración",
       "simulationBadge": "simulación",
       "access": "acceso de demostración"
@@ -401,6 +406,7 @@ const es: Textos = {
       "trabalho": "trabajo profesional",
       "integracoes": "integraciones y herramientas",
       "backend": "back-end en proyectos",
+      "arquitetura": "arquitectura en proyectos",
       "interface": "interfaces en proyectos",
       "dados": "datos en proyectos",
       "qualidade": "calidad e infraestructura",
