@@ -56,6 +56,7 @@ export function useIDE() {
       state.openPaths = [...state.openPaths, path];
     }
     state.activePath = path;
+    if (!file.runnable) state.runPanelOpen = false;
     expandAncestors(path);
     notify();
   }, []);
@@ -65,12 +66,14 @@ export function useIDE() {
     if (state.activePath === path) {
       state.activePath = state.openPaths[state.openPaths.length - 1] ?? "";
     }
+    if (!filesByPath.get(state.activePath)?.runnable) state.runPanelOpen = false;
     notify();
   }, []);
 
   const activate = useCallback((path: string) => {
     if (!filesByPath.has(path)) return;
     state.activePath = path;
+    if (!filesByPath.get(path)?.runnable) state.runPanelOpen = false;
     if (!state.openPaths.includes(path)) {
       state.openPaths = [...state.openPaths, path];
     }
@@ -109,7 +112,7 @@ export function useIDE() {
   }, []);
 
   const setRunPanel = useCallback((v: boolean) => {
-    state.runPanelOpen = v;
+    state.runPanelOpen = v && Boolean(filesByPath.get(state.activePath)?.runnable);
     notify();
   }, []);
 
