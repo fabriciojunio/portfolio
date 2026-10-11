@@ -109,7 +109,7 @@ const pt: Textos = {
     "trocarIdioma": "Trocar idioma"
   },
   "hero": {
-    "disponivel": "Disponível para oportunidades",
+    "disponivel": "Disponível",
     "verTrabalho": "Ver trabalho",
     "conversar": "Conversar"
   },
@@ -221,7 +221,7 @@ const en: Textos = {
     "trocarIdioma": "Change language"
   },
   "hero": {
-    "disponivel": "Open to opportunities",
+    "disponivel": "Available",
     "verTrabalho": "See the work",
     "conversar": "Get in touch"
   },
@@ -333,7 +333,7 @@ const es: Textos = {
     "trocarIdioma": "Cambiar idioma"
   },
   "hero": {
-    "disponivel": "Disponible para oportunidades",
+    "disponivel": "Disponible",
     "verTrabalho": "Ver proyectos",
     "conversar": "Hablemos"
   },
