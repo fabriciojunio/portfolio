@@ -10,7 +10,7 @@ export const profileJson: VFile = {
     cargo: SOBRE.cargo,
     cidade: SOBRE.cidade,
     empresa: "DIGIHUB Tecnologia",
-    disponibilidade: "Disponível para oportunidades",
+    disponibilidade: "Disponível",
     foco: "Desenvolvimento, integrações e sustentação de software",
     formacao: "Ciência da Computação, UNISAGRADO",
     trabalho: STACK_GROUPS.filter(g => ["trabalho", "integracoes"].includes(g.label)).flatMap(g => g.items),

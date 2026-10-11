@@ -6,7 +6,7 @@ test("destaques, roteiro e expansão dos acadêmicos", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Analista de Sistemas/);
   await expect(page.getByText("Analista de Sistemas", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Disponível para oportunidades", { exact: true })).toBeVisible();
+  await expect(page.getByText("Disponível", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /LinkedIn in\/fabríciojúnio/ })).toHaveAttribute("href", "https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/");
   const vitrine = page.locator("#work-vitrine-bauru");
   await vitrine.getByRole("button").click();
