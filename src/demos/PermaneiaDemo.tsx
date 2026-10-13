@@ -98,8 +98,9 @@ export default function PermaneiaDemo() {
   return (
     <div className="space-y-4 text-sm">
       <p className="text-xs leading-relaxed text-neutral-400">
-        Sistema fuzzy de Mamdani com 27 regras que estima risco de evasão. Mexa nos três sinais e
-        compare com o critério que a maioria das secretarias usa hoje, que é olhar só a média.
+        Simulação de um sistema fuzzy de Mamdani com 27 regras. Altere os três sinais e
+        compare com uma referência simplificada por nota. O score é heurístico, não uma
+        probabilidade de evasão validada com alunos reais.
       </p>
 
       <div className="flex flex-wrap gap-2">
@@ -168,8 +169,8 @@ export default function PermaneiaDemo() {
         </p>
         {divergem && (
           <p className="mt-1 text-[11px] leading-relaxed text-neutral-100/80">
-            É este o aluno que o critério da secretaria não enxerga: o abandono é precedido por
-            desengajamento, não por queda de nota.
+            Neste exemplo sintético, os critérios produzem alertas diferentes. A diferença
+            ilustra as regras; não demonstra qual delas prevê melhor a evasão real.
           </p>
         )}
       </div>
