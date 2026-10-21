@@ -129,7 +129,7 @@ export default function CommandPalette() {
               }
             }}
             placeholder="digite um comando ou arquivo..."
-            className="flex-1 bg-transparent outline-none text-[#ededed] text-[13px] placeholder:text-[#6b6b6b]"
+            className="flex-1 bg-transparent outline-hidden text-[#ededed] text-[13px] placeholder:text-[#6b6b6b]"
             aria-label="Buscar comando"
           />
           <span className="text-[10px] text-[#6b6b6b] ml-2">esc</span>
@@ -243,7 +243,7 @@ export function QuickOpen() {
               }
             }}
             placeholder="digite parte do nome do arquivo..."
-            className="flex-1 bg-transparent outline-none text-[#ededed] text-[13px] placeholder:text-[#6b6b6b]"
+            className="flex-1 bg-transparent outline-hidden text-[#ededed] text-[13px] placeholder:text-[#6b6b6b]"
             aria-label="Buscar arquivo"
           />
           <span className="text-[10px] text-[#6b6b6b] ml-2">esc</span>

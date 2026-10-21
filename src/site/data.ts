@@ -13,6 +13,7 @@ export interface SiteProject {
   flow: string[];
   idePath: string;
   sourcePath?: string;
+  sourceBranch?: string;
   presentationOnly?: boolean;
   labDemo?: string;
   year: string;
@@ -202,7 +203,8 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "Execute o ambiente local para avaliar o backend completo."
     ],
     "idePath": "/projetos/authcore.ts",
-    "sourcePath": "backend/src/services/token.service.ts"
+    "sourcePath": "backend/src/services/token.service.ts",
+    "sourceBranch": "produção"
   },
   {
     "slug": "codereview-ai",

@@ -39,7 +39,7 @@ export default function Tabs() {
                   e.stopPropagation();
                   close(path);
                 }}
-                className="text-[#6b6b6b] hover:text-[#ededed] p-0.5 rounded-sm opacity-60 group-hover:opacity-100"
+                className="text-[#6b6b6b] hover:text-[#ededed] p-0.5 rounded-xs opacity-60 group-hover:opacity-100"
               >
                 <CloseIcon size={11} />
               </button>
