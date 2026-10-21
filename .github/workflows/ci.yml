@@ -1,10 +1,10 @@
-﻿name: Portfolio CI
+name: Portfolio CI
 
 on:
   push:
-    branches: [main, "melhorias/**"]
+    branches: ["produção", "homologação", "melhorias/**"]
   pull_request:
-    branches: [main]
+    branches: ["produção", "homologação"]
 
 # Menor privilégio: o CI só precisa ler o repositório.
 permissions:
