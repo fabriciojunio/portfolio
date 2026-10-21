@@ -80,7 +80,7 @@ export default function ZodDemo() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-3">
-        <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 space-y-2">
+        <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3 space-y-2">
           <Field label="tipo" value={f.tipo} onChange={set("tipo")} error={errorFor("tipo")} hint="desenvolvimento · suporte · reuniao · retrabalho ..." />
           <Field label="data" value={f.data} onChange={set("data")} error={errorFor("data")} />
           <Field label="horas" value={f.horas} onChange={set("horas")} error={errorFor("horas")} hint="0.5 a 24 (decimal)" />
@@ -95,13 +95,13 @@ export default function ZodDemo() {
           />
         </div>
 
-        <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+        <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3">
           <div className="flex items-center justify-between">
             <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b]">
               resultado do parse
             </div>
             <span
-              className="text-[11px] px-2 py-0.5 rounded-sm border"
+              className="text-[11px] px-2 py-0.5 rounded-xs border"
               style={{
                 color: result.ok ? "#ededed" : "#8a8a8a",
                 borderColor: result.ok ? "#ededed66" : "#8a8a8a66",
@@ -166,7 +166,7 @@ function Field({
           rows={2}
           className={`mt-0.5 w-full bg-[#151515] border ${
             error ? "border-[#8a8a8a88]" : "border-[#262626]"
-          } rounded-sm px-2 py-1 text-[#ededed] outline-none focus:border-[#ffffff]`}
+          } rounded-xs px-2 py-1 text-[#ededed] outline-hidden focus:border-[#ffffff]`}
         />
       ) : (
         <input
@@ -174,7 +174,7 @@ function Field({
           onChange={(e) => onChange(e.target.value)}
           className={`mt-0.5 w-full bg-[#151515] border ${
             error ? "border-[#8a8a8a88]" : "border-[#262626]"
-          } rounded-sm px-2 py-1 text-[#ededed] outline-none focus:border-[#ffffff]`}
+          } rounded-xs px-2 py-1 text-[#ededed] outline-hidden focus:border-[#ffffff]`}
           spellCheck={false}
         />
       )}

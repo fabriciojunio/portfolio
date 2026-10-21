@@ -79,7 +79,7 @@ export default function Welcome() {
           <button
             type="button"
             onClick={openDemo}
-            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#ffffff] text-[#0c0c0c] font-medium hover:brightness-110"
+            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-xs bg-[#ffffff] text-[#0c0c0c] font-medium hover:brightness-110"
           >
             ▸ simular a lógica fuzzy da PermaneIA
           </button>
@@ -89,7 +89,7 @@ export default function Welcome() {
               close();
               ide.open("/sobre.md");
             }}
-            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-sm bg-[#0c0c0c] border border-[#262626] text-[#ededed] hover:border-[#ffffff]"
+            className="flex-1 text-[12.5px] px-4 py-2.5 rounded-xs bg-[#0c0c0c] border border-[#262626] text-[#ededed] hover:border-[#ffffff]"
           >
             ler sobre mim
           </button>
@@ -116,7 +116,7 @@ export default function Welcome() {
 
 function Tip({ k, v }: { k: string; v: string }) {
   return (
-    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-2.5">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-2.5">
       <div className="text-[10px] uppercase tracking-[1.2px] text-[#ffffff]">
         {k}
       </div>

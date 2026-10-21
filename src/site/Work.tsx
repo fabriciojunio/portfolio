@@ -94,7 +94,7 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
           <Link href={`/lab?arquivo=${encodeURIComponent(project.idePath)}`}>{project.presentationOnly ? c.presentation : c.ide} ↗</Link>
           {project.labDemo && <Link href={`/lab?arquivo=${encodeURIComponent(project.labDemo)}&run=1`}>{t.trabalho.verDemo} ↗</Link>}
         </div>
-        {project.demoAcesso && <p className="font-mono text-[11px] text-[#9a9a9a] break-words">{c.access}: {project.demoAcesso}</p>}
+        {project.demoAcesso && <p className="font-mono text-[11px] text-[#9a9a9a] wrap-break-word">{c.access}: {project.demoAcesso}</p>}
       </div>
       <div className="min-w-0">
         <p className="mb-3 font-mono text-[10px] text-[#9a9a9a]">{project.presentationOnly ? c.presentation : project.sourcePath ? project.sourcePath : "Exemplo simplificado do projeto"}</p>

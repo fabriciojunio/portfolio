@@ -16,7 +16,7 @@ export default function Hero({ onScrollTo }: Props) {
   return (
     <section
       id="topo"
-      className="relative min-h-[100svh] pt-24 md:pt-28 pb-16 overflow-hidden"
+      className="relative min-h-svh pt-24 md:pt-28 pb-16 overflow-hidden"
     >
       {/*
         No lugar do brilho radial que ficava aqui: uma régua fina, alinhada à
@@ -25,7 +25,7 @@ export default function Hero({ onScrollTo }: Props) {
       */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-6 md:left-10 w-px bg-white/[0.06]"
+        className="pointer-events-none absolute inset-y-0 left-6 md:left-10 w-px bg-white/6"
       />
 
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 grid lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center min-h-[80svh]">
@@ -120,7 +120,7 @@ function Marquee({ items }: { items: string[] }) {
   const doubled = [...items, ...items];
   return (
     <div className="absolute bottom-0 left-0 right-0 border-t border-white/5 bg-[#0a0a0a]/60 overflow-hidden">
-      <div className="flex items-center gap-12 py-5 px-6 md:px-10 animate-[marquee_36s_linear_infinite] whitespace-nowrap">
+      <div className="flex items-center gap-12 py-5 px-6 md:px-10 animate-marquee whitespace-nowrap">
         {doubled.map((it, i) => (
           <span
             key={i}

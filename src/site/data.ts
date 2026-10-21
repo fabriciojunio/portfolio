@@ -204,7 +204,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     ],
     "idePath": "/projetos/authcore.ts",
     "sourcePath": "backend/src/services/token.service.ts",
-    "sourceBranch": "master"
+    "sourceBranch": "produção"
   },
   {
     "slug": "codereview-ai",

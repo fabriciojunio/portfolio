@@ -164,7 +164,7 @@ export default function Terminal() {
             spellCheck={false}
             autoCapitalize="none"
             autoComplete="off"
-            className="flex-1 bg-transparent outline-none border-0 text-[#ededed] caret-[#ffffff]"
+            className="flex-1 bg-transparent outline-hidden border-0 text-[#ededed] caret-[#ffffff]"
             aria-label="Entrada do terminal"
           />
         </div>
