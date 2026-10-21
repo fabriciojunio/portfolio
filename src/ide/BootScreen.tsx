@@ -68,7 +68,7 @@ export default function BootScreen({ onDone }: Props) {
       onClick={skip}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
-      className="fixed inset-0 z-[60] bg-[#0c0c0c] text-[#ededed] font-mono flex flex-col cursor-pointer"
+      className="fixed inset-0 z-60 bg-[#0c0c0c] text-[#ededed] font-mono flex flex-col cursor-pointer"
     >
       <div className="flex-1 flex items-center justify-center">
         <div className="w-full max-w-2xl px-6">

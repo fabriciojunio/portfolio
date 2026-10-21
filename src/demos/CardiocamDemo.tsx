@@ -81,7 +81,7 @@ export default function CardiocamDemo() {
         />
       </div>
 
-      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 text-[11px] text-[#6b6b6b] leading-relaxed">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3 text-[11px] text-[#6b6b6b] leading-relaxed">
         Suba a <span className="text-[#9a9a9a]">luz oscilando</span>. A variação
         atinge os três canais de uma vez, e o GREEN não tem como distinguir isso
         de sangue: ele passa a medir a lâmpada. O POS projeta num plano
@@ -124,7 +124,7 @@ function Traçado({
   const cor = erro <= 2 ? "#ededed" : erro <= 6 ? "#b8b8b8" : "#8a8a8a";
 
   return (
-    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3">
       <div className="flex items-baseline justify-between mb-2">
         <div>
           <span className="text-[11px] uppercase tracking-[1.2px] text-[#ededed]">
@@ -149,7 +149,7 @@ function Traçado({
         <path d={caminho} fill="none" stroke={cor} strokeWidth="1.2" />
       </svg>
 
-      <div className="mt-1.5 flex items-end gap-[1px] h-[34px]">
+      <div className="mt-1.5 flex items-end gap-px h-[34px]">
         {espectro.map((m, i) => (
           <div
             key={i}

@@ -70,7 +70,7 @@ export default function VagasDemo() {
         motor de score do JIS (pesos: remoto 30% · stack match 25% · senioridade 20% · salário 15% · tier 10%).
       </p>
 
-      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3">
         <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b] mb-2">
           sua stack (selecione)
         </div>
@@ -82,7 +82,7 @@ export default function VagasDemo() {
                 type="button"
                 key={s}
                 onClick={() => toggle(s)}
-                className={`text-[11px] px-2 py-[3px] rounded-sm border transition-colors ${on ? "border-[#ffffff] text-[#ffffff] bg-[#151515]" : "border-[#262626] text-[#9a9a9a] hover:text-[#ededed]"}`}
+                className={`text-[11px] px-2 py-[3px] rounded-xs border transition-colors ${on ? "border-[#ffffff] text-[#ffffff] bg-[#151515]" : "border-[#262626] text-[#9a9a9a] hover:text-[#ededed]"}`}
               >
                 {s}
               </button>
@@ -95,7 +95,7 @@ export default function VagasDemo() {
         {ranked.map(({ v, s }, i) => (
           <li
             key={v.empresa}
-            className="flex items-stretch bg-[#0c0c0c] border border-[#262626] rounded p-3"
+            className="flex items-stretch bg-[#0c0c0c] border border-[#262626] rounded-sm p-3"
           >
             <div className="w-8 text-[#6b6b6b] text-[11px] mr-2">
               {String(i + 1).padStart(2, "0")}.
@@ -116,7 +116,7 @@ export default function VagasDemo() {
                   return (
                     <span
                       key={t}
-                      className="text-[10.5px] px-1.5 py-[1px] rounded-sm border"
+                      className="text-[10.5px] px-1.5 py-px rounded-xs border"
                       style={{
                         color: match ? "#ffffff" : "#6b6b6b",
                         borderColor: match ? "#ffffff66" : "#262626",
