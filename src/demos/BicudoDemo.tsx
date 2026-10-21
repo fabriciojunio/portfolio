@@ -54,7 +54,7 @@ export default function BicudoDemo() {
       <Grafico titulo="troca a velocidade (o jogo)" voo={troca} cor="#ededed" />
       <Grafico titulo="soma à velocidade" voo={soma} cor="#8a8a8a" />
 
-      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 space-y-2">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3 space-y-2">
         <Linha
           rotulo="altura máxima trocando"
           valor={`${troca.alturaMaxima.toFixed(1)} un`}
@@ -110,7 +110,7 @@ function Grafico({
     .join(" ");
 
   return (
-    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3">
       <div className="mb-2 flex justify-between text-[10.5px]">
         <span className="text-[#9a9a9a]">{titulo}</span>
         <span style={{ color: voo.saiuPeloTeto ? "#8a8a8a" : "#6b6b6b" }}>

@@ -62,7 +62,7 @@ export default function KaidaDemo() {
         />
       </div>
 
-      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3 space-y-3">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3 space-y-3">
         <Faixa
           titulo="chão"
           cor="#383838"
@@ -91,7 +91,7 @@ export default function KaidaDemo() {
         </div>
       </div>
 
-      <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+      <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3">
         <div className="flex justify-between text-[11.5px]">
           <span className="text-[#9a9a9a]">resultado</span>
           <span style={{ color: quadroDoPulo === null ? "#8a8a8a" : "#ededed" }}>
@@ -127,7 +127,7 @@ function Faixa({
       <span className="w-[54px] shrink-0 text-[10.5px] text-[#9a9a9a] text-right">
         {titulo}
       </span>
-      <div className="flex-1 flex gap-[1px] h-[16px]">
+      <div className="flex-1 flex gap-px h-[16px]">
         {celulas.map((v, i) => (
           <div
             key={i}

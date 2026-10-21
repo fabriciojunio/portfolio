@@ -33,7 +33,7 @@ export default function ProjectMeta({ file }: Props) {
           {m.stack.map((s) => (
             <span
               key={s}
-              className="text-[10.5px] px-2 py-[2px] rounded-sm border border-[#262626] bg-[#191919] text-[#b8b8b8]"
+              className="text-[10.5px] px-2 py-[2px] rounded-xs border border-[#262626] bg-[#191919] text-[#b8b8b8]"
             >
               {s}
             </span>

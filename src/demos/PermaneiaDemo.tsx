@@ -98,8 +98,9 @@ export default function PermaneiaDemo() {
   return (
     <div className="space-y-4 text-sm">
       <p className="text-xs leading-relaxed text-neutral-400">
-        Sistema fuzzy de Mamdani com 27 regras que estima risco de evasão. Mexa nos três sinais e
-        compare com o critério que a maioria das secretarias usa hoje, que é olhar só a média.
+        Simulação de um sistema fuzzy de Mamdani com 27 regras. Altere os três sinais e
+        compare com uma referência simplificada por nota. O score é heurístico, não uma
+        probabilidade de evasão validada com alunos reais.
       </p>
 
       <div className="flex flex-wrap gap-2">
@@ -112,7 +113,7 @@ export default function PermaneiaDemo() {
               setNotas(p.notas);
               setAcessos(p.acessos);
             }}
-            className="rounded border border-neutral-700 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-500 hover:text-neutral-100"
+            className="rounded-sm border border-neutral-700 px-2 py-1 text-xs text-neutral-300 hover:border-neutral-500 hover:text-neutral-100"
           >
             {p.nome}
           </button>
@@ -125,7 +126,7 @@ export default function PermaneiaDemo() {
         <Controle rotulo="Acessos" valor={acessos} min={0} max={40} passo={1} sufixo="" onChange={setAcessos} />
       </div>
 
-      <div className="rounded border border-neutral-800 bg-neutral-900/60 p-3">
+      <div className="rounded-sm border border-neutral-800 bg-neutral-900/60 p-3">
         <div className="flex items-baseline justify-between">
           <span className="text-xs text-neutral-400">Score defuzzificado pelo centroide</span>
           <span className="font-mono text-lg font-bold" style={{ color: COR[r.faixa] }}>
@@ -168,8 +169,8 @@ export default function PermaneiaDemo() {
         </p>
         {divergem && (
           <p className="mt-1 text-[11px] leading-relaxed text-neutral-100/80">
-            É este o aluno que o critério da secretaria não enxerga: o abandono é precedido por
-            desengajamento, não por queda de nota.
+            Neste exemplo sintético, os critérios produzem alertas diferentes. A diferença
+            ilustra as regras; não demonstra qual delas prevê melhor a evasão real.
           </p>
         )}
       </div>
@@ -180,7 +181,7 @@ export default function PermaneiaDemo() {
         </p>
         <ul className="space-y-1">
           {r.disparadas.slice(0, 3).map((d) => (
-            <li key={d.id} className="rounded border border-neutral-800 bg-neutral-900/40 p-2 text-[11px]">
+            <li key={d.id} className="rounded-sm border border-neutral-800 bg-neutral-900/40 p-2 text-[11px]">
               <span className="font-mono text-neutral-500">regra {d.id}</span>{" "}
               <span className="font-mono" style={{ color: COR[d.entao] }}>
                 força {d.forca.toFixed(2)} → {d.entao}

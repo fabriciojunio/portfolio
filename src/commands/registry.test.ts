@@ -59,7 +59,7 @@ describe("terminal command registry", () => {
 
   it("git status devolve mensagem realista", () => {
     const r = runCommand("git status", baseCtx());
-    expect(r.lines.join("\n")).toContain("On branch main");
+    expect(r.lines.join("\n")).toContain("Na branch produção");
   });
   it("as sugestões de abertura apontam para arquivos disponíveis", () => {
     for (const command of SUGGESTIONS.filter(s => s.startsWith("open "))) {

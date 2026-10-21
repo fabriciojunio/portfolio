@@ -94,7 +94,7 @@ function Btn({
     <button
       type="button"
       onClick={onClick}
-      className="text-[11.5px] px-2.5 py-1.5 rounded-sm bg-[#0c0c0c] border border-[#262626] text-[#9a9a9a] hover:text-[#ededed] hover:border-[#ffffff]"
+      className="text-[11.5px] px-2.5 py-1.5 rounded-xs bg-[#0c0c0c] border border-[#262626] text-[#9a9a9a] hover:text-[#ededed] hover:border-[#ffffff]"
     >
       {children}
     </button>
