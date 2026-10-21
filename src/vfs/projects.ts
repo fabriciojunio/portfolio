@@ -19,7 +19,7 @@ export const projectFiles: VFile[] = PROJECTS.map(p => ({
   meta: {
     project: p.name,
     presentationOnly: p.presentationOnly,
-    source: p.sourcePath && p.github ? `${p.github}/blob/main/${p.sourcePath}` : undefined,
+    source: p.sourcePath && p.github ? `${p.github}/blob/${encodeURIComponent(p.sourceBranch ?? "produção")}/${p.sourcePath}` : undefined,
     github: p.github ?? undefined,
     demo: p.demo,
     demoAcesso: p.demoAcesso,

@@ -19,7 +19,7 @@ export default function TitleBar() {
       <button
         type="button"
         onClick={() => setPalette(true)}
-        className="flex-1 mx-2 my-1 h-6 rounded-sm bg-[#151515] hover:bg-[#191919] border border-[#1c1c1c] text-center text-[#9a9a9a] hover:text-[#ededed] transition-colors"
+        className="flex-1 mx-2 my-1 h-6 rounded-xs bg-[#151515] hover:bg-[#191919] border border-[#1c1c1c] text-center text-[#9a9a9a] hover:text-[#ededed] transition-colors"
         title="Paleta de comandos (Ctrl/⌘+K)"
       >
         <span className="text-[#6b6b6b]">⌕</span>

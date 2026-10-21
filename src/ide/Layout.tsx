@@ -55,7 +55,7 @@ export default function Layout() {
   }, [ide]);
 
   return (
-    <div className="h-[100dvh] w-screen flex flex-col bg-[#0c0c0c] text-[#ededed] overflow-hidden">
+    <div className="h-dvh w-screen flex flex-col bg-[#0c0c0c] text-[#ededed] overflow-hidden">
       <TitleBar />
       <div className="flex-1 flex min-h-0">
         <Activity
