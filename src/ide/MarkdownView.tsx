@@ -164,7 +164,7 @@ function renderBlock(b: Block, key: number) {
       return (
         <pre
           key={key}
-          className="my-4 bg-[#0c0c0c] border border-[#262626] rounded p-3 overflow-x-auto"
+          className="my-4 bg-[#0c0c0c] border border-[#262626] rounded-sm p-3 overflow-x-auto"
         >
           <code className="font-mono text-[12.5px] text-[#c4c4c4] whitespace-pre">
             {b.code}
@@ -191,7 +191,7 @@ function renderInline(text: string) {
         out.push(
           <code
             key={key++}
-            className="font-mono text-[12.5px] px-1 py-[1px] rounded bg-[#151515] border border-[#1c1c1c] text-[#d4d4d4]"
+            className="font-mono text-[12.5px] px-1 py-px rounded-sm bg-[#151515] border border-[#1c1c1c] text-[#d4d4d4]"
           >
             {text.slice(i + 1, end)}
           </code>,

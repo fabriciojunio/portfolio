@@ -27,7 +27,7 @@ export default function StatusBar() {
     >
       <span className="flex items-center gap-1.5 px-3 text-[#ffffff]">
         <GitBranchIcon size={11} />
-        main
+        produção
       </span>
       <span className="hidden md:flex items-center px-3 border-l border-[#1c1c1c]">
         {PROJECT_COUNT} projetos · {TOTAL_FILES} arquivos

@@ -7,6 +7,7 @@ test("destaques, roteiro e expansão dos acadêmicos", async ({ page }) => {
   await expect(page).toHaveTitle(/Analista de Sistemas/);
   await expect(page.getByText("Analista de Sistemas", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Disponível", { exact: true })).toBeVisible();
+  await page.screenshot({ path: test.info().outputPath("inicio.png"), animations: "disabled" });
   await expect(page.getByRole("link", { name: /LinkedIn in\/fabríciojúnio/ })).toHaveAttribute("href", "https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/");
   const vitrine = page.locator("#work-vitrine-bauru");
   await vitrine.getByRole("button").click();
@@ -32,6 +33,8 @@ test("destaques, roteiro e expansão dos acadêmicos", async ({ page }) => {
   await expect(page.locator("#work-permaneia")).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(errors).toEqual([]);
+  await page.locator("#trabalho").scrollIntoViewIfNeeded();
+  await page.screenshot({ path: test.info().outputPath("projetos.png"), animations: "disabled" });
 });
 
 test("a IDE abre o projeto solicitado sem painel de execução indevido", async ({ page, isMobile }) => {
@@ -40,6 +43,7 @@ test("a IDE abre o projeto solicitado sem painel de execução indevido", async 
   await page.goto("/lab?arquivo=%2Fprojetos%2Falmanaque.php&run=1");
   await expect(page.getByText("Almanaque", { exact: true })).toBeVisible();
   await expect(page.locator(".monaco-editor")).toBeVisible();
+  await expect(page.getByRole("status", { name: "Inicializando IDE" })).toBeHidden();
   await expect(page.getByRole("complementary", { name: "Painel de execução" })).toHaveCount(0);
   await expect(page.getByRole("dialog", { name: "Bem-vindo" })).toHaveCount(0);
   if (isMobile) {
@@ -51,6 +55,7 @@ test("a IDE abre o projeto solicitado sem painel de execução indevido", async 
     await expect(page.getByText(/A busca publicada usa o banco/)).toBeHidden();
   }
   expect(errors).toEqual([]);
+  await page.screenshot({ path: test.info().outputPath("ide.png"), animations: "disabled" });
 });
 
 test("a simulação executa e responde às entradas", async ({ page }) => {

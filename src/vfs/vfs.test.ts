@@ -40,9 +40,9 @@ describe("virtual file system", () => {
     }
   });
 
-  it("abre o código do AuthCore na branch publicada master", () => {
+  it("abre o código do AuthCore na branch publicada produção", () => {
     expect(filesByPath.get("/projetos/authcore.ts")?.meta?.source)
-      .toBe("https://github.com/fabriciojunio/authcore/blob/master/backend/src/services/token.service.ts");
+      .toBe("https://github.com/fabriciojunio/authcore/blob/produ%C3%A7%C3%A3o/backend/src/services/token.service.ts");
   });
 
   it("TREE tem nó raiz fabricio-junio", () => {
