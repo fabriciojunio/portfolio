@@ -18,7 +18,7 @@ export default function Contact() {
           {t.contato.secao}
         </m.p>
 
-        <m.h2 variants={fadeUp} className="mt-5 font-serif text-[54px] md:text-[80px] lg:text-[110px] leading-[1.0] text-[#ededed] tracking-[-0.02em]">
+        <m.h2 variants={fadeUp} className="mt-5 font-serif text-[54px] md:text-[80px] lg:text-[110px] leading-none text-[#ededed] tracking-[-0.02em]">
           {t.contato.titulo[0]}
           <br />
           <span className="text-[#ffffff]">{t.contato.titulo[1]}</span>{t.contato.titulo[2]}

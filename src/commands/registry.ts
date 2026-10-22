@@ -199,7 +199,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
         return {
           lines: [
             "Workspace virtual, somente leitura.",
-            "On branch main (referência do portfólio).",
+            "Na branch produção (referência do portfólio).",
             "Consulte o GitHub para o estado real do repositório.",
           ],
         };
@@ -208,7 +208,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
         return {
           lines: [
             "Histórico real do portfólio:",
-            "https://github.com/fabriciojunio/portfolio/commits/main/",
+            "https://github.com/fabriciojunio/portfolio/commits/produ%C3%A7%C3%A3o/",
           ],
         };
       }

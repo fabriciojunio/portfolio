@@ -209,7 +209,7 @@ export default function ContafluxDemo() {
             width={W}
             height={H}
             viewBox={`0 0 ${W} ${H}`}
-            className="bg-[#0c0c0c] border border-[#262626] rounded select-none"
+            className="bg-[#0c0c0c] border border-[#262626] rounded-sm select-none"
             onMouseMove={aoMover}
             onMouseUp={() => setArrastando(null)}
             onMouseLeave={() => setArrastando(null)}
@@ -340,7 +340,7 @@ function Row({ k, v, color }: { k: string; v: string; color?: string }) {
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-[#0c0c0c] border border-[#262626] rounded p-3">
+    <div className="bg-[#0c0c0c] border border-[#262626] rounded-sm p-3">
       <div className="text-[10px] uppercase tracking-[1.2px] text-[#6b6b6b] mb-2">
         {title}
       </div>
