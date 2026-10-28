@@ -1,5 +1,7 @@
 # Portfólio de Fabrício Júnio
 
+*[Read this in English](README.en.md)*
+
 **Analista de Sistemas: desenvolvimento, integrações e sustentação de software.**
 
 [Portfólio publicado](https://portfolio-a3qn.vercel.app) · [IDE no navegador](https://portfolio-a3qn.vercel.app/lab)
@@ -34,7 +36,7 @@ npm run test:e2e
 npm run preview
 ```
 
-Os testes verificam catálogo, tradução, expansão dos projetos, roteiros, links, abertura da IDE, algoritmos das simulações, terminal e configuração de segurança. O CI executa auditoria de dependências de produção, lint, testes, build e navegação no desktop e no celular.
+Os testes verificam catálogo, tradução, expansão dos projetos, roteiros, links, abertura da IDE, algoritmos das simulações, terminal e configuração de segurança. O CI executa auditoria de dependências, lint, testes, build e navegação no desktop e no celular. O fluxo de segurança roda CodeQL, gitleaks e OSV-Scanner a cada push, e o OWASP ZAP varre o site publicado toda semana e a cada publicação. Detalhes em [SECURITY.md](SECURITY.md).
 
 ## IDE
 

@@ -1,5 +1,7 @@
 # Segurança
 
+*[Read this in English](SECURITY.en.md)*
+
 Este é um portfólio estático (React + Vite) servido pela Vercel. Não há
 backend, banco de dados, autenticação nem dado de usuário: todo o conteúdo é
 público e roda no browser. O que dá para atacar aqui é o browser de quem
@@ -7,9 +9,10 @@ visita, e é para isso que a configuração abaixo olha.
 
 ## Como reportar
 
-Achou algo? Manda um email para junioad555@gmail.com com o que encontrou e, se
-der, um passo a passo para reproduzir. Respondo assim que possível. Nada de
-scanner automático despejado sem contexto, por favor.
+Achou algo? Use o aviso privado do GitHub (aba **Security**, **Report a
+vulnerability**) ou mande um email para junioad555@gmail.com com o que
+encontrou e, se der, um passo a passo para reproduzir. Respondo assim que
+possível. Nada de scanner automático despejado sem contexto, por favor.
 
 Há também um `/.well-known/security.txt`, no formato da RFC 9116.
 
@@ -60,7 +63,24 @@ tem para onde mandar dado nenhum.
   `document.write` em todo o `src/`. Isso é verificado por teste, arquivo a
   arquivo, e o próprio teste tem um teste que confere se os padrões ainda
   pegam o caso óbvio.
-- Dependências de produção sem vulnerabilidade conhecida (`npm audit`).
+- Nenhuma dependência com vulnerabilidade conhecida, inclusive as de
+  desenvolvimento: `npm audit` barra a partir de moderada.
+
+### No pipeline
+
+A cada push e pull request: CodeQL (`security-extended`) no código, gitleaks
+no histórico inteiro e OSV-Scanner no lockfile. Achado do CodeQL sem aceite
+registrado em `.github/codeql-accepted.json` reprova. Actions fixadas por SHA,
+permissão mínima de token e Dependabot com espera de sete dias.
+
+### DAST
+
+O OWASP ZAP roda no modo baseline contra o site publicado, toda segunda e a
+cada publicação em produção (`.github/workflows/dast.yml`). Baseline quer
+dizer passivo: o ZAP navega e analisa as respostas, sem mandar ataque. Roda
+contra a produção, e não contra o servidor local, porque os cabeçalhos moram
+no `vercel.json` e o Vite não os aplica. Alerta fora de `.zap/regras.tsv`
+reprova.
 
 ### Contra coleta de IA
 
