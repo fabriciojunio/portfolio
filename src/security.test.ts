@@ -189,6 +189,14 @@ describe("security", () => {
       expect(txt).toMatch(/^Policy:\s*https:\/\//m);
       expect(txt).toMatch(/^Canonical:\s*https:\/\//m);
     });
+
+    it("is canonical at this site's own address, and the policy is on the default branch", () => {
+      // A RFC 9116 exige que o Canonical seja onde o arquivo é servido. Ele já
+      // apontou para outro projeto publicado na Vercel, e a Policy para uma
+      // branch main que este repositório não tem.
+      expect(txt).toMatch(/^Canonical: https:\/\/portfolio-a3qn\.vercel\.app\/\.well-known\/security\.txt$/m);
+      expect(txt).toMatch(/^Policy: https:\/\/github\.com\/fabriciojunio\/portfolio\/blob\/produ%C3%A7%C3%A3o\/SECURITY\.md$/m);
+    });
   });
 
   describe("no dangerous sinks in the source", () => {
