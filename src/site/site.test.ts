@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PROJECTS, PROJETOS_EIXO, PROJETOS_PARCERIA, PROJETOS_ACERVO, SOBRE, STACK_GROUPS } from "./data";
+import { PROJECTS, PROJETOS_EIXO, PROJETOS_IA, PROJETOS_PARCERIA, PROJETOS_ACERVO, SOBRE, STACK_GROUPS } from "./data";
 import { DICIONARIO, IDIOMAS } from "./i18n";
 import { TRADUCOES } from "./i18n-projetos";
 import { ALL_FILES, filesByPath } from "../vfs";
@@ -13,9 +13,12 @@ describe("curadoria e coerência do portfólio", () => {
     expect(PROJETOS_PARCERIA.map(p => p.slug)).toEqual(["conectagente", "cardiocam", "lastro"]);
   });
   it("cada projeto pertence a um único grupo", () => {
-    const slugs = [...PROJETOS_EIXO, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug);
+    const slugs = [...PROJETOS_EIXO, ...PROJETOS_IA, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
     expect(slugs).toEqual(PROJECTS.map(p => p.slug));
+  });
+  it("mostra os projetos de IA aplicada em bloco próprio", () => {
+    expect(PROJETOS_IA.map(p => p.slug)).toEqual(["balcao", "guarita", "cautela", "verbete", "aurora"]);
   });
   it("preserva os trabalhos acadêmicos para consulta", () => {
     for (const slug of ["permaneia", "cardiocam", "baliza", "contaflux", "kaida", "bicudo", "laboratorio-vr"]) {
@@ -30,7 +33,8 @@ describe("curadoria e coerência do portfólio", () => {
     expect(lastro.meta?.github).toBeUndefined();
     expect(lastro.runnable).toBeUndefined();
     expect(lastro.content).toContain("Código e artefatos privados até a defesa");
-    for (const slug of ["anteparo", "cautela", "decurso", "prumo", "trato", "verbete", "quantbot-ml", "balcao", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
+    // Cautela, Verbete e Balcão saíram desta lista em 29/10/2026, quando os repositórios ficaram públicos.
+    for (const slug of ["anteparo", "decurso", "prumo", "trato", "quantbot-ml", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
       expect(PROJECTS.map(p => p.slug)).not.toContain(slug);
       expect(ALL_FILES.some(f => f.path.includes(`/${slug}.`))).toBe(false);
     }

@@ -65,6 +65,7 @@ export interface Textos {
     chamada: string;
     blocos: {
       ia: { titulo: string; nota: string };
+      llm: { titulo: string; nota: string };
       parceria: { titulo: string; nota: string };
     };
     acervo: string;
@@ -147,6 +148,10 @@ const pt: Textos = {
       "ia": {
         "titulo": "Desenvolvimento e integrações",
         "nota": "Projetos próprios e extensão com código, testes e fluxos documentados."
+      },
+      "llm": {
+        "titulo": "IA aplicada: agentes, RAG e modelos",
+        "nota": "Agentes com ferramentas, RAG e modelos medidos, com regras em código para o que não pode errar."
       },
       "parceria": {
         "titulo": "Pesquisa aplicada",
@@ -260,6 +265,10 @@ const en: Textos = {
         "titulo": "Development and integrations",
         "nota": "Personal and outreach projects with code, tests and documented workflows."
       },
+      "llm": {
+        "titulo": "Applied AI: agents, RAG and models",
+        "nota": "Agents with tools, RAG and measured models, with rules in code for what cannot go wrong."
+      },
       "parceria": {
         "titulo": "Applied research",
         "nota": "Public health, image and signal processing, and preparatory thesis research."
@@ -371,6 +380,10 @@ const es: Textos = {
       "ia": {
         "titulo": "Desarrollo e integraciones",
         "nota": "Proyectos propios y de extensión con código, pruebas y procesos documentados."
+      },
+      "llm": {
+        "titulo": "IA aplicada: agentes, RAG y modelos",
+        "nota": "Agentes con herramientas, RAG y modelos medidos, con reglas en código para lo que no puede fallar."
       },
       "parceria": {
         "titulo": "Investigación aplicada",
