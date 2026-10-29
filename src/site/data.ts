@@ -609,6 +609,162 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "Avalie as integrações com os provedores configurados no ambiente."
     ],
     "idePath": "/projetos/paiol-tech.ts"
+  },
+  {
+    "slug": "balcao",
+    "name": "Balcão",
+    "oneLine": "Agente de atendimento no WhatsApp que não inventa preço",
+    "what": "Agente para lojas de celular que atende, negocia e avalia aparelho usado no WhatsApp. O modelo entende o cliente e chama funções; preço, parcelamento e troca saem de código testado.",
+    "role": "Desenvolvi o orquestrador da conversa, as ferramentas, o auditor de saída e o painel com humano no circuito.",
+    "highlights": [
+      "Function calling com motores de preço determinísticos",
+      "Auditor que confere cada número antes do envio",
+      "Painel para assumir conversa, aprovar proposta e desligar o bot"
+    ],
+    "stack": [
+      "TypeScript",
+      "LLM",
+      "Ollama",
+      "PostgreSQL",
+      "WhatsApp Cloud API",
+      "Vitest"
+    ],
+    "github": "https://github.com/fabriciojunio/balcao",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "typescript",
+    "demoNote": "Não há demonstração publicada: o repositório roda uma conversa completa com npm run demo, sem banco, GPU nem WhatsApp.",
+    "flow": [
+      "Abra o repositório e rode npm run demo.",
+      "Acompanhe a negociação e a proposta de troca no terminal.",
+      "Leia o auditor que barra número inventado."
+    ],
+    "idePath": "/projetos/balcao.ts",
+    "snippet": "export function auditarMensagem(texto: string, contexto: ContextoAuditoria): ResultadoAuditoria {\n  const violacoes: Violacao[] = [];\n\n  if (/\\{\\{|\\}\\}/.test(texto)) {\n    violacoes.push({\n      tipo: \"marcador_nao_resolvido\",\n      trecho: texto.match(/\\{\\{[^}]*\\}\\}?/)?.[0] ?? \"{{\",\n      motivo: \"Sobrou marcador na mensagem final.\",\n    });\n  }\n\n  const textoNormalizado = semAcento(texto).toLowerCase();\n  for (const frase of contexto.frasesProibidas) {\n    const alvo = semAcento(frase).toLowerCase().trim();\n    if (alvo !== \"\" && textoNormalizado.includes(alvo)) {\n      violacoes.push({\n        tipo: \"frase_proibida\",\n        trecho: frase,\n        motivo: \"O agente não tem autorização para prometer isto.\",\n      });\n    }"
+  },
+  {
+    "slug": "guarita",
+    "name": "guarita",
+    "oneLine": "Assistente com RAG e MCP, atacado e defendido",
+    "what": "Assistente de suporte com busca em base de conhecimento e ferramentas MCP, com seis ataques do OWASP Top 10 para LLM escritos como testes.",
+    "role": "Desenvolvi o agente, o servidor MCP, os ataques e as defesas, e escrevi o relatório de red team.",
+    "highlights": [
+      "Injeção de prompt, exfiltração e ferramenta adulterada como testes",
+      "Defesas fora do modelo: sessão, confirmação humana e hash de ferramenta",
+      "31 testes, mypy estrito e relatório no padrão de mercado"
+    ],
+    "stack": [
+      "Python",
+      "MCP",
+      "RAG",
+      "pytest",
+      "mypy",
+      "OWASP LLM Top 10"
+    ],
+    "github": "https://github.com/fabriciojunio/guarita",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "python",
+    "demoNote": "Os ataques rodam como testes com um modelo que obedece qualquer instrução: é o pior caso, de propósito.",
+    "flow": [
+      "Leia o relatório de red team no repositório.",
+      "Rode pytest -v tests/test_ataques.py.",
+      "Compare cada ataque na versão vulnerável e na defendida."
+    ],
+    "idePath": "/projetos/guarita.py",
+    "snippet": "    @servidor.tool(\n        description=\"Lê um chamado de suporte pelo número, por exemplo CH-1001.\",\n        annotations=ToolAnnotations(read_only_hint=True),\n    )\n    def ler_chamado(numero: Annotated[str, Field(pattern=r\"^CH-\\d{4}$\")]) -> str:\n        chamado = CHAMADOS.get(numero)\n        # Mesma resposta para \"não existe\" e \"não é seu\", para não revelar quais números existem.\n        if chamado is None or (defendido and chamado.cliente != sessao.cliente):\n            raise ToolError(\"chamado não encontrado\")\n        return f\"{chamado.numero} | {chamado.assunto} | contato: {chamado.contato}\""
+  },
+  {
+    "slug": "cautela",
+    "name": "Cautela",
+    "oneLine": "Agente de investimentos que não recomenda nem inventa número",
+    "what": "Agente que responde perguntas sobre investimento só com número medido, cita a fonte e declara a limitação.",
+    "role": "Desenvolvi o agente, o acervo de fatos e o auditor que barra recomendação e número sem lastro.",
+    "highlights": [
+      "Auditor de saída independente do modelo",
+      "Toda resposta cita a fonte do número",
+      "Recusa explícita quando não há dado"
+    ],
+    "stack": [
+      "Python",
+      "LLM",
+      "Agentes",
+      "pytest"
+    ],
+    "github": "https://github.com/fabriciojunio/cautela",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "python",
+    "demoNote": "Roda pela linha de comando; o repositório traz o acervo e as instruções.",
+    "flow": [
+      "Abra o repositório e rode a interface de linha de comando.",
+      "Faça uma pergunta sobre fundos.",
+      "Veja o auditor recusar uma recomendação."
+    ],
+    "idePath": "/projetos/cautela.py",
+    "snippet": "def auditar(texto: str, fatos: list[Fato]) -> Veredicto:\n    \"\"\"Decide se a resposta pode sair como esta.\n\n    A ordem importa. Recomendacao e barrada antes de qualquer conferencia de\n    numero, porque uma resposta que recomenda com numero correto continua sendo\n    uma recomendacao.\n    \"\"\"\n    if contem_recomendacao(texto):\n        return Veredicto(False, \"recomendacao de investimento\", RECUSA_RECOMENDACAO)\n\n    if not fatos:\n        return Veredicto(False, \"sem fato no acervo\", RECUSA_SEM_FATO)\n\n    inventados = numeros_sem_lastro(texto, fatos)\n    if inventados:\n        return Veredicto(\n            False,\n            f\"numero fora do acervo: {', '.join(inventados)}\",\n            RECUSA_SEM_FATO,\n        )\n\n    return Veredicto(True)"
+  },
+  {
+    "slug": "verbete",
+    "name": "Verbete",
+    "oneLine": "Classificação de projetos de lei com abstenção medida",
+    "what": "Classificação multirrótulo de 4.500 projetos de lei em 32 temas, com abstenção e explicação, e a medição de um vazamento de anotação.",
+    "role": "Coletei os dados, treinei e avaliei o modelo, medi o vazamento e montei a curva de cobertura.",
+    "highlights": [
+      "Vazamento de anotação que inflava o resultado em 26%",
+      "Curva de cobertura: 80% respondido com micro-F1 de 0,604",
+      "41 testes e experimentos reproduzíveis"
+    ],
+    "stack": [
+      "Python",
+      "scikit-learn",
+      "NumPy",
+      "pandas",
+      "pytest"
+    ],
+    "github": "https://github.com/fabriciojunio/verbete",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "python",
+    "demoNote": "Os números e as figuras estão no repositório; os experimentos rodam em sequência.",
+    "flow": [
+      "Leia o resultado principal no README.",
+      "Rode os experimentos de 01 a 04.",
+      "Confira a curva de abstenção nas figuras."
+    ],
+    "idePath": "/projetos/verbete.py",
+    "snippet": "    previsto = escores >= limiares\n    confianca = escores.max(axis=1)\n    cortes = tuple(np.round(np.quantile(confianca, np.linspace(0, 0.9, 10)), 4))\n    linhas = []\n    for corte in cortes:\n        atende = confianca >= corte\n        if not atende.any():\n            continue\n        linhas.append(\n            {\n                \"corte_de_confianca\": float(corte),\n                \"cobertura\": float(atende.mean()),\n                \"n_respondidos\": int(atende.sum()),\n                \"micro_f1\": micro(y[atende], previsto[atende])[\"f1\"],\n                \"macro_f1\": macro(y[atende], previsto[atende])[\"f1\"],"
+  },
+  {
+    "slug": "aurora",
+    "name": "AURORA",
+    "oneLine": "Saúde de astronautas sem depender da Terra, para o NASA Space Apps",
+    "what": "Monitoramento de saúde para missões longas, feito para o NASA International Space Apps Challenge 2026: alertas explicáveis contra o normal de cada pessoa, radiação com dados reais e assistente offline.",
+    "role": "Desenvolvi a arquitetura, o motor de risco, a segurança e os testes, em dupla.",
+    "highlights": [
+      "Alerta contra o normal de cada pessoa, não da população",
+      "Dose de radiação com dados reais da NASA",
+      "318 testes unitários e 11 de ponta a ponta"
+    ],
+    "stack": [
+      "TypeScript",
+      "React",
+      "Vitest",
+      "Playwright",
+      "WebCrypto"
+    ],
+    "github": "https://github.com/fabriciojunio/aurora-astronaut-health",
+    "demo": "https://aurora-astronaut-health.vercel.app",
+    "year": "2026",
+    "snippetLang": "typescript",
+    "demoNote": "Dados de tripulação simulados; radiação e tempestades solares são medições reais da NASA e da NOAA.",
+    "flow": [
+      "Abra a demonstração e escolha um tripulante.",
+      "Veja os alertas explicados e a dose de radiação.",
+      "Consulte as fontes científicas no repositório."
+    ],
+    "idePath": "/projetos/aurora.ts",
+    "snippet": "\nexport function computeBaseline(values: readonly number[]): Baseline | undefined {\n  const clean = values.filter(Number.isFinite)\n  if (clean.length < MIN_BASELINE_SAMPLES) return undefined\n  const sorted = [...clean].sort((a, b) => a - b)\n  const center = median(sorted)\n  const mad = median(sorted.map((v) => Math.abs(v - center)).sort((a, b) => a - b))\n  return { median: center, mad, samples: clean.length }\n}\n\n/**\n * When almost every baseline value is identical the MAD is zero. The floor keeps the score finite;\n * it should be the measurement resolution of the signal (0.5 % for SpO2, 1 bpm for heart rate),\n * because a relative floor hides clinically relevant drops in tightly regulated signals.\n */\nexport function modifiedZ(value: number, baseline: Baseline, floor?: number): number {\n  const minSpread = floor ?? Math.max(Math.abs(baseline.median) * 0.01, 1e-6)\n  return (0.6745 * (value - baseline.median)) / Math.max(baseline.mad, minSpread)"
   }
 ];
 
@@ -619,6 +775,13 @@ export const PROJETOS_EIXO = PROJECTS_SOURCE.filter(p => [
   "koracrm",
   "authcore",
   "codereview-ai"
+].includes(p.slug));
+export const PROJETOS_IA = PROJECTS_SOURCE.filter(p => [
+  "balcao",
+  "guarita",
+  "cautela",
+  "verbete",
+  "aurora"
 ].includes(p.slug));
 export const PROJETOS_PARCERIA = PROJECTS_SOURCE.filter(p => [
   "conectagente",
@@ -636,7 +799,7 @@ export const PROJETOS_ACERVO = PROJECTS_SOURCE.filter(p => [
   "outorga",
   "paiol-tech"
 ].includes(p.slug));
-export const PROJECTS = [...PROJETOS_EIXO, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO];
+export const PROJECTS = [...PROJETOS_EIXO, ...PROJETOS_IA, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO];
 export const SOBRE = {
   "nome": "Fabrício Júnio",
   "cargo": "Analista de Sistemas",

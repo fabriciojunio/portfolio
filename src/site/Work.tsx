@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PROJETOS_EIXO, PROJETOS_PARCERIA, PROJETOS_ACERVO, type SiteProject } from "./data";
+import { PROJETOS_EIXO, PROJETOS_IA, PROJETOS_PARCERIA, PROJETOS_ACERVO, type SiteProject } from "./data";
 import SnippetView from "./SnippetView";
 import { useIdioma, useTextos } from "./i18n";
 import { TRADUCOES, type TextoDoProjeto } from "./i18n-projetos";
@@ -25,6 +25,7 @@ export default function Work() {
       </div>
       <div className="space-y-16">
         <Bloco {...t.trabalho.blocos.ia} itens={PROJETOS_EIXO} />
+        <Bloco {...t.trabalho.blocos.llm} itens={PROJETOS_IA} />
         <Bloco {...t.trabalho.blocos.parceria} itens={PROJETOS_PARCERIA} />
         <Acervo />
       </div>
