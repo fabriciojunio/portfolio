@@ -8,6 +8,86 @@ export interface TextoDoProjeto {
 }
 export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
   "en": {
+    "balcao": {
+      "oneLine": "WhatsApp sales agent that never makes up a price",
+      "what": "Agent for phone shops that serves, negotiates and appraises used devices on WhatsApp. The model understands the customer and calls functions; price, instalments and trade-in come from tested code.",
+      "role": "I built the conversation orchestrator, the tools, the output auditor and the human-in-the-loop panel.",
+      "highlights": [
+        "Function calling with deterministic pricing engines",
+        "Auditor checks every number before sending",
+        "Panel to take over chats, approve offers and switch the bot off"
+      ],
+      "demoNote": "No hosted demo: the repository runs a full conversation with npm run demo, without database, GPU or WhatsApp.",
+      "flow": [
+        "Open the repository and run npm run demo.",
+        "Follow the negotiation and trade-in offer in the terminal.",
+        "Read the auditor that blocks invented numbers."
+      ]
+    },
+    "guarita": {
+      "oneLine": "RAG and MCP assistant, attacked and defended",
+      "what": "Support assistant with knowledge-base retrieval and MCP tools, with six OWASP Top 10 for LLM attacks written as tests.",
+      "role": "I built the agent, the MCP server, the attacks and the defences, and wrote the red team report.",
+      "highlights": [
+        "Prompt injection, exfiltration and tampered tools as tests",
+        "Defences outside the model: session, human confirmation and tool hashing",
+        "31 tests, strict mypy and an industry-format report"
+      ],
+      "demoNote": "The attacks run as tests against a model that obeys any instruction: the worst case, on purpose.",
+      "flow": [
+        "Read the red team report in the repository.",
+        "Run pytest -v tests/test_ataques.py.",
+        "Compare each attack in the vulnerable and defended versions."
+      ]
+    },
+    "cautela": {
+      "oneLine": "Investment agent that neither recommends nor invents numbers",
+      "what": "Agent that answers investment questions only with measured numbers, cites the source and states the limitation.",
+      "role": "I built the agent, the fact base and the auditor that blocks recommendations and unsupported numbers.",
+      "highlights": [
+        "Output auditor independent of the model",
+        "Every answer cites the source of its number",
+        "Explicit refusal when there is no data"
+      ],
+      "demoNote": "Runs from the command line; the repository includes the fact base and instructions.",
+      "flow": [
+        "Open the repository and run the command-line interface.",
+        "Ask a question about funds.",
+        "Watch the auditor refuse a recommendation."
+      ]
+    },
+    "verbete": {
+      "oneLine": "Bill classification with measured abstention",
+      "what": "Multi-label classification of 4,500 Brazilian bills into 32 topics, with abstention and explanation, and the measurement of an annotation leak.",
+      "role": "I collected the data, trained and evaluated the model, measured the leak and built the coverage curve.",
+      "highlights": [
+        "Annotation leak that inflated results by 26%",
+        "Coverage curve: 80% answered at 0.604 micro-F1",
+        "41 tests and reproducible experiments"
+      ],
+      "demoNote": "Numbers and figures are in the repository; the experiments run in sequence.",
+      "flow": [
+        "Read the main result in the README.",
+        "Run experiments 01 to 04.",
+        "Check the abstention curve in the figures."
+      ]
+    },
+    "aurora": {
+      "oneLine": "Astronaut health without relying on Earth, for NASA Space Apps",
+      "what": "Health monitoring for long missions, built for the NASA International Space Apps Challenge 2026: explainable alerts against each person's normal, radiation from real data and an offline assistant.",
+      "role": "I built the architecture, the risk engine, security and tests, as a team of two.",
+      "highlights": [
+        "Alerts against each person's normal, not the population",
+        "Radiation dose from real NASA data",
+        "318 unit tests and 11 end-to-end tests"
+      ],
+      "demoNote": "Simulated crew data; radiation and solar storms are real NASA and NOAA measurements.",
+      "flow": [
+        "Open the demo and pick a crew member.",
+        "See the explained alerts and the radiation dose.",
+        "Check the scientific sources in the repository."
+      ]
+    },
     "almanaque": {
       "oneLine": "Business directories and support console",
       "what": "PHP and Symfony platform with separate customer portals, search, subscriptions and a support console.",
@@ -297,6 +377,86 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     }
   },
   "es": {
+    "balcao": {
+      "oneLine": "Agente de atención en WhatsApp que no inventa precios",
+      "what": "Agente para tiendas de celulares que atiende, negocia y evalúa equipos usados en WhatsApp. El modelo entiende al cliente y llama funciones; precio, cuotas y canje salen de código probado.",
+      "role": "Desarrollé el orquestador de la conversación, las herramientas, el auditor de salida y el panel con humano en el circuito.",
+      "highlights": [
+        "Function calling con motores de precio deterministas",
+        "Auditor que revisa cada número antes del envío",
+        "Panel para tomar la conversación, aprobar ofertas y apagar el bot"
+      ],
+      "demoNote": "No hay demostración publicada: el repositorio ejecuta una conversación completa con npm run demo, sin base de datos, GPU ni WhatsApp.",
+      "flow": [
+        "Abre el repositorio y ejecuta npm run demo.",
+        "Sigue la negociación y la oferta de canje en la terminal.",
+        "Lee el auditor que bloquea números inventados."
+      ]
+    },
+    "guarita": {
+      "oneLine": "Asistente con RAG y MCP, atacado y defendido",
+      "what": "Asistente de soporte con búsqueda en base de conocimiento y herramientas MCP, con seis ataques del OWASP Top 10 para LLM escritos como pruebas.",
+      "role": "Desarrollé el agente, el servidor MCP, los ataques y las defensas, y escribí el informe de red team.",
+      "highlights": [
+        "Inyección de prompt, exfiltración y herramienta adulterada como pruebas",
+        "Defensas fuera del modelo: sesión, confirmación humana y hash de herramientas",
+        "31 pruebas, mypy estricto e informe con formato de mercado"
+      ],
+      "demoNote": "Los ataques corren como pruebas contra un modelo que obedece cualquier instrucción: el peor caso, a propósito.",
+      "flow": [
+        "Lee el informe de red team en el repositorio.",
+        "Ejecuta pytest -v tests/test_ataques.py.",
+        "Compara cada ataque en la versión vulnerable y en la defendida."
+      ]
+    },
+    "cautela": {
+      "oneLine": "Agente de inversiones que no recomienda ni inventa números",
+      "what": "Agente que responde preguntas sobre inversiones solo con números medidos, cita la fuente y declara la limitación.",
+      "role": "Desarrollé el agente, la base de hechos y el auditor que bloquea recomendaciones y números sin respaldo.",
+      "highlights": [
+        "Auditor de salida independiente del modelo",
+        "Cada respuesta cita la fuente del número",
+        "Rechazo explícito cuando no hay dato"
+      ],
+      "demoNote": "Se ejecuta por línea de comandos; el repositorio trae la base de hechos y las instrucciones.",
+      "flow": [
+        "Abre el repositorio y ejecuta la interfaz de línea de comandos.",
+        "Haz una pregunta sobre fondos.",
+        "Mira al auditor rechazar una recomendación."
+      ]
+    },
+    "verbete": {
+      "oneLine": "Clasificación de proyectos de ley con abstención medida",
+      "what": "Clasificación multietiqueta de 4.500 proyectos de ley en 32 temas, con abstención y explicación, y la medición de una fuga de anotación.",
+      "role": "Recolecté los datos, entrené y evalué el modelo, medí la fuga y armé la curva de cobertura.",
+      "highlights": [
+        "Fuga de anotación que inflaba el resultado un 26%",
+        "Curva de cobertura: 80% respondido con micro-F1 de 0,604",
+        "41 pruebas y experimentos reproducibles"
+      ],
+      "demoNote": "Los números y las figuras están en el repositorio; los experimentos corren en secuencia.",
+      "flow": [
+        "Lee el resultado principal en el README.",
+        "Ejecuta los experimentos 01 a 04.",
+        "Revisa la curva de abstención en las figuras."
+      ]
+    },
+    "aurora": {
+      "oneLine": "Salud de astronautas sin depender de la Tierra, para NASA Space Apps",
+      "what": "Monitoreo de salud para misiones largas, hecho para el NASA International Space Apps Challenge 2026: alertas explicables contra lo normal de cada persona, radiación con datos reales y asistente sin conexión.",
+      "role": "Desarrollé la arquitectura, el motor de riesgo, la seguridad y las pruebas, en dupla.",
+      "highlights": [
+        "Alertas contra lo normal de cada persona, no de la población",
+        "Dosis de radiación con datos reales de la NASA",
+        "318 pruebas unitarias y 11 de punta a punta"
+      ],
+      "demoNote": "Datos de tripulación simulados; la radiación y las tormentas solares son mediciones reales de la NASA y la NOAA.",
+      "flow": [
+        "Abre la demostración y elige un tripulante.",
+        "Mira las alertas explicadas y la dosis de radiación.",
+        "Consulta las fuentes científicas en el repositorio."
+      ]
+    },
     "almanaque": {
       "oneLine": "Guías comerciales y consola de soporte",
       "what": "Plataforma PHP y Symfony con portales separados por cliente, búsqueda, suscripciones y soporte.",
