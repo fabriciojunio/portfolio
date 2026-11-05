@@ -6,11 +6,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    # Menor e correção vão num PR só por ecossistema. Um PR por pacote estourou
-    # o limite diário de deploys da Vercel em 05/11/2026.
-    groups:
-      menores-e-correcoes:
-        update-types: ["minor", "patch"]
     cooldown:
       default-days: 7
     commit-message:
@@ -19,11 +14,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    # Menor e correção vão num PR só por ecossistema. Um PR por pacote estourou
-    # o limite diário de deploys da Vercel em 05/11/2026.
-    groups:
-      menores-e-correcoes:
-        update-types: ["minor", "patch"]
     cooldown:
       default-days: 7
     commit-message:
