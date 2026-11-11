@@ -988,7 +988,7 @@ export const PROJETOS_ACERVO = porSlug(["almanaque","koracrm","cardiocam","lastr
 export const PROJECTS = [...PROJETOS_SEGURANCA, ...PROJETOS_DESTAQUE, ...PROJETOS_IA, ...PROJETOS_ACERVO];
 export const SOBRE = {
   "nome": "Fabrício Júnio",
-  "cargo": "Segurança de Aplicações · AppSec",
+  "cargo": "Engenheiro de Segurança · AppSec",
   "cidade": "Bauru, SP",
   "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
   "longBio": [

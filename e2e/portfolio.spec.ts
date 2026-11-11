@@ -4,9 +4,9 @@ test("segurança primeiro, destaques e expansão dos acadêmicos", async ({ page
   const errors: string[] = [];
   page.on("pageerror", e => errors.push(e.message));
   await page.goto("/");
-  await expect(page).toHaveTitle(/Segurança de Aplicações/);
-  await expect(page.getByText("Segurança de Aplicações · AppSec", { exact: true }).first()).toBeVisible();
-  await expect(page.getByText("Aberto a vagas de AppSec", { exact: true })).toBeVisible();
+  await expect(page).toHaveTitle(/Engenheiro de Segurança · AppSec/);
+  await expect(page.getByText("Engenheiro de Segurança · AppSec", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Disponível", { exact: true })).toBeVisible();
   await page.screenshot({ path: test.info().outputPath("inicio.png"), animations: "disabled" });
   await expect(page.getByRole("link", { name: /LinkedIn in\/fabríciojúnio/ })).toHaveAttribute("href", "https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/");
   const seguranca = page.getByRole("heading", { level: 3, name: "Segurança de aplicações", exact: true });

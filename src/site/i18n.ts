@@ -110,7 +110,7 @@ const pt: Textos = {
     "trocarIdioma": "Trocar idioma"
   },
   "hero": {
-    "disponivel": "Aberto a vagas de AppSec",
+    "disponivel": "Disponível",
     "verTrabalho": "Ver projetos",
     "conversar": "Conversar"
   },
@@ -121,7 +121,7 @@ const pt: Textos = {
       "com base",
       " de desenvolvedor."
     ],
-    "cargo": "Segurança de Aplicações · AppSec",
+    "cargo": "Engenheiro de Segurança · AppSec",
     "cidade": "Bauru, SP",
     "formacao": "Ciência da Computação, UNISAGRADO",
     "formacaoValor": "Ciência da Computação, UNISAGRADO",
@@ -202,7 +202,7 @@ const pt: Textos = {
       "segurança de aplicações",
       "?"
     ],
-    "chamada": "Aberto a vagas de AppSec e Product Security, remotas ou em Bauru.",
+    "chamada": "Disponível e Product Security, remotas ou em Bauru.",
     "email": "E-mail"
   },
   "rodape": {
@@ -227,7 +227,7 @@ const en: Textos = {
     "trocarIdioma": "Change language"
   },
   "hero": {
-    "disponivel": "Open to AppSec roles",
+    "disponivel": "Available",
     "verTrabalho": "See projects",
     "conversar": "Get in touch"
   },
@@ -238,7 +238,7 @@ const en: Textos = {
       "with a",
       " developer’s background."
     ],
-    "cargo": "Application Security · AppSec",
+    "cargo": "Security Engineer · AppSec",
     "cidade": "Bauru, Brazil",
     "formacao": "Computer Science, UNISAGRADO",
     "formacaoValor": "Computer Science, UNISAGRADO",
@@ -319,7 +319,7 @@ const en: Textos = {
       "application security",
       "."
     ],
-    "chamada": "Open to AppSec and Product Security roles, remote or in Bauru.",
+    "chamada": "Let’s talk about application and product security, remote or in Bauru.",
     "email": "Email"
   },
   "rodape": {
@@ -344,7 +344,7 @@ const es: Textos = {
     "trocarIdioma": "Cambiar idioma"
   },
   "hero": {
-    "disponivel": "Abierto a puestos de AppSec",
+    "disponivel": "Disponible",
     "verTrabalho": "Ver proyectos",
     "conversar": "Hablemos"
   },
@@ -355,7 +355,7 @@ const es: Textos = {
       "con base",
       " de desarrollador."
     ],
-    "cargo": "Seguridad de Aplicaciones · AppSec",
+    "cargo": "Ingeniero de Seguridad · AppSec",
     "cidade": "Bauru, Brasil",
     "formacao": "Ciencias de la Computación, UNISAGRADO",
     "formacaoValor": "Ciencias de la Computación, UNISAGRADO",
@@ -436,7 +436,7 @@ const es: Textos = {
       "seguridad de aplicaciones",
       "."
     ],
-    "chamada": "Abierto a puestos de AppSec y Product Security, remotos o en Bauru.",
+    "chamada": "Disponible y Product Security, remotos o en Bauru.",
     "email": "Correo"
   },
   "rodape": {
