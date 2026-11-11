@@ -65,7 +65,7 @@ def gerar(caminho: Path) -> None:
             d.ellipse([x, y, x + 3, y + 3], fill=(44, 44, 44))
 
     d.text((esq, 150), "Fabrício Júnio", font=serif, fill=BRANCO)
-    escrever_espacado(d, (esq + 4, 252), "SEGURANÇA DE APLICAÇÕES · APPSEC", mono, FRACO, 5)
+    escrever_espacado(d, (esq + 4, 252), "ENGENHEIRO DE SEGURANÇA · APPSEC", mono, FRACO, 5)
 
     d.line([(esq, 310), (LARGURA - 90, 310)], fill=LINHA, width=1)
 

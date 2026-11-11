@@ -77,7 +77,7 @@ describe("curadoria e coerência do portfólio", () => {
     expect(aberturaPedida("?arquivo=/projetos/almanaque.php&run=1")?.rodar).toBe(false);
   });
   it("descreve a atuação e separa pesquisa do trabalho", () => {
-    expect(SOBRE.cargo).toContain("AppSec");
+    expect(SOBRE.cargo).toBe("Engenheiro de Segurança · AppSec");
     expect(SOBRE.longBio[0]).toContain("Analista de Sistemas na DIGIHUB");
     expect(STACK_GROUPS.find(g => g.label === "trabalho")?.items).toContain("Lecom BPM");
     expect(STACK_GROUPS.find(g => g.label === "ferramentas")?.items).toContain("Semgrep");
