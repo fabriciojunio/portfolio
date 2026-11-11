@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 interface Props {
   code: string;
-  language: "python" | "typescript" | "java" | "php" | "csharp" | "sql" | "markdown";
+  language: "python" | "typescript" | "java" | "php" | "csharp" | "go" | "sql" | "markdown";
   filename: string;
 }
 
@@ -13,6 +13,7 @@ const KEYWORDS: Record<Props["language"], string[]> = {
   java: ["public", "private", "protected", "static", "final", "class", "interface", "extends", "implements", "return", "if", "for", "while", "new", "throw", "true", "false", "null", "void", "int", "double", "float", "List", "String", "Map", "this", "super", "try", "catch"],
   php: ["public", "private", "function", "return", "if", "use", "namespace", "new", "static", "fn", "match", "true", "false", "null", "class", "abstract", "extends", "implements"],
   csharp: ["public", "private", "protected", "static", "class", "void", "return", "if", "for", "while", "new", "using", "namespace", "var", "true", "false", "null", "this", "override", "float", "int", "bool", "string", "get", "set"],
+  go: ["func", "return", "if", "else", "for", "range", "switch", "case", "default", "type", "struct", "map", "var", "const", "package", "import", "nil", "true", "false", "string", "int", "float64", "bool", "error", "defer", "go", "chan", "interface"],
   sql: ["create", "or", "replace", "function", "returns", "trigger", "language", "plpgsql", "security", "definer", "declare", "begin", "end", "if", "then", "else", "elsif", "case", "when", "is", "not", "null", "and", "true", "false", "select", "from", "where", "perform", "raise", "exception", "return", "as", "integer", "bigint", "text", "boolean"],
 };
 

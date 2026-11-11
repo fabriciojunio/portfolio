@@ -8,13 +8,24 @@ import { PROJECTS } from "./data";
 afterEach(cleanup);
 
 describe("visualização dos projetos", () => {
-  it("apresenta os destaques e mantém os complementares fechados", () => {
+  it("abre com segurança, mostra os destaques e mantém os complementares fechados", () => {
     render(<Work />);
     const buttons = screen.getAllByRole("button");
-    expect(buttons[0]).toHaveTextContent("Almanaque");
-    expect(buttons[1]).toHaveTextContent("Vitrine Bauru");
-    expect(buttons[2]).toHaveTextContent("Feira do Comando");
+    expect(buttons[0]).toHaveTextContent("AuthCore");
+    expect(buttons[2]).toHaveTextContent("brecha");
+    expect(buttons[6]).toHaveTextContent("Vitrine Bauru");
+    expect(screen.getByRole("heading", { name: "Segurança de aplicações" })).toBeVisible();
     expect(screen.queryByRole("button", { name: /PermaneIA/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /^\d+ ?Almanaque/ })).toBeNull();
+  });
+  it("o card do brecha mostra a segurança aplicada e o código real", async () => {
+    const user = userEvent.setup();
+    render(<Work />);
+    const card = within(document.getElementById("work-brecha")!);
+    await user.click(card.getAllByRole("button")[0]);
+    expect(card.getByText("segurança aplicada")).toBeVisible();
+    expect(card.getByText(/explora a v1 e prova o bloqueio na v2/)).toBeVisible();
+    expect(card.getByText("src/main/java/br/com/brecha/api/v2/ApiCorrigida.java")).toBeVisible();
   });
   it("expande e recolhe os trabalhos acadêmicos pelo teclado", async () => {
     const user = userEvent.setup();
@@ -31,6 +42,7 @@ describe("visualização dos projetos", () => {
   it("o Almanaque mostra roteiro, acesso e o arquivo certo, sem execução fictícia", async () => {
     const user = userEvent.setup();
     render(<Work />);
+    await user.click(screen.getByRole("button", { name: /Outros projetos e trabalhos acadêmicos/ }));
     const card = document.getElementById("work-almanaque")!;
     const scope = within(card);
     expect(scope.getByText(/A busca publicada usa o banco/)).not.toBeVisible();
@@ -46,6 +58,7 @@ describe("visualização dos projetos", () => {
   it("a simulação do Cardiocam abre o algoritmo e declara seus limites", async () => {
     const user = userEvent.setup();
     render(<Work />);
+    await user.click(screen.getByRole("button", { name: /Outros projetos e trabalhos acadêmicos/ }));
     await user.click(screen.getByRole("button", { name: /Cardiocam/ }));
     const card = within(document.getElementById("work-cardiocam")!);
     expect(card.getByText(/não fornece diagnóstico/)).toBeVisible();
@@ -55,6 +68,7 @@ describe("visualização dos projetos", () => {
   it.each(["en", "es"] as const)("traduz os controles e o escopo em %s", async idioma => {
     const user = userEvent.setup();
     render(<IdiomaContext.Provider value={{ idioma, trocar: () => {} }}><Work /></IdiomaContext.Provider>);
+    await user.click(screen.getByRole("button", { name: idioma === "en" ? /More projects and coursework/ : /Otros proyectos y trabajos académicos/ }));
     const card = within(document.getElementById("work-koracrm")!);
     await user.click(card.getByRole("button"));
     expect(card.getByText(idioma === "en" ? /Laravel API is not deployed/ : /API Laravel no está publicada/)).toBeVisible();

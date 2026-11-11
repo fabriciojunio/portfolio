@@ -3,7 +3,7 @@ import { PROJECTS } from "./data";
 
 // Os destaques seguem a mesma ordem da lista principal.
 export const CARTAS_DO_TOPO = [
-  "almanaque", "vitrine-bauru", "feira", "koracrm", "authcore", "codereview-ai",
+  "brecha", "vitrine-bauru", "authcore", "conectagente", "feira", "crivo",
 ] as const;
 
 interface CardConfig {
@@ -46,6 +46,9 @@ const SYNTAX = {
   },
   csharp: {
     keywords: ["public", "private", "protected", "static", "class", "void", "return", "if", "for", "while", "new", "using", "namespace", "var", "true", "false", "null", "this", "override", "float", "int", "bool", "string"],
+  },
+  go: {
+    keywords: ["func", "return", "if", "else", "for", "range", "switch", "case", "default", "type", "struct", "map", "var", "const", "nil", "true", "false", "string", "error"],
   },
   sql: {
     keywords: ["create", "or", "replace", "function", "returns", "trigger", "language", "plpgsql", "security", "definer", "declare", "begin", "end", "if", "then", "else", "case", "when", "is", "not", "null", "and", "true", "false", "select", "from", "where", "perform", "raise", "exception", "return", "as", "integer", "bigint", "text"],
@@ -209,6 +212,7 @@ function ext(lang: string): string {
   if (lang === "java") return "java";
   if (lang === "php") return "php";
   if (lang === "csharp") return "cs";
+  if (lang === "go") return "go";
   if (lang === "sql") return "sql";
   return "ts";
 }

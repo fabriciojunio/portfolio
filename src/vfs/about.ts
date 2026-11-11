@@ -7,11 +7,10 @@ export const aboutMd: VFile = {
   language: "markdown",
   content: [
     `# ${SOBRE.nome}`,
-    `> ${SOBRE.cargo} | Java · PHP · JavaScript · SQL`,
+    `> ${SOBRE.cargo} | Java · Spring · Go · Python`,
     ...SOBRE.longBio,
-    "## Desenvolvimento",
-    "Analiso o problema, delimito o escopo, implemento, testo e acompanho a homologação e a publicação.",
-    "Projetos próprios demonstram regras de negócio, integrações, testes e documentação. A pesquisa inclui ConectAgente, Cardiocam e Lastro, meu projeto pré-TCC.",
-    "Os exemplos da IDE são trechos selecionados; as simulações não executam o backend dos repositórios. O Lastro apresenta apenas um resumo público da pesquisa.",
+    "## Como trabalho",
+    "Começo pelo modelo de ameaças, coloco os controles no código e na esteira, provo cada um com teste e explico o risco em linguagem de quem vai corrigir.",
+    "Número que aparece aqui foi medido no repositório. O que é demonstração ou simulação está indicado no card.",
   ].join("\n\n") + "\n",
 };

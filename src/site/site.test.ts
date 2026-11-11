@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PROJECTS, PROJETOS_EIXO, PROJETOS_IA, PROJETOS_PARCERIA, PROJETOS_ACERVO, SOBRE, STACK_GROUPS } from "./data";
+import { PROJECTS, PROJETOS_DESTAQUE, PROJETOS_SEGURANCA, PROJETOS_IA, PROJETOS_ACERVO, SOBRE, STACK_GROUPS } from "./data";
 import { DICIONARIO, IDIOMAS } from "./i18n";
 import { TRADUCOES } from "./i18n-projetos";
 import { ALL_FILES, filesByPath } from "../vfs";
@@ -7,22 +7,29 @@ import { CARTAS_DO_TOPO } from "./Cards3D";
 import { aberturaPedida } from "../lab/aberturaPelaUrl";
 
 describe("curadoria e coerência do portfólio", () => {
-  it("prioriza os projetos de desenvolvimento solicitados", () => {
-    expect(PROJETOS_EIXO.slice(0, 3).map(p => p.slug)).toEqual(["almanaque", "vitrine-bauru", "feira"]);
-    expect([...CARTAS_DO_TOPO]).toEqual(PROJETOS_EIXO.map(p => p.slug));
-    expect(PROJETOS_PARCERIA.map(p => p.slug)).toEqual(["conectagente", "cardiocam", "lastro"]);
+  it("abre com segurança e depois os destaques institucionais", () => {
+    expect(PROJECTS.slice(0, PROJETOS_SEGURANCA.length)).toEqual(PROJETOS_SEGURANCA);
+    expect(PROJETOS_SEGURANCA.map(p => p.slug)).toEqual(["authcore", "feira", "brecha", "alicerce", "crivo", "guarita"]);
+    expect(PROJETOS_DESTAQUE.map(p => p.slug)).toEqual(["vitrine-bauru", "conectagente", "rastro", "aurora"]);
+    for (const slug of CARTAS_DO_TOPO) expect(PROJECTS.map(p => p.slug)).toContain(slug);
   });
   it("cada projeto pertence a um único grupo", () => {
-    const slugs = [...PROJETOS_EIXO, ...PROJETOS_IA, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug);
+    const slugs = [...PROJETOS_SEGURANCA, ...PROJETOS_DESTAQUE, ...PROJETOS_IA, ...PROJETOS_ACERVO].map(p => p.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
     expect(slugs).toEqual(PROJECTS.map(p => p.slug));
   });
-  it("mostra os projetos de IA aplicada em bloco próprio", () => {
-    expect(PROJETOS_IA.map(p => p.slug)).toEqual(["balcao", "guarita", "cautela", "verbete", "aurora"]);
+  it("deixa a IA aplicada depois de segurança e destaques", () => {
+    expect(PROJETOS_IA.map(p => p.slug)).toEqual(["balcao", "cautela", "verbete", "codereview-ai"]);
+  });
+  it("todo projeto de segurança e de destaque explica a segurança aplicada", () => {
+    for (const p of [...PROJETOS_SEGURANCA, ...PROJETOS_DESTAQUE]) {
+      expect(p.security?.length, p.slug).toBeGreaterThanOrEqual(3);
+      expect(p.github, p.slug).toMatch(/^https:\/\/github\.com\/fabriciojunio\//);
+    }
   });
   it("preserva os trabalhos acadêmicos para consulta", () => {
     for (const slug of ["permaneia", "cardiocam", "baliza", "contaflux", "kaida", "bicudo", "laboratorio-vr"]) {
-      expect([...PROJETOS_PARCERIA, ...PROJETOS_ACERVO].map(p => p.slug)).toContain(slug);
+      expect(PROJETOS_ACERVO.map(p => p.slug)).toContain(slug);
     }
   });
   it("não republica código dos projetos privados retirados", () => {
@@ -70,10 +77,10 @@ describe("curadoria e coerência do portfólio", () => {
     expect(aberturaPedida("?arquivo=/projetos/almanaque.php&run=1")?.rodar).toBe(false);
   });
   it("descreve a atuação e separa pesquisa do trabalho", () => {
-    expect(SOBRE.cargo).toBe("Analista de Sistemas");
-    expect(SOBRE.bio).toContain("sustentação");
+    expect(SOBRE.cargo).toContain("AppSec");
+    expect(SOBRE.longBio[0]).toContain("Analista de Sistemas na DIGIHUB");
     expect(STACK_GROUPS.find(g => g.label === "trabalho")?.items).toContain("Lecom BPM");
-    expect(STACK_GROUPS.find(g => g.label === "integracoes")?.items).toContain("MCP");
+    expect(STACK_GROUPS.find(g => g.label === "ferramentas")?.items).toContain("Semgrep");
     expect(SOBRE.contato.email).toBe("junioad555@gmail.com");
   });
   it("corrige o algoritmo do AuthCore e o escopo das demonstrações", () => {
@@ -104,6 +111,7 @@ describe("idiomas", () => {
         expect(t.highlights).toHaveLength(p.highlights!.length);
         expect(t.flow.length).toBeGreaterThanOrEqual(2);
         expect(t.demoNote.trim()).not.toBe("");
+        expect(t.security ?? [], `${lang} ${p.slug}`).toHaveLength(p.security?.length ?? 0);
       }
     }
   });

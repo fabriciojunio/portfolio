@@ -5,6 +5,7 @@ export type Language =
   | "java"
   | "php"
   | "csharp"
+  | "go"
   | "json"
   | "markdown"
   | "yaml"

@@ -2,15 +2,15 @@
 
 *[Leia em português](README.md)*
 
-**Systems Analyst: software development, integrations and support.**
+**Application security (AppSec) with a developer’s background.**
 
 [Published portfolio](https://portfolio-a3qn.vercel.app) · [In-browser IDE](https://portfolio-a3qn.vercel.app/lab)
 
 ## Content
 
-Almanaque, Vitrine Bauru and Feira do Comando come first, followed by KoraCRM, AuthCore and CodeReview AI. Applied research brings together ConectAgente, Cardiocam and Lastro, a pre-capstone project with a public presentation and private code until the defence. The other academic work and side projects sit in an expandable section.
+Security projects come first: AuthCore, Feira do Comando, brecha, alicerce, crivo and guarita. Then the highlights: Vitrine Bauru (outreach with the City of Bauru), ConectAgente (undergraduate research, Saruê), rastro (thesis) and AURORA (NASA Space Apps 2026). Applied AI comes next, and the remaining coursework and side projects sit in an expandable section.
 
-Each card states the problem, the part played in development, technologies, a viewing guide and the scope of the demo. The card data and the IDE files share the same source in `src/site/data.ts`.
+Each card states the problem, what I did, the results, the security applied, how to check it and the scope of the demo. In the security projects the snippet is real code and links to the source line in the repository. The card data and the IDE files share the same source in `src/site/data.ts`.
 
 Demo interfaces and simulations are labelled as such. The IDE shows selected excerpts and JavaScript simulations; it does not run the Java, PHP, Python or Unity services from the repositories. The Cardiocam example uses synthetic signals and is not a validated clinical measurement.
 

@@ -63,8 +63,8 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
       return {
         lines: [
           `${SOBRE.nome}, ${SOBRE.cidade}`,
-          `${SOBRE.cargo}: desenvolvimento, integrações e sustentação`,
-          "Ciência da Computação na UNISAGRADO",
+          `${SOBRE.cargo}: threat modeling, revisão de código, SAST, DAST, SCA e pentest`,
+          "Analista de Sistemas na DIGIHUB · Ciência da Computação na UNISAGRADO",
           "  github:   github.com/fabriciojunio",
           "  linkedin: linkedin.com/in/fabríciojúnio",
           "  e-mail:   junioad555@gmail.com",

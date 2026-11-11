@@ -1,5 +1,5 @@
 import type { VFile } from "../types";
-import { SOBRE, PROJETOS_EIXO, PROJETOS_PARCERIA } from "../site/data";
+import { SOBRE, PROJETOS_DESTAQUE, PROJETOS_SEGURANCA } from "../site/data";
 
 export const contactTs: VFile = {
   path: "/contato.ts",
@@ -14,17 +14,17 @@ export const readmeFile: VFile = {
   language: "markdown",
   content: [
     `# Portfólio de ${SOBRE.nome}`,
-    "Analista de Sistemas: desenvolvimento, integrações e sustentação de software.",
+    `${SOBRE.cargo}. ${SOBRE.bio}`,
     "## Navegação na IDE",
     "- Abra um arquivo na árvore lateral ou pela paleta (Ctrl/Cmd+K).\n- Ctrl/Cmd+P pesquisa arquivos; Ctrl/Cmd+` alterna o terminal.\n- O terminal aceita ls, cat, open, projetos, stack, whoami e ajuda.\n- Run aparece apenas nos exemplos com uma simulação interativa.",
-    "A IDE apresenta trechos selecionados e a apresentação pública do Lastro. Não executa Java, PHP, Python ou Unity: as simulações em JavaScript ilustram algoritmos com dados de exemplo. O Cardiocam usa sinais sintéticos, sem medição clínica validada.",
+    "Os arquivos dos projetos de segurança são trechos reais dos repositórios, com link para a linha de origem. A IDE não executa Java, Go, PHP ou Python: as simulações em JavaScript ilustram algoritmos com dados de exemplo.",
     "## Experimente",
-    "```bash\nopen projetos/permaneia.ts\nrun\nprojetos\nwhoami\n```",
-    "## Projetos em destaque",
-    PROJETOS_EIXO.map(p => p.name).join(", ") + ".",
-    "## Pesquisa aplicada",
-    PROJETOS_PARCERIA.map(p => p.name).join(", ") + ".",
-    "Lastro apresenta apenas um resumo público do projeto pré-TCC. O código e os artefatos permanecem privados até a defesa. Os demais trabalhos acadêmicos e projetos complementares estão na seção expansível.",
+    "```bash\nopen projetos/brecha.java\nopen projetos/crivo.go\nprojetos\nwhoami\n```",
+    "## Segurança de aplicações",
+    PROJETOS_SEGURANCA.map(p => p.name).join(", ") + ".",
+    "## Destaques",
+    PROJETOS_DESTAQUE.map(p => p.name).join(", ") + ".",
+    "Projetos de IA aplicada, trabalhos acadêmicos e projetos complementares estão nas seções seguintes do portfólio.",
     "[Voltar ao portfólio](/)\n[Código do portfólio](https://github.com/fabriciojunio/portfolio)",
   ].join("\n\n") + "\n",
 };

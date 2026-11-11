@@ -64,14 +64,14 @@ export interface Textos {
     titulo: [string, string, string];
     chamada: string;
     blocos: {
+      destaque: { titulo: string; nota: string };
+      seguranca: { titulo: string; nota: string };
       ia: { titulo: string; nota: string };
-      llm: { titulo: string; nota: string };
-      parceria: { titulo: string; nota: string };
     };
     acervo: string;
     verDemo: string;
     fechar: string;
-    card: Record<"what" | "role" | "highlights" | "flow" | "demo" | "github" | "ide" | "presentation" | "demoBadge" | "simulationBadge" | "access", string>;
+    card: Record<"what" | "role" | "highlights" | "security" | "flow" | "demo" | "github" | "ide" | "presentation" | "demoBadge" | "simulationBadge" | "access", string>;
   };
 
   stack: {
@@ -99,7 +99,7 @@ const pt: Textos = {
   "htmlLang": "pt-BR",
   "nav": {
     "sobre": "Sobre",
-    "trabalho": "Trabalho",
+    "trabalho": "Projetos",
     "stack": "Stack",
     "contato": "Contato",
     "resultados": "IDE →",
@@ -110,52 +110,52 @@ const pt: Textos = {
     "trocarIdioma": "Trocar idioma"
   },
   "hero": {
-    "disponivel": "Disponível",
-    "verTrabalho": "Ver trabalho",
+    "disponivel": "Aberto a vagas de AppSec",
+    "verTrabalho": "Ver projetos",
     "conversar": "Conversar"
   },
   "sobre": {
     "secao": "01 · sobre",
     "titulo": [
-      "Desenvolvimento, ",
-      "integrações",
-      " e sustentação."
+      "Segurança de aplicações ",
+      "com base",
+      " de desenvolvedor."
     ],
-    "cargo": "Analista de Sistemas",
+    "cargo": "Segurança de Aplicações · AppSec",
     "cidade": "Bauru, SP",
     "formacao": "Ciência da Computação, UNISAGRADO",
     "formacaoValor": "Ciência da Computação, UNISAGRADO",
-    "rotuloCargo": "Cargo",
+    "rotuloCargo": "Foco",
     "rotuloCidade": "Cidade",
     "rotuloFormacao": "Formação",
-    "bio": "Desenvolvimento, integrações e sustentação de software. Java, JavaScript e SQL no trabalho; PHP, Symfony e Laravel em projetos próprios.",
+    "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
     "longBio": [
-      "Sou Analista de Sistemas na DIGIHUB Tecnologia. Trabalho com robôs Java, integrações REST, regras JavaScript, SQL e processos na Lecom BPM, com automação RPA no Roberty Studio.",
-      "Analiso chamados, investigo código e banco de dados, implemento correções e acompanho a homologação e a publicação. Utilizo Jira, Git e GitLab no acompanhamento das entregas.",
-      "Na Nexum Tecnologia, atuei em processos do setor financeiro, integrações com APIs externas e MCP. Em projetos próprios, uso PHP, Symfony, Laravel e Spring Boot, incluindo microsserviços com Kafka, testes e integração contínua.",
-      "Curso Ciência da Computação na UNISAGRADO. Participo de iniciação científica em saúde pública com o ConectAgente, selecionado para a Saruê, incubadora da UNESP Bauru. No Cardiocam, desenvolvo uma ferramenta experimental para pesquisar sinais cardíacos por vídeo."
+      "Analista de Sistemas na DIGIHUB Tecnologia. Entrego robôs Java, integrações REST, JavaScript e SQL na Lecom BPM e reviso a segurança de cada entrega: onde fica o token, como a entrada é validada e quem acessa o quê.",
+      "Nos meus projetos, protejo sistemas de verdade: modelo de ameaças, revisão de código, SAST, DAST e SCA como portões na esteira, e pentest com relatório e reteste de cada correção.",
+      "Trabalho com IA dos dois lados: ataco e defendo agentes com RAG e MCP pelo OWASP Top 10 para LLM, e uso modelo local para triar achados no pull request.",
+      "Ciência da Computação na UNISAGRADO (2027). Iniciação científica com o ConectAgente, selecionado pela Saruê (UNESP Bauru), e formação CiberEducação da Cisco com o SENAI."
     ]
   },
   "trabalho": {
-    "secao": "02 · trabalho",
+    "secao": "02 · projetos",
     "titulo": [
-      "Projetos que ",
-      "desenvolvi",
-      "."
+      "Sistemas que ",
+      "construí",
+      " e protegi."
     ],
-    "chamada": "Explore o problema, minha participação e o roteiro de visualização. Demonstrações e simulações têm seu escopo indicado.",
+    "chamada": "Cada projeto mostra o problema, o que eu fiz e a segurança aplicada, com evidência no repositório.",
     "blocos": {
+      "destaque": {
+        "titulo": "Destaques",
+        "nota": "Extensão com a Prefeitura de Bauru, iniciação científica, TCC e NASA Space Apps."
+      },
+      "seguranca": {
+        "titulo": "Segurança de aplicações",
+        "nota": "Identidade, esteira DevSecOps, pentest, modelo seguro por padrão, triagem de vulnerabilidades e segurança de IA."
+      },
       "ia": {
-        "titulo": "Desenvolvimento e integrações",
-        "nota": "Projetos próprios e extensão com código, testes e fluxos documentados."
-      },
-      "llm": {
-        "titulo": "IA aplicada: agentes, RAG e modelos",
-        "nota": "Agentes com ferramentas, RAG e modelos medidos, com regras em código para o que não pode errar."
-      },
-      "parceria": {
-        "titulo": "Pesquisa aplicada",
-        "nota": "Saúde pública, processamento de imagens e sinais e pesquisa preparatória de TCC."
+        "titulo": "IA aplicada",
+        "nota": "Agentes, RAG e modelos medidos, com regra em código para o que não pode errar."
       }
     },
     "acervo": "Outros projetos e trabalhos acadêmicos",
@@ -163,9 +163,10 @@ const pt: Textos = {
     "fechar": "Fechar",
     "card": {
       "what": "o que é",
-      "role": "minha participação",
-      "highlights": "destaques",
-      "flow": "como visualizar",
+      "role": "o que eu fiz",
+      "highlights": "resultados",
+      "security": "segurança aplicada",
+      "flow": "como conferir",
       "demo": "abrir demonstração",
       "github": "código no GitHub",
       "ide": "explorar código na IDE",
@@ -178,30 +179,30 @@ const pt: Textos = {
   "stack": {
     "secao": "03 · stack",
     "titulo": [
-      "Escolho a ",
-      "ferramenta",
-      " pelo problema."
+      "O que ",
+      "uso",
+      " no dia a dia."
     ],
-    "nota": "Uso profissional e projetos próprios indicados em grupos separados. IA e processamento de sinais fazem parte da pesquisa.",
+    "nota": "Ferramentas gratuitas no lugar das pagas (Semgrep e CodeQL no lugar do Checkmarx, ZAP e Burp Community no lugar do Burp Pro), com o mesmo conceito.",
     "grupos": {
-      "trabalho": "atuação profissional",
-      "integracoes": "integrações e ferramentas",
-      "backend": "back-end em projetos",
-      "arquitetura": "arquitetura em projetos",
-      "interface": "interfaces em projetos",
-      "dados": "dados em projetos",
-      "qualidade": "qualidade e infraestrutura",
-      "pesquisa": "pesquisa acadêmica"
+      "appsec": "segurança de aplicações",
+      "ferramentas": "ferramentas",
+      "identidade": "identidade e acesso",
+      "nuvem": "nuvem e cadeia de suprimentos",
+      "ia": "segurança de IA",
+      "privacidade": "privacidade e governança",
+      "backend": "desenvolvimento",
+      "trabalho": "no trabalho (DIGIHUB)"
     }
   },
   "contato": {
     "secao": "04 · contato",
     "titulo": [
       "Vamos falar sobre",
-      "software e integrações",
+      "segurança de aplicações",
       "?"
     ],
-    "chamada": "Entre em contato para conversar sobre desenvolvimento, integrações e sustentação de software.",
+    "chamada": "Aberto a vagas de AppSec e Product Security, remotas ou em Bauru.",
     "email": "E-mail"
   },
   "rodape": {
@@ -215,7 +216,7 @@ const en: Textos = {
   "htmlLang": "en",
   "nav": {
     "sobre": "About",
-    "trabalho": "Work",
+    "trabalho": "Projects",
     "stack": "Stack",
     "contato": "Contact",
     "resultados": "IDE →",
@@ -226,52 +227,52 @@ const en: Textos = {
     "trocarIdioma": "Change language"
   },
   "hero": {
-    "disponivel": "Available",
-    "verTrabalho": "See the work",
+    "disponivel": "Open to AppSec roles",
+    "verTrabalho": "See projects",
     "conversar": "Get in touch"
   },
   "sobre": {
     "secao": "01 · about",
     "titulo": [
-      "Development, ",
-      "integrations",
-      " and software support."
+      "Application security ",
+      "with a",
+      " developer’s background."
     ],
-    "cargo": "Systems Analyst",
+    "cargo": "Application Security · AppSec",
     "cidade": "Bauru, Brazil",
     "formacao": "Computer Science, UNISAGRADO",
     "formacaoValor": "Computer Science, UNISAGRADO",
-    "rotuloCargo": "Role",
+    "rotuloCargo": "Focus",
     "rotuloCidade": "Based in",
     "rotuloFormacao": "Studying",
-    "bio": "Software development, integrations and support. Java, JavaScript and SQL at work; PHP, Symfony and Laravel in personal projects.",
+    "bio": "Application security with a developer’s background. I threat model, review code, put SAST, DAST and SCA in the pipeline and test what I build.",
     "longBio": [
-      "I am a Systems Analyst at DIGIHUB Tecnologia, working with Java automation, REST integrations, JavaScript rules, SQL and Lecom BPM processes, with RPA in Roberty Studio.",
-      "I investigate support requests, code and databases, implement fixes and follow testing and releases. I use Jira, Git and GitLab to track delivery.",
-      "At Nexum Tecnologia, I worked on financial workflows, external API integrations and MCP. My personal projects use PHP, Symfony, Laravel and Spring Boot, including Kafka microservices, automated tests and continuous integration.",
-      "I study Computer Science at UNISAGRADO. ConectAgente, my undergraduate public health research project, was selected for Saruê, the UNESP Bauru incubator. In Cardiocam, I develop an experimental tool to research cardiac signals from video."
+      "Systems Analyst at DIGIHUB Tecnologia. I ship Java bots, REST integrations, JavaScript and SQL on Lecom BPM, and review the security of each delivery: where the token lives, how input is validated and who can access what.",
+      "In my projects I secure real systems: threat models, code review, SAST, DAST and SCA as pipeline gates, and pentests with a report and a retest of every fix.",
+      "I work with AI on both sides: I attack and defend agents with RAG and MCP against the OWASP Top 10 for LLM, and use a local model to triage findings on pull requests.",
+      "Computer Science at UNISAGRADO (2027). Undergraduate research on ConectAgente, selected by Saruê (UNESP Bauru), and Cisco’s CiberEducação programme with SENAI."
     ]
   },
   "trabalho": {
-    "secao": "02 · work",
+    "secao": "02 · projects",
     "titulo": [
-      "Projects I ",
-      "developed",
-      "."
+      "Systems I ",
+      "built",
+      " and secured."
     ],
-    "chamada": "Explore each problem, my contribution and the viewing steps. Demos and simulations state their scope.",
+    "chamada": "Each project shows the problem, what I did and the security applied, with evidence in the repository.",
     "blocos": {
+      "destaque": {
+        "titulo": "Highlights",
+        "nota": "Outreach with the City of Bauru, undergraduate research, thesis and NASA Space Apps."
+      },
+      "seguranca": {
+        "titulo": "Application security",
+        "nota": "Identity, DevSecOps pipeline, pentest, secure-by-default template, vulnerability triage and AI security."
+      },
       "ia": {
-        "titulo": "Development and integrations",
-        "nota": "Personal and outreach projects with code, tests and documented workflows."
-      },
-      "llm": {
-        "titulo": "Applied AI: agents, RAG and models",
-        "nota": "Agents with tools, RAG and measured models, with rules in code for what cannot go wrong."
-      },
-      "parceria": {
-        "titulo": "Applied research",
-        "nota": "Public health, image and signal processing, and preparatory thesis research."
+        "titulo": "Applied AI",
+        "nota": "Agents, RAG and measured models, with rules in code for what cannot go wrong."
       }
     },
     "acervo": "More projects and coursework",
@@ -279,9 +280,10 @@ const en: Textos = {
     "fechar": "Close",
     "card": {
       "what": "overview",
-      "role": "my contribution",
-      "highlights": "highlights",
-      "flow": "how to explore",
+      "role": "what I did",
+      "highlights": "results",
+      "security": "security applied",
+      "flow": "how to check",
       "demo": "open demo",
       "github": "source on GitHub",
       "ide": "explore code in the IDE",
@@ -294,30 +296,30 @@ const en: Textos = {
   "stack": {
     "secao": "03 · stack",
     "titulo": [
-      "I pick the ",
-      "tool",
-      " for the problem."
+      "What I ",
+      "use",
+      " day to day."
     ],
-    "nota": "Professional tools and personal project technologies are listed separately. AI and signal processing belong to research.",
+    "nota": "Free tools instead of paid ones (Semgrep and CodeQL instead of Checkmarx, ZAP and Burp Community instead of Burp Pro), same concepts.",
     "grupos": {
-      "trabalho": "professional work",
-      "integracoes": "integrations and tools",
-      "backend": "project backends",
-      "arquitetura": "project architecture",
-      "interface": "project interfaces",
-      "dados": "project data",
-      "qualidade": "quality and infrastructure",
-      "pesquisa": "academic research"
+      "appsec": "application security",
+      "ferramentas": "tools",
+      "identidade": "identity and access",
+      "nuvem": "cloud and supply chain",
+      "ia": "AI security",
+      "privacidade": "privacy and governance",
+      "backend": "development",
+      "trabalho": "at work (DIGIHUB)"
     }
   },
   "contato": {
     "secao": "04 · contact",
     "titulo": [
       "Let’s talk about",
-      "software and integrations",
+      "application security",
       "."
     ],
-    "chamada": "Get in touch about software development, integrations and support.",
+    "chamada": "Open to AppSec and Product Security roles, remote or in Bauru.",
     "email": "Email"
   },
   "rodape": {
@@ -342,52 +344,52 @@ const es: Textos = {
     "trocarIdioma": "Cambiar idioma"
   },
   "hero": {
-    "disponivel": "Disponible",
+    "disponivel": "Abierto a puestos de AppSec",
     "verTrabalho": "Ver proyectos",
     "conversar": "Hablemos"
   },
   "sobre": {
     "secao": "01 · sobre mí",
     "titulo": [
-      "Desarrollo, ",
-      "integraciones",
-      " y soporte de software."
+      "Seguridad de aplicaciones ",
+      "con base",
+      " de desarrollador."
     ],
-    "cargo": "Analista de Sistemas",
+    "cargo": "Seguridad de Aplicaciones · AppSec",
     "cidade": "Bauru, Brasil",
     "formacao": "Ciencias de la Computación, UNISAGRADO",
     "formacaoValor": "Ciencias de la Computación, UNISAGRADO",
-    "rotuloCargo": "Puesto",
+    "rotuloCargo": "Enfoque",
     "rotuloCidade": "Ubicación",
     "rotuloFormacao": "Formación",
-    "bio": "Desarrollo, integraciones y soporte de software. Java, JavaScript y SQL en el trabajo; PHP, Symfony y Laravel en proyectos propios.",
+    "bio": "Seguridad de aplicaciones con base de desarrollador. Modelo amenazas, reviso código, pongo SAST, DAST y SCA en el pipeline y pruebo lo que construyo.",
     "longBio": [
-      "Soy Analista de Sistemas en DIGIHUB Tecnologia. Trabajo con automatización Java, integraciones REST, reglas JavaScript, SQL y procesos Lecom BPM, con RPA en Roberty Studio.",
-      "Investigo solicitudes de soporte, código y bases de datos, implemento correcciones y acompaño las pruebas y publicaciones. Utilizo Jira, Git y GitLab para seguir las entregas.",
-      "En Nexum Tecnologia trabajé con procesos financieros, integraciones de API y MCP. En proyectos propios utilizo PHP, Symfony, Laravel y Spring Boot, incluidos microservicios con Kafka, pruebas e integración continua.",
-      "Estudio Ciencias de la Computación en UNISAGRADO. ConectAgente, mi proyecto de investigación en salud pública, fue seleccionado para Saruê, incubadora de UNESP Bauru. En Cardiocam desarrollo una herramienta experimental para investigar señales cardíacas mediante vídeo."
+      "Analista de Sistemas en DIGIHUB Tecnologia. Entrego bots Java, integraciones REST, JavaScript y SQL en Lecom BPM y reviso la seguridad de cada entrega: dónde queda el token, cómo se valida la entrada y quién accede a qué.",
+      "En mis proyectos protejo sistemas reales: modelo de amenazas, revisión de código, SAST, DAST y SCA como controles en el pipeline, y pentest con informe y reprueba de cada corrección.",
+      "Trabajo con IA de los dos lados: ataco y defiendo agentes con RAG y MCP según el OWASP Top 10 para LLM, y uso un modelo local para clasificar hallazgos en el pull request.",
+      "Ciencias de la Computación en UNISAGRADO (2027). Investigación con ConectAgente, seleccionado por Saruê (UNESP Bauru), y formación CiberEducação de Cisco con el SENAI."
     ]
   },
   "trabalho": {
     "secao": "02 · proyectos",
     "titulo": [
-      "Proyectos que ",
-      "desarrollé",
-      "."
+      "Sistemas que ",
+      "construí",
+      " y protegí."
     ],
-    "chamada": "Explore el problema, mi participación y los pasos de visualización. Las demostraciones y simulaciones indican su alcance.",
+    "chamada": "Cada proyecto muestra el problema, lo que hice y la seguridad aplicada, con evidencia en el repositorio.",
     "blocos": {
+      "destaque": {
+        "titulo": "Destacados",
+        "nota": "Extensión con la Municipalidad de Bauru, investigación, tesis y NASA Space Apps."
+      },
+      "seguranca": {
+        "titulo": "Seguridad de aplicaciones",
+        "nota": "Identidad, pipeline DevSecOps, pentest, plantilla segura por defecto, triage de vulnerabilidades y seguridad de IA."
+      },
       "ia": {
-        "titulo": "Desarrollo e integraciones",
-        "nota": "Proyectos propios y de extensión con código, pruebas y procesos documentados."
-      },
-      "llm": {
-        "titulo": "IA aplicada: agentes, RAG y modelos",
-        "nota": "Agentes con herramientas, RAG y modelos medidos, con reglas en código para lo que no puede fallar."
-      },
-      "parceria": {
-        "titulo": "Investigación aplicada",
-        "nota": "Salud pública, procesamiento de imágenes y señales e investigación preparatoria de tesis."
+        "titulo": "IA aplicada",
+        "nota": "Agentes, RAG y modelos medidos, con reglas en código para lo que no puede fallar."
       }
     },
     "acervo": "Otros proyectos y trabajos académicos",
@@ -395,9 +397,10 @@ const es: Textos = {
     "fechar": "Cerrar",
     "card": {
       "what": "descripción",
-      "role": "mi participación",
-      "highlights": "aspectos destacados",
-      "flow": "cómo explorar",
+      "role": "lo que hice",
+      "highlights": "resultados",
+      "security": "seguridad aplicada",
+      "flow": "cómo verificar",
       "demo": "abrir demostración",
       "github": "código en GitHub",
       "ide": "explorar código en la IDE",
@@ -410,30 +413,30 @@ const es: Textos = {
   "stack": {
     "secao": "03 · stack",
     "titulo": [
-      "Elijo la ",
-      "herramienta",
-      " según el problema."
+      "Lo que ",
+      "uso",
+      " en el día a día."
     ],
-    "nota": "Las herramientas profesionales y las tecnologías de proyectos propios aparecen en grupos separados. IA y señales forman parte de la investigación.",
+    "nota": "Herramientas gratuitas en lugar de las pagas (Semgrep y CodeQL en lugar de Checkmarx, ZAP y Burp Community en lugar de Burp Pro), con el mismo concepto.",
     "grupos": {
-      "trabalho": "trabajo profesional",
-      "integracoes": "integraciones y herramientas",
-      "backend": "back-end en proyectos",
-      "arquitetura": "arquitectura en proyectos",
-      "interface": "interfaces en proyectos",
-      "dados": "datos en proyectos",
-      "qualidade": "calidad e infraestructura",
-      "pesquisa": "investigación académica"
+      "appsec": "seguridad de aplicaciones",
+      "ferramentas": "herramientas",
+      "identidade": "identidad y acceso",
+      "nuvem": "nube y cadena de suministro",
+      "ia": "seguridad de IA",
+      "privacidade": "privacidad y gobierno",
+      "backend": "desarrollo",
+      "trabalho": "en el trabajo (DIGIHUB)"
     }
   },
   "contato": {
     "secao": "04 · contacto",
     "titulo": [
       "Hablemos de",
-      "software e integraciones",
+      "seguridad de aplicaciones",
       "."
     ],
-    "chamada": "Contácteme para conversar sobre desarrollo, integraciones y soporte de software.",
+    "chamada": "Abierto a puestos de AppSec y Product Security, remotos o en Bauru.",
     "email": "Correo"
   },
   "rodape": {
@@ -442,6 +445,7 @@ const es: Textos = {
     "codigo": "código de este sitio"
   }
 };
+
 export const DICIONARIO: Record<Idioma, Textos> = { pt, en, es };
 
 export const IdiomaContext = createContext<{
