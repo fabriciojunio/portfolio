@@ -3,6 +3,7 @@ export interface TextoDoProjeto {
   what: string;
   role: string;
   highlights: string[];
+  security?: string[];
   demoNote: string;
   flow: string[];
 }
@@ -38,6 +39,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Read the red team report in the repository.",
         "Run pytest -v tests/test_ataques.py.",
         "Compare each attack in the vulnerable and defended versions."
+      ],
+      "security": [
+        "Six OWASP Top 10 for LLM (2025) attacks written as tests",
+        "Human confirmation for actions with side effects and ownership checked from the session",
+        "MCP tools approved by hash against description swaps"
       ]
     },
     "cautela": {
@@ -86,6 +92,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Open the demo and pick a crew member.",
         "See the explained alerts and the radiation dose.",
         "Check the scientific sources in the repository."
+      ],
+      "security": [
+        "AES-GCM 256 with a PIN-derived key (PBKDF2, 600k iterations)",
+        "Hash-chained audit log signed with ECDSA P-256",
+        "CSP without inline scripts, Trusted Types and a pipeline with gitleaks, Semgrep, OSV and ZAP"
       ]
     },
     "almanaque": {
@@ -118,12 +129,18 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Search by category or district and open a business.",
         "Use the demo profile buttons on the login screen.",
         "Explore moderation and contact indicators."
+      ],
+      "security": [
+        "AppSec programme: STRIDE, attack trees, PASTA, DREAD, SAMM and ATT&CK",
+        "Security Champions kit: secure PR checklist, training and a SAST triage guide",
+        "CSP limited to 'self', rate limiting and an LGPD deletion saga",
+        "Kubernetes with Kyverno in CEL, Trivy on manifests and Flux GitOps"
       ]
     },
     "feira": {
-      "oneLine": "Java orders with events and compensating actions",
-      "what": "Four Spring Boot microservices coordinate orders, inventory, payments and queries through Kafka events.",
-      "role": "I implemented the order saga, transactional outbox and idempotent consumers.",
+      "oneLine": "DevSecOps pipeline with gates that block, around Kafka orders",
+      "what": "Four Spring Boot microservices coordinate orders through Kafka events, wrapped in a full DevSecOps pipeline: gates that fail the merge, SBOM, Kubernetes with policies and detection as code.",
+      "role": "I built the saga, the outbox and the idempotent consumers, and set up the security pipeline, the custom rules and the metrics dashboard.",
       "highlights": [
         "Outbox and inbox handle repeated delivery",
         "Inventory compensation and payment refunds",
@@ -134,6 +151,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Place an order and follow its transitions.",
         "Order soybean oil to observe rejection and inventory compensation.",
         "Run Docker Compose to inspect the real distributed services."
+      ],
+      "security": [
+        "Kafka with TLS, SASL/SCRAM and per-service ACLs",
+        "Semgrep with custom rules and measured false positives, CodeQL, OSV, gitleaks and ZAP as gates",
+        "SPDX and CycloneDX SBOM, Kyverno, Falco, Sigma rules and an MTTR and SLA dashboard"
       ]
     },
     "koracrm": {
@@ -153,9 +175,9 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "authcore": {
-      "oneLine": "Node.js authentication with JWT, 2FA and roles",
-      "what": "Authentication API with token rotation, role-based access, Redis and a React interface.",
-      "role": "I implemented authentication, authorization and session renewal flows.",
+      "oneLine": "Identity: JWT, MFA, passkeys, Keycloak and Kong, with attacks proven",
+      "what": "Authentication and authorization service with token rotation, MFA, passkeys, Keycloak with PKCE and Kong at the edge, plus a React UI.",
+      "role": "I built the authentication, authorization and session flows, the threat model and the automated attack proofs.",
       "highlights": [
         "JWT HS256 and TOTP authentication",
         "Refresh rotation and reuse detection",
@@ -166,6 +188,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Explore access and recovery screens.",
         "Inspect renewal, 2FA and authorization flows in the source.",
         "Run the full environment locally to test the backend."
+      ],
+      "security": [
+        "TOTP MFA with an encrypted secret, and passkeys (WebAuthn)",
+        "Keycloak with PKCE, Kong at the edge and a Spring service that validates again: 18 attacks proven in CI",
+        "STRIDE, ASVS 5.0, CSRF, tested IDOR and CSP with Trusted Types"
       ]
     },
     "codereview-ai": {
@@ -187,7 +214,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     "conectagente": {
       "oneLine": "Home visits · selected for Saruê (UNESP Bauru)",
       "what": "Undergraduate public health research for Community Health Agents, selected for Saruê, the UNESP Bauru incubator. Field app with React Native and Expo, offline SQLite records, Supabase/PostgreSQL synchronization and a Next.js management dashboard.",
-      "role": "I develop registration, visits, synchronization, access roles and audit records.",
+      "role": "I own security and privacy (authorization in the database, on-device encryption, pinning, audit trail and LGPD) and build registration, visits and sync.",
       "highlights": [
         "Local SQLite for field registration",
         "Synchronization and role-based access",
@@ -198,6 +225,12 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Review the mobile and web architecture.",
         "The dashboard requires an authorized account.",
         "Test offline registration and synchronization locally with fictional data."
+      ],
+      "security": [
+        "Row Level Security on every table, tested as a boundary on a real PostgreSQL",
+        "On-device database encrypted with SQLCipher, key in the Android Keystore",
+        "Certificate pinning, audited access to sensitive data and an append-only trail",
+        "LGPD for health data: legal basis, retention, incident plan and MobSF in CI"
       ]
     },
     "permaneia": {
@@ -374,6 +407,90 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Review the source in the IDE or on GitHub.",
         "Follow the repository instructions to run the complete environment."
       ]
+    },
+    "rastro": {
+      "oneLine": "Thesis: where else is the flaw they just fixed",
+      "what": "Product Security thesis research. Takes the vulnerable function and the same function after the fix and searches a codebase for variants of the flaw, telling what is still vulnerable apart from what already got the fix. Evaluated on the NIST Juliet Test Suite and two real cases: PHP (CVE-2012-1823 and CVE-2024-4577) and Spring4Shell.",
+      "role": "I designed the method and the model, ran the experiment with cross-validation by CWE, reproduced the real cases and wrote the thesis.",
+      "highlights": [
+        "Average precision of 0.748 against 0.413 for Jaccard, on CWEs unseen in training",
+        "Already-fixed code in the top 10 drops from 36.4% to 2.6%",
+        "Whole php-src in 24 s and spring-framework in 22 s"
+      ],
+      "security": [
+        "No model is loaded from a file: unpickling runs code",
+        "Dataset downloaded over HTTPS only and used only after its SHA-256 matches",
+        "Hash-pinned dependencies; gitleaks, OSV-Scanner, Semgrep and CodeQL in CI"
+      ],
+      "demoNote": "Command-line tool, no hosted demo. The real cases run with rastro caso php and rastro caso spring.",
+      "flow": [
+        "Read the results and method in the README.",
+        "Run rastro caso php and watch the 2024 flaw come back through the function fixed in 2012.",
+        "Read the thesis in docs/monografia.md."
+      ]
+    },
+    "brecha": {
+      "oneLine": "Intentionally vulnerable banking API, its pentest and the fixed version",
+      "what": "Penetration testing lab: a banking API in Java plus Go, Django and Node services with planted OWASP API Security Top 10 flaws, the fixed version side by side and the full report. Simulated data.",
+      "role": "I built the vulnerable and fixed services, ran the penetration test and wrote the report and the attack chain write-up.",
+      "highlights": [
+        "19 findings with CVSS 4.0, CWE, reproduction steps and fix",
+        "Report in OWASP WSTG and Trail of Bits format, in Portuguese and English",
+        "Attack chain: SSRF, forged token, deserialization, tunnel and Nmap on the internal network"
+      ],
+      "security": [
+        "Every flaw has a test that exploits v1 and proves the block in v2",
+        "ModSecurity WAF with the OWASP CRS and a custom rule against serialized Java objects",
+        "Segmented network and blocked egress in the fixed version"
+      ],
+      "demoNote": "Local lab, no hosted demo: it only binds to 127.0.0.1 and uses simulated data.",
+      "flow": [
+        "Read the report in docs/relatorio-pentest.en.md.",
+        "Run mvn test: each flaw exploited in v1 and blocked in v2.",
+        "Follow the attack chain in docs/cadeia-de-ataque.en.md."
+      ]
+    },
+    "alicerce": {
+      "oneLine": "Secure-by-default Spring Boot template for every squad to start from",
+      "what": "The baseline an AppSec team hands over so every new service is born with authentication, authorization, headers, errors, logging and a security pipeline already solved, along with vulnerability management, champions, advisory and vulnerability response processes.",
+      "role": "I built the template, the pipeline, the anti-SSRF HTTP client, VEX generation and the process guides.",
+      "highlights": [
+        "OAuth 2.0 and OIDC with Keycloak, deny by default and 404 for someone else's resource",
+        "Pipeline with no continue-on-error: gitleaks, Semgrep, OSV, Trivy, ZAP and cosign",
+        "Signed OpenVEX generated from accepted risks"
+      ],
+      "security": [
+        "HTTP client that refuses internal addresses, including via DNS rebinding and redirects",
+        "Distroless, non-root, read-only container with images pinned by digest",
+        "Problem Details errors without stack traces, ECS logs with correlation and Actuator limited to health"
+      ],
+      "demoNote": "Repository template, no hosted demo; the pipeline runs on every push in GitHub Actions.",
+      "flow": [
+        "Read the table of what comes ready in the README.",
+        "See the pipeline in .github/workflows/esteira.yml.",
+        "Read the processes in docs/processo/."
+      ]
+    },
+    "crivo": {
+      "oneLine": "Vulnerability triage with EPSS, KEV and deadlines, in Go",
+      "what": "Pipeline CLI that merges CodeQL, Semgrep, OSV-Scanner and OWASP ZAP, removes duplicates, checks each CVE against real exploitation (CISA KEV and FIRST EPSS) and returns a queue with priority, deadline and reason, blocking the merge above the agreed threshold.",
+      "role": "I built the CLI, the priority rules, time-boxed risk acceptances and the optional summary with a local model.",
+      "highlights": [
+        "P1 to P4 with 7 to 180 day SLAs and the reason for each decision",
+        "A risk acceptance without reason or date is rejected; an expired one blocks again",
+        "Go with no external dependencies, with parser fuzzing"
+      ],
+      "security": [
+        "AI summary only with a local model; text coming from the analysed code stays out of the prompt",
+        "Model output treated as untrusted: no links, images, HTML or mentions",
+        "Tests with -race and fuzzing against malformed reports"
+      ],
+      "demoNote": "CLI with no hosted demo; it runs in CI and locally with go build.",
+      "flow": [
+        "Read the priority rules in the README.",
+        "Run go test ./... and the parser fuzzing.",
+        "See crivo -osv osv.json -falhar-em P2 failing the pipeline."
+      ]
     }
   },
   "es": {
@@ -407,6 +524,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Lee el informe de red team en el repositorio.",
         "Ejecuta pytest -v tests/test_ataques.py.",
         "Compara cada ataque en la versión vulnerable y en la defendida."
+      ],
+      "security": [
+        "Seis ataques del OWASP Top 10 para LLM (2025) escritos como pruebas",
+        "Confirmación humana para acciones con efecto y dueño verificado por la sesión",
+        "Herramientas MCP aprobadas por hash contra el cambio de descripción"
       ]
     },
     "cautela": {
@@ -455,6 +577,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Abre la demostración y elige un tripulante.",
         "Mira las alertas explicadas y la dosis de radiación.",
         "Consulta las fuentes científicas en el repositorio."
+      ],
+      "security": [
+        "AES-GCM 256 con clave derivada del PIN (PBKDF2, 600 mil iteraciones)",
+        "Auditoría encadenada por hash y firmada con ECDSA P-256",
+        "CSP sin scripts inline, Trusted Types y pipeline con gitleaks, Semgrep, OSV y ZAP"
       ]
     },
     "almanaque": {
@@ -487,12 +614,18 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Busque por categoría o barrio y abra un negocio.",
         "Utilice los botones de perfil de demostración en el login.",
         "Explore la moderación y los indicadores de contactos."
+      ],
+      "security": [
+        "Programa de AppSec: STRIDE, árbol de ataque, PASTA, DREAD, SAMM y ATT&CK",
+        "Kit de Security Champions: checklist de PR seguro, capacitación y guía de triage del SAST",
+        "CSP solo con 'self', límite de peticiones y saga de eliminación por la LGPD",
+        "Kubernetes con Kyverno en CEL, Trivy en los manifiestos y Flux GitOps"
       ]
     },
     "feira": {
-      "oneLine": "Pedidos Java con eventos y compensaciones",
-      "what": "Cuatro microservicios Spring Boot coordinan pedidos, inventario, pagos y consultas mediante Kafka.",
-      "role": "Implementé la saga de pedidos, el outbox transaccional y los consumidores idempotentes.",
+      "oneLine": "Pipeline DevSecOps con controles que bloquean, sobre pedidos en Kafka",
+      "what": "Cuatro microservicios Spring Boot coordinan pedidos por eventos Kafka y, a su alrededor, un pipeline DevSecOps completo: controles que rechazan el merge, SBOM, Kubernetes con políticas y detección como código.",
+      "role": "Implementé la saga, el outbox y los consumidores idempotentes, y armé el pipeline de seguridad, las reglas propias y el panel de métricas.",
       "highlights": [
         "Outbox e inbox para entregas repetidas",
         "Compensación de inventario y reembolsos",
@@ -503,6 +636,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Realice un pedido y siga sus transiciones.",
         "Pida aceite de soja para observar el rechazo y la compensación.",
         "Ejecute Docker Compose para evaluar los servicios distribuidos."
+      ],
+      "security": [
+        "Kafka con TLS, SASL/SCRAM y ACL por servicio",
+        "Semgrep con reglas propias y falsos positivos medidos, CodeQL, OSV, gitleaks y ZAP como controles",
+        "SBOM SPDX y CycloneDX, Kyverno, Falco, reglas Sigma y panel de MTTR y SLA"
       ]
     },
     "koracrm": {
@@ -522,9 +660,9 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "authcore": {
-      "oneLine": "Autenticación Node.js con JWT, 2FA y perfiles",
-      "what": "API de autenticación con rotación de tokens, acceso por perfil, Redis e interfaz React.",
-      "role": "Implementé los flujos de autenticación, autorización y renovación de sesión.",
+      "oneLine": "Identidad: JWT, MFA, passkeys, Keycloak y Kong, con ataques probados",
+      "what": "Servicio de autenticación y autorización con rotación de tokens, MFA, passkeys, Keycloak con PKCE y Kong en el borde, y una interfaz React.",
+      "role": "Implementé los flujos de autenticación, autorización y sesión, el modelo de amenazas y la prueba automatizada de los ataques.",
       "highlights": [
         "JWT HS256 y autenticación TOTP",
         "Rotación de tokens y detección de reutilización",
@@ -535,6 +673,11 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Explore las pantallas de acceso y recuperación.",
         "Revise renovación, 2FA y autorización en el código.",
         "Ejecute el entorno completo localmente para probar el backend."
+      ],
+      "security": [
+        "MFA por TOTP con secreto cifrado y passkeys (WebAuthn)",
+        "Keycloak con PKCE, Kong en el borde y un servicio Spring que valida de nuevo: 18 ataques probados en la CI",
+        "STRIDE, ASVS 5.0, CSRF, IDOR probado y CSP con Trusted Types"
       ]
     },
     "codereview-ai": {
@@ -556,7 +699,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
     "conectagente": {
       "oneLine": "Visitas domiciliarias · seleccionado para Saruê (UNESP Bauru)",
       "what": "Investigación universitaria en salud pública para Agentes Comunitarios de Salud, seleccionada para Saruê, incubadora de UNESP Bauru. App de campo con React Native y Expo, registros offline en SQLite, sincronización con Supabase/PostgreSQL y panel de gestión Next.js.",
-      "role": "Desarrollo registros, visitas, sincronización, perfiles y auditoría.",
+      "role": "Soy responsable de la seguridad y la privacidad (autorización en la base, cifrado en el dispositivo, pinning, auditoría y LGPD) y desarrollo registro, visitas y sincronización.",
       "highlights": [
         "SQLite local para registros en campo",
         "Sincronización y acceso por perfil",
@@ -567,6 +710,12 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Revise la arquitectura móvil y web.",
         "El panel requiere una cuenta autorizada.",
         "Pruebe los registros offline y la sincronización con datos ficticios."
+      ],
+      "security": [
+        "Row Level Security en todas las tablas, probada como frontera en un PostgreSQL real",
+        "Base del dispositivo cifrada con SQLCipher y clave en el Android Keystore",
+        "Certificate pinning, lectura de datos sensibles auditada y registro inmutable",
+        "LGPD para datos de salud: base legal, retención, plan de incidentes y MobSF en la CI"
       ]
     },
     "permaneia": {
@@ -742,6 +891,90 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Explore el proyecto y su flujo documentado.",
         "Revise el código en la IDE o en GitHub.",
         "Siga las instrucciones para ejecutar el entorno completo."
+      ]
+    },
+    "rastro": {
+      "oneLine": "Tesis: dónde más está la falla que acaban de corregir",
+      "what": "Investigación de tesis en Product Security. Recibe la función vulnerable y la misma función corregida y busca variantes de la falla en una base de código, separando lo que sigue vulnerable de lo que ya recibió la corrección. Evaluado en la Juliet Test Suite del NIST y en dos casos reales: PHP (CVE-2012-1823 y CVE-2024-4577) y Spring4Shell.",
+      "role": "Desarrollé el método y el modelo, el experimento con validación cruzada por CWE, los casos reales y la monografía.",
+      "highlights": [
+        "Precisión media de 0,748 frente a 0,413 de Jaccard, en CWE no vistas en el entrenamiento",
+        "El código ya corregido en el top 10 baja de 36,4% a 2,6%",
+        "php-src completo en 24 s y spring-framework en 22 s"
+      ],
+      "security": [
+        "Ningún modelo se carga desde archivo: deserializar pickle ejecuta código",
+        "Conjunto de datos descargado solo por HTTPS y usado solo con el SHA-256 verificado",
+        "Dependencias instaladas con hash; gitleaks, OSV-Scanner, Semgrep y CodeQL en la CI"
+      ],
+      "demoNote": "Herramienta de línea de comandos, sin demostración publicada. Los casos reales se ejecutan con rastro caso php y rastro caso spring.",
+      "flow": [
+        "Lea el resultado y la metodología en el README.",
+        "Ejecute rastro caso php y vea la falla de 2024 volver por la función corregida en 2012.",
+        "Lea la monografía en docs/monografia.md."
+      ]
+    },
+    "brecha": {
+      "oneLine": "API bancaria vulnerable a propósito, su pentest y la versión corregida",
+      "what": "Laboratorio de pruebas de intrusión: una API bancaria en Java y servicios en Go, Django y Node con fallas plantadas de la OWASP API Security Top 10, la versión corregida al lado y el informe completo. Datos simulados.",
+      "role": "Construí los servicios vulnerables y los corregidos, hice la prueba de intrusión y escribí el informe y el write-up de la cadena de ataque.",
+      "highlights": [
+        "19 hallazgos con CVSS 4.0, CWE, pasos de reproducción y corrección",
+        "Informe en formato OWASP WSTG y Trail of Bits, en portugués e inglés",
+        "Cadena de ataque: SSRF, token falsificado, deserialización, túnel y Nmap en la red interna"
+      ],
+      "security": [
+        "Cada falla tiene una prueba que explota la v1 y demuestra el bloqueo en la v2",
+        "WAF ModSecurity con OWASP CRS y regla propia contra objetos Java serializados",
+        "Red segmentada y salida bloqueada en la versión corregida"
+      ],
+      "demoNote": "Laboratorio local, sin demostración publicada: solo escucha en 127.0.0.1 y usa datos simulados.",
+      "flow": [
+        "Lea el informe en docs/relatorio-pentest.en.md.",
+        "Ejecute mvn test: cada falla explotada en la v1 y bloqueada en la v2.",
+        "Siga la cadena de ataque en docs/cadeia-de-ataque.en.md."
+      ]
+    },
+    "alicerce": {
+      "oneLine": "Plantilla Spring Boot segura por defecto, para que cada squad parta de ella",
+      "what": "La base que un equipo de AppSec entrega para que cada servicio nuevo nazca con autenticación, autorización, cabeceras, errores, logs y pipeline de seguridad resueltos, junto con los procesos de gestión de vulnerabilidades, champions, advisory y respuesta a vulnerabilidades.",
+      "role": "Desarrollé la plantilla, el pipeline, el cliente HTTP anti-SSRF, la generación de VEX y las guías de proceso.",
+      "highlights": [
+        "OAuth 2.0 y OIDC con Keycloak, denegación por defecto y 404 para recurso ajeno",
+        "Pipeline sin continue-on-error: gitleaks, Semgrep, OSV, Trivy, ZAP y cosign",
+        "OpenVEX firmado generado a partir de los riesgos aceptados"
+      ],
+      "security": [
+        "Cliente HTTP que rechaza direcciones internas, incluso por DNS rebinding y redirecciones",
+        "Contenedor distroless, sin root y de solo lectura, con imágenes por digest",
+        "Errores en Problem Details sin pila, logs ECS con correlación y Actuator solo con health"
+      ],
+      "demoNote": "Plantilla de repositorio, sin demostración publicada; el pipeline se ejecuta en cada push en GitHub Actions.",
+      "flow": [
+        "Lea la tabla de lo que viene listo en el README.",
+        "Vea el pipeline en .github/workflows/esteira.yml.",
+        "Lea los procesos en docs/processo/."
+      ]
+    },
+    "crivo": {
+      "oneLine": "Triage de vulnerabilidades con EPSS, KEV y plazos, en Go",
+      "what": "CLI de pipeline que une CodeQL, Semgrep, OSV-Scanner y OWASP ZAP, elimina duplicados, cruza cada CVE con explotación real (KEV de CISA y EPSS de FIRST) y devuelve una cola con prioridad, plazo y motivo, bloqueando el merge por encima del límite acordado.",
+      "role": "Desarrollé la CLI, las reglas de prioridad, las aceptaciones de riesgo con plazo y el resumen opcional con un modelo local.",
+      "highlights": [
+        "P1 a P4 con SLA de 7 a 180 días y el motivo de cada decisión",
+        "Una aceptación de riesgo sin motivo o fecha se rechaza; vencida vuelve a bloquear",
+        "Go sin dependencias externas, con fuzzing del parser"
+      ],
+      "security": [
+        "Resumen con IA solo con modelo local; el texto que viene del código analizado queda fuera del prompt",
+        "Respuesta del modelo tratada como no confiable: sin enlaces, imágenes, HTML ni menciones",
+        "Pruebas con -race y fuzzing contra informes malformados"
+      ],
+      "demoNote": "CLI sin demostración publicada; se ejecuta en la CI y localmente con go build.",
+      "flow": [
+        "Lea las reglas de prioridad en el README.",
+        "Ejecute go test ./... y el fuzzing del parser.",
+        "Vea crivo -osv osv.json -falhar-em P2 bloqueando el pipeline."
       ]
     }
   }

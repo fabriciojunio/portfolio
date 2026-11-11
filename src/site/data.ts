@@ -5,6 +5,8 @@ export interface SiteProject {
   what: string;
   role: string;
   highlights?: string[];
+  /** Controles de segurança aplicados no projeto, cada um com evidência no repositório. */
+  security?: string[];
   stack: string[];
   github: string | null;
   demo?: string | null;
@@ -18,10 +20,538 @@ export interface SiteProject {
   labDemo?: string;
   year: string;
   snippet: string;
-  snippetLang: "typescript" | "python" | "java" | "php" | "csharp" | "sql" | "markdown";
+  snippetLang: "typescript" | "python" | "java" | "php" | "csharp" | "go" | "sql" | "markdown";
 }
 
 const PROJECTS_SOURCE: SiteProject[] = [
+  {
+    "slug": "vitrine-bauru",
+    "name": "Vitrine Bauru",
+    "oneLine": "Ação social para a SEDECON de Bauru: vitrine de pequenos empreendedores",
+    "what": "Ação social desenvolvida como projeto de extensão da UNISAGRADO para a SEDECON — Secretaria Municipal de Desenvolvimento Econômico, Turismo e Inovação, da Prefeitura de Bauru. A secretaria apoia o empreendedorismo e o desenvolvimento econômico local. A plataforma divulga pequenos empreendedores com catálogo, busca, moderação e contato pelo WhatsApp.",
+    "role": "Desenvolvi os serviços Java, as integrações por eventos e a interface de consulta e gestão.",
+    "highlights": [
+      "Microsserviços Spring Boot com Kafka e isolamento de dados",
+      "Moderação de cadastros e indicadores de contatos",
+      "Testes de integração e fluxo de exclusão de dados"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Cloud Gateway",
+      "Kafka",
+      "Amazon SNS e SQS",
+      "OpenTelemetry",
+      "PostgreSQL",
+      "Flyway",
+      "Docker",
+      "Kubernetes",
+      "React",
+      "TypeScript"
+    ],
+    "github": "https://github.com/fabriciojunio/vitrine-bauru",
+    "demo": "https://vitrine-bauru.vercel.app",
+    "year": "2026",
+    "snippetLang": "java",
+    "snippet": "    @Transactional\n    public void aprovar(UUID empreendedorId, UUID moderador) {\n        var empreendedor = carregar(empreendedorId);\n        var dono = donoDe(empreendedor);\n        var agora = relogio.instant();\n\n        empreendedor.aprovar(moderador, agora);\n\n        outbox.gravar(Topicos.EMPREENDEDORES, new CadastroAprovado(\n                UUID.randomUUID(), Correlacao.atual(), agora,\n                empreendedor.id(), moderador, empreendedor.nomeDoNegocio(),\n                dono.email(), dono.nome()));\n\n        auditor.registrar(moderador, \"cadastro_aprovado\", \"empreendedor\", empreendedor.id(),\n                empreendedor.nomeDoNegocio());\n    }",
+    "demoNote": "Demonstração com dados de exemplo e API publicada. A primeira resposta pode demorar enquanto o serviço inicia.",
+    "flow": [
+      "Pesquise por categoria ou bairro e abra um empreendimento.",
+      "Na tela de login, use os botões de demonstração para explorar os perfis.",
+      "Confira a moderação e os indicadores; o contato comercial ocorre pelo WhatsApp."
+    ],
+    "idePath": "/projetos/vitrine-bauru.java",
+    "sourcePath": "servico-cadastro/src/main/java/br/com/vitrinebauru/cadastro/aplicacao/ModerarCadastro.java",
+    "security": [
+      "Programa de AppSec: STRIDE, árvore de ataque, PASTA, DREAD, SAMM e ATT&CK",
+      "Kit de Security Champions: checklist de PR seguro, treinamento e guia de triagem do SAST",
+      "CSP só com 'self', limite de taxa e saga de exclusão pela LGPD",
+      "Kubernetes com Kyverno em CEL, Trivy no manifesto e Flux GitOps"
+    ]
+  },
+  {
+    "slug": "conectagente",
+    "name": "ConectAgente",
+    "oneLine": "Visitas domiciliares · selecionado para a Saruê (UNESP Bauru)",
+    "what": "Projeto de iniciação científica em saúde pública para Agentes Comunitários de Saúde, selecionado para a Saruê, incubadora da UNESP Bauru. App de campo em React Native e Expo, com registro offline em SQLite, sincronização com Supabase/PostgreSQL e painel de gestão em Next.js.",
+    "role": "Respondo pela segurança e pela privacidade (autorização no banco, cifra no aparelho, pinning, trilha e LGPD) e desenvolvo cadastro, visitas e sincronização.",
+    "highlights": [
+      "SQLite para registro em campo sem conexão",
+      "Sincronização e acesso por perfil",
+      "Selecionado para a Saruê, incubadora da UNESP Bauru"
+    ],
+    "stack": [
+      "React Native",
+      "Expo SDK 54",
+      "SQLite",
+      "Supabase",
+      "PostgreSQL",
+      "Next.js",
+      "Zod"
+    ],
+    "github": "https://github.com/fabriciojunio/ConectAgente",
+    "demo": "https://conectagente-web.vercel.app",
+    "year": "2026",
+    "snippetLang": "typescript",
+    "snippet": "  async contarPendentes(): Promise<number> {\n    return syncQueueRepository.contarPendentes();\n  }",
+    "demoNote": "Projeto em desenvolvimento. O painel web requer acesso autorizado; não use dados reais de saúde na demonstração.",
+    "flow": [
+      "Consulte no repositório a arquitetura mobile e web.",
+      "O painel administrativo requer uma conta autorizada.",
+      "Avalie offline e sincronização no ambiente local com dados fictícios."
+    ],
+    "idePath": "/projetos/conectagente.ts",
+    "sourcePath": "ConectAgente-mobile/src/services/syncService.ts",
+    "security": [
+      "Row Level Security em todas as tabelas, testada como fronteira em PostgreSQL real",
+      "Banco do aparelho cifrado com SQLCipher e chave no Android Keystore",
+      "Certificate pinning, leitura de dado sensível auditada e trilha imutável",
+      "LGPD para dado de saúde: base legal, retenção, plano de incidente e MobSF na CI"
+    ]
+  },
+  {
+    "slug": "rastro",
+    "name": "rastro",
+    "oneLine": "TCC: onde mais está a falha que acabaram de corrigir",
+    "what": "Pesquisa de TCC em Product Security. Recebe a função vulnerável e a mesma função corrigida e procura variantes da falha numa base de código, separando o que ainda está vulnerável do que já recebeu a correção. Avaliado na Juliet Test Suite do NIST e em dois casos reais: PHP (CVE-2012-1823 e CVE-2024-4577) e Spring4Shell.",
+    "role": "Desenvolvi o método, o modelo, o experimento com validação cruzada por CWE, os casos reais e a monografia.",
+    "highlights": [
+      "Precisão média de 0,748 contra 0,413 do Jaccard, em CWE não vista no treino",
+      "Código já corrigido no top 10 cai de 36,4% para 2,6%",
+      "php-src inteiro em 24 s e spring-framework em 22 s"
+    ],
+    "security": [
+      "Nenhum modelo carregado de arquivo: desserializar pickle executa código",
+      "Conjunto de dados baixado só por HTTPS e usado só com o SHA-256 conferido",
+      "Dependências instaladas com hash; gitleaks, OSV-Scanner, Semgrep e CodeQL na CI"
+    ],
+    "stack": [
+      "Python 3.11",
+      "tree-sitter",
+      "scikit-learn",
+      "NumPy",
+      "SciPy",
+      "pytest",
+      "mypy"
+    ],
+    "github": "https://github.com/fabriciojunio/rastro",
+    "demo": null,
+    "demoNote": "Ferramenta de linha de comando, sem demonstração publicada. Os casos reais rodam com rastro caso php e rastro caso spring.",
+    "flow": [
+      "Leia o resultado e a metodologia no README.",
+      "Rode rastro caso php e veja a falha de 2024 voltar pela função corrigida em 2012.",
+      "Leia a monografia em docs/monografia.md."
+    ],
+    "idePath": "/projetos/rastro.py",
+    "sourcePath": "src/rastro/dominio/assinatura.py",
+    "year": "2026",
+    "snippet": "@dataclass(frozen=True, slots=True)\nclass AssinaturaDaCorrecao:\n    removidos: frozenset[Ngrama]\n    adicionados: frozenset[Ngrama]\n\n    @classmethod\n    def de(\n        cls, tokens_vulneravel: Sequence[str], tokens_corrigido: Sequence[str], n: int\n    ) -> \"AssinaturaDaCorrecao\":\n        antes = ngramas(tokens_vulneravel, n)\n        depois = ngramas(tokens_corrigido, n)\n        return cls(removidos=antes - depois, adicionados=depois - antes)\n\n    def falha_presente(self, candidato: frozenset[Ngrama]) -> float:\n        \"\"\"Quanto do que a correção removeu ainda está no candidato.\"\"\"\n        return cobertura(self.removidos, candidato)\n\n    def correcao_presente(self, candidato: frozenset[Ngrama]) -> float:\n        \"\"\"Quanto do que a correção acrescentou já está no candidato.\"\"\"\n        return cobertura(self.adicionados, candidato)",
+    "snippetLang": "python"
+  },
+  {
+    "slug": "aurora",
+    "name": "AURORA",
+    "oneLine": "Saúde de astronautas sem depender da Terra, para o NASA Space Apps",
+    "what": "Monitoramento de saúde para missões longas, feito para o NASA International Space Apps Challenge 2026: alertas explicáveis contra o normal de cada pessoa, radiação com dados reais e assistente offline.",
+    "role": "Desenvolvi a arquitetura, o motor de risco, a segurança e os testes, em dupla.",
+    "highlights": [
+      "Alerta contra o normal de cada pessoa, não da população",
+      "Dose de radiação com dados reais da NASA",
+      "318 testes unitários e 11 de ponta a ponta"
+    ],
+    "stack": [
+      "TypeScript",
+      "React",
+      "Vitest",
+      "Playwright",
+      "WebCrypto"
+    ],
+    "github": "https://github.com/fabriciojunio/aurora-astronaut-health",
+    "demo": "https://aurora-astronaut-health.vercel.app",
+    "year": "2026",
+    "snippetLang": "typescript",
+    "demoNote": "Dados de tripulação simulados; radiação e tempestades solares são medições reais da NASA e da NOAA.",
+    "flow": [
+      "Abra a demonstração e escolha um tripulante.",
+      "Veja os alertas explicados e a dose de radiação.",
+      "Consulte as fontes científicas no repositório."
+    ],
+    "idePath": "/projetos/aurora.ts",
+    "snippet": "\nexport function computeBaseline(values: readonly number[]): Baseline | undefined {\n  const clean = values.filter(Number.isFinite)\n  if (clean.length < MIN_BASELINE_SAMPLES) return undefined\n  const sorted = [...clean].sort((a, b) => a - b)\n  const center = median(sorted)\n  const mad = median(sorted.map((v) => Math.abs(v - center)).sort((a, b) => a - b))\n  return { median: center, mad, samples: clean.length }\n}\n\n/**\n * When almost every baseline value is identical the MAD is zero. The floor keeps the score finite;\n * it should be the measurement resolution of the signal (0.5 % for SpO2, 1 bpm for heart rate),\n * because a relative floor hides clinically relevant drops in tightly regulated signals.\n */\nexport function modifiedZ(value: number, baseline: Baseline, floor?: number): number {\n  const minSpread = floor ?? Math.max(Math.abs(baseline.median) * 0.01, 1e-6)\n  return (0.6745 * (value - baseline.median)) / Math.max(baseline.mad, minSpread)",
+    "security": [
+      "AES-GCM 256 com chave derivada do PIN (PBKDF2, 600 mil iterações)",
+      "Auditoria encadeada por hash e assinada com ECDSA P-256",
+      "CSP sem script inline, Trusted Types e esteira com gitleaks, Semgrep, OSV e ZAP"
+    ]
+  },
+  {
+    "slug": "authcore",
+    "name": "AuthCore",
+    "oneLine": "Identidade: JWT, MFA, passkeys, Keycloak e Kong, com ataques provados",
+    "what": "Serviço de autenticação e autorização com rotação de tokens, MFA, passkeys, Keycloak com PKCE e Kong na borda, e uma interface React.",
+    "role": "Implementei os fluxos de autenticação, autorização e sessão, o threat model e a prova automatizada dos ataques.",
+    "highlights": [
+      "JWT HS256 e autenticação TOTP",
+      "Rotação de refresh tokens e detecção de reutilização",
+      "Validação de entradas e testes de autenticação"
+    ],
+    "stack": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "Keycloak",
+      "Kong",
+      "Spring Security",
+      "WebAuthn",
+      "Docker"
+    ],
+    "github": "https://github.com/fabriciojunio/authcore",
+    "demo": "https://frontend-tan-mu-38.vercel.app",
+    "year": "2026",
+    "snippetLang": "typescript",
+    "snippet": "  verifyAccessToken(token: string): TokenPayload {\n    try {\n      const decoded = jwt.verify(token, config.security.jwt.accessSecret, {\n        algorithms: ['HS256'],\n        issuer: config.app.name,\n        audience: 'api',\n      }) as TokenPayload;\n\n      if (decoded.type !== 'access') {\n        throw new AuthenticationError('Invalid token type');\n      }\n\n      return decoded;\n    } catch (error) {\n      if (error instanceof jwt.TokenExpiredError) {\n        throw new AuthenticationError('Token expired');\n      }\n      if (error instanceof jwt.JsonWebTokenError) {\n        throw new AuthenticationError('Invalid token');\n      }\n      throw error;\n    }\n  }",
+    "demoNote": "Interface publicada; a disponibilidade dos fluxos depende da API. O ambiente completo pode ser executado localmente.",
+    "flow": [
+      "Explore as telas de acesso e recuperação.",
+      "Consulte no repositório os fluxos de renovação, 2FA e autorização.",
+      "Execute o ambiente local para avaliar o backend completo."
+    ],
+    "idePath": "/projetos/authcore.ts",
+    "sourcePath": "backend/src/services/token.service.ts",
+    "sourceBranch": "produção",
+    "security": [
+      "MFA por TOTP com segredo cifrado e passkeys (WebAuthn)",
+      "Keycloak com PKCE, Kong na borda e serviço Spring que valida de novo: 18 ataques provados na CI",
+      "STRIDE, ASVS 5.0, CSRF, IDOR testado e CSP com Trusted Types"
+    ]
+  },
+  {
+    "slug": "feira",
+    "name": "Feira do Comando",
+    "oneLine": "Esteira DevSecOps com portões que barram, sobre pedidos em Kafka",
+    "what": "Quatro microsserviços Spring Boot coordenam pedidos por eventos Kafka e, em volta deles, uma esteira DevSecOps completa: portões que reprovam o merge, SBOM, Kubernetes com políticas e detecção como código.",
+    "role": "Implementei a saga, o outbox e os consumidores idempotentes, e montei a esteira de segurança, as regras próprias e o painel de métricas.",
+    "highlights": [
+      "Outbox e inbox para entrega repetida de eventos",
+      "Compensação de estoque e estorno de pagamento",
+      "Testes de integração para falhas e mensagens fora de ordem"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot",
+      "Kafka",
+      "OpenTelemetry",
+      "k6",
+      "PostgreSQL",
+      "MongoDB",
+      "Kubernetes",
+      "Terraform",
+      "React 19"
+    ],
+    "github": "https://github.com/fabriciojunio/feira-do-comando",
+    "demo": "https://feira-do-comando.vercel.app",
+    "year": "2026",
+    "snippetLang": "java",
+    "snippet": "    @Transactional\n    public Pedido executar(UUID pedidoId, String clienteId) {\n        var pedido = pedidos.porId(pedidoId)\n                .orElseThrow(() -> new NoSuchElementException(\"pedido nao encontrado\"));\n\n        if (!pedido.clienteId().equals(clienteId)) {\n            // Mesma resposta de \"nao existe\". Dizer \"existe, mas nao e seu\"\n            // permite descobrir quais ids existem.\n            throw new NoSuchElementException(\"pedido nao encontrado\");\n        }\n\n        var decisao = pedido.cancelarAPedidoDoCliente(relogio.instant());\n        if (!decisao.mudouDeEstado()) {\n            throw new CancelamentoNaoPermitido(pedido.status().name());\n        }\n\n        pedidos.salvar(pedido);\n        for (Evento evento : decisao.eventosASeguir()) {\n            saida.gravar(Topicos.PEDIDOS, evento);\n        }\n        return pedido;\n    }",
+    "demoNote": "Simulação no navegador. Os serviços Java, Kafka e PostgreSQL são executados localmente com Docker Compose.",
+    "flow": [
+      "Faça um pedido e acompanhe suas transições.",
+      "Peça óleo de soja para observar a recusa e a devolução da reserva.",
+      "No repositório, execute os serviços para avaliar o fluxo distribuído real."
+    ],
+    "idePath": "/projetos/feira.java",
+    "sourcePath": "servico-pedidos/src/main/java/br/com/feira/pedidos/aplicacao/CancelarPedido.java",
+    "security": [
+      "Kafka com TLS, SASL/SCRAM e ACL por serviço",
+      "Semgrep com regras próprias e falso positivo medido, CodeQL, OSV, gitleaks e ZAP como portões",
+      "SBOM SPDX e CycloneDX, Kyverno, Falco, regras Sigma e painel de MTTR e SLA"
+    ]
+  },
+  {
+    "slug": "brecha",
+    "name": "brecha",
+    "oneLine": "API bancária vulnerável de propósito, o pentest e a versão corrigida",
+    "what": "Laboratório de teste de intrusão: uma API bancária em Java e serviços em Go, Django e Node com falhas plantadas da OWASP API Security Top 10, a versão corrigida ao lado e o relatório completo. Dados simulados.",
+    "role": "Construí os serviços vulneráveis e os corrigidos, fiz o teste de intrusão e escrevi o relatório e o write-up da cadeia de ataque.",
+    "highlights": [
+      "19 achados com CVSS 4.0, CWE, passo a passo e correção",
+      "Relatório no formato OWASP WSTG e Trail of Bits, em português e inglês",
+      "Cadeia de ataque: SSRF, token forjado, desserialização, túnel e Nmap na rede interna"
+    ],
+    "security": [
+      "Cada falha tem um teste que explora a v1 e prova o bloqueio na v2",
+      "WAF ModSecurity com OWASP CRS e regra própria contra objeto Java serializado",
+      "Rede segmentada e saída bloqueada na versão corrigida"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot",
+      "Go",
+      "Django",
+      "Node.js",
+      "Burp Suite",
+      "OWASP ZAP",
+      "Nmap",
+      "ModSecurity CRS"
+    ],
+    "github": "https://github.com/fabriciojunio/brecha",
+    "demo": null,
+    "demoNote": "Laboratório local, sem demonstração publicada: sobe só em 127.0.0.1 e usa dados simulados.",
+    "flow": [
+      "Leia o relatório em docs/relatorio-pentest.md.",
+      "Rode mvn test: cada falha explorada na v1 e bloqueada na v2.",
+      "Siga a cadeia de ataque em docs/cadeia-de-ataque.md."
+    ],
+    "idePath": "/projetos/brecha.java",
+    "sourcePath": "src/main/java/br/com/brecha/api/v2/ApiCorrigida.java",
+    "year": "2026",
+    "snippet": "    private Conta contaDoDono(Sessao sessao, long contaId) {\n        Conta conta = banco.conta(contaId).orElseThrow();\n        if (conta.getClienteId() != sessao.clienteId() && !sessao.admin()) {\n            // 404 e não 403: quem não é dono não precisa saber que a conta existe.\n            throw new java.util.NoSuchElementException();\n        }\n        return conta;\n    }",
+    "snippetLang": "java"
+  },
+  {
+    "slug": "alicerce",
+    "name": "alicerce",
+    "oneLine": "Modelo Spring Boot seguro por padrão, para toda squad começar dele",
+    "what": "A base que um time de AppSec entrega para todo serviço novo nascer com autenticação, autorização, cabeçalhos, erro, log e esteira de segurança resolvidos, junto dos processos de gestão de vulnerabilidade, champions, advisory e resposta a vulnerabilidade.",
+    "role": "Desenvolvi o modelo, a esteira, o cliente HTTP anti-SSRF, a geração de VEX e os guias de processo.",
+    "highlights": [
+      "OAuth 2.0 e OIDC com Keycloak, negação por padrão e 404 para recurso alheio",
+      "Esteira sem continue-on-error: gitleaks, Semgrep, OSV, Trivy, ZAP e cosign",
+      "OpenVEX assinado gerado a partir dos riscos aceitos"
+    ],
+    "security": [
+      "Cliente HTTP que recusa endereço interno, inclusive por DNS rebinding e redirecionamento",
+      "Contêiner distroless, sem root e somente leitura, com imagens por digest",
+      "Erro em Problem Details sem pilha, log ECS com correlação e Actuator só com health"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot 4",
+      "Spring Security",
+      "Keycloak",
+      "Trivy",
+      "Sigstore cosign",
+      "OpenVEX",
+      "Renovate"
+    ],
+    "github": "https://github.com/fabriciojunio/alicerce",
+    "demo": null,
+    "demoNote": "Modelo de repositório, sem demonstração publicada; a esteira roda a cada push no GitHub Actions.",
+    "flow": [
+      "Leia a tabela do que vem pronto no README.",
+      "Veja a esteira em .github/workflows/esteira.yml.",
+      "Leia os processos em docs/processo/."
+    ],
+    "idePath": "/projetos/alicerce.java",
+    "sourcePath": "src/main/java/br/com/alicerce/saida/ResolvedorSeguro.java",
+    "year": "2026",
+    "snippet": "    @Override\n    public InetAddress[] resolve(String host) throws UnknownHostException {\n        InetAddress[] enderecos = sistema.resolve(host);\n        // Basta um endereço interno na resposta para recusar: com vários\n        // registros, o cliente pode conectar em qualquer um deles.\n        for (InetAddress endereco : enderecos) {\n            if (interno(endereco) && !politica.liberada(endereco)) {\n                throw new DestinoBloqueado(\"destino interno recusado: \" + host);\n            }\n        }\n        return enderecos;\n    }",
+    "snippetLang": "java"
+  },
+  {
+    "slug": "crivo",
+    "name": "crivo",
+    "oneLine": "Triagem de vulnerabilidades com EPSS, KEV e prazo, em Go",
+    "what": "CLI de pipeline que junta CodeQL, Semgrep, OSV-Scanner e OWASP ZAP, tira as repetições, cruza cada CVE com exploração real (KEV da CISA e EPSS da FIRST) e devolve uma fila com prioridade, prazo e motivo, barrando o merge acima do limite combinado.",
+    "role": "Desenvolvi a CLI, as regras de prioridade, os aceites de risco com prazo e o resumo opcional com modelo local.",
+    "highlights": [
+      "P1 a P4 com SLA de 7 a 180 dias e o motivo de cada decisão",
+      "Aceite de risco sem motivo ou data é recusado; vencido volta a barrar",
+      "Go sem dependência externa, com fuzzing do parser"
+    ],
+    "security": [
+      "Resumo por IA só com modelo local; o texto vindo do código analisado fica fora do prompt",
+      "Resposta do modelo tratada como não confiável: sem link, imagem, HTML ou menção",
+      "Testes com -race e fuzzing contra relatório malformado"
+    ],
+    "stack": [
+      "Go",
+      "SARIF",
+      "OSV",
+      "OWASP ZAP",
+      "EPSS",
+      "CISA KEV",
+      "Ollama"
+    ],
+    "github": "https://github.com/fabriciojunio/crivo",
+    "demo": null,
+    "demoNote": "CLI sem demonstração publicada; roda no CI e localmente com go build.",
+    "flow": [
+      "Leia as regras de prioridade no README.",
+      "Rode go test ./... e o fuzzing do parser.",
+      "Veja crivo -osv osv.json -falhar-em P2 barrando o pipeline."
+    ],
+    "idePath": "/projetos/crivo.go",
+    "sourcePath": "internal/priority/priority.go",
+    "year": "2026",
+    "snippet": "// Decide aplica as regras na ordem: o primeiro motivo que se aplica vence.\nfunc Decide(f finding.Finding, epss map[string]float64, kev map[string]bool, now time.Time) Triage {\n\tt := Triage{Finding: f}\n\tfor _, cve := range f.CVEs() {\n\t\tt.EPSS = max(t.EPSS, epss[cve])\n\t\tt.KEV = t.KEV || kev[cve]\n\t}\n\tswitch {\n\tcase t.KEV:\n\t\tt.Level, t.Reason = P1, \"explorada de verdade (catálogo KEV da CISA)\"\n\tcase f.Severity == finding.SeverityCritical:\n\t\tt.Level, t.Reason = P1, \"severidade crítica\"\n\tcase t.EPSS >= epssUrgent:\n\t\tt.Level, t.Reason = P1, fmt.Sprintf(\"EPSS %.0f%%: exploração provável\", t.EPSS*100)\n\tcase f.Severity == finding.SeverityHigh:\n\t\tt.Level, t.Reason = P2, \"severidade alta\"\n\tcase t.EPSS >= epssHigh:\n\t\tt.Level, t.Reason = P2, fmt.Sprintf(\"EPSS %.0f%%, acima da média\", t.EPSS*100)\n\tcase f.Severity == finding.SeverityMedium:\n\t\tt.Level, t.Reason = P3, \"severidade média\"\n\tdefault:\n\t\tt.Level, t.Reason = P4, \"severidade baixa ou não informada\"\n\t}\n\tt.Due = now.Add(SLA[t.Level])\n\treturn t\n}",
+    "snippetLang": "go"
+  },
+  {
+    "slug": "guarita",
+    "name": "guarita",
+    "oneLine": "Assistente com RAG e MCP, atacado e defendido",
+    "what": "Assistente de suporte com busca em base de conhecimento e ferramentas MCP, com seis ataques do OWASP Top 10 para LLM escritos como testes.",
+    "role": "Desenvolvi o agente, o servidor MCP, os ataques e as defesas, e escrevi o relatório de red team.",
+    "highlights": [
+      "Injeção de prompt, exfiltração e ferramenta adulterada como testes",
+      "Defesas fora do modelo: sessão, confirmação humana e hash de ferramenta",
+      "31 testes, mypy estrito e relatório no padrão de mercado"
+    ],
+    "stack": [
+      "Python",
+      "MCP",
+      "RAG",
+      "pytest",
+      "mypy",
+      "OWASP LLM Top 10"
+    ],
+    "github": "https://github.com/fabriciojunio/guarita",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "python",
+    "demoNote": "Os ataques rodam como testes com um modelo que obedece qualquer instrução: é o pior caso, de propósito.",
+    "flow": [
+      "Leia o relatório de red team no repositório.",
+      "Rode pytest -v tests/test_ataques.py.",
+      "Compare cada ataque na versão vulnerável e na defendida."
+    ],
+    "idePath": "/projetos/guarita.py",
+    "snippet": "    @servidor.tool(\n        description=\"Lê um chamado de suporte pelo número, por exemplo CH-1001.\",\n        annotations=ToolAnnotations(read_only_hint=True),\n    )\n    def ler_chamado(numero: Annotated[str, Field(pattern=r\"^CH-\\d{4}$\")]) -> str:\n        chamado = CHAMADOS.get(numero)\n        # Mesma resposta para \"não existe\" e \"não é seu\", para não revelar quais números existem.\n        if chamado is None or (defendido and chamado.cliente != sessao.cliente):\n            raise ToolError(\"chamado não encontrado\")\n        return f\"{chamado.numero} | {chamado.assunto} | contato: {chamado.contato}\"",
+    "security": [
+      "Seis ataques do OWASP Top 10 para LLM (2025) escritos como testes",
+      "Confirmação humana para ação com efeito e dono conferido pela sessão",
+      "Ferramentas MCP aprovadas por hash contra troca de descrição"
+    ]
+  },
+  {
+    "slug": "balcao",
+    "name": "Balcão",
+    "oneLine": "Agente de atendimento no WhatsApp que não inventa preço",
+    "what": "Agente para lojas de celular que atende, negocia e avalia aparelho usado no WhatsApp. O modelo entende o cliente e chama funções; preço, parcelamento e troca saem de código testado.",
+    "role": "Desenvolvi o orquestrador da conversa, as ferramentas, o auditor de saída e o painel com humano no circuito.",
+    "highlights": [
+      "Function calling com motores de preço determinísticos",
+      "Auditor que confere cada número antes do envio",
+      "Painel para assumir conversa, aprovar proposta e desligar o bot"
+    ],
+    "stack": [
+      "TypeScript",
+      "LLM",
+      "Ollama",
+      "PostgreSQL",
+      "WhatsApp Cloud API",
+      "Vitest"
+    ],
+    "github": "https://github.com/fabriciojunio/balcao",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "typescript",
+    "demoNote": "Não há demonstração publicada: o repositório roda uma conversa completa com npm run demo, sem banco, GPU nem WhatsApp.",
+    "flow": [
+      "Abra o repositório e rode npm run demo.",
+      "Acompanhe a negociação e a proposta de troca no terminal.",
+      "Leia o auditor que barra número inventado."
+    ],
+    "idePath": "/projetos/balcao.ts",
+    "snippet": "export function auditarMensagem(texto: string, contexto: ContextoAuditoria): ResultadoAuditoria {\n  const violacoes: Violacao[] = [];\n\n  if (/\\{\\{|\\}\\}/.test(texto)) {\n    violacoes.push({\n      tipo: \"marcador_nao_resolvido\",\n      trecho: texto.match(/\\{\\{[^}]*\\}\\}?/)?.[0] ?? \"{{\",\n      motivo: \"Sobrou marcador na mensagem final.\",\n    });\n  }\n\n  const textoNormalizado = semAcento(texto).toLowerCase();\n  for (const frase of contexto.frasesProibidas) {\n    const alvo = semAcento(frase).toLowerCase().trim();\n    if (alvo !== \"\" && textoNormalizado.includes(alvo)) {\n      violacoes.push({\n        tipo: \"frase_proibida\",\n        trecho: frase,\n        motivo: \"O agente não tem autorização para prometer isto.\",\n      });\n    }"
+  },
+  {
+    "slug": "cautela",
+    "name": "Cautela",
+    "oneLine": "Agente de investimentos que não recomenda nem inventa número",
+    "what": "Agente que responde perguntas sobre investimento só com número medido, cita a fonte e declara a limitação.",
+    "role": "Desenvolvi o agente, o acervo de fatos e o auditor que barra recomendação e número sem lastro.",
+    "highlights": [
+      "Auditor de saída independente do modelo",
+      "Toda resposta cita a fonte do número",
+      "Recusa explícita quando não há dado"
+    ],
+    "stack": [
+      "Python",
+      "LLM",
+      "Agentes",
+      "pytest"
+    ],
+    "github": "https://github.com/fabriciojunio/cautela",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "python",
+    "demoNote": "Roda pela linha de comando; o repositório traz o acervo e as instruções.",
+    "flow": [
+      "Abra o repositório e rode a interface de linha de comando.",
+      "Faça uma pergunta sobre fundos.",
+      "Veja o auditor recusar uma recomendação."
+    ],
+    "idePath": "/projetos/cautela.py",
+    "snippet": "def auditar(texto: str, fatos: list[Fato]) -> Veredicto:\n    \"\"\"Decide se a resposta pode sair como esta.\n\n    A ordem importa. Recomendacao e barrada antes de qualquer conferencia de\n    numero, porque uma resposta que recomenda com numero correto continua sendo\n    uma recomendacao.\n    \"\"\"\n    if contem_recomendacao(texto):\n        return Veredicto(False, \"recomendacao de investimento\", RECUSA_RECOMENDACAO)\n\n    if not fatos:\n        return Veredicto(False, \"sem fato no acervo\", RECUSA_SEM_FATO)\n\n    inventados = numeros_sem_lastro(texto, fatos)\n    if inventados:\n        return Veredicto(\n            False,\n            f\"numero fora do acervo: {', '.join(inventados)}\",\n            RECUSA_SEM_FATO,\n        )\n\n    return Veredicto(True)"
+  },
+  {
+    "slug": "verbete",
+    "name": "Verbete",
+    "oneLine": "Classificação de projetos de lei com abstenção medida",
+    "what": "Classificação multirrótulo de 4.500 projetos de lei em 32 temas, com abstenção e explicação, e a medição de um vazamento de anotação.",
+    "role": "Coletei os dados, treinei e avaliei o modelo, medi o vazamento e montei a curva de cobertura.",
+    "highlights": [
+      "Vazamento de anotação que inflava o resultado em 26%",
+      "Curva de cobertura: 80% respondido com micro-F1 de 0,604",
+      "41 testes e experimentos reproduzíveis"
+    ],
+    "stack": [
+      "Python",
+      "scikit-learn",
+      "NumPy",
+      "pandas",
+      "pytest"
+    ],
+    "github": "https://github.com/fabriciojunio/verbete",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "python",
+    "demoNote": "Os números e as figuras estão no repositório; os experimentos rodam em sequência.",
+    "flow": [
+      "Leia o resultado principal no README.",
+      "Rode os experimentos de 01 a 04.",
+      "Confira a curva de abstenção nas figuras."
+    ],
+    "idePath": "/projetos/verbete.py",
+    "snippet": "    previsto = escores >= limiares\n    confianca = escores.max(axis=1)\n    cortes = tuple(np.round(np.quantile(confianca, np.linspace(0, 0.9, 10)), 4))\n    linhas = []\n    for corte in cortes:\n        atende = confianca >= corte\n        if not atende.any():\n            continue\n        linhas.append(\n            {\n                \"corte_de_confianca\": float(corte),\n                \"cobertura\": float(atende.mean()),\n                \"n_respondidos\": int(atende.sum()),\n                \"micro_f1\": micro(y[atende], previsto[atende])[\"f1\"],\n                \"macro_f1\": macro(y[atende], previsto[atende])[\"f1\"],"
+  },
+  {
+    "slug": "codereview-ai",
+    "name": "CodeReview AI",
+    "oneLine": "Revisão de código com processamento assíncrono",
+    "what": "Projeto de análise de código com modelo local, fila RabbitMQ e cache Redis.",
+    "role": "Desenvolvi a orquestração assíncrona, o acompanhamento das análises e o cache por conteúdo.",
+    "highlights": [
+      "Spring Boot e fila de processamento",
+      "Cache por hash do código enviado",
+      "Rastreamento de requisições e testes automatizados"
+    ],
+    "stack": [
+      "Java 21",
+      "Spring Boot",
+      "Ollama",
+      "RabbitMQ",
+      "Redis",
+      "OpenTelemetry"
+    ],
+    "github": "https://github.com/fabriciojunio/codereview-ai",
+    "demo": null,
+    "year": "2026",
+    "snippetLang": "java",
+    "snippet": "    @Transactional\n    public ReviewResponse submit(ReviewRequest request, String userEmail) {\n        User user = findUser(userEmail);\n        checkRateLimit(user);\n        validateLineCount(request.sourceCode());\n\n        Review review = Review.builder()\n                .user(user)\n                .language(request.language())\n                .sourceCode(request.sourceCode())\n                .sourceFilename(request.filename())\n                .status(Review.ReviewStatus.PENDING)\n                .build();\n\n        Review persisted = reviewRepository.save(review);\n        incrementRateLimit(user);\n        reviewProducer.send(persisted.getId());\n\n        meterRegistry.counter(\"codereview.reviews.submitted\",\n                \"language\", request.language().name()).increment();\n\n        log.info(\"Review {} submitted by {} for {}\", persisted.getId(), userEmail, request.language());\n        return ReviewResponse.pending(persisted.getId(), request.language(), persisted.getSubmittedAt());\n    }",
+    "demoNote": "Não há demonstração web publicada. O repositório contém instruções para execução local.",
+    "flow": [
+      "Abra o repositório e siga as instruções de execução.",
+      "Envie um trecho de código e acompanhe o identificador da análise.",
+      "Consulte o exemplo na IDE para entender o fluxo."
+    ],
+    "idePath": "/projetos/codereview-ai.java",
+    "sourcePath": "backend/src/main/java/com/fabriciojunio/codereview/service/ReviewService.java"
+  },
   {
     "slug": "almanaque",
     "name": "Almanaque",
@@ -61,83 +591,6 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "sourcePath": "src/Infraestrutura/Busca/MotorComReserva.php"
   },
   {
-    "slug": "vitrine-bauru",
-    "name": "Vitrine Bauru",
-    "oneLine": "Ação social para a SEDECON de Bauru: vitrine de pequenos empreendedores",
-    "what": "Ação social desenvolvida como projeto de extensão da UNISAGRADO para a SEDECON — Secretaria Municipal de Desenvolvimento Econômico, Turismo e Inovação, da Prefeitura de Bauru. A secretaria apoia o empreendedorismo e o desenvolvimento econômico local. A plataforma divulga pequenos empreendedores com catálogo, busca, moderação e contato pelo WhatsApp.",
-    "role": "Desenvolvi os serviços Java, as integrações por eventos e a interface de consulta e gestão.",
-    "highlights": [
-      "Microsserviços Spring Boot com Kafka e isolamento de dados",
-      "Moderação de cadastros e indicadores de contatos",
-      "Testes de integração e fluxo de exclusão de dados"
-    ],
-    "stack": [
-      "Java 21",
-      "Spring Boot",
-      "Spring Security",
-      "Spring Cloud Gateway",
-      "Kafka",
-      "Amazon SNS e SQS",
-      "OpenTelemetry",
-      "PostgreSQL",
-      "Flyway",
-      "Docker",
-      "Kubernetes",
-      "React",
-      "TypeScript"
-    ],
-    "github": "https://github.com/fabriciojunio/vitrine-bauru",
-    "demo": "https://vitrine-bauru.vercel.app",
-    "year": "2026",
-    "snippetLang": "java",
-    "snippet": "    @Transactional\n    public void aprovar(UUID empreendedorId, UUID moderador) {\n        var empreendedor = carregar(empreendedorId);\n        var dono = donoDe(empreendedor);\n        var agora = relogio.instant();\n\n        empreendedor.aprovar(moderador, agora);\n\n        outbox.gravar(Topicos.EMPREENDEDORES, new CadastroAprovado(\n                UUID.randomUUID(), Correlacao.atual(), agora,\n                empreendedor.id(), moderador, empreendedor.nomeDoNegocio(),\n                dono.email(), dono.nome()));\n\n        auditor.registrar(moderador, \"cadastro_aprovado\", \"empreendedor\", empreendedor.id(),\n                empreendedor.nomeDoNegocio());\n    }",
-    "demoNote": "Demonstração com dados de exemplo e API publicada. A primeira resposta pode demorar enquanto o serviço inicia.",
-    "flow": [
-      "Pesquise por categoria ou bairro e abra um empreendimento.",
-      "Na tela de login, use os botões de demonstração para explorar os perfis.",
-      "Confira a moderação e os indicadores; o contato comercial ocorre pelo WhatsApp."
-    ],
-    "idePath": "/projetos/vitrine-bauru.java",
-    "sourcePath": "servico-cadastro/src/main/java/br/com/vitrinebauru/cadastro/aplicacao/ModerarCadastro.java"
-  },
-  {
-    "slug": "feira",
-    "name": "Feira do Comando",
-    "oneLine": "Pedidos em Java com eventos, idempotência e compensação",
-    "what": "Quatro microsserviços Spring Boot coordenam pedidos, estoque, pagamentos e consultas por eventos Kafka.",
-    "role": "Implementei a saga de pedidos, o outbox transacional e os consumidores idempotentes.",
-    "highlights": [
-      "Outbox e inbox para entrega repetida de eventos",
-      "Compensação de estoque e estorno de pagamento",
-      "Testes de integração para falhas e mensagens fora de ordem"
-    ],
-    "stack": [
-      "Java 21",
-      "Spring Boot",
-      "Kafka",
-      "OpenTelemetry",
-      "k6",
-      "PostgreSQL",
-      "MongoDB",
-      "Kubernetes",
-      "Terraform",
-      "React 19"
-    ],
-    "github": "https://github.com/fabriciojunio/feira-do-comando",
-    "demo": "https://feira-do-comando.vercel.app",
-    "year": "2026",
-    "snippetLang": "java",
-    "snippet": "    @Transactional\n    public Pedido executar(UUID pedidoId, String clienteId) {\n        var pedido = pedidos.porId(pedidoId)\n                .orElseThrow(() -> new NoSuchElementException(\"pedido nao encontrado\"));\n\n        if (!pedido.clienteId().equals(clienteId)) {\n            // Mesma resposta de \"nao existe\". Dizer \"existe, mas nao e seu\"\n            // permite descobrir quais ids existem.\n            throw new NoSuchElementException(\"pedido nao encontrado\");\n        }\n\n        var decisao = pedido.cancelarAPedidoDoCliente(relogio.instant());\n        if (!decisao.mudouDeEstado()) {\n            throw new CancelamentoNaoPermitido(pedido.status().name());\n        }\n\n        pedidos.salvar(pedido);\n        for (Evento evento : decisao.eventosASeguir()) {\n            saida.gravar(Topicos.PEDIDOS, evento);\n        }\n        return pedido;\n    }",
-    "demoNote": "Simulação no navegador. Os serviços Java, Kafka e PostgreSQL são executados localmente com Docker Compose.",
-    "flow": [
-      "Faça um pedido e acompanhe suas transições.",
-      "Peça óleo de soja para observar a recusa e a devolução da reserva.",
-      "No repositório, execute os serviços para avaliar o fluxo distribuído real."
-    ],
-    "idePath": "/projetos/feira.java",
-    "sourcePath": "servico-pedidos/src/main/java/br/com/feira/pedidos/aplicacao/CancelarPedido.java"
-  },
-  {
     "slug": "koracrm",
     "name": "KoraCRM",
     "oneLine": "CRM em Laravel com funil, tarefas e auditoria",
@@ -172,139 +625,6 @@ const PROJECTS_SOURCE: SiteProject[] = [
     ],
     "idePath": "/projetos/koracrm.php",
     "sourcePath": "backend/app/Application/Services/CriarLeadService.php"
-  },
-  {
-    "slug": "authcore",
-    "name": "AuthCore",
-    "oneLine": "Autenticação em Node.js com JWT, 2FA e perfis",
-    "what": "API de autenticação com rotação de tokens, controle de acesso, Redis e uma interface React.",
-    "role": "Implementei os fluxos de autenticação, autorização e renovação de sessão.",
-    "highlights": [
-      "JWT HS256 e autenticação TOTP",
-      "Rotação de refresh tokens e detecção de reutilização",
-      "Validação de entradas e testes de autenticação"
-    ],
-    "stack": [
-      "Node.js",
-      "Express",
-      "TypeORM",
-      "JWT + 2FA",
-      "Docker"
-    ],
-    "github": "https://github.com/fabriciojunio/authcore",
-    "demo": "https://frontend-tan-mu-38.vercel.app",
-    "year": "2026",
-    "snippetLang": "typescript",
-    "snippet": "  verifyAccessToken(token: string): TokenPayload {\n    try {\n      const decoded = jwt.verify(token, config.security.jwt.accessSecret, {\n        algorithms: ['HS256'],\n        issuer: config.app.name,\n        audience: 'api',\n      }) as TokenPayload;\n\n      if (decoded.type !== 'access') {\n        throw new AuthenticationError('Invalid token type');\n      }\n\n      return decoded;\n    } catch (error) {\n      if (error instanceof jwt.TokenExpiredError) {\n        throw new AuthenticationError('Token expired');\n      }\n      if (error instanceof jwt.JsonWebTokenError) {\n        throw new AuthenticationError('Invalid token');\n      }\n      throw error;\n    }\n  }",
-    "demoNote": "Interface publicada; a disponibilidade dos fluxos depende da API. O ambiente completo pode ser executado localmente.",
-    "flow": [
-      "Explore as telas de acesso e recuperação.",
-      "Consulte no repositório os fluxos de renovação, 2FA e autorização.",
-      "Execute o ambiente local para avaliar o backend completo."
-    ],
-    "idePath": "/projetos/authcore.ts",
-    "sourcePath": "backend/src/services/token.service.ts",
-    "sourceBranch": "produção"
-  },
-  {
-    "slug": "codereview-ai",
-    "name": "CodeReview AI",
-    "oneLine": "Revisão de código com processamento assíncrono",
-    "what": "Projeto de análise de código com modelo local, fila RabbitMQ e cache Redis.",
-    "role": "Desenvolvi a orquestração assíncrona, o acompanhamento das análises e o cache por conteúdo.",
-    "highlights": [
-      "Spring Boot e fila de processamento",
-      "Cache por hash do código enviado",
-      "Rastreamento de requisições e testes automatizados"
-    ],
-    "stack": [
-      "Java 21",
-      "Spring Boot",
-      "Ollama",
-      "RabbitMQ",
-      "Redis",
-      "OpenTelemetry"
-    ],
-    "github": "https://github.com/fabriciojunio/codereview-ai",
-    "demo": null,
-    "year": "2026",
-    "snippetLang": "java",
-    "snippet": "    @Transactional\n    public ReviewResponse submit(ReviewRequest request, String userEmail) {\n        User user = findUser(userEmail);\n        checkRateLimit(user);\n        validateLineCount(request.sourceCode());\n\n        Review review = Review.builder()\n                .user(user)\n                .language(request.language())\n                .sourceCode(request.sourceCode())\n                .sourceFilename(request.filename())\n                .status(Review.ReviewStatus.PENDING)\n                .build();\n\n        Review persisted = reviewRepository.save(review);\n        incrementRateLimit(user);\n        reviewProducer.send(persisted.getId());\n\n        meterRegistry.counter(\"codereview.reviews.submitted\",\n                \"language\", request.language().name()).increment();\n\n        log.info(\"Review {} submitted by {} for {}\", persisted.getId(), userEmail, request.language());\n        return ReviewResponse.pending(persisted.getId(), request.language(), persisted.getSubmittedAt());\n    }",
-    "demoNote": "Não há demonstração web publicada. O repositório contém instruções para execução local.",
-    "flow": [
-      "Abra o repositório e siga as instruções de execução.",
-      "Envie um trecho de código e acompanhe o identificador da análise.",
-      "Consulte o exemplo na IDE para entender o fluxo."
-    ],
-    "idePath": "/projetos/codereview-ai.java",
-    "sourcePath": "backend/src/main/java/com/fabriciojunio/codereview/service/ReviewService.java"
-  },
-  {
-    "slug": "conectagente",
-    "name": "ConectAgente",
-    "oneLine": "Visitas domiciliares · selecionado para a Saruê (UNESP Bauru)",
-    "what": "Projeto de iniciação científica em saúde pública para Agentes Comunitários de Saúde, selecionado para a Saruê, incubadora da UNESP Bauru. App de campo em React Native e Expo, com registro offline em SQLite, sincronização com Supabase/PostgreSQL e painel de gestão em Next.js.",
-    "role": "Desenvolvo o cadastro, as visitas, a sincronização e os perfis de acesso, com registros de auditoria.",
-    "highlights": [
-      "SQLite para registro em campo sem conexão",
-      "Sincronização e acesso por perfil",
-      "Selecionado para a Saruê, incubadora da UNESP Bauru"
-    ],
-    "stack": [
-      "React Native",
-      "Expo SDK 54",
-      "SQLite",
-      "Supabase",
-      "PostgreSQL",
-      "Next.js",
-      "Zod"
-    ],
-    "github": "https://github.com/fabriciojunio/ConectAgente",
-    "demo": "https://conectagente-web.vercel.app",
-    "year": "2026",
-    "snippetLang": "typescript",
-    "snippet": "  async contarPendentes(): Promise<number> {\n    return syncQueueRepository.contarPendentes();\n  }",
-    "demoNote": "Projeto em desenvolvimento. O painel web requer acesso autorizado; não use dados reais de saúde na demonstração.",
-    "flow": [
-      "Consulte no repositório a arquitetura mobile e web.",
-      "O painel administrativo requer uma conta autorizada.",
-      "Avalie offline e sincronização no ambiente local com dados fictícios."
-    ],
-    "idePath": "/projetos/conectagente.ts",
-    "sourcePath": "ConectAgente-mobile/src/services/syncService.ts"
-  },
-  {
-    "slug": "permaneia",
-    "name": "PermaneIA",
-    "oneLine": "Assistente de estudos e análise de evasão",
-    "what": "Projeto acadêmico com consulta a documentos por RAG e análise de fatores de evasão por lógica fuzzy.",
-    "role": "Desenvolvi a inferência fuzzy e a consulta a documentos com fontes citadas.",
-    "highlights": [
-      "Consulta a material acadêmico",
-      "Motor fuzzy de Mamdani",
-      "Simulação interativa dos fatores de risco"
-    ],
-    "stack": [
-      "Next.js 15",
-      "TypeScript",
-      "PostgreSQL",
-      "pgvector",
-      "Prisma",
-      "Gemini API"
-    ],
-    "github": "https://github.com/fabriciojunio/permaneia",
-    "labDemo": "/projetos/permaneia.ts",
-    "demo": "https://permaneia.vercel.app",
-    "year": "2026",
-    "snippetLang": "typescript",
-    "snippet": "// Regra 7: o caso que o projeto existe para pegar.\n// Notas boas não anulam presença e engajamento em queda.\nr(7, \"baixa\", \"alta\", \"baixo\", \"alto\",\n  \"Um critério baseado só em nota classificaria este aluno \" +\n  \"como tranquilo, e ele não está.\");\n\n// Disparo pelo mínimo: a regra só vale o quanto vale o seu\n// antecedente mais fraco.\nconst forca = Math.min(\n  graus.frequencia[regra.se.frequencia],\n  graus.notas[regra.se.notas],\n  graus.engajamento[regra.se.engajamento],\n);",
-    "demoNote": "A simulação da IDE demonstra a lógica fuzzy com entradas de exemplo; não é uma previsão validada para alunos reais.",
-    "flow": [
-      "Abra a simulação na IDE.",
-      "Altere os fatores e observe a inferência fuzzy.",
-      "Consulte o repositório para executar a aplicação completa."
-    ],
-    "idePath": "/projetos/permaneia.ts"
   },
   {
     "slug": "cardiocam",
@@ -349,7 +669,14 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "Comparação com métodos de referência e estruturas conhecidas",
       "Avaliação de estabilidade temporal com dados públicos da B3"
     ],
-    "stack": ["Python", "NumPy", "Redes bayesianas", "Algoritmos evolutivos", "Análise de redes", "Séries temporais"],
+    "stack": [
+      "Python",
+      "NumPy",
+      "Redes bayesianas",
+      "Algoritmos evolutivos",
+      "Análise de redes",
+      "Séries temporais"
+    ],
     "github": null,
     "demo": null,
     "demoNote": "Projeto pré-TCC em desenvolvimento. Esta é uma apresentação pública do tema; o código e os artefatos de pesquisa permanecem privados até a defesa.",
@@ -362,6 +689,39 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "presentationOnly": true,
     "snippetLang": "markdown",
     "snippet": "# Lastro — projeto pré-TCC\n\nTema: dependências entre instituições financeiras brasileiras\ne estabilidade dessas relações ao longo do tempo.\n\nMétodo: redes bayesianas e otimização evolutiva multiobjetivo.\nAvaliação: estruturas conhecidas, métodos de referência\ne estabilidade temporal em dados públicos da B3.\n\nStatus: pesquisa em desenvolvimento.\nCódigo e artefatos privados até a defesa.\n"
+  },
+  {
+    "slug": "permaneia",
+    "name": "PermaneIA",
+    "oneLine": "Assistente de estudos e análise de evasão",
+    "what": "Projeto acadêmico com consulta a documentos por RAG e análise de fatores de evasão por lógica fuzzy.",
+    "role": "Desenvolvi a inferência fuzzy e a consulta a documentos com fontes citadas.",
+    "highlights": [
+      "Consulta a material acadêmico",
+      "Motor fuzzy de Mamdani",
+      "Simulação interativa dos fatores de risco"
+    ],
+    "stack": [
+      "Next.js 15",
+      "TypeScript",
+      "PostgreSQL",
+      "pgvector",
+      "Prisma",
+      "Gemini API"
+    ],
+    "github": "https://github.com/fabriciojunio/permaneia",
+    "labDemo": "/projetos/permaneia.ts",
+    "demo": "https://permaneia.vercel.app",
+    "year": "2026",
+    "snippetLang": "typescript",
+    "snippet": "// Regra 7: o caso que o projeto existe para pegar.\n// Notas boas não anulam presença e engajamento em queda.\nr(7, \"baixa\", \"alta\", \"baixo\", \"alto\",\n  \"Um critério baseado só em nota classificaria este aluno \" +\n  \"como tranquilo, e ele não está.\");\n\n// Disparo pelo mínimo: a regra só vale o quanto vale o seu\n// antecedente mais fraco.\nconst forca = Math.min(\n  graus.frequencia[regra.se.frequencia],\n  graus.notas[regra.se.notas],\n  graus.engajamento[regra.se.engajamento],\n);",
+    "demoNote": "A simulação da IDE demonstra a lógica fuzzy com entradas de exemplo; não é uma previsão validada para alunos reais.",
+    "flow": [
+      "Abra a simulação na IDE.",
+      "Altere os fatores e observe a inferência fuzzy.",
+      "Consulte o repositório para executar a aplicação completa."
+    ],
+    "idePath": "/projetos/permaneia.ts"
   },
   {
     "slug": "baliza",
@@ -609,207 +969,33 @@ const PROJECTS_SOURCE: SiteProject[] = [
       "Avalie as integrações com os provedores configurados no ambiente."
     ],
     "idePath": "/projetos/paiol-tech.ts"
-  },
-  {
-    "slug": "balcao",
-    "name": "Balcão",
-    "oneLine": "Agente de atendimento no WhatsApp que não inventa preço",
-    "what": "Agente para lojas de celular que atende, negocia e avalia aparelho usado no WhatsApp. O modelo entende o cliente e chama funções; preço, parcelamento e troca saem de código testado.",
-    "role": "Desenvolvi o orquestrador da conversa, as ferramentas, o auditor de saída e o painel com humano no circuito.",
-    "highlights": [
-      "Function calling com motores de preço determinísticos",
-      "Auditor que confere cada número antes do envio",
-      "Painel para assumir conversa, aprovar proposta e desligar o bot"
-    ],
-    "stack": [
-      "TypeScript",
-      "LLM",
-      "Ollama",
-      "PostgreSQL",
-      "WhatsApp Cloud API",
-      "Vitest"
-    ],
-    "github": "https://github.com/fabriciojunio/balcao",
-    "demo": null,
-    "year": "2026",
-    "snippetLang": "typescript",
-    "demoNote": "Não há demonstração publicada: o repositório roda uma conversa completa com npm run demo, sem banco, GPU nem WhatsApp.",
-    "flow": [
-      "Abra o repositório e rode npm run demo.",
-      "Acompanhe a negociação e a proposta de troca no terminal.",
-      "Leia o auditor que barra número inventado."
-    ],
-    "idePath": "/projetos/balcao.ts",
-    "snippet": "export function auditarMensagem(texto: string, contexto: ContextoAuditoria): ResultadoAuditoria {\n  const violacoes: Violacao[] = [];\n\n  if (/\\{\\{|\\}\\}/.test(texto)) {\n    violacoes.push({\n      tipo: \"marcador_nao_resolvido\",\n      trecho: texto.match(/\\{\\{[^}]*\\}\\}?/)?.[0] ?? \"{{\",\n      motivo: \"Sobrou marcador na mensagem final.\",\n    });\n  }\n\n  const textoNormalizado = semAcento(texto).toLowerCase();\n  for (const frase of contexto.frasesProibidas) {\n    const alvo = semAcento(frase).toLowerCase().trim();\n    if (alvo !== \"\" && textoNormalizado.includes(alvo)) {\n      violacoes.push({\n        tipo: \"frase_proibida\",\n        trecho: frase,\n        motivo: \"O agente não tem autorização para prometer isto.\",\n      });\n    }"
-  },
-  {
-    "slug": "guarita",
-    "name": "guarita",
-    "oneLine": "Assistente com RAG e MCP, atacado e defendido",
-    "what": "Assistente de suporte com busca em base de conhecimento e ferramentas MCP, com seis ataques do OWASP Top 10 para LLM escritos como testes.",
-    "role": "Desenvolvi o agente, o servidor MCP, os ataques e as defesas, e escrevi o relatório de red team.",
-    "highlights": [
-      "Injeção de prompt, exfiltração e ferramenta adulterada como testes",
-      "Defesas fora do modelo: sessão, confirmação humana e hash de ferramenta",
-      "31 testes, mypy estrito e relatório no padrão de mercado"
-    ],
-    "stack": [
-      "Python",
-      "MCP",
-      "RAG",
-      "pytest",
-      "mypy",
-      "OWASP LLM Top 10"
-    ],
-    "github": "https://github.com/fabriciojunio/guarita",
-    "demo": null,
-    "year": "2026",
-    "snippetLang": "python",
-    "demoNote": "Os ataques rodam como testes com um modelo que obedece qualquer instrução: é o pior caso, de propósito.",
-    "flow": [
-      "Leia o relatório de red team no repositório.",
-      "Rode pytest -v tests/test_ataques.py.",
-      "Compare cada ataque na versão vulnerável e na defendida."
-    ],
-    "idePath": "/projetos/guarita.py",
-    "snippet": "    @servidor.tool(\n        description=\"Lê um chamado de suporte pelo número, por exemplo CH-1001.\",\n        annotations=ToolAnnotations(read_only_hint=True),\n    )\n    def ler_chamado(numero: Annotated[str, Field(pattern=r\"^CH-\\d{4}$\")]) -> str:\n        chamado = CHAMADOS.get(numero)\n        # Mesma resposta para \"não existe\" e \"não é seu\", para não revelar quais números existem.\n        if chamado is None or (defendido and chamado.cliente != sessao.cliente):\n            raise ToolError(\"chamado não encontrado\")\n        return f\"{chamado.numero} | {chamado.assunto} | contato: {chamado.contato}\""
-  },
-  {
-    "slug": "cautela",
-    "name": "Cautela",
-    "oneLine": "Agente de investimentos que não recomenda nem inventa número",
-    "what": "Agente que responde perguntas sobre investimento só com número medido, cita a fonte e declara a limitação.",
-    "role": "Desenvolvi o agente, o acervo de fatos e o auditor que barra recomendação e número sem lastro.",
-    "highlights": [
-      "Auditor de saída independente do modelo",
-      "Toda resposta cita a fonte do número",
-      "Recusa explícita quando não há dado"
-    ],
-    "stack": [
-      "Python",
-      "LLM",
-      "Agentes",
-      "pytest"
-    ],
-    "github": "https://github.com/fabriciojunio/cautela",
-    "demo": null,
-    "year": "2026",
-    "snippetLang": "python",
-    "demoNote": "Roda pela linha de comando; o repositório traz o acervo e as instruções.",
-    "flow": [
-      "Abra o repositório e rode a interface de linha de comando.",
-      "Faça uma pergunta sobre fundos.",
-      "Veja o auditor recusar uma recomendação."
-    ],
-    "idePath": "/projetos/cautela.py",
-    "snippet": "def auditar(texto: str, fatos: list[Fato]) -> Veredicto:\n    \"\"\"Decide se a resposta pode sair como esta.\n\n    A ordem importa. Recomendacao e barrada antes de qualquer conferencia de\n    numero, porque uma resposta que recomenda com numero correto continua sendo\n    uma recomendacao.\n    \"\"\"\n    if contem_recomendacao(texto):\n        return Veredicto(False, \"recomendacao de investimento\", RECUSA_RECOMENDACAO)\n\n    if not fatos:\n        return Veredicto(False, \"sem fato no acervo\", RECUSA_SEM_FATO)\n\n    inventados = numeros_sem_lastro(texto, fatos)\n    if inventados:\n        return Veredicto(\n            False,\n            f\"numero fora do acervo: {', '.join(inventados)}\",\n            RECUSA_SEM_FATO,\n        )\n\n    return Veredicto(True)"
-  },
-  {
-    "slug": "verbete",
-    "name": "Verbete",
-    "oneLine": "Classificação de projetos de lei com abstenção medida",
-    "what": "Classificação multirrótulo de 4.500 projetos de lei em 32 temas, com abstenção e explicação, e a medição de um vazamento de anotação.",
-    "role": "Coletei os dados, treinei e avaliei o modelo, medi o vazamento e montei a curva de cobertura.",
-    "highlights": [
-      "Vazamento de anotação que inflava o resultado em 26%",
-      "Curva de cobertura: 80% respondido com micro-F1 de 0,604",
-      "41 testes e experimentos reproduzíveis"
-    ],
-    "stack": [
-      "Python",
-      "scikit-learn",
-      "NumPy",
-      "pandas",
-      "pytest"
-    ],
-    "github": "https://github.com/fabriciojunio/verbete",
-    "demo": null,
-    "year": "2026",
-    "snippetLang": "python",
-    "demoNote": "Os números e as figuras estão no repositório; os experimentos rodam em sequência.",
-    "flow": [
-      "Leia o resultado principal no README.",
-      "Rode os experimentos de 01 a 04.",
-      "Confira a curva de abstenção nas figuras."
-    ],
-    "idePath": "/projetos/verbete.py",
-    "snippet": "    previsto = escores >= limiares\n    confianca = escores.max(axis=1)\n    cortes = tuple(np.round(np.quantile(confianca, np.linspace(0, 0.9, 10)), 4))\n    linhas = []\n    for corte in cortes:\n        atende = confianca >= corte\n        if not atende.any():\n            continue\n        linhas.append(\n            {\n                \"corte_de_confianca\": float(corte),\n                \"cobertura\": float(atende.mean()),\n                \"n_respondidos\": int(atende.sum()),\n                \"micro_f1\": micro(y[atende], previsto[atende])[\"f1\"],\n                \"macro_f1\": macro(y[atende], previsto[atende])[\"f1\"],"
-  },
-  {
-    "slug": "aurora",
-    "name": "AURORA",
-    "oneLine": "Saúde de astronautas sem depender da Terra, para o NASA Space Apps",
-    "what": "Monitoramento de saúde para missões longas, feito para o NASA International Space Apps Challenge 2026: alertas explicáveis contra o normal de cada pessoa, radiação com dados reais e assistente offline.",
-    "role": "Desenvolvi a arquitetura, o motor de risco, a segurança e os testes, em dupla.",
-    "highlights": [
-      "Alerta contra o normal de cada pessoa, não da população",
-      "Dose de radiação com dados reais da NASA",
-      "318 testes unitários e 11 de ponta a ponta"
-    ],
-    "stack": [
-      "TypeScript",
-      "React",
-      "Vitest",
-      "Playwright",
-      "WebCrypto"
-    ],
-    "github": "https://github.com/fabriciojunio/aurora-astronaut-health",
-    "demo": "https://aurora-astronaut-health.vercel.app",
-    "year": "2026",
-    "snippetLang": "typescript",
-    "demoNote": "Dados de tripulação simulados; radiação e tempestades solares são medições reais da NASA e da NOAA.",
-    "flow": [
-      "Abra a demonstração e escolha um tripulante.",
-      "Veja os alertas explicados e a dose de radiação.",
-      "Consulte as fontes científicas no repositório."
-    ],
-    "idePath": "/projetos/aurora.ts",
-    "snippet": "\nexport function computeBaseline(values: readonly number[]): Baseline | undefined {\n  const clean = values.filter(Number.isFinite)\n  if (clean.length < MIN_BASELINE_SAMPLES) return undefined\n  const sorted = [...clean].sort((a, b) => a - b)\n  const center = median(sorted)\n  const mad = median(sorted.map((v) => Math.abs(v - center)).sort((a, b) => a - b))\n  return { median: center, mad, samples: clean.length }\n}\n\n/**\n * When almost every baseline value is identical the MAD is zero. The floor keeps the score finite;\n * it should be the measurement resolution of the signal (0.5 % for SpO2, 1 bpm for heart rate),\n * because a relative floor hides clinically relevant drops in tightly regulated signals.\n */\nexport function modifiedZ(value: number, baseline: Baseline, floor?: number): number {\n  const minSpread = floor ?? Math.max(Math.abs(baseline.median) * 0.01, 1e-6)\n  return (0.6745 * (value - baseline.median)) / Math.max(baseline.mad, minSpread)"
   }
 ];
 
-export const PROJETOS_EIXO = PROJECTS_SOURCE.filter(p => [
-  "almanaque",
-  "vitrine-bauru",
-  "feira",
-  "koracrm",
-  "authcore",
-  "codereview-ai"
-].includes(p.slug));
-export const PROJETOS_IA = PROJECTS_SOURCE.filter(p => [
-  "balcao",
-  "guarita",
-  "cautela",
-  "verbete",
-  "aurora"
-].includes(p.slug));
-export const PROJETOS_PARCERIA = PROJECTS_SOURCE.filter(p => [
-  "conectagente",
-  "cardiocam",
-  "lastro"
-].includes(p.slug));
-export const PROJETOS_ACERVO = PROJECTS_SOURCE.filter(p => [
-  "permaneia",
-  "baliza",
-  "contaflux",
-  "kaida",
-  "bicudo",
-  "laboratorio-vr",
-  "jis",
-  "outorga",
-  "paiol-tech"
-].includes(p.slug));
-export const PROJECTS = [...PROJETOS_EIXO, ...PROJETOS_IA, ...PROJETOS_PARCERIA, ...PROJETOS_ACERVO];
+/** Monta o grupo na ordem pedida; slug inexistente é erro de build, não card sumido. */
+function porSlug(slugs: string[]): SiteProject[] {
+  return slugs.map((slug) => {
+    const p = PROJECTS_SOURCE.find((x) => x.slug === slug);
+    if (!p) throw new Error(`Projeto inexistente: ${slug}`);
+    return p;
+  });
+}
+
+export const PROJETOS_DESTAQUE = porSlug(["vitrine-bauru","conectagente","rastro","aurora"]);
+export const PROJETOS_SEGURANCA = porSlug(["authcore","feira","brecha","alicerce","crivo","guarita"]);
+export const PROJETOS_IA = porSlug(["balcao","cautela","verbete","codereview-ai"]);
+export const PROJETOS_ACERVO = porSlug(["almanaque","koracrm","cardiocam","lastro","permaneia","baliza","contaflux","kaida","bicudo","laboratorio-vr","jis","outorga","paiol-tech"]);
+export const PROJECTS = [...PROJETOS_SEGURANCA, ...PROJETOS_DESTAQUE, ...PROJETOS_IA, ...PROJETOS_ACERVO];
 export const SOBRE = {
   "nome": "Fabrício Júnio",
-  "cargo": "Analista de Sistemas",
+  "cargo": "Segurança de Aplicações · AppSec",
   "cidade": "Bauru, SP",
-  "bio": "Desenvolvimento, integrações e sustentação de software. Java, JavaScript e SQL no trabalho; PHP, Symfony e Laravel em projetos próprios.",
+  "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
   "longBio": [
-    "Sou Analista de Sistemas na DIGIHUB Tecnologia. Trabalho com robôs Java, integrações REST, regras JavaScript, SQL e processos na Lecom BPM, com automação RPA no Roberty Studio.",
-    "Analiso chamados, investigo código e banco de dados, implemento correções e acompanho a homologação e a publicação. Utilizo Jira, Git e GitLab no acompanhamento das entregas.",
-    "Na Nexum Tecnologia, atuei em processos do setor financeiro, integrações com APIs externas e MCP. Em projetos próprios, uso PHP, Symfony, Laravel e Spring Boot, incluindo microsserviços com Kafka, testes e integração contínua.",
-    "Curso Ciência da Computação na UNISAGRADO. Participo de iniciação científica em saúde pública com o ConectAgente, selecionado para a Saruê, incubadora da UNESP Bauru. No Cardiocam, desenvolvo uma ferramenta experimental para pesquisar sinais cardíacos por vídeo."
+    "Analista de Sistemas na DIGIHUB Tecnologia. Entrego robôs Java, integrações REST, JavaScript e SQL na Lecom BPM e reviso a segurança de cada entrega: onde fica o token, como a entrada é validada e quem acessa o quê.",
+    "Nos projetos, faço o dia a dia de AppSec: threat modeling, revisão de código, SAST, DAST e SCA nas pipelines, pentest com relatório e a tradução do risco para quem vai corrigir.",
+    "Trabalho com IA dos dois lados: ataco e defendo agentes com RAG e MCP pelo OWASP Top 10 para LLM, e uso modelo local para triar achados no pull request.",
+    "Ciência da Computação na UNISAGRADO (2027). Iniciação científica com o ConectAgente, selecionado pela Saruê (UNESP Bauru), e formação CiberEducação da Cisco com o SENAI."
   ],
   "contato": {
     "email": "junioad555@gmail.com",
@@ -819,103 +1005,113 @@ export const SOBRE = {
 };
 export const STACK_GROUPS = [
   {
-    "label": "trabalho",
+    "label": "appsec",
     "items": [
-      "Java",
-      "JavaScript",
-      "SQL",
-      "MySQL",
-      "Lecom BPM",
-      "Roberty Studio",
-      "RPA"
+      "Threat modeling: STRIDE, PASTA, attack trees",
+      "OWASP ASVS",
+      "OWASP Top 10 · API Top 10",
+      "Secure code review",
+      "Web and API pentest",
+      "CVSS 4.0 · EPSS · KEV"
     ]
   },
   {
-    "label": "integracoes",
+    "label": "ferramentas",
     "items": [
-      "API REST",
+      "Semgrep",
+      "CodeQL",
+      "OSV-Scanner",
+      "Trivy",
+      "OWASP ZAP",
+      "Burp Suite",
+      "gitleaks",
+      "Syft · Grype",
+      "MobSF"
+    ]
+  },
+  {
+    "label": "identidade",
+    "items": [
+      "OAuth 2.0",
+      "OpenID Connect",
+      "JWT",
+      "Keycloak",
+      "Kong",
+      "WebAuthn / passkeys",
+      "TOTP"
+    ]
+  },
+  {
+    "label": "nuvem",
+    "items": [
+      "Kubernetes",
+      "Kyverno",
+      "Falco",
+      "Sigma",
+      "Terraform",
+      "Distroless",
+      "Sigstore cosign",
+      "SBOM · VEX",
+      "GitHub Actions"
+    ]
+  },
+  {
+    "label": "ia",
+    "items": [
+      "OWASP Top 10 for LLM",
+      "MITRE ATLAS",
       "MCP",
-      "Jira",
-      "Git",
-      "GitLab"
+      "RAG",
+      "Prompt injection"
+    ]
+  },
+  {
+    "label": "privacidade",
+    "items": [
+      "LGPD",
+      "OWASP SAMM",
+      "OWASP MASVS",
+      "MITRE ATT&CK",
+      "Row Level Security",
+      "SQLCipher"
     ]
   },
   {
     "label": "backend",
     "items": [
-      "PHP",
-      "Symfony",
-      "Laravel",
+      "Java 21",
       "Spring Boot",
-      "Node.js",
-      "Doctrine ORM"
-    ]
-  },
-  {
-    "label": "arquitetura",
-    "items": [
-      "Microsserviços",
-      "Apache Kafka",
-      "RabbitMQ",
-      "Arquitetura orientada a eventos",
-      "Outbox transacional",
-      "Idempotência"
-    ]
-  },
-  {
-    "label": "interface",
-    "items": [
-      "Twig",
-      "React",
-      "Next.js",
-      "TypeScript",
-      "React Native",
-      "Expo"
-    ]
-  },
-  {
-    "label": "dados",
-    "items": [
-      "MySQL",
-      "PostgreSQL",
-      "SQLite",
-      "Elasticsearch",
-      "Redis"
-    ]
-  },
-  {
-    "label": "qualidade",
-    "items": [
-      "PHPUnit",
-      "Playwright",
-      "PHPStan",
-      "Docker",
-      "Docker Compose",
-      "Kubernetes",
-      "Nginx",
-      "OpenTelemetry",
-      "GitHub Actions"
-    ]
-  },
-  {
-    "label": "pesquisa",
-    "items": [
+      "Spring Security",
+      "Go",
       "Python",
-      "OpenCV",
-      "Aprendizado de máquina",
-      "RAG",
-      "Processamento de sinais"
+      "TypeScript",
+      "Kafka",
+      "PostgreSQL"
+    ]
+  },
+  {
+    "label": "trabalho",
+    "items": [
+      "Java",
+      "JavaScript",
+      "SQL",
+      "Lecom BPM",
+      "API REST",
+      "GitLab CI",
+      "SonarQube",
+      "MCP"
     ]
   }
 ];
 export const EMPRESAS = [
-  "Java",
-  "PHP",
-  "JavaScript",
-  "SQL",
-  "Kafka",
-  "Microsserviços",
-  "Integrações",
-  "Automação",
-  "Sustentação"
+  "AppSec",
+  "Threat modeling",
+  "SAST · DAST · SCA",
+  "Pentest",
+  "OWASP",
+  "DevSecOps",
+  "Java · Spring",
+  "Go",
+  "IA segura",
+  "LGPD"
 ];

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PROJETOS_EIXO, PROJETOS_IA, PROJETOS_PARCERIA, PROJETOS_ACERVO, type SiteProject } from "./data";
+import { PROJETOS_DESTAQUE, PROJETOS_SEGURANCA, PROJETOS_IA, PROJETOS_ACERVO, type SiteProject } from "./data";
 import SnippetView from "./SnippetView";
 import { useIdioma, useTextos } from "./i18n";
 import { TRADUCOES, type TextoDoProjeto } from "./i18n-projetos";
@@ -7,7 +7,7 @@ import { TRADUCOES, type TextoDoProjeto } from "./i18n-projetos";
 function useTextoDoProjeto(p: SiteProject): TextoDoProjeto {
   const { idioma } = useIdioma();
   if (idioma !== "pt") return TRADUCOES[idioma][p.slug];
-  return { oneLine: p.oneLine, what: p.what, role: p.role, highlights: p.highlights ?? [], demoNote: p.demoNote, flow: p.flow };
+  return { oneLine: p.oneLine, what: p.what, role: p.role, highlights: p.highlights ?? [], security: p.security, demoNote: p.demoNote, flow: p.flow };
 }
 
 export default function Work() {
@@ -24,9 +24,9 @@ export default function Work() {
         <p className="self-end text-[16px] md:text-[17.5px] leading-[1.75] text-[#d4d4d4] max-w-[640px]">{t.trabalho.chamada}</p>
       </div>
       <div className="space-y-16">
-        <Bloco {...t.trabalho.blocos.ia} itens={PROJETOS_EIXO} />
-        <Bloco {...t.trabalho.blocos.llm} itens={PROJETOS_IA} />
-        <Bloco {...t.trabalho.blocos.parceria} itens={PROJETOS_PARCERIA} />
+        <Bloco {...t.trabalho.blocos.seguranca} itens={PROJETOS_SEGURANCA} />
+        <Bloco {...t.trabalho.blocos.destaque} itens={PROJETOS_DESTAQUE} />
+        <Bloco {...t.trabalho.blocos.ia} itens={PROJETOS_IA} />
         <Acervo />
       </div>
     </section>
@@ -83,6 +83,12 @@ function WorkRow({ project, index }: { project: SiteProject; index: number }) {
         <Texto label={c.what}>{texto.what}</Texto>
         <Texto label={c.role}>{texto.role}</Texto>
         <div><Rotulo>{c.highlights}</Rotulo><ul className="mt-3 list-disc pl-4 space-y-2 text-[13px] text-[#b8b8b8] leading-relaxed">{texto.highlights.map(h => <li key={h}>{h}</li>)}</ul></div>
+        {texto.security && texto.security.length > 0 && (
+          <div className="border-l border-white/30 pl-4">
+            <Rotulo>{c.security}</Rotulo>
+            <ul className="mt-3 list-disc pl-4 space-y-2 text-[13px] text-[#d4d4d4] leading-relaxed">{texto.security.map(s => <li key={s}>{s}</li>)}</ul>
+          </div>
+        )}
         <div className="flex flex-wrap gap-2">{project.stack.map(s => <span key={s} className="font-mono text-[10px] text-[#b8b8b8] border border-white/15 px-2 py-1">{s}</span>)}</div>
         <div className="border-l border-white/30 pl-4">
           <Rotulo>{c.flow}</Rotulo>
