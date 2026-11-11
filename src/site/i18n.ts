@@ -131,7 +131,7 @@ const pt: Textos = {
     "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
     "longBio": [
       "Analista de Sistemas na DIGIHUB Tecnologia. Entrego robôs Java, integrações REST, JavaScript e SQL na Lecom BPM e reviso a segurança de cada entrega: onde fica o token, como a entrada é validada e quem acessa o quê.",
-      "Nos projetos, faço o dia a dia de AppSec: threat modeling, revisão de código, SAST, DAST e SCA nas pipelines, pentest com relatório e a tradução do risco para quem vai corrigir.",
+      "Nos meus projetos, protejo sistemas de verdade: modelo de ameaças, revisão de código, SAST, DAST e SCA como portões na esteira, e pentest com relatório e reteste de cada correção.",
       "Trabalho com IA dos dois lados: ataco e defendo agentes com RAG e MCP pelo OWASP Top 10 para LLM, e uso modelo local para triar achados no pull request.",
       "Ciência da Computação na UNISAGRADO (2027). Iniciação científica com o ConectAgente, selecionado pela Saruê (UNESP Bauru), e formação CiberEducação da Cisco com o SENAI."
     ]
@@ -248,7 +248,7 @@ const en: Textos = {
     "bio": "Application security with a developer’s background. I threat model, review code, put SAST, DAST and SCA in the pipeline and test what I build.",
     "longBio": [
       "Systems Analyst at DIGIHUB Tecnologia. I ship Java bots, REST integrations, JavaScript and SQL on Lecom BPM, and review the security of each delivery: where the token lives, how input is validated and who can access what.",
-      "In my projects I do the day-to-day of AppSec: threat modeling, code review, SAST, DAST and SCA in pipelines, pentests with a report, and translating risk for whoever has to fix it.",
+      "In my projects I secure real systems: threat models, code review, SAST, DAST and SCA as pipeline gates, and pentests with a report and a retest of every fix.",
       "I work with AI on both sides: I attack and defend agents with RAG and MCP against the OWASP Top 10 for LLM, and use a local model to triage findings on pull requests.",
       "Computer Science at UNISAGRADO (2027). Undergraduate research on ConectAgente, selected by Saruê (UNESP Bauru), and Cisco’s CiberEducação programme with SENAI."
     ]
@@ -365,7 +365,7 @@ const es: Textos = {
     "bio": "Seguridad de aplicaciones con base de desarrollador. Modelo amenazas, reviso código, pongo SAST, DAST y SCA en el pipeline y pruebo lo que construyo.",
     "longBio": [
       "Analista de Sistemas en DIGIHUB Tecnologia. Entrego bots Java, integraciones REST, JavaScript y SQL en Lecom BPM y reviso la seguridad de cada entrega: dónde queda el token, cómo se valida la entrada y quién accede a qué.",
-      "En mis proyectos hago el día a día de AppSec: modelado de amenazas, revisión de código, SAST, DAST y SCA en los pipelines, pentest con informe y la traducción del riesgo para quien tiene que corregir.",
+      "En mis proyectos protejo sistemas reales: modelo de amenazas, revisión de código, SAST, DAST y SCA como controles en el pipeline, y pentest con informe y reprueba de cada corrección.",
       "Trabajo con IA de los dos lados: ataco y defiendo agentes con RAG y MCP según el OWASP Top 10 para LLM, y uso un modelo local para clasificar hallazgos en el pull request.",
       "Ciencias de la Computación en UNISAGRADO (2027). Investigación con ConectAgente, seleccionado por Saruê (UNESP Bauru), y formación CiberEducação de Cisco con el SENAI."
     ]

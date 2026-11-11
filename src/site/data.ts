@@ -993,7 +993,7 @@ export const SOBRE = {
   "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
   "longBio": [
     "Analista de Sistemas na DIGIHUB Tecnologia. Entrego robôs Java, integrações REST, JavaScript e SQL na Lecom BPM e reviso a segurança de cada entrega: onde fica o token, como a entrada é validada e quem acessa o quê.",
-    "Nos projetos, faço o dia a dia de AppSec: threat modeling, revisão de código, SAST, DAST e SCA nas pipelines, pentest com relatório e a tradução do risco para quem vai corrigir.",
+    "Nos meus projetos, protejo sistemas de verdade: modelo de ameaças, revisão de código, SAST, DAST e SCA como portões na esteira, e pentest com relatório e reteste de cada correção.",
     "Trabalho com IA dos dois lados: ataco e defendo agentes com RAG e MCP pelo OWASP Top 10 para LLM, e uso modelo local para triar achados no pull request.",
     "Ciência da Computação na UNISAGRADO (2027). Iniciação científica com o ConectAgente, selecionado pela Saruê (UNESP Bauru), e formação CiberEducação da Cisco com o SENAI."
   ],
