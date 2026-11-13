@@ -89,7 +89,7 @@ test("a árvore da IDE mostra segurança e destaques e permite expandir os demai
   await expect(tree.getByRole("button", { name: "brecha.java", exact: true })).toBeVisible();
   await expect(tree.getByRole("button", { name: "crivo.go", exact: true })).toBeVisible();
   await expect(tree.getByRole("button", { name: "permaneia.ts", exact: true })).toBeHidden();
-  await tree.getByText("Outros projetos (13)", { exact: true }).click();
+  await tree.getByText("Outros projetos (12)", { exact: true }).click();
   await tree.getByRole("button", { name: "permaneia.ts", exact: true }).click();
   await expect(page.getByText("PermaneIA", { exact: true })).toBeVisible();
   if (isMobile) await expect(tree).toBeHidden();
