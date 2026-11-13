@@ -659,38 +659,6 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "idePath": "/projetos/cardiocam.py"
   },
   {
-    "slug": "lastro",
-    "name": "Lastro: pesquisa em dependência financeira",
-    "oneLine": "Pesquisa sobre dependências entre instituições financeiras e sua estabilidade no tempo",
-    "what": "Pesquisa em Ciência da Computação na UNISAGRADO. Investiga o aprendizado da estrutura de dependência entre instituições financeiras brasileiras por redes bayesianas e otimização evolutiva multiobjetivo, além da estabilidade dessa estrutura ao longo do tempo.",
-    "role": "Desenvolvo o método, os experimentos, a avaliação e a documentação da pesquisa.",
-    "highlights": [
-      "Redes bayesianas e otimização evolutiva multiobjetivo",
-      "Comparação com métodos de referência e estruturas conhecidas",
-      "Avaliação de estabilidade temporal com dados públicos da B3"
-    ],
-    "stack": [
-      "Python",
-      "NumPy",
-      "Redes bayesianas",
-      "Algoritmos evolutivos",
-      "Análise de redes",
-      "Séries temporais"
-    ],
-    "github": null,
-    "demo": null,
-    "demoNote": "Pesquisa em desenvolvimento. Esta é uma apresentação pública do tema; o código e os artefatos de pesquisa permanecem privados.",
-    "flow": [
-      "Leia a apresentação do tema, do método e dos critérios de avaliação.",
-      "Entre em contato para conversar sobre a pesquisa; o repositório permanece privado."
-    ],
-    "year": "2026",
-    "idePath": "/projetos/lastro.md",
-    "presentationOnly": true,
-    "snippetLang": "markdown",
-    "snippet": "# Lastro: pesquisa em dependência financeira\n\nTema: dependências entre instituições financeiras brasileiras\ne estabilidade dessas relações ao longo do tempo.\n\nMétodo: redes bayesianas e otimização evolutiva multiobjetivo.\nAvaliação: estruturas conhecidas, métodos de referência\ne estabilidade temporal em dados públicos da B3.\n\nStatus: pesquisa em desenvolvimento.\nCódigo e artefatos privados.\n"
-  },
-  {
     "slug": "permaneia",
     "name": "PermaneIA",
     "oneLine": "Assistente de estudos e análise de evasão",
@@ -984,7 +952,7 @@ function porSlug(slugs: string[]): SiteProject[] {
 export const PROJETOS_DESTAQUE = porSlug(["vitrine-bauru","conectagente","rastro","aurora"]);
 export const PROJETOS_SEGURANCA = porSlug(["authcore","feira","brecha","alicerce","crivo","guarita"]);
 export const PROJETOS_IA = porSlug(["balcao","cautela","verbete","codereview-ai"]);
-export const PROJETOS_ACERVO = porSlug(["almanaque","koracrm","cardiocam","lastro","permaneia","baliza","contaflux","kaida","bicudo","laboratorio-vr","jis","outorga","paiol-tech"]);
+export const PROJETOS_ACERVO = porSlug(["almanaque","koracrm","cardiocam","permaneia","baliza","contaflux","kaida","bicudo","laboratorio-vr","jis","outorga","paiol-tech"]);
 export const PROJECTS = [...PROJETOS_SEGURANCA, ...PROJETOS_DESTAQUE, ...PROJETOS_IA, ...PROJETOS_ACERVO];
 export const SOBRE = {
   "nome": "Fabrício Júnio",
