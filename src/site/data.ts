@@ -73,8 +73,8 @@ const PROJECTS_SOURCE: SiteProject[] = [
   {
     "slug": "conectagente",
     "name": "ConectAgente",
-    "oneLine": "Visitas domiciliares · selecionado para a Saruê (UNESP Bauru)",
-    "what": "Projeto de iniciação científica em saúde pública para Agentes Comunitários de Saúde, selecionado para a Saruê, incubadora da UNESP Bauru. App de campo em React Native e Expo, com registro offline em SQLite, sincronização com Supabase/PostgreSQL e painel de gestão em Next.js.",
+    "oneLine": "TCC e iniciação científica · selecionado para a Saruê (UNESP Bauru)",
+    "what": "Meu TCC e projeto de iniciação científica em saúde pública para Agentes Comunitários de Saúde, selecionado para a Saruê, incubadora da UNESP Bauru. App de campo em React Native e Expo, com registro offline em SQLite, sincronização com Supabase/PostgreSQL e painel de gestão em Next.js.",
     "role": "Respondo pela segurança e pela privacidade (autorização no banco, cifra no aparelho, pinning, trilha e LGPD) e desenvolvo cadastro, visitas e sincronização.",
     "highlights": [
       "SQLite para registro em campo sem conexão",
@@ -113,9 +113,9 @@ const PROJECTS_SOURCE: SiteProject[] = [
   {
     "slug": "rastro",
     "name": "rastro",
-    "oneLine": "TCC: onde mais está a falha que acabaram de corrigir",
-    "what": "Pesquisa de TCC em Product Security. Recebe a função vulnerável e a mesma função corrigida e procura variantes da falha numa base de código, separando o que ainda está vulnerável do que já recebeu a correção. Avaliado na Juliet Test Suite do NIST e em dois casos reais: PHP (CVE-2012-1823 e CVE-2024-4577) e Spring4Shell.",
-    "role": "Desenvolvi o método, o modelo, o experimento com validação cruzada por CWE, os casos reais e a monografia.",
+    "oneLine": "Onde mais está a falha que acabaram de corrigir",
+    "what": "Pesquisa em Product Security. Recebe a função vulnerável e a mesma função corrigida e procura variantes da falha numa base de código, separando o que ainda está vulnerável do que já recebeu a correção. Avaliado na Juliet Test Suite do NIST e em dois casos reais: PHP (CVE-2012-1823 e CVE-2024-4577) e Spring4Shell.",
+    "role": "Desenvolvi o método, o modelo, o experimento com validação cruzada por CWE, os casos reais e o relatório da pesquisa.",
     "highlights": [
       "Precisão média de 0,748 contra 0,413 do Jaccard, em CWE não vista no treino",
       "Código já corrigido no top 10 cai de 36,4% para 2,6%",
@@ -141,7 +141,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "flow": [
       "Leia o resultado e a metodologia no README.",
       "Rode rastro caso php e veja a falha de 2024 voltar pela função corrigida em 2012.",
-      "Leia a monografia em docs/monografia.md."
+      "Leia o relatório da pesquisa em docs/monografia.md."
     ],
     "idePath": "/projetos/rastro.py",
     "sourcePath": "src/rastro/dominio/assinatura.py",
@@ -660,9 +660,9 @@ const PROJECTS_SOURCE: SiteProject[] = [
   },
   {
     "slug": "lastro",
-    "name": "Lastro — projeto pré-TCC",
+    "name": "Lastro: pesquisa em dependência financeira",
     "oneLine": "Pesquisa sobre dependências entre instituições financeiras e sua estabilidade no tempo",
-    "what": "Projeto preparatório de TCC em Ciência da Computação na UNISAGRADO. Investiga o aprendizado da estrutura de dependência entre instituições financeiras brasileiras por redes bayesianas e otimização evolutiva multiobjetivo, além da estabilidade dessa estrutura ao longo do tempo.",
+    "what": "Pesquisa em Ciência da Computação na UNISAGRADO. Investiga o aprendizado da estrutura de dependência entre instituições financeiras brasileiras por redes bayesianas e otimização evolutiva multiobjetivo, além da estabilidade dessa estrutura ao longo do tempo.",
     "role": "Desenvolvo o método, os experimentos, a avaliação e a documentação da pesquisa.",
     "highlights": [
       "Redes bayesianas e otimização evolutiva multiobjetivo",
@@ -679,7 +679,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     ],
     "github": null,
     "demo": null,
-    "demoNote": "Projeto pré-TCC em desenvolvimento. Esta é uma apresentação pública do tema; o código e os artefatos de pesquisa permanecem privados até a defesa.",
+    "demoNote": "Pesquisa em desenvolvimento. Esta é uma apresentação pública do tema; o código e os artefatos de pesquisa permanecem privados.",
     "flow": [
       "Leia a apresentação do tema, do método e dos critérios de avaliação.",
       "Entre em contato para conversar sobre a pesquisa; o repositório permanece privado."
@@ -688,7 +688,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "idePath": "/projetos/lastro.md",
     "presentationOnly": true,
     "snippetLang": "markdown",
-    "snippet": "# Lastro — projeto pré-TCC\n\nTema: dependências entre instituições financeiras brasileiras\ne estabilidade dessas relações ao longo do tempo.\n\nMétodo: redes bayesianas e otimização evolutiva multiobjetivo.\nAvaliação: estruturas conhecidas, métodos de referência\ne estabilidade temporal em dados públicos da B3.\n\nStatus: pesquisa em desenvolvimento.\nCódigo e artefatos privados até a defesa.\n"
+    "snippet": "# Lastro: pesquisa em dependência financeira\n\nTema: dependências entre instituições financeiras brasileiras\ne estabilidade dessas relações ao longo do tempo.\n\nMétodo: redes bayesianas e otimização evolutiva multiobjetivo.\nAvaliação: estruturas conhecidas, métodos de referência\ne estabilidade temporal em dados públicos da B3.\n\nStatus: pesquisa em desenvolvimento.\nCódigo e artefatos privados.\n"
   },
   {
     "slug": "permaneia",

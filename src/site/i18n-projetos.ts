@@ -212,8 +212,8 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "conectagente": {
-      "oneLine": "Home visits · selected for Saruê (UNESP Bauru)",
-      "what": "Undergraduate public health research for Community Health Agents, selected for Saruê, the UNESP Bauru incubator. Field app with React Native and Expo, offline SQLite records, Supabase/PostgreSQL synchronization and a Next.js management dashboard.",
+      "oneLine": "Undergraduate thesis and research · selected for Saruê (UNESP Bauru)",
+      "what": "My undergraduate thesis and public health research for Community Health Agents, selected for Saruê, the UNESP Bauru incubator. Field app with React Native and Expo, offline SQLite records, Supabase/PostgreSQL synchronization and a Next.js management dashboard.",
       "role": "I own security and privacy (authorization in the database, on-device encryption, pinning, audit trail and LGPD) and build registration, visits and sync.",
       "highlights": [
         "Local SQLite for field registration",
@@ -266,15 +266,15 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "lastro": {
-      "oneLine": "Preparatory thesis research on financial institutions and the stability of their dependencies",
-      "what": "Preparatory Computer Science thesis project at UNISAGRADO. It investigates learning dependency structures among Brazilian financial institutions using Bayesian networks and multiobjective evolutionary optimization, and how stable those structures remain over time.",
+      "oneLine": "Research on financial institutions and the stability of their dependencies",
+      "what": "Computer Science research at UNISAGRADO. It investigates learning dependency structures among Brazilian financial institutions using Bayesian networks and multiobjective evolutionary optimization, and how stable those structures remain over time.",
       "role": "I develop the method, experiments, evaluation and research documentation.",
       "highlights": [
         "Bayesian networks and multiobjective evolutionary optimization",
         "Comparison with reference methods and known structures",
         "Temporal stability evaluation using public B3 data"
       ],
-      "demoNote": "Preparatory thesis research in progress. This is a public topic overview; code and research artifacts remain private until the thesis defense.",
+      "demoNote": "Research in progress. This is a public topic overview; code and research artifacts remain private.",
       "flow": [
         "Read the overview of the topic, method and evaluation criteria.",
         "Get in touch to discuss the research; the repository remains private."
@@ -409,9 +409,9 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "rastro": {
-      "oneLine": "Thesis: where else is the flaw they just fixed",
-      "what": "Product Security thesis research. Takes the vulnerable function and the same function after the fix and searches a codebase for variants of the flaw, telling what is still vulnerable apart from what already got the fix. Evaluated on the NIST Juliet Test Suite and two real cases: PHP (CVE-2012-1823 and CVE-2024-4577) and Spring4Shell.",
-      "role": "I designed the method and the model, ran the experiment with cross-validation by CWE, reproduced the real cases and wrote the thesis.",
+      "oneLine": "Where else is the flaw they just fixed",
+      "what": "Product Security research. Takes the vulnerable function and the same function after the fix and searches a codebase for variants of the flaw, telling what is still vulnerable apart from what already got the fix. Evaluated on the NIST Juliet Test Suite and two real cases: PHP (CVE-2012-1823 and CVE-2024-4577) and Spring4Shell.",
+      "role": "I designed the method and the model, ran the experiment with cross-validation by CWE, reproduced the real cases and wrote the research report.",
       "highlights": [
         "Average precision of 0.748 against 0.413 for Jaccard, on CWEs unseen in training",
         "Already-fixed code in the top 10 drops from 36.4% to 2.6%",
@@ -426,7 +426,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       "flow": [
         "Read the results and method in the README.",
         "Run rastro caso php and watch the 2024 flaw come back through the function fixed in 2012.",
-        "Read the thesis in docs/monografia.md."
+        "Read the research report in docs/monografia.md."
       ]
     },
     "brecha": {
@@ -697,8 +697,8 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "conectagente": {
-      "oneLine": "Visitas domiciliarias · seleccionado para Saruê (UNESP Bauru)",
-      "what": "Investigación universitaria en salud pública para Agentes Comunitarios de Salud, seleccionada para Saruê, incubadora de UNESP Bauru. App de campo con React Native y Expo, registros offline en SQLite, sincronización con Supabase/PostgreSQL y panel de gestión Next.js.",
+      "oneLine": "Tesis de grado e investigación · seleccionado para Saruê (UNESP Bauru)",
+      "what": "Mi tesis de grado e investigación universitaria en salud pública para Agentes Comunitarios de Salud, seleccionada para Saruê, incubadora de UNESP Bauru. App de campo con React Native y Expo, registros offline en SQLite, sincronización con Supabase/PostgreSQL y panel de gestión Next.js.",
       "role": "Soy responsable de la seguridad y la privacidad (autorización en la base, cifrado en el dispositivo, pinning, auditoría y LGPD) y desarrollo registro, visitas y sincronización.",
       "highlights": [
         "SQLite local para registros en campo",
@@ -751,15 +751,15 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "lastro": {
-      "oneLine": "Investigación preparatoria de tesis sobre dependencias financieras y su estabilidad temporal",
-      "what": "Proyecto preparatorio de tesis de Ciencias de la Computación en UNISAGRADO. Investiga estructuras de dependencia entre instituciones financieras brasileñas mediante redes bayesianas y optimización evolutiva multiobjetivo, y su estabilidad a lo largo del tiempo.",
+      "oneLine": "Investigación sobre dependencias financieras y su estabilidad temporal",
+      "what": "Investigación en Ciencias de la Computación en UNISAGRADO. Investiga estructuras de dependencia entre instituciones financieras brasileñas mediante redes bayesianas y optimización evolutiva multiobjetivo, y su estabilidad a lo largo del tiempo.",
       "role": "Desarrollo el método, los experimentos, la evaluación y la documentación de la investigación.",
       "highlights": [
         "Redes bayesianas y optimización evolutiva multiobjetivo",
         "Comparación con métodos de referencia y estructuras conocidas",
         "Evaluación de estabilidad temporal con datos públicos de B3"
       ],
-      "demoNote": "Investigación preparatoria de tesis en desarrollo. Esta es una presentación pública del tema; el código y los artefactos permanecen privados hasta la defensa.",
+      "demoNote": "Investigación en desarrollo. Esta es una presentación pública del tema; el código y los artefactos permanecen privados.",
       "flow": [
         "Lea la presentación del tema, método y criterios de evaluación.",
         "Entre en contacto para conversar sobre la investigación; el repositorio permanece privado."
@@ -894,9 +894,9 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ]
     },
     "rastro": {
-      "oneLine": "Tesis: dónde más está la falla que acaban de corregir",
-      "what": "Investigación de tesis en Product Security. Recibe la función vulnerable y la misma función corregida y busca variantes de la falla en una base de código, separando lo que sigue vulnerable de lo que ya recibió la corrección. Evaluado en la Juliet Test Suite del NIST y en dos casos reales: PHP (CVE-2012-1823 y CVE-2024-4577) y Spring4Shell.",
-      "role": "Desarrollé el método y el modelo, el experimento con validación cruzada por CWE, los casos reales y la monografía.",
+      "oneLine": "Dónde más está la falla que acaban de corregir",
+      "what": "Investigación en Product Security. Recibe la función vulnerable y la misma función corregida y busca variantes de la falla en una base de código, separando lo que sigue vulnerable de lo que ya recibió la corrección. Evaluado en la Juliet Test Suite del NIST y en dos casos reales: PHP (CVE-2012-1823 y CVE-2024-4577) y Spring4Shell.",
+      "role": "Desarrollé el método y el modelo, el experimento con validación cruzada por CWE, los casos reales y el informe de la investigación.",
       "highlights": [
         "Precisión media de 0,748 frente a 0,413 de Jaccard, en CWE no vistas en el entrenamiento",
         "El código ya corregido en el top 10 baja de 36,4% a 2,6%",
@@ -911,7 +911,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       "flow": [
         "Lea el resultado y la metodología en el README.",
         "Ejecute rastro caso php y vea la falla de 2024 volver por la función corregida en 2012.",
-        "Lea la monografía en docs/monografia.md."
+        "Lea el informe de la investigación en docs/monografia.md."
       ]
     },
     "brecha": {

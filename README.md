@@ -8,7 +8,7 @@
 
 ## Conteúdo
 
-Os projetos de segurança vêm primeiro: AuthCore, Feira do Comando, brecha, alicerce, crivo e guarita. Depois os destaques: Vitrine Bauru (extensão com a SEDECON), ConectAgente (iniciação científica, Saruê), rastro (TCC) e AURORA (NASA Space Apps 2026). A IA aplicada fica em seguida, e os demais trabalhos acadêmicos e projetos complementares ficam numa seção expansível.
+Os projetos de segurança vêm primeiro: AuthCore, Feira do Comando, brecha, alicerce, crivo e guarita. Depois os destaques: Vitrine Bauru (extensão com a SEDECON), ConectAgente (TCC e iniciação científica, Saruê), rastro (pesquisa) e AURORA (NASA Space Apps 2026). A IA aplicada fica em seguida, e os demais trabalhos acadêmicos e projetos complementares ficam numa seção expansível.
 
 Cada card informa o problema, o que eu fiz, os resultados, a segurança aplicada, como conferir e o escopo da demonstração. Nos projetos de segurança, o trecho de código é real e aponta para a linha de origem no repositório. Os dados dos cards e os arquivos da IDE compartilham a mesma fonte em `src/site/data.ts`.
 

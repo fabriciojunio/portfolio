@@ -39,7 +39,7 @@ describe("curadoria e coerência do portfólio", () => {
     expect(lastro.meta?.source).toBeUndefined();
     expect(lastro.meta?.github).toBeUndefined();
     expect(lastro.runnable).toBeUndefined();
-    expect(lastro.content).toContain("Código e artefatos privados até a defesa");
+    expect(lastro.content).toContain("Código e artefatos privados.");
     // Cautela, Verbete e Balcão saíram desta lista em 29/10/2026, quando os repositórios ficaram públicos.
     for (const slug of ["anteparo", "decurso", "prumo", "trato", "quantbot-ml", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
       expect(PROJECTS.map(p => p.slug)).not.toContain(slug);
