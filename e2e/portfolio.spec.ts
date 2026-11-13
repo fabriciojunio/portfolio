@@ -77,9 +77,9 @@ test("a simulação executa e responde às entradas", async ({ page }) => {
   await expect(panel).toHaveCount(0);
 });
 
-test("o pré-TCC abre apenas a apresentação pública", async ({ page, isMobile }) => {
+test("a pesquisa privada abre apenas a apresentação pública", async ({ page, isMobile }) => {
   await page.goto("/lab?arquivo=%2Fprojetos%2Flastro.md&run=1");
-  await expect(page.getByRole("heading", { name: "Lastro — projeto pré-TCC", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Lastro: pesquisa em dependência financeira", exact: true })).toBeVisible();
   await expect(page.getByRole("article").getByText(/Código e artefatos privados até a defesa/)).toBeVisible();
   if (isMobile) await page.getByRole("button", { name: "Detalhes do projeto" }).click();
   await expect(page.getByText("Apresentação pública do projeto", { exact: true })).toBeVisible();

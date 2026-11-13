@@ -8,7 +8,7 @@
 
 ## Content
 
-Security projects come first: AuthCore, Feira do Comando, brecha, alicerce, crivo and guarita. Then the highlights: Vitrine Bauru (outreach with the City of Bauru), ConectAgente (undergraduate research, Saruê), rastro (thesis) and AURORA (NASA Space Apps 2026). Applied AI comes next, and the remaining coursework and side projects sit in an expandable section.
+Security projects come first: AuthCore, Feira do Comando, brecha, alicerce, crivo and guarita. Then the highlights: Vitrine Bauru (outreach with the City of Bauru), ConectAgente (undergraduate thesis and research, Saruê), rastro (research) and AURORA (NASA Space Apps 2026). Applied AI comes next, and the remaining coursework and side projects sit in an expandable section.
 
 Each card states the problem, what I did, the results, the security applied, how to check it and the scope of the demo. In the security projects the snippet is real code and links to the source line in the repository. The card data and the IDE files share the same source in `src/site/data.ts`.
 
