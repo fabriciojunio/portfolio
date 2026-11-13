@@ -26,10 +26,6 @@ test("segurança primeiro, destaques e expansão dos acadêmicos", async ({ page
   const almanaque = page.locator("#work-almanaque");
   await almanaque.getByRole("button").first().click();
   await expect(almanaque.getByRole("link", { name: /explorar código na IDE/ })).toHaveAttribute("href", "/lab?arquivo=%2Fprojetos%2Falmanaque.php");
-  const lastro = page.locator("#work-lastro");
-  await lastro.getByRole("button").first().click();
-  await expect(lastro.getByText(/permanecem privados até a defesa/)).toBeVisible();
-  await expect(lastro.getByRole("link", { name: /código no GitHub/ })).toHaveCount(0);
   await page.getByRole("button", { name: /Outros projetos e trabalhos acadêmicos/ }).click();
   await expect(page.locator("#work-permaneia")).toBeHidden();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -75,17 +71,6 @@ test("a simulação executa e responde às entradas", async ({ page }) => {
   await expect(panel.getByText(/· risco crítico$/)).toBeVisible();
   await page.getByRole("button", { name: "Fechar painel run" }).click();
   await expect(panel).toHaveCount(0);
-});
-
-test("a pesquisa privada abre apenas a apresentação pública", async ({ page, isMobile }) => {
-  await page.goto("/lab?arquivo=%2Fprojetos%2Flastro.md&run=1");
-  await expect(page.getByRole("heading", { name: "Lastro: pesquisa em dependência financeira", exact: true })).toBeVisible();
-  await expect(page.getByRole("article").getByText(/Código e artefatos privados até a defesa/)).toBeVisible();
-  if (isMobile) await page.getByRole("button", { name: "Detalhes do projeto" }).click();
-  await expect(page.getByText("Apresentação pública do projeto", { exact: true })).toBeVisible();
-  await expect(page.getByText("código privado", { exact: true })).toBeVisible();
-  await expect(page.getByRole("complementary", { name: "Painel de execução" })).toHaveCount(0);
-  await expect(page.getByRole("link", { name: /arquivo de origem|código no GitHub/ })).toHaveCount(0);
 });
 
 test("as rotas antigas não expõem estudos retirados", async ({ page }) => {

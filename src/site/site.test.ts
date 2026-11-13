@@ -33,15 +33,8 @@ describe("curadoria e coerência do portfólio", () => {
     }
   });
   it("não republica código dos projetos privados retirados", () => {
-    const lastro = filesByPath.get("/projetos/lastro.md")!;
-    expect(lastro.language).toBe("markdown");
-    expect(lastro.meta?.presentationOnly).toBe(true);
-    expect(lastro.meta?.source).toBeUndefined();
-    expect(lastro.meta?.github).toBeUndefined();
-    expect(lastro.runnable).toBeUndefined();
-    expect(lastro.content).toContain("Código e artefatos privados.");
     // Cautela, Verbete e Balcão saíram desta lista em 29/10/2026, quando os repositórios ficaram públicos.
-    for (const slug of ["anteparo", "decurso", "prumo", "trato", "quantbot-ml", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
+    for (const slug of ["lastro", "anteparo", "decurso", "prumo", "trato", "quantbot-ml", "registraservico", "bravor", "sintonia", "apontamento-horas"]) {
       expect(PROJECTS.map(p => p.slug)).not.toContain(slug);
       expect(ALL_FILES.some(f => f.path.includes(`/${slug}.`))).toBe(false);
     }

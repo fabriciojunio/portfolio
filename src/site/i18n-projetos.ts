@@ -265,21 +265,6 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Follow the repository instructions to run the complete environment."
       ]
     },
-    "lastro": {
-      "oneLine": "Research on financial institutions and the stability of their dependencies",
-      "what": "Computer Science research at UNISAGRADO. It investigates learning dependency structures among Brazilian financial institutions using Bayesian networks and multiobjective evolutionary optimization, and how stable those structures remain over time.",
-      "role": "I develop the method, experiments, evaluation and research documentation.",
-      "highlights": [
-        "Bayesian networks and multiobjective evolutionary optimization",
-        "Comparison with reference methods and known structures",
-        "Temporal stability evaluation using public B3 data"
-      ],
-      "demoNote": "Research in progress. This is a public topic overview; code and research artifacts remain private.",
-      "flow": [
-        "Read the overview of the topic, method and evaluation criteria.",
-        "Get in touch to discuss the research; the repository remains private."
-      ]
-    },
     "baliza": {
       "oneLine": "Parking occupancy through image processing",
       "what": "Parking occupancy through image processing. Academic project. Source and setup instructions are available on GitHub.",
@@ -748,21 +733,6 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
         "Explore el proyecto y su flujo documentado.",
         "Revise el código en la IDE o en GitHub.",
         "Siga las instrucciones para ejecutar el entorno completo."
-      ]
-    },
-    "lastro": {
-      "oneLine": "Investigación sobre dependencias financieras y su estabilidad temporal",
-      "what": "Investigación en Ciencias de la Computación en UNISAGRADO. Investiga estructuras de dependencia entre instituciones financieras brasileñas mediante redes bayesianas y optimización evolutiva multiobjetivo, y su estabilidad a lo largo del tiempo.",
-      "role": "Desarrollo el método, los experimentos, la evaluación y la documentación de la investigación.",
-      "highlights": [
-        "Redes bayesianas y optimización evolutiva multiobjetivo",
-        "Comparación con métodos de referencia y estructuras conocidas",
-        "Evaluación de estabilidad temporal con datos públicos de B3"
-      ],
-      "demoNote": "Investigación en desarrollo. Esta es una presentación pública del tema; el código y los artefactos permanecen privados.",
-      "flow": [
-        "Lea la presentación del tema, método y criterios de evaluación.",
-        "Entre en contacto para conversar sobre la investigación; el repositorio permanece privado."
       ]
     },
     "baliza": {
