@@ -191,7 +191,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ],
       "security": [
         "TOTP MFA with an encrypted secret, and passkeys (WebAuthn)",
-        "Keycloak with PKCE, Kong at the edge and a Spring service that validates again: 18 attacks proven in CI",
+        "Keycloak with PKCE, Kong at the edge and a Spring service that validates again: 18 security checks proven in CI",
         "STRIDE, ASVS 5.0, CSRF, tested IDOR and CSP with Trusted Types"
       ]
     },
@@ -661,7 +661,7 @@ export const TRADUCOES: Record<"en" | "es", Record<string, TextoDoProjeto>> = {
       ],
       "security": [
         "MFA por TOTP con secreto cifrado y passkeys (WebAuthn)",
-        "Keycloak con PKCE, Kong en el borde y un servicio Spring que valida de nuevo: 18 ataques probados en la CI",
+        "Keycloak con PKCE, Kong en el borde y un servicio Spring que valida de nuevo: 18 verificaciones de seguridad probadas en la CI",
         "STRIDE, ASVS 5.0, CSRF, IDOR probado y CSP con Trusted Types"
       ]
     },

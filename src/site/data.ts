@@ -223,7 +223,7 @@ const PROJECTS_SOURCE: SiteProject[] = [
     "sourceBranch": "produção",
     "security": [
       "MFA por TOTP com segredo cifrado e passkeys (WebAuthn)",
-      "Keycloak com PKCE, Kong na borda e serviço Spring que valida de novo: 18 ataques provados na CI",
+      "Keycloak com PKCE, Kong na borda e serviço Spring que valida de novo: 18 verificações de segurança provadas na CI",
       "STRIDE, ASVS 5.0, CSRF, IDOR testado e CSP com Trusted Types"
     ]
   },
