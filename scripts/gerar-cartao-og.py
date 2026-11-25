@@ -65,15 +65,15 @@ def gerar(caminho: Path) -> None:
             d.ellipse([x, y, x + 3, y + 3], fill=(44, 44, 44))
 
     d.text((esq, 150), "Fabrício Júnio", font=serif, fill=BRANCO)
-    escrever_espacado(d, (esq + 4, 252), "ENGENHEIRO DE SEGURANÇA · APPSEC", mono, FRACO, 5)
+    escrever_espacado(d, (esq + 4, 252), "DESENVOLVEDOR BACK-END · APPSEC", mono, FRACO, 5)
 
     d.line([(esq, 310), (LARGURA - 90, 310)], fill=LINHA, width=1)
 
     # Tres linhas e nao oito: o cartao aparece pequeno na linha do tempo, e
     # quem le passa menos de um segundo nele.
     linhas = [
-        "threat modeling, revisão de código e pentest",
-        "SAST · DAST · SCA na esteira · segurança de IA",
+        "escrevo o sistema e testo onde ele quebra",
+        "threat modeling · pentest · SAST, DAST e SCA",
         "cada controle provado com teste no repositório",
     ]
     y = 352
@@ -82,7 +82,7 @@ def gerar(caminho: Path) -> None:
         y += 36
 
     escrever_espacado(
-        d, (esq, 520), "Java · Spring · Go · Python", mono_peq, FRACO, 1
+        d, (esq, 520), "Java · Spring Boot · Kafka · AWS", mono_peq, FRACO, 1
     )
     escrever_espacado(
         d, (esq, 556), "portfolio-a3qn.vercel.app", mono_peq, APAGADO, 1

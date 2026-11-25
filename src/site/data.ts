@@ -956,12 +956,12 @@ export const PROJETOS_ACERVO = porSlug(["almanaque","koracrm","cardiocam","perma
 export const PROJECTS = [...PROJETOS_SEGURANCA, ...PROJETOS_DESTAQUE, ...PROJETOS_IA, ...PROJETOS_ACERVO];
 export const SOBRE = {
   "nome": "Fabrício Júnio",
-  "cargo": "Engenheiro de Segurança · AppSec",
+  "cargo": "Desenvolvedor Back-end · AppSec",
   "cidade": "Bauru, SP",
-  "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
+  "bio": "Desenvolvedor back-end que trabalha com segurança de aplicações. Escrevo o sistema em Java e Spring Boot e depois testo onde ele quebra: modelo de ameaças, revisão de código e SAST, DAST e SCA na esteira.",
   "longBio": [
-    "Analista de Sistemas na DIGIHUB Tecnologia. Entrego robôs Java, integrações REST, JavaScript e SQL na Lecom BPM e reviso a segurança de cada entrega: onde fica o token, como a entrada é validada e quem acessa o quê.",
-    "Nos meus projetos, protejo sistemas de verdade: modelo de ameaças, revisão de código, SAST, DAST e SCA como portões na esteira, e pentest com relatório e reteste de cada correção.",
+    "Analista de Sistemas na DIGIHUB Tecnologia. Desenvolvo robôs Java e integrações REST na Lecom BPM, publicados por GitLab CI com SonarQube, e reviso a segurança de cada entrega: onde fica o segredo, como a entrada é validada e quem acessa o quê.",
+    "Nos meus projetos, construo e protejo sistemas no ar: back-end em Java 21, Spring Boot e Kafka na Vitrine Bauru, com a Prefeitura, e infraestrutura da AWS em OpenTofu testada no AuthCore. A segurança entra como portão na esteira, com pentest, relatório e reteste de cada correção.",
     "Trabalho com IA dos dois lados: ataco e defendo agentes com RAG e MCP pelo OWASP Top 10 para LLM, e uso modelo local para triar achados no pull request.",
     "Ciência da Computação na UNISAGRADO (2027). Iniciação científica com o ConectAgente, selecionado pela Saruê (UNESP Bauru), e formação CiberEducação da Cisco com o SENAI."
   ],

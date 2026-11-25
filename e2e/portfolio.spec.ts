@@ -4,8 +4,8 @@ test("segurança primeiro, destaques e expansão dos acadêmicos", async ({ page
   const errors: string[] = [];
   page.on("pageerror", e => errors.push(e.message));
   await page.goto("/");
-  await expect(page).toHaveTitle(/Engenheiro de Segurança · AppSec/);
-  await expect(page.getByText("Engenheiro de Segurança · AppSec", { exact: true }).first()).toBeVisible();
+  await expect(page).toHaveTitle(/Desenvolvedor Back-end · AppSec/);
+  await expect(page.getByText("Desenvolvedor Back-end · AppSec", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Disponível", { exact: true })).toBeVisible();
   await page.screenshot({ path: test.info().outputPath("inicio.png"), animations: "disabled" });
   await expect(page.getByRole("link", { name: /LinkedIn in\/fabricio-junio-dias/ })).toHaveAttribute("href", "https://www.linkedin.com/in/fabricio-junio-dias/");

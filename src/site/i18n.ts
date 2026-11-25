@@ -117,21 +117,21 @@ const pt: Textos = {
   "sobre": {
     "secao": "01 · sobre",
     "titulo": [
-      "Segurança de aplicações ",
-      "com base",
-      " de desenvolvedor."
+      "Escrevo o sistema ",
+      "e testo",
+      " onde ele quebra."
     ],
-    "cargo": "Engenheiro de Segurança · AppSec",
+    "cargo": "Desenvolvedor Back-end · AppSec",
     "cidade": "Bauru, SP",
     "formacao": "Ciência da Computação, UNISAGRADO",
     "formacaoValor": "Ciência da Computação, UNISAGRADO",
     "rotuloCargo": "Foco",
     "rotuloCidade": "Cidade",
     "rotuloFormacao": "Formação",
-    "bio": "Segurança de aplicações com base de desenvolvedor. Modelo ameaças, reviso código, coloco SAST, DAST e SCA na esteira e testo o que construo.",
+    "bio": "Desenvolvedor back-end que trabalha com segurança de aplicações. Escrevo o sistema em Java e Spring Boot e depois testo onde ele quebra: modelo de ameaças, revisão de código e SAST, DAST e SCA na esteira.",
     "longBio": [
-      "Analista de Sistemas na DIGIHUB Tecnologia. Entrego robôs Java, integrações REST, JavaScript e SQL na Lecom BPM e reviso a segurança de cada entrega: onde fica o token, como a entrada é validada e quem acessa o quê.",
-      "Nos meus projetos, protejo sistemas de verdade: modelo de ameaças, revisão de código, SAST, DAST e SCA como portões na esteira, e pentest com relatório e reteste de cada correção.",
+      "Analista de Sistemas na DIGIHUB Tecnologia. Desenvolvo robôs Java e integrações REST na Lecom BPM, publicados por GitLab CI com SonarQube, e reviso a segurança de cada entrega: onde fica o segredo, como a entrada é validada e quem acessa o quê.",
+      "Nos meus projetos, construo e protejo sistemas no ar: back-end em Java 21, Spring Boot e Kafka na Vitrine Bauru, com a Prefeitura, e infraestrutura da AWS em OpenTofu testada no AuthCore. A segurança entra como portão na esteira, com pentest, relatório e reteste de cada correção.",
       "Trabalho com IA dos dois lados: ataco e defendo agentes com RAG e MCP pelo OWASP Top 10 para LLM, e uso modelo local para triar achados no pull request.",
       "Ciência da Computação na UNISAGRADO (2027). Iniciação científica com o ConectAgente, selecionado pela Saruê (UNESP Bauru), e formação CiberEducação da Cisco com o SENAI."
     ]
@@ -234,21 +234,21 @@ const en: Textos = {
   "sobre": {
     "secao": "01 · about",
     "titulo": [
-      "Application security ",
-      "with a",
-      " developer’s background."
+      "I build the system ",
+      "and test",
+      " where it breaks."
     ],
-    "cargo": "Security Engineer · AppSec",
+    "cargo": "Backend Developer · AppSec",
     "cidade": "Bauru, Brazil",
     "formacao": "Computer Science, UNISAGRADO",
     "formacaoValor": "Computer Science, UNISAGRADO",
     "rotuloCargo": "Focus",
     "rotuloCidade": "Based in",
     "rotuloFormacao": "Studying",
-    "bio": "Application security with a developer’s background. I threat model, review code, put SAST, DAST and SCA in the pipeline and test what I build.",
+    "bio": "Backend developer who works on application security. I build the system in Java and Spring Boot, then test where it breaks: threat models, code review and SAST, DAST and SCA in the pipeline.",
     "longBio": [
-      "Systems Analyst at DIGIHUB Tecnologia. I ship Java bots, REST integrations, JavaScript and SQL on Lecom BPM, and review the security of each delivery: where the token lives, how input is validated and who can access what.",
-      "In my projects I secure real systems: threat models, code review, SAST, DAST and SCA as pipeline gates, and pentests with a report and a retest of every fix.",
+      "Systems Analyst at DIGIHUB Tecnologia. I build Java bots and REST integrations on Lecom BPM, shipped through GitLab CI with SonarQube, and review the security of each delivery: where the secret lives, how input is validated and who can access what.",
+      "In my projects I build and secure live systems: a Java 21, Spring Boot and Kafka backend for Vitrine Bauru, with the City of Bauru, and tested AWS infrastructure in OpenTofu for AuthCore. Security goes in as pipeline gates, with pentests, a report and a retest of every fix.",
       "I work with AI on both sides: I attack and defend agents with RAG and MCP against the OWASP Top 10 for LLM, and use a local model to triage findings on pull requests.",
       "Computer Science at UNISAGRADO (2027). Undergraduate research on ConectAgente, selected by Saruê (UNESP Bauru), and Cisco’s CiberEducação programme with SENAI."
     ]
@@ -351,21 +351,21 @@ const es: Textos = {
   "sobre": {
     "secao": "01 · sobre mí",
     "titulo": [
-      "Seguridad de aplicaciones ",
-      "con base",
-      " de desarrollador."
+      "Escribo el sistema ",
+      "y pruebo",
+      " dónde se rompe."
     ],
-    "cargo": "Ingeniero de Seguridad · AppSec",
+    "cargo": "Desarrollador Back-end · AppSec",
     "cidade": "Bauru, Brasil",
     "formacao": "Ciencias de la Computación, UNISAGRADO",
     "formacaoValor": "Ciencias de la Computación, UNISAGRADO",
     "rotuloCargo": "Enfoque",
     "rotuloCidade": "Ubicación",
     "rotuloFormacao": "Formación",
-    "bio": "Seguridad de aplicaciones con base de desarrollador. Modelo amenazas, reviso código, pongo SAST, DAST y SCA en el pipeline y pruebo lo que construyo.",
+    "bio": "Desarrollador back-end que trabaja con seguridad de aplicaciones. Escribo el sistema en Java y Spring Boot y después pruebo dónde se rompe: modelo de amenazas, revisión de código y SAST, DAST y SCA en el pipeline.",
     "longBio": [
-      "Analista de Sistemas en DIGIHUB Tecnologia. Entrego bots Java, integraciones REST, JavaScript y SQL en Lecom BPM y reviso la seguridad de cada entrega: dónde queda el token, cómo se valida la entrada y quién accede a qué.",
-      "En mis proyectos protejo sistemas reales: modelo de amenazas, revisión de código, SAST, DAST y SCA como controles en el pipeline, y pentest con informe y reprueba de cada corrección.",
+      "Analista de Sistemas en DIGIHUB Tecnologia. Desarrollo bots Java e integraciones REST en Lecom BPM, publicados por GitLab CI con SonarQube, y reviso la seguridad de cada entrega: dónde queda el secreto, cómo se valida la entrada y quién accede a qué.",
+      "En mis proyectos construyo y protejo sistemas en producción: back-end en Java 21, Spring Boot y Kafka en Vitrine Bauru, con la Municipalidad, e infraestructura de AWS en OpenTofu probada en AuthCore. La seguridad entra como control en el pipeline, con pentest, informe y reprueba de cada corrección.",
       "Trabajo con IA de los dos lados: ataco y defiendo agentes con RAG y MCP según el OWASP Top 10 para LLM, y uso un modelo local para clasificar hallazgos en el pull request.",
       "Ciencias de la Computación en UNISAGRADO (2027). Investigación con ConectAgente, seleccionado por Saruê (UNESP Bauru), y formación CiberEducação de Cisco con el SENAI."
     ]

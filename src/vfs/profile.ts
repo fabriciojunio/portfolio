@@ -12,7 +12,7 @@ export const profileJson: VFile = {
     empresa: "DIGIHUB Tecnologia",
     disponibilidade: "Disponível",
     cargoAtual: "Analista de Sistemas",
-    foco: "Segurança de aplicações (AppSec) e Product Security",
+    foco: "Desenvolvimento back-end e segurança de aplicações (AppSec)",
     formacao: "Ciência da Computação, UNISAGRADO (2027)",
     trabalho: STACK_GROUPS.filter(g => g.label === "trabalho").flatMap(g => g.items),
     seguranca: STACK_GROUPS.filter(g => ["appsec", "ferramentas", "identidade", "nuvem", "ia", "privacidade"].includes(g.label)).flatMap(g => g.items),
