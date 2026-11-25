@@ -968,7 +968,7 @@ export const SOBRE = {
   "contato": {
     "email": "junioad555@gmail.com",
     "github": "https://github.com/fabriciojunio",
-    "linkedin": "https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/"
+    "linkedin": "https://www.linkedin.com/in/fabricio-junio-dias/"
   }
 };
 export const STACK_GROUPS = [

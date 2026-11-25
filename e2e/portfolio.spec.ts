@@ -8,7 +8,7 @@ test("segurança primeiro, destaques e expansão dos acadêmicos", async ({ page
   await expect(page.getByText("Engenheiro de Segurança · AppSec", { exact: true }).first()).toBeVisible();
   await expect(page.getByText("Disponível", { exact: true })).toBeVisible();
   await page.screenshot({ path: test.info().outputPath("inicio.png"), animations: "disabled" });
-  await expect(page.getByRole("link", { name: /LinkedIn in\/fabríciojúnio/ })).toHaveAttribute("href", "https://www.linkedin.com/in/fabr%C3%ADcioj%C3%BAnio/");
+  await expect(page.getByRole("link", { name: /LinkedIn in\/fabricio-junio-dias/ })).toHaveAttribute("href", "https://www.linkedin.com/in/fabricio-junio-dias/");
   const seguranca = page.getByRole("heading", { level: 3, name: "Segurança de aplicações", exact: true });
   const destaques = page.getByRole("heading", { level: 3, name: "Destaques", exact: true });
   expect((await seguranca.boundingBox())!.y).toBeLessThan((await destaques.boundingBox())!.y);

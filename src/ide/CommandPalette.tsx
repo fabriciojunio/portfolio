@@ -64,7 +64,7 @@ export default function CommandPalette() {
         group: "Navegar",
         run: () =>
           window.open(
-            "https://linkedin.com/in/fabr%C3%ADcioj%C3%BAnio",
+            "https://linkedin.com/in/fabricio-junio-dias",
             "_blank",
             "noopener,noreferrer",
           ),

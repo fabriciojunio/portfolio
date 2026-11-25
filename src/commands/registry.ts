@@ -66,7 +66,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
           `${SOBRE.cargo}: threat modeling, revisão de código, SAST, DAST, SCA e pentest`,
           "Analista de Sistemas na DIGIHUB · Ciência da Computação na UNISAGRADO",
           "  github:   github.com/fabriciojunio",
-          "  linkedin: linkedin.com/in/fabríciojúnio",
+          "  linkedin: linkedin.com/in/fabricio-junio-dias",
           "  e-mail:   junioad555@gmail.com",
         ],
       };
@@ -142,7 +142,7 @@ export function runCommand(raw: string, ctx: CommandContext): CommandResult {
         lines: [
           "  e-mail:   junioad555@gmail.com",
           "  github:   github.com/fabriciojunio",
-          "  linkedin: linkedin.com/in/fabríciojúnio",
+          "  linkedin: linkedin.com/in/fabricio-junio-dias",
           "  cidade:   Bauru, SP",
         ],
       };
